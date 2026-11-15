@@ -2,7 +2,7 @@
  * Zoho hosts each account in one data centre. OAuth and API calls must go to
  * the hosts of the data centre that holds the account.
  */
-export type ZohoDataCenter = 'us' | 'eu' | 'in' | 'au' | 'jp' | 'ca' | 'cn' | 'sa'
+export type ZohoDataCenter = 'us' | 'eu' | 'in' | 'au' | 'jp' | 'ca' | 'cn' | 'sa' | 'ae'
 
 export interface ZohoDataCenterHosts {
   readonly accounts: string
@@ -18,4 +18,5 @@ export const zohoDataCenters: { readonly [DataCenter in ZohoDataCenter]: ZohoDat
   ca: { accounts: 'https://accounts.zohocloud.ca', api: 'https://www.zohoapis.ca' },
   cn: { accounts: 'https://accounts.zoho.com.cn', api: 'https://www.zohoapis.com.cn' },
   sa: { accounts: 'https://accounts.zoho.sa', api: 'https://www.zohoapis.sa' },
+  ae: { accounts: 'https://accounts.zoho.ae', api: 'https://www.zohoapis.ae' },
 }

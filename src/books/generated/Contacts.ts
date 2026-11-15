@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const ListContactsResponse = Schema.Struct({
   code: W.num,
@@ -1411,7 +1411,7 @@ export interface EmailContactRequest {
   /** Body of an email has to be sent. Max-length [5000] */
   readonly body: string
   /** Files to be attached to the email. It has to be sent in multipart/formdata */
-  readonly attachments?: Blob | Uint8Array
+  readonly attachments?: ZohoFile
 }
 
 export interface ContactCommentRequest {

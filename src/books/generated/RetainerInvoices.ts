@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const Tags = W.Arr(Schema.Struct({
     tag_id: W.str,
@@ -698,7 +698,7 @@ export interface AddAttachmentToARetainerInvoiceRequest {
   /** Indicates whether the attachment can be included when sending the invoice via email. */
   readonly can_send_in_mail?: boolean
   /** The file to be attached. It has to be sent in multipart/formdata */
-  readonly attachment?: Blob | Uint8Array
+  readonly attachment?: ZohoFile
 }
 
 export interface AddCommentRequest {

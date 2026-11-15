@@ -18,6 +18,8 @@ it.each([
   [W.Bool, '', null],
   [W.Arr(W.Str), ['a', 1], ['a', '1']],
   [W.Arr(W.Str), '2000000007037', ['2000000007037']],
+  [W.field(W.Arr(W.Str)).pipe((property) => Schema.Struct({ ids: property })), { ids: null }, { ids: [] }],
+  [W.Num, '1e3', 1000],
 ])('decodes %# to the documented type', (schema, input, expected) => {
   const result = decode(schema)(input)
   expect(result._tag === 'Success' ? result.success : result).toEqual(expected)
@@ -26,6 +28,8 @@ it.each([
 it.each([
   [W.Num, 'twelve'],
   [W.Num, true],
+  [W.Num, '0x10'],
+  [W.Str, 2 ** 62],
   [W.Bool, 'yes'],
   [W.Str, { nested: true }],
 ])('refuses %# rather than inventing a value', (schema, input) => {

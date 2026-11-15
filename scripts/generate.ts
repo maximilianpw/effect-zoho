@@ -52,7 +52,7 @@ interface Document {
 const methods = ['get', 'post', 'put', 'delete'] as const
 const reservedNames = new Set([
   'Array', 'Boolean', 'Date', 'Error', 'Function', 'Map', 'Number', 'Object', 'Promise', 'Record', 'Set', 'String', 'Symbol',
-  'Blob', 'Uint8Array', 'Schema', 'W', 'operation',
+  'Blob', 'Uint8Array', 'Schema', 'W', 'operation', 'ZohoFile',
 ])
 
 /** Path segments Zoho writes as a regular expression without declaring a parameter for them. */
@@ -217,7 +217,7 @@ class Module {
       }
       case 'object': return this.inputObject(shape, indent)
       case 'record': return 'Readonly<Record<string, unknown>>'
-      case 'string': return shape.format === 'binary' ? 'Blob | Uint8Array' : 'string'
+      case 'string': return shape.format === 'binary' ? 'ZohoFile' : 'string'
       case 'number': return 'number'
       case 'boolean': return 'boolean'
       case 'any': return 'unknown'
@@ -354,15 +354,13 @@ class Module {
         if (node !== undefined) this.addOperation(template, method, shared, node)
       }
     }
-    const usesSchemas = this.responseDeclarations.size > 0
+    const body = [...this.responseDeclarations.values(), ...this.inputDeclarations.values(), ...this.operations].join('\n')
     return [
       banner,
-      ...(usesSchemas ? ["import * as Schema from 'effect/Schema'", "import * as W from '../../internal/wire.ts'"] : []),
-      "import { operation } from '../Operation.ts'",
+      ...(this.responseDeclarations.size > 0 ? ["import * as Schema from 'effect/Schema'", "import * as W from '../../internal/wire.ts'"] : []),
+      `import { operation${/\bZohoFile\b/.test(body) ? ', type ZohoFile' : ''} } from '../Operation.ts'`,
       '',
-      ...this.responseDeclarations.values(),
-      ...this.inputDeclarations.values(),
-      ...this.operations,
+      body,
     ].join('\n')
   }
 }

@@ -45,7 +45,7 @@
     "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build"
   },
   "peerDependencies": {
-    "effect": "4.0.0-rc.112"
+    "effect": ">=4.0.0-rc.112 <4.1.0"
   },
   "devDependencies": {
     "@effect/vitest": "4.0.0-rc.112",

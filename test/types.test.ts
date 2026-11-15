@@ -18,4 +18,8 @@ it('types inputs, results, failures and requirements from Zoho’s documents', (
   void Invoices.getInvoice()
   expectTypeOf<Parameters<typeof Invoices.getInvoice>>().toEqualTypeOf<[input: Invoices.GetInvoiceInput]>()
   expectTypeOf<Effect.Success<ReturnType<typeof DeliveryChallans.getDeliveryChallanAttachment>>>().toEqualTypeOf<ZohoBinary>()
+  expectTypeOf<Effect.Error<typeof invoice>['_tag']>().toEqualTypeOf<
+    | 'ZohoApiError' | 'ZohoInvalidRequestError' | 'ZohoOAuthError' | 'ZohoRateLimitError'
+    | 'ZohoResponseError' | 'ZohoTransportError' | 'ZohoUnauthorizedError'
+  >()
 })

@@ -4,7 +4,8 @@ import * as SchemaTransformation from 'effect/SchemaTransformation'
 /*
  * Response schemas follow Zoho's OpenAPI documents, which are not exact about
  * types: a field documented as a string can arrive as a number, an unset number
- * or boolean can arrive as "", and a documented list can arrive as one value.
+ * or boolean can arrive as "", and a documented list can arrive as one value or
+ * as nothing.
  * These codecs accept what Zoho sends and always produce the documented type,
  * with `null` for an unset scalar.
  */
@@ -14,7 +15,11 @@ type Scalar = typeof Scalar.Type
 
 const unset = (value: Scalar): boolean => value === null || (typeof value === 'string' && value.trim() === '')
 
-export const Str = Scalar.pipe(Schema.decodeTo(
+// An identifier sent as a JSON number beyond 2^53 has already lost digits; passing it on would name another record.
+const Exact = Scalar.check(Schema.makeFilter((value) =>
+  typeof value !== 'number' || !Number.isInteger(value) || Number.isSafeInteger(value) || 'expected an integer small enough to be exact'))
+
+export const Str = Exact.pipe(Schema.decodeTo(
   Schema.NullOr(Schema.String),
   SchemaTransformation.transform({
     decode: (value) => (value === null ? null : String(value)),
@@ -22,8 +27,13 @@ export const Str = Scalar.pipe(Schema.decodeTo(
   }),
 ))
 
+const decimal = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/
+
 const NumberLike = Scalar.check(Schema.makeFilter((value) =>
-  unset(value) || (typeof value !== 'boolean' && Number.isFinite(Number(value))) || 'expected a number or numeric string'))
+  unset(value)
+  || (typeof value === 'number' && Number.isFinite(value))
+  || (typeof value === 'string' && decimal.test(value.trim()))
+  || 'expected a number or numeric string'))
 
 export const Num = NumberLike.pipe(Schema.decodeTo(
   Schema.NullOr(Schema.Number),
@@ -51,7 +61,7 @@ export const Arr = <S extends Schema.Top>(item: S) =>
   Schema.Unknown.pipe(Schema.decodeTo(
     Schema.Array(item),
     SchemaTransformation.transform({
-      decode: (value): ReadonlyArray<unknown> => (Array.isArray(value) ? value : [value]),
+      decode: (value): ReadonlyArray<unknown> => (Array.isArray(value) ? value : value === null || value === '' ? [] : [value]),
       encode: (value): unknown => value,
     }),
   ))

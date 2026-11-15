@@ -2,7 +2,7 @@ import * as Effect from 'effect/Effect'
 import * as Option from 'effect/Option'
 import * as Schema from 'effect/Schema'
 import * as Stream from 'effect/Stream'
-import { ZohoResponseError, type ZohoRequestError } from '../ZohoError.ts'
+import { ZohoInvalidRequestError, ZohoResponseError, type ZohoRequestError } from '../ZohoError.ts'
 import { ZohoBooksClient, type ZohoBinary, type ZohoBooksBody, type ZohoBooksMethod, type ZohoBooksRequest } from './ZohoBooksClient.ts'
 
 export interface OperationDefinition<Response extends Schema.Top | undefined> {
@@ -34,26 +34,53 @@ export interface Operation<Input, Response extends Schema.Top | undefined> {
   readonly definition: OperationDefinition<Response>
 }
 
+/**
+ * A file to upload. Zoho checks the file name's extension, so give bytes a name;
+ * a `File` carries its own, and a bare `Blob` is sent as `blob`.
+ */
+export type ZohoFile =
+  | Blob
+  | { readonly bytes: Uint8Array; readonly fileName: string; readonly contentType?: string }
+
+const isScalar = (value: unknown): boolean => ['string', 'number', 'boolean'].includes(typeof value)
+
+// Zoho documents list filters as comma-separated text; anything structured travels as JSON.
 const queryValue = (value: unknown): string =>
-  typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value)
+  Array.isArray(value) && value.every(isScalar)
+    ? value.join(',')
+    : typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value)
+
+const isNamedBytes = (value: unknown): value is Extract<ZohoFile, { readonly bytes: Uint8Array }> =>
+  typeof value === 'object' && value !== null && (value as { readonly bytes?: unknown }).bytes instanceof Uint8Array
 
 const formData = (fields: Readonly<Record<string, unknown>>): FormData => {
   const form = new FormData()
   for (const [name, value] of Object.entries(fields)) {
     if (value === undefined || value === null) continue
     if (value instanceof Blob) form.append(name, value)
-    else if (value instanceof Uint8Array) form.append(name, new Blob([new Uint8Array(value)]))
-    else form.append(name, queryValue(value))
+    else if (isNamedBytes(value)) {
+      form.append(name, new Blob([new Uint8Array(value.bytes)], value.contentType === undefined ? {} : { type: value.contentType }), value.fileName)
+    } else form.append(name, queryValue(value))
   }
   return form
 }
 
-function toRequest(definition: OperationDefinition<Schema.Top | undefined>, input: Readonly<Record<string, unknown>>): ZohoBooksRequest {
+function toRequest(
+  definition: OperationDefinition<Schema.Top | undefined>,
+  input: Readonly<Record<string, unknown>>,
+): ZohoBooksRequest | ZohoInvalidRequestError {
   const used = new Set<string>(['body'])
+  const unusable: string[] = []
   const path = definition.path.replace(/\{(\w+)\}/g, (_, name: string) => {
     used.add(name)
-    return encodeURIComponent(String(input[name]))
+    const value = input[name]
+    // An empty segment or a dot segment would address a different endpoint with the caller's credentials.
+    if (!isScalar(value) || ['', '.', '..'].includes(String(value))) unusable.push(name)
+    return encodeURIComponent(String(value))
   })
+  if (unusable.length > 0) {
+    return new ZohoInvalidRequestError({ operation: definition.id, detail: `path parameter ${unusable.join(', ')} is missing or empty` })
+  }
   const headers: Record<string, string> = {}
   for (const name of definition.headers ?? []) {
     used.add(name)
@@ -61,7 +88,7 @@ function toRequest(definition: OperationDefinition<Schema.Top | undefined>, inpu
   }
   const query: Record<string, string> = {}
   for (const [name, value] of Object.entries(input)) {
-    if (!used.has(name) && value !== undefined) query[name] = queryValue(value)
+    if (!used.has(name) && value !== undefined && value !== null) query[name] = queryValue(value)
   }
   const body: ZohoBooksBody | undefined =
     definition.body === undefined || input['body'] === undefined
@@ -83,16 +110,21 @@ function toRequest(definition: OperationDefinition<Schema.Top | undefined>, inpu
 export function operation<Input, const Response extends Schema.Top | undefined = Schema.Top | undefined>(
   definition: OperationDefinition<Response>,
 ): Operation<Input, Response> {
-  const request = (args: ReadonlyArray<unknown>) => toRequest(definition, (args[0] ?? {}) as Readonly<Record<string, unknown>>)
-  const raw = (...args: Arguments<Input>) => Effect.flatMap(ZohoBooksClient, (client) => client.json(request(args)))
-  const binary = (...args: Arguments<Input>) => Effect.flatMap(ZohoBooksClient, (client) => client.binary(request(args)))
+  const span = `zoho.books.${definition.id}`
+  const send = <A>(args: ReadonlyArray<unknown>, use: (client: ZohoBooksClient['Service'], request: ZohoBooksRequest) => Effect.Effect<A, ZohoRequestError>) =>
+    Effect.suspend(() => {
+      const request = toRequest(definition, (args[0] ?? {}) as Readonly<Record<string, unknown>>)
+      return '_tag' in request ? Effect.fail(request) : Effect.flatMap(ZohoBooksClient, (client) => use(client, request))
+    })
+  const raw = (...args: Arguments<Input>) => send(args, (client, request) => client.json(request)).pipe(Effect.withSpan(span))
+  const binary = (...args: Arguments<Input>) => send(args, (client, request) => client.binary(request)).pipe(Effect.withSpan(span))
   const schema: Schema.Top | undefined = definition.response
   const decoded = schema === undefined
     ? binary
-    : (...args: Arguments<Input>) => Effect.flatMap(raw(...args), (body) =>
+    : (...args: Arguments<Input>) => send(args, (client, request) => Effect.flatMap(client.json(request), (body) =>
         Schema.decodeUnknownEffect(schema as Schema.Codec<unknown>)(body).pipe(
           Effect.mapError((issue) => new ZohoResponseError({ operation: definition.id, detail: String(issue) })),
-        ))
+        ))).pipe(Effect.withSpan(span))
   return Object.assign(decoded, { raw, binary, definition }) as Operation<Input, Response>
 }
 

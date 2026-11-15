@@ -1,6 +1,8 @@
 import { expect, it } from '@effect/vitest'
 import * as Effect from 'effect/Effect'
+import * as Fiber from 'effect/Fiber'
 import * as Layer from 'effect/Layer'
+import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import { TestClock } from 'effect/testing'
 import { ZohoAccessToken, ZohoOAuth } from '../src/index.ts'
@@ -34,22 +36,54 @@ it.effect('mints one token from the refresh token, reuses it, and mints again sh
   }).pipe(Effect.provide(zoho.layer))
 })
 
-it.effect('replaces a rejected token once, however many callers report it', () => {
+const replacement = (rejected: Redacted.Redacted<string>) =>
+  Effect.flatMap(ZohoAccessToken, (service) => Effect.map(service.replace(rejected), Option.map(Redacted.value)))
+
+it.effect('does not mint again for a token rejected minutes after it was minted', () => {
+  const zoho = tokens(grant('token-1'))
+  return Effect.gen(function* () {
+    const rejected = yield* Effect.flatMap(ZohoAccessToken, (service) => service.get)
+    yield* TestClock.adjust('4 minutes')
+
+    expect(yield* Effect.all([replacement(rejected), replacement(rejected), replacement(rejected)])).toEqual([
+      Option.none(), Option.none(), Option.none(),
+    ])
+    expect(zoho.requests).toHaveLength(1)
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('replaces an older rejected token once, however many callers report it', () => {
   const zoho = tokens(grant('token-1'), grant('token-2'))
   return Effect.gen(function* () {
-    const service = yield* ZohoAccessToken
-    const rejected = yield* service.get
-    const replacements = yield* Effect.all([service.replace(rejected), service.replace(rejected)], { concurrency: 'unbounded' })
+    const rejected = yield* Effect.flatMap(ZohoAccessToken, (service) => service.get)
+    yield* TestClock.adjust('20 minutes')
+    const replacements = yield* Effect.all([replacement(rejected), replacement(rejected)], { concurrency: 'unbounded' })
 
-    expect(replacements.map(Redacted.value)).toEqual(['token-2', 'token-2'])
+    expect(replacements).toEqual([Option.some('token-2'), Option.some('token-2')])
     expect(zoho.requests).toHaveLength(2)
   }).pipe(Effect.provide(zoho.layer))
 })
 
-it.effect('reports a refused grant by Zoho’s error code, without echoing the response', () => {
+it.effect('keeps the token a refresh minted even when the caller that started it is interrupted', () => {
+  const zoho = tokens(grant('token-1'))
+  return Effect.gen(function* () {
+    const fiber = yield* Effect.forkChild(current)
+    yield* Fiber.interrupt(fiber)
+
+    expect(yield* current).toBe('token-1')
+    expect(zoho.requests).toHaveLength(1)
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reports a refused grant by Zoho’s error code, shares it between a burst of callers, and never echoes the response', () => {
   const zoho = tokens(json({ error: 'invalid_code' }), json({ access_token: 'token-1' }))
   return Effect.gen(function* () {
-    expect(yield* Effect.flip(current)).toMatchObject({ _tag: 'ZohoOAuthError', error: 'invalid_code' })
+    const refusals = yield* Effect.all([Effect.flip(current), Effect.flip(current), Effect.flip(current)], { concurrency: 'unbounded' })
+    expect(refusals.map((error) => error._tag)).toEqual(['ZohoOAuthError', 'ZohoOAuthError', 'ZohoOAuthError'])
+    expect(refusals[0]).toMatchObject({ error: 'invalid_code' })
+    expect(zoho.requests).toHaveLength(1)
+
+    yield* TestClock.adjust('10 seconds')
     const malformed = yield* Effect.flip(current)
     expect(malformed._tag).toBe('ZohoResponseError')
     expect(malformed.message).not.toContain('token-1')
@@ -65,6 +99,21 @@ it.effect('exchanges an authorization code and keeps the tokens redacted', () =>
     expect(result.refresh_token === undefined ? undefined : Redacted.value(result.refresh_token)).toBe('refresh-1')
     expect(String(result.access_token)).not.toContain('token-1')
     expect(zoho.requests[0]?.body).toMatchObject({ code: 'code-1', grant_type: 'authorization_code', redirect_uri: 'https://app.example/callback' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reports an HTML error page from the accounts server as a refusal, and an unconfirmed revocation as a failure', () => {
+  const zoho = fakeZoho(
+    new Response('<html>Bad Request</html>', { status: 400, headers: { 'content-type': 'text/html' } }),
+    json({ status: 'failure' }),
+    json({ status: 'success' }),
+  )
+  return Effect.gen(function* () {
+    const refreshToken = Redacted.make('refresh-1')
+    expect(yield* Effect.flip(ZohoOAuth.refreshAccessToken({ ...client, refreshToken }))).toMatchObject({ _tag: 'ZohoOAuthError', error: 'HTTP 400' })
+    expect((yield* Effect.flip(ZohoOAuth.revokeRefreshToken({ dataCenter: 'eu', refreshToken })))._tag).toBe('ZohoOAuthError')
+    yield* ZohoOAuth.revokeRefreshToken({ dataCenter: 'eu', refreshToken })
+    expect(zoho.requests[2]?.body).toEqual({ token: 'refresh-1' })
   }).pipe(Effect.provide(zoho.layer))
 })
 

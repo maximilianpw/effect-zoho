@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const ListExpensesResponse = Schema.Struct({
   code: W.num,
@@ -695,7 +695,7 @@ export interface CreateAnEmployeeRequest {
 
 export interface AddAttachmentToAnExpenseRequest {
   /** Expense attachment file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc, docx, txt and csv */
-  readonly attachment: Blob | Uint8Array
+  readonly attachment: ZohoFile
   /** Total number of files being uploaded. */
   readonly totalFiles?: number
   /** Array of document IDs for batch processing. Note: This value is a set of numeric characters separated by comma. */

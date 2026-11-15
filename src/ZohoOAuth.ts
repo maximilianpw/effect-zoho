@@ -69,9 +69,13 @@ const tokenRequest = Effect.fnUntraced(function* (
       client_secret: Redacted.value(client.clientSecret),
     }),
   )
-  const body = yield* http.execute(request).pipe(
-    Effect.flatMap((response) => response.json),
+  const response = yield* http.execute(request).pipe(
     Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
+  )
+  // Zoho's accounts server answers a malformed request with an HTML page.
+  if (response.status >= 400) return yield* new ZohoOAuthError({ operation, error: `HTTP ${response.status}` })
+  const body = yield* response.json.pipe(
+    Effect.mapError(() => new ZohoResponseError({ operation, detail: 'the token response was not JSON' })),
   )
   const refusal = decodeRefusal(body)
   if (refusal._tag === 'Some') return yield* new ZohoOAuthError({ operation, error: refusal.value.error })
@@ -109,4 +113,8 @@ export const revokeRefreshToken = Effect.fnUntraced(function* (options: {
     Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
   )
   if (response.status >= 400) return yield* new ZohoOAuthError({ operation, error: `HTTP ${response.status}` })
+  const body = yield* response.json.pipe(Effect.orElseSucceed((): unknown => undefined))
+  if ((body as { readonly status?: unknown } | undefined)?.status !== 'success') {
+    return yield* new ZohoOAuthError({ operation, error: 'Zoho did not confirm the revocation' })
+  }
 })

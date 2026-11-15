@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const PageContext = Schema.Struct({
   page: W.num,
@@ -514,7 +514,7 @@ export interface AddAttachmentToDeliveryChallanInput {
   readonly deliverychallan_id: string
   readonly body?: {
     /** File to attach. Max size 10 MB. */
-    readonly attachment?: Blob | Uint8Array
+    readonly attachment?: ZohoFile
   }
 }
 

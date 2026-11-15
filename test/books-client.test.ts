@@ -1,9 +1,10 @@
 import { expect, it } from '@effect/vitest'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
+import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import * as Stream from 'effect/Stream'
-import { ZohoAccessToken } from '../src/index.ts'
+import { ZohoAccessToken, ZohoTransportError } from '../src/index.ts'
 import { Contacts, DeliveryChallans, Invoices, paginate, ReportingTags, ZohoBooksClient } from '../src/books/index.ts'
 import { fakeZoho, json, type Reply } from './fake-zoho.ts'
 
@@ -121,6 +122,59 @@ it.effect('fails with the operation and the offending field when a response brea
   }).pipe(Effect.provide(zoho.layer))
 })
 
+it.effect('refuses an empty or dot path value before anything is sent', () => {
+  const zoho = books()
+  return Effect.gen(function* () {
+    for (const invoice_id of ['', '.', '..']) {
+      expect(yield* Effect.flip(Invoices.deleteInvoice({ invoice_id }))).toMatchObject({
+        _tag: 'ZohoInvalidRequestError', operation: 'delete_invoice',
+      })
+    }
+    expect(zoho.requests).toHaveLength(0)
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('sends documented header parameters as headers and list filters as comma-separated text', () => {
+  const zoho = books(json({ code: 0 }), json({ code: 0, invoices: [] }))
+  return Effect.gen(function* () {
+    yield* Invoices.updateInvoiceUsingCustomField({
+      'X-Unique-Identifier-Key': 'cf_job', 'X-Unique-Identifier-Value': 'J-7', 'X-Upsert': true, body: { customer_id: '7001', line_items: [] },
+    })
+    yield* ZohoBooksClient.use((client) => client.json({
+      operation: 'list_invoices', method: 'GET', path: '/invoices', query: { invoice_ids: ['1', '2'].join(',') },
+    }))
+
+    expect(zoho.requests[0]?.headers).toMatchObject({ 'x-unique-identifier-key': 'cf_job', 'x-unique-identifier-value': 'J-7', 'x-upsert': 'true' })
+    expect(zoho.requests[0]?.url.searchParams.has('X-Upsert')).toBe(false)
+    expect(zoho.requests[1]?.url.searchParams.get('invoice_ids')).toBe('1,2')
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reports a successful response that is not JSON as a response failure, not a transport one', () => {
+  const zoho = books(new Response('<html>Maintenance</html>', { headers: { 'content-type': 'text/html' } }))
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ _tag: 'ZohoResponseError', detail: 'expected JSON but received text/html' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('passes on why no access token could be obtained instead of calling it unauthorised', () => {
+  const zoho = fakeZoho()
+  const outage = new ZohoTransportError({ operation: 'oauth.refreshAccessToken', cause: 'ECONNRESET' })
+  const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({ get: Effect.fail(outage), replace: () => Effect.succeed(Option.none()) }))
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toBe(outage)
+    expect(zoho.requests).toHaveLength(0)
+  }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
+})
+
+it.effect('does not retry a 401 when the token service has no replacement to offer', () => {
+  const zoho = books(json({ code: 57, message: 'You are not authorized to perform this operation' }, { status: 401 }))
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ _tag: 'ZohoUnauthorizedError', code: 57 })
+    expect(zoho.requests).toHaveLength(1)
+  }).pipe(Effect.provide(zoho.layer))
+})
+
 it.effect('retries once with a replacement token after a 401, and gives up after a second', () => {
   const zoho = fakeZoho(
     json({ code: 57, message: 'You are not authorized to perform this operation' }, { status: 401 }),
@@ -133,7 +187,7 @@ it.effect('retries once with a replacement token after a 401, and gives up after
     get: Effect.succeed(Redacted.make('stale')),
     replace: (rejected) => Effect.sync(() => {
       replaced.push(Redacted.value(rejected))
-      return Redacted.make('fresh')
+      return Option.some(Redacted.make('fresh'))
     }),
   }))
   return Effect.gen(function* () {
@@ -148,12 +202,13 @@ it.effect('retries once with a replacement token after a 401, and gives up after
   }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
 })
 
-it.effect('returns a file as bytes, and a JSON answer to a download as a failure', () => {
+it.effect('returns a file as bytes, a JSON file included, and a JSON error answer to a download as a failure', () => {
   const pdf = new TextEncoder().encode('%PDF-1.7')
   const zoho = books(
     new Response(pdf, { headers: { 'content-type': 'application/pdf' } }),
     json({ code: 1002, message: 'Invoice does not exist.' }),
     new Response(pdf, { headers: { 'content-type': 'image/png' } }),
+    json({ exported: [1, 2] }),
   )
   return Effect.gen(function* () {
     const file = yield* Invoices.getInvoice.binary({ invoice_id: '1', accept: 'pdf' })
@@ -164,6 +219,8 @@ it.effect('returns a file as bytes, and a JSON answer to a download as a failure
     expect(zoho.requests[0]?.url.searchParams.get('accept')).toBe('pdf')
     expect(refused).toMatchObject({ _tag: 'ZohoApiError', code: 1002 })
     expect(attachment.contentType).toBe('image/png')
+    const jsonFile = yield* DeliveryChallans.getDeliveryChallanAttachment({ deliverychallan_id: '3', document_id: '5' })
+    expect(JSON.parse(new TextDecoder().decode(jsonFile.bytes))).toEqual({ exported: [1, 2] })
   }).pipe(Effect.provide(zoho.layer))
 })
 
@@ -172,11 +229,10 @@ it.effect('uploads a multipart body', () => {
   return Effect.gen(function* () {
     yield* DeliveryChallans.addAttachmentToDeliveryChallan({
       deliverychallan_id: '3',
-      body: { attachment: new Uint8Array([1, 2, 3]) },
+      body: { attachment: { bytes: new Uint8Array([1, 2, 3]), fileName: 'packing-list.pdf', contentType: 'application/pdf' } },
     })
-    const form = zoho.requests[0]?.body as FormData
-    expect(form.get('attachment')).toBeInstanceOf(Blob)
-    expect((form.get('attachment') as Blob).size).toBe(3)
+    const file = (zoho.requests[0]!.body as FormData).get('attachment') as File
+    expect(file).toMatchObject({ name: 'packing-list.pdf', size: 3, type: 'application/pdf' })
   }).pipe(Effect.provide(zoho.layer))
 })
 

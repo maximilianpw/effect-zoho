@@ -1,6 +1,7 @@
 import * as Context from 'effect/Context'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
+import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import * as HttpClient from 'effect/unstable/http/HttpClient'
 import * as HttpClientRequest from 'effect/unstable/http/HttpClientRequest'
@@ -10,6 +11,7 @@ import { zohoDataCenters, type ZohoDataCenter } from '../ZohoDataCenter.ts'
 import {
   ZohoApiError,
   ZohoRateLimitError,
+  ZohoResponseError,
   ZohoTransportError,
   ZohoUnauthorizedError,
   type ZohoRequestError,
@@ -48,6 +50,14 @@ export interface ZohoBooksClientOptions {
 const mediaType = (response: HttpClientResponse.HttpClientResponse): string | undefined =>
   response.headers['content-type']?.split(';')[0]?.trim().toLowerCase()
 
+const parsed = (bytes: Uint8Array): unknown => {
+  try {
+    return JSON.parse(new TextDecoder().decode(bytes))
+  } catch {
+    return undefined
+  }
+}
+
 interface ZohoEnvelope {
   readonly code?: number
   readonly message?: string
@@ -66,20 +76,21 @@ const envelope = (body: unknown): ZohoEnvelope => {
  * Sends authenticated requests to one Zoho Books organisation. The generated
  * operations use it; call it directly for an endpoint they do not cover.
  */
-export class ZohoBooksClient extends Context.Service<
-  ZohoBooksClient,
-  {
-    /** The parsed JSON body of a successful response, with Zoho's `code` already checked. */
-    readonly json: (request: ZohoBooksRequest) => Effect.Effect<unknown, ZohoRequestError>
-    /** The bytes of a successful response, for PDFs and attachments. */
-    readonly binary: (request: ZohoBooksRequest) => Effect.Effect<ZohoBinary, ZohoRequestError>
-  }
->()('effect-zoho/books/ZohoBooksClient') {
-  static readonly layer = (
+export interface ZohoBooksClientService {
+  /** The parsed JSON body of a successful response, with Zoho's `code` already checked. */
+  readonly json: (request: ZohoBooksRequest) => Effect.Effect<unknown, ZohoRequestError>
+  /** The bytes of a successful response, for PDFs and attachments. */
+  readonly binary: (request: ZohoBooksRequest) => Effect.Effect<ZohoBinary, ZohoRequestError>
+}
+
+export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksClientService>()('effect-zoho/books/ZohoBooksClient') {
+  /**
+   * A client for one organisation. An application that serves several can make one
+   * per organisation and pass it with `Effect.provideService(ZohoBooksClient, client)`.
+   */
+  static readonly make = (
     options: ZohoBooksClientOptions,
-  ): Layer.Layer<ZohoBooksClient, never, HttpClient.HttpClient | ZohoAccessToken> =>
-    Layer.effect(
-      ZohoBooksClient,
+  ): Effect.Effect<ZohoBooksClientService, never, HttpClient.HttpClient | ZohoAccessToken> =>
       Effect.gen(function* () {
         const http = yield* HttpClient.HttpClient
         const tokens = yield* ZohoAccessToken
@@ -119,9 +130,6 @@ export class ZohoBooksClient extends Context.Service<
           read: (response: HttpClientResponse.HttpClientResponse) => Effect.Effect<A, ZohoRequestError>,
         ): Effect.Effect<A, ZohoRequestError> => {
           const transport = (cause: unknown) => new ZohoTransportError({ operation: request.operation, cause })
-          const token = <E>(effect: Effect.Effect<Redacted.Redacted<string>, E>) =>
-            effect.pipe(Effect.mapError((cause) =>
-              new ZohoUnauthorizedError({ operation: request.operation, detail: `no access token: ${String(cause)}` })))
           const attempt = (credential: Redacted.Redacted<string>) =>
             http.execute(build(request, credential)).pipe(Effect.mapError(transport))
           const answer = (response: HttpClientResponse.HttpClientResponse) =>
@@ -135,19 +143,26 @@ export class ZohoBooksClient extends Context.Service<
                 )
 
           return Effect.gen(function* () {
-            const credential = yield* token(tokens.get)
+            const credential = yield* tokens.get
             const first = yield* attempt(credential)
             if (first.status !== 401) return yield* answer(first)
             // An access token can expire or be revoked early; one retry with a replacement settles it.
-            const replacement = yield* token(tokens.replace(credential))
-            return yield* Effect.flatMap(attempt(replacement), answer)
+            const replacement = yield* tokens.replace(credential)
+            if (Option.isNone(replacement)) return yield* answer(first)
+            yield* Effect.ignore(first.text)
+            return yield* Effect.flatMap(attempt(replacement.value), answer)
           })
         }
 
         const json = (request: ZohoBooksRequest) =>
           send(request, (response) =>
             Effect.flatMap(
-              response.json.pipe(Effect.mapError((cause) => new ZohoTransportError({ operation: request.operation, cause }))),
+              mediaType(response) === 'application/json'
+                ? response.json.pipe(Effect.mapError((cause): ZohoRequestError => new ZohoTransportError({ operation: request.operation, cause })))
+                : Effect.fail<ZohoRequestError>(new ZohoResponseError({
+                    operation: request.operation,
+                    detail: `expected JSON but received ${mediaType(response) ?? 'no content type'}`,
+                  })),
               (body): Effect.Effect<unknown, ZohoRequestError> => {
                 const { code } = envelope(body)
                 return code === undefined || code === 0 ? Effect.succeed(body) : Effect.fail(failure(request, response, body))
@@ -156,18 +171,23 @@ export class ZohoBooksClient extends Context.Service<
 
         const binary = (request: ZohoBooksRequest) =>
           send(request, (response) =>
-            mediaType(response) === 'application/json'
-              // Zoho reports a failed download as a JSON body, sometimes with HTTP 200.
-              ? Effect.flatMap(
-                  response.json.pipe(Effect.orElseSucceed((): unknown => undefined)),
-                  (body) => Effect.fail(failure(request, response, body)),
-                )
-              : Effect.map(
-                  response.arrayBuffer.pipe(Effect.mapError((cause) => new ZohoTransportError({ operation: request.operation, cause }))),
-                  (buffer): ZohoBinary => ({ bytes: new Uint8Array(buffer), contentType: mediaType(response) }),
-                ))
+            Effect.flatMap(
+              response.arrayBuffer.pipe(Effect.mapError((cause) => new ZohoTransportError({ operation: request.operation, cause }))),
+              (buffer): Effect.Effect<ZohoBinary, ZohoRequestError> => {
+                const bytes = new Uint8Array(buffer)
+                // Zoho can report a failed download as a JSON body with HTTP 200. A JSON file is a valid download too.
+                const code = mediaType(response) === 'application/json' ? envelope(parsed(bytes)).code : undefined
+                return code === undefined || code === 0
+                  ? Effect.succeed({ bytes, contentType: mediaType(response) })
+                  : Effect.fail(failure(request, response, parsed(bytes)))
+              },
+            ))
 
         return ZohoBooksClient.of({ json, binary })
-      }),
-    )
+      })
+
+  static readonly layer = (
+    options: ZohoBooksClientOptions,
+  ): Layer.Layer<ZohoBooksClient, never, HttpClient.HttpClient | ZohoAccessToken> =>
+    Layer.effect(ZohoBooksClient, ZohoBooksClient.make(options))
 }

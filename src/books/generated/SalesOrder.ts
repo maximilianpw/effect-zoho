@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const CustomFields = W.Arr(Schema.Struct({
     customfield_id: W.str,
@@ -974,7 +974,7 @@ export interface EmailASalesOrderRequest {
   /** Subject of the mail. */
   readonly subject: string
   /** Documents of the Sales Order */
-  readonly documents?: Blob | Uint8Array
+  readonly documents?: ZohoFile
   /** ID of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id?: string
   /** Body of the mail. */

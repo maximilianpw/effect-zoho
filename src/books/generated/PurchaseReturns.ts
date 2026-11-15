@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const PageContext = Schema.Struct({
   page: W.num,
@@ -668,7 +668,7 @@ export interface AddAttachmentToPurchaseReturnInput {
   readonly purchase_return_id: string
   readonly body?: {
     /** File to attach to the purchase return. */
-    readonly attachment?: Blob | Uint8Array
+    readonly attachment?: ZohoFile
     /** Set to true to allow the attachment to be sent via email. */
     readonly can_send_in_mail?: boolean
   }
