@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const CustomFields = W.Arr(Schema.Struct({
     customfield_id: W.str,
@@ -243,10 +243,10 @@ export const UpdateTasksResponse = Schema.Struct({
 })
 export type UpdateTasksResponse = typeof UpdateTasksResponse.Type
 
-export const DeleteTasksResponse = Schema.Struct({
+export const DeleteTasksResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTasksResponse = typeof DeleteTasksResponse.Type
 
 export const GetATaskResponse = Schema.Struct({
@@ -365,10 +365,10 @@ export const UpdateATaskResponse = Schema.Struct({
 })
 export type UpdateATaskResponse = typeof UpdateATaskResponse.Type
 
-export const DeleteATaskResponse = Schema.Struct({
+export const DeleteATaskResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATaskResponse = typeof DeleteATaskResponse.Type
 
 export const UpdatePercentageTaskResponse = Schema.Struct({
@@ -429,22 +429,22 @@ export const UpdatePercentageTaskResponse = Schema.Struct({
 })
 export type UpdatePercentageTaskResponse = typeof UpdatePercentageTaskResponse.Type
 
-export const MarkOpenTaskResponse = Schema.Struct({
+export const MarkOpenTaskResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkOpenTaskResponse = typeof MarkOpenTaskResponse.Type
 
-export const MarkOngoingTaskResponse = Schema.Struct({
+export const MarkOngoingTaskResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkOngoingTaskResponse = typeof MarkOngoingTaskResponse.Type
 
-export const MarkCompletedTaskResponse = Schema.Struct({
+export const MarkCompletedTaskResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkCompletedTaskResponse = typeof MarkCompletedTaskResponse.Type
 
 export const ListTaskCommentsResponse = Schema.Struct({
@@ -476,10 +476,10 @@ export const AddTaskCommentResponse = Schema.Struct({
 })
 export type AddTaskCommentResponse = typeof AddTaskCommentResponse.Type
 
-export const DeleteTaskCommentResponse = Schema.Struct({
+export const DeleteTaskCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTaskCommentResponse = typeof DeleteTaskCommentResponse.Type
 
 export const AddTaskAttachmentResponse = Schema.Struct({
@@ -507,10 +507,10 @@ export const GetATaskDocumentResponse = Schema.Struct({
 })
 export type GetATaskDocumentResponse = typeof GetATaskDocumentResponse.Type
 
-export const DeleteTaskDocumentResponse = Schema.Struct({
+export const DeleteTaskDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTaskDocumentResponse = typeof DeleteTaskDocumentResponse.Type
 
 export interface ReminderInput {
@@ -825,7 +825,7 @@ export const listTasks = /*#__PURE__*/ operation<ListTasksInput, typeof ListTask
 })
 
 export interface AddTaskInput {
-  readonly body?: AddATaskRequest
+  readonly body: AddATaskRequest
 }
 
 /** Add a task. `POST /tasks` */
@@ -841,7 +841,7 @@ export const addTask = /*#__PURE__*/ operation<AddTaskInput, typeof AddATaskResp
 export interface UpdateTasksInput {
   /** Indicate whether the request is for bulk update. Allowed values are true and false. */
   readonly bulk_update: boolean
-  readonly body?: ReadonlyArray<{
+  readonly body: ReadonlyArray<{
     /** ID of the task. */
     readonly task_id?: string
     /** Comma separated list of owner IDs of the task. */
@@ -994,7 +994,7 @@ export const getTask = /*#__PURE__*/ operation<GetTaskInput, typeof GetATaskResp
 export interface UpdateATaskInput {
   /** Unique identifier of the task. */
   readonly task_id: string
-  readonly body?: UpdateATaskRequest
+  readonly body: UpdateATaskRequest
 }
 
 /** Update a tasks. `PUT /tasks/{task_id}` */
@@ -1040,6 +1040,8 @@ export const updatePercentageTask = /*#__PURE__*/ operation<UpdatePercentageTask
 export interface MarkTaskAsOpenInput {
   /** Unique identifier of the task. */
   readonly task_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark task as open. `POST /tasks/{task_id}/markasopen` */
@@ -1047,6 +1049,7 @@ export const markTaskAsOpen = /*#__PURE__*/ operation<MarkTaskAsOpenInput, typeo
   id: "mark_task_as_open",
   method: "POST",
   path: "/tasks/{task_id}/markasopen",
+  body: "json",
   response: MarkOpenTaskResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -1054,6 +1057,8 @@ export const markTaskAsOpen = /*#__PURE__*/ operation<MarkTaskAsOpenInput, typeo
 export interface MarkTaskAsOngoingInput {
   /** Unique identifier of the task. */
   readonly task_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark task as ongoing. `POST /tasks/{task_id}/markasongoing` */
@@ -1061,6 +1066,7 @@ export const markTaskAsOngoing = /*#__PURE__*/ operation<MarkTaskAsOngoingInput,
   id: "mark_task_as_ongoing",
   method: "POST",
   path: "/tasks/{task_id}/markasongoing",
+  body: "json",
   response: MarkOngoingTaskResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -1068,6 +1074,8 @@ export const markTaskAsOngoing = /*#__PURE__*/ operation<MarkTaskAsOngoingInput,
 export interface MarkTaskAsCompletedInput {
   /** Unique identifier of the task. */
   readonly task_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark task as completed. `POST /tasks/{task_id}/markascompleted` */
@@ -1075,6 +1083,7 @@ export const markTaskAsCompleted = /*#__PURE__*/ operation<MarkTaskAsCompletedIn
   id: "mark_task_as_completed",
   method: "POST",
   path: "/tasks/{task_id}/markascompleted",
+  body: "json",
   response: MarkCompletedTaskResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -1129,7 +1138,9 @@ export interface AddTaskAttachmentInput {
   /** Unique identifier of the task. */
   readonly task_id: string
   /** The file to be attached.Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc, docx, xml, csv, txt, tif and tiff */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to task. `POST /tasks/{task_id}/attachment` */
@@ -1137,6 +1148,8 @@ export const addTaskAttachment = /*#__PURE__*/ operation<AddTaskAttachmentInput,
   id: "add_task_attachment",
   method: "POST",
   path: "/tasks/{task_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddTaskAttachmentResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -1180,3 +1193,11 @@ export const deleteTaskDocument = /*#__PURE__*/ operation<DeleteTaskDocumentInpu
   response: DeleteTaskDocumentResponse,
   scopes: ["ZohoBooks.settings.DELETE"],
 })
+
+export type AddTaskResponse = AddATaskResponse
+export type GetTaskResponse = GetATaskResponse
+export type DeleteTaskResponse = DeleteATaskResponse
+export type MarkTaskAsOpenResponse = MarkOpenTaskResponse
+export type MarkTaskAsOngoingResponse = MarkOngoingTaskResponse
+export type MarkTaskAsCompletedResponse = MarkCompletedTaskResponse
+export type GetTaskDocumentResponse = GetATaskDocumentResponse

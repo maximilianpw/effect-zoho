@@ -264,34 +264,34 @@ export const UpdateAContactResponse = Schema.Struct({
 })
 export type UpdateAContactResponse = typeof UpdateAContactResponse.Type
 
-export const DeleteContactsResponse = Schema.Struct({
+export const DeleteContactsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactsResponse = typeof DeleteContactsResponse.Type
 
-export const ContactOwnerResponse = Schema.Struct({
+export const ContactOwnerResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ContactOwnerResponse = typeof ContactOwnerResponse.Type
 
-export const Contact1099TrackingResponse = Schema.Struct({
+export const Contact1099TrackingResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type Contact1099TrackingResponse = typeof Contact1099TrackingResponse.Type
 
-export const VerifyBankAccountResponse = Schema.Struct({
+export const VerifyBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VerifyBankAccountResponse = typeof VerifyBankAccountResponse.Type
 
-export const VerifyAddressResponse = Schema.Struct({
+export const VerifyAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VerifyAddressResponse = typeof VerifyAddressResponse.Type
 
 export const ListContactAutobillRecurringInvoicesResponse = Schema.Struct({
@@ -378,40 +378,40 @@ export const GetContactResponse = Schema.Struct({
 })
 export type GetContactResponse = typeof GetContactResponse.Type
 
-export const DeleteAContactResponse = Schema.Struct({
+export const DeleteAContactResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAContactResponse = typeof DeleteAContactResponse.Type
 
-export const MarkAsActiveResponse = Schema.Struct({
+export const MarkAsActiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsActiveResponse = typeof MarkAsActiveResponse.Type
 
-export const MarkAsInactiveResponse = Schema.Struct({
+export const MarkAsInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsInactiveResponse = typeof MarkAsInactiveResponse.Type
 
-export const EnablePortalAccessResponse = Schema.Struct({
+export const EnablePortalAccessResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnablePortalAccessResponse = typeof EnablePortalAccessResponse.Type
 
-export const EnablePaymentRemindersResponse = Schema.Struct({
+export const EnablePaymentRemindersResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnablePaymentRemindersResponse = typeof EnablePaymentRemindersResponse.Type
 
-export const DisablePaymentRemindersResponse = Schema.Struct({
+export const DisablePaymentRemindersResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DisablePaymentRemindersResponse = typeof DisablePaymentRemindersResponse.Type
 
 export const ToContacts = W.Arr(Schema.Struct({
@@ -447,22 +447,22 @@ export const GetStatementMailContentResponse = Schema.Struct({
 })
 export type GetStatementMailContentResponse = typeof GetStatementMailContentResponse.Type
 
-export const EmailStatementResponse = Schema.Struct({
+export const EmailStatementResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailStatementResponse = typeof EmailStatementResponse.Type
 
-export const GetContactEmailContentResponse = Schema.Struct({
+export const GetContactEmailContentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactEmailContentResponse = typeof GetContactEmailContentResponse.Type
 
-export const EmailContactResponse = Schema.Struct({
+export const EmailContactResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailContactResponse = typeof EmailContactResponse.Type
 
 export const ContactComments = W.Arr(Schema.Struct({
@@ -500,10 +500,10 @@ export const ListCommentsResponse = Schema.Struct({
 })
 export type ListCommentsResponse = typeof ListCommentsResponse.Type
 
-export const AddContactCommentResponse = Schema.Struct({
+export const AddContactCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddContactCommentResponse = typeof AddContactCommentResponse.Type
 
 export const GetContactAddressesResponse = Schema.Struct({
@@ -552,10 +552,10 @@ export const EditAdditionalAddressResponse = Schema.Struct({
 })
 export type EditAdditionalAddressResponse = typeof EditAdditionalAddressResponse.Type
 
-export const DeleteAdditionalAddressResponse = Schema.Struct({
+export const DeleteAdditionalAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAdditionalAddressResponse = typeof DeleteAdditionalAddressResponse.Type
 
 export const ListRefundsResponse = Schema.Struct({
@@ -584,16 +584,16 @@ export const ListRefundsResponse = Schema.Struct({
 })
 export type ListRefundsResponse = typeof ListRefundsResponse.Type
 
-export const Track1099Response = Schema.Struct({
+export const Track1099Response = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type Track1099Response = typeof Track1099Response.Type
 
-export const Untrack1099Response = Schema.Struct({
+export const Untrack1099Response = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type Untrack1099Response = typeof Untrack1099Response.Type
 
 export const GetUnusedRetainerPaymentsResponse = Schema.Struct({
@@ -615,226 +615,220 @@ export const GetUnusedRetainerPaymentsResponse = Schema.Struct({
 })
 export type GetUnusedRetainerPaymentsResponse = typeof GetUnusedRetainerPaymentsResponse.Type
 
-export const AddContactBankAccountResponse = Schema.Struct({
+export const AddContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddContactBankAccountResponse = typeof AddContactBankAccountResponse.Type
 
-export const GetContactBankAccountResponse = Schema.Struct({
+export const GetContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactBankAccountResponse = typeof GetContactBankAccountResponse.Type
 
-export const UpdateContactBankAccountResponse = Schema.Struct({
+export const UpdateContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactBankAccountResponse = typeof UpdateContactBankAccountResponse.Type
 
-export const DeleteContactBankAccountResponse = Schema.Struct({
+export const DeleteContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactBankAccountResponse = typeof DeleteContactBankAccountResponse.Type
 
-export const ApproveContactBankAccountResponse = Schema.Struct({
+export const ApproveContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveContactBankAccountResponse = typeof ApproveContactBankAccountResponse.Type
 
-export const DeclineContactBankAccountResponse = Schema.Struct({
+export const DeclineContactBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeclineContactBankAccountResponse = typeof DeclineContactBankAccountResponse.Type
 
-export const ListContactBankAccountsResponse = Schema.Struct({
+export const ListContactBankAccountsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListContactBankAccountsResponse = typeof ListContactBankAccountsResponse.Type
 
-export const ListAllContactBankAccountsResponse = Schema.Struct({
+export const ListAllContactBankAccountsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListAllContactBankAccountsResponse = typeof ListAllContactBankAccountsResponse.Type
 
-export const AddContactCardResponse = Schema.Struct({
+export const AddContactCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddContactCardResponse = typeof AddContactCardResponse.Type
 
-export const GetContactCardResponse = Schema.Struct({
+export const GetContactCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactCardResponse = typeof GetContactCardResponse.Type
 
-export const UpdateContactCardResponse = Schema.Struct({
+export const UpdateContactCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactCardResponse = typeof UpdateContactCardResponse.Type
 
-export const DeleteContactCardResponse = Schema.Struct({
+export const DeleteContactCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactCardResponse = typeof DeleteContactCardResponse.Type
 
-export const ListContactCardsResponse = Schema.Struct({
+export const ListContactCardsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListContactCardsResponse = typeof ListContactCardsResponse.Type
 
-export const GetContactCardCountResponse = Schema.Struct({
+export const GetContactCardCountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactCardCountResponse = typeof GetContactCardCountResponse.Type
 
-export const ListAllContactPersonsResponse = Schema.Struct({
+export const ListAllContactPersonsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListAllContactPersonsResponse = typeof ListAllContactPersonsResponse.Type
 
-export const GetContactContactPersonResponse = Schema.Struct({
+export const GetContactContactPersonResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactContactPersonResponse = typeof GetContactContactPersonResponse.Type
 
-export const InviteContactPersonToPortalResponse = Schema.Struct({
+export const InviteContactPersonToPortalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InviteContactPersonToPortalResponse = typeof InviteContactPersonToPortalResponse.Type
 
-export const ResendContactPersonPortalInviteResponse = Schema.Struct({
+export const ResendContactPersonPortalInviteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ResendContactPersonPortalInviteResponse = typeof ResendContactPersonPortalInviteResponse.Type
 
-export const EnableContactPersonSmsResponse = Schema.Struct({
+export const EnableContactPersonSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnableContactPersonSmsResponse = typeof EnableContactPersonSmsResponse.Type
 
-export const DisableContactPersonSmsResponse = Schema.Struct({
+export const DisableContactPersonSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DisableContactPersonSmsResponse = typeof DisableContactPersonSmsResponse.Type
 
-export const DeleteContactCommentResponse = Schema.Struct({
+export const DeleteContactCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactCommentResponse = typeof DeleteContactCommentResponse.Type
 
-export const GetContactDocumentResponse = Schema.Struct({
+export const UpdateContactDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetContactDocumentResponse = typeof GetContactDocumentResponse.Type
-
-export const UpdateContactDocumentResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactDocumentResponse = typeof UpdateContactDocumentResponse.Type
 
-export const DeleteContactDocumentResponse = Schema.Struct({
+export const DeleteContactDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactDocumentResponse = typeof DeleteContactDocumentResponse.Type
 
-export const RestoreContactDocumentsResponse = Schema.Struct({
+export const RestoreContactDocumentsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RestoreContactDocumentsResponse = typeof RestoreContactDocumentsResponse.Type
 
-export const UpdateContactTagsResponse = Schema.Struct({
+export const UpdateContactTagsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactTagsResponse = typeof UpdateContactTagsResponse.Type
 
-export const DeleteContactTagResponse = Schema.Struct({
+export const DeleteContactTagResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactTagResponse = typeof DeleteContactTagResponse.Type
 
-export const ListContactTaxInfoResponse = Schema.Struct({
+export const ListContactTaxInfoResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListContactTaxInfoResponse = typeof ListContactTaxInfoResponse.Type
 
-export const AddContactTaxInfoResponse = Schema.Struct({
+export const AddContactTaxInfoResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddContactTaxInfoResponse = typeof AddContactTaxInfoResponse.Type
 
-export const UpdateContactTaxInfoResponse = Schema.Struct({
+export const UpdateContactTaxInfoResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactTaxInfoResponse = typeof UpdateContactTaxInfoResponse.Type
 
-export const DeleteContactTaxInfoResponse = Schema.Struct({
+export const DeleteContactTaxInfoResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteContactTaxInfoResponse = typeof DeleteContactTaxInfoResponse.Type
 
-export const ListContactAddressesResponse = Schema.Struct({
+export const ListContactAddressesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListContactAddressesResponse = typeof ListContactAddressesResponse.Type
 
-export const MarkContactAddressAsBillingResponse = Schema.Struct({
+export const MarkContactAddressAsBillingResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkContactAddressAsBillingResponse = typeof MarkContactAddressAsBillingResponse.Type
 
-export const MarkContactAddressAsShippingResponse = Schema.Struct({
+export const MarkContactAddressAsShippingResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkContactAddressAsShippingResponse = typeof MarkContactAddressAsShippingResponse.Type
 
-export const VerifyContactAddressByIdResponse = Schema.Struct({
+export const VerifyContactAddressByIdResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VerifyContactAddressByIdResponse = typeof VerifyContactAddressByIdResponse.Type
 
-export const AddContactAttachmentResponse = Schema.Struct({
+export const AddContactAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddContactAttachmentResponse = typeof AddContactAttachmentResponse.Type
 
-export const MergeContactResponse = Schema.Struct({
+export const MergeContactResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MergeContactResponse = typeof MergeContactResponse.Type
 
 export const VerifyContactEinvoiceResponse = Schema.Struct({
@@ -849,124 +843,124 @@ export const VerifyContactEinvoiceResponse = Schema.Struct({
 })
 export type VerifyContactEinvoiceResponse = typeof VerifyContactEinvoiceResponse.Type
 
-export const DisableContactPortalResponse = Schema.Struct({
+export const DisableContactPortalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DisableContactPortalResponse = typeof DisableContactPortalResponse.Type
 
-export const GetContactsSmsContentResponse = Schema.Struct({
+export const GetContactsSmsContentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactsSmsContentResponse = typeof GetContactsSmsContentResponse.Type
 
-export const SendContactsSmsResponse = Schema.Struct({
+export const SendContactsSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendContactsSmsResponse = typeof SendContactsSmsResponse.Type
 
-export const GetContactSmsContentResponse = Schema.Struct({
+export const GetContactSmsContentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactSmsContentResponse = typeof GetContactSmsContentResponse.Type
 
-export const SendContactSmsResponse = Schema.Struct({
+export const SendContactSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendContactSmsResponse = typeof SendContactSmsResponse.Type
 
-export const GetContactByReferenceResponse = Schema.Struct({
+export const GetContactByReferenceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactByReferenceResponse = typeof GetContactByReferenceResponse.Type
 
-export const GetContactStatementResponse = Schema.Struct({
+export const GetContactStatementResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactStatementResponse = typeof GetContactStatementResponse.Type
 
-export const GetContactUnusedCreditsResponse = Schema.Struct({
+export const GetContactUnusedCreditsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactUnusedCreditsResponse = typeof GetContactUnusedCreditsResponse.Type
 
-export const ListContactPaymentRefundsResponse = Schema.Struct({
+export const ListContactPaymentRefundsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListContactPaymentRefundsResponse = typeof ListContactPaymentRefundsResponse.Type
 
-export const GetContactIncomeAndExpenseResponse = Schema.Struct({
+export const GetContactIncomeAndExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactIncomeAndExpenseResponse = typeof GetContactIncomeAndExpenseResponse.Type
 
-export const GetContactProfitAndLossResponse = Schema.Struct({
+export const GetContactProfitAndLossResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactProfitAndLossResponse = typeof GetContactProfitAndLossResponse.Type
 
-export const GetContactInventorySummaryResponse = Schema.Struct({
+export const GetContactInventorySummaryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactInventorySummaryResponse = typeof GetContactInventorySummaryResponse.Type
 
-export const GetContactOpeningBalancesResponse = Schema.Struct({
+export const GetContactOpeningBalancesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactOpeningBalancesResponse = typeof GetContactOpeningBalancesResponse.Type
 
-export const UpdateContactTrnStatusResponse = Schema.Struct({
+export const UpdateContactTrnStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateContactTrnStatusResponse = typeof UpdateContactTrnStatusResponse.Type
 
-export const GetContactClientReviewEmailResponse = Schema.Struct({
+export const GetContactClientReviewEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactClientReviewEmailResponse = typeof GetContactClientReviewEmailResponse.Type
 
-export const SendContactClientReviewEmailResponse = Schema.Struct({
+export const SendContactClientReviewEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendContactClientReviewEmailResponse = typeof SendContactClientReviewEmailResponse.Type
 
-export const GetContactPaymentMethodEmailResponse = Schema.Struct({
+export const GetContactPaymentMethodEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactPaymentMethodEmailResponse = typeof GetContactPaymentMethodEmailResponse.Type
 
-export const SendContactPaymentMethodEmailResponse = Schema.Struct({
+export const SendContactPaymentMethodEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendContactPaymentMethodEmailResponse = typeof SendContactPaymentMethodEmailResponse.Type
 
-export const GetContactVendorStatementEmailResponse = Schema.Struct({
+export const GetContactVendorStatementEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetContactVendorStatementEmailResponse = typeof GetContactVendorStatementEmailResponse.Type
 
-export const SendContactVendorStatementEmailResponse = Schema.Struct({
+export const SendContactVendorStatementEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendContactVendorStatementEmailResponse = typeof SendContactVendorStatementEmailResponse.Type
 
 export interface BillingAddressInput {
@@ -1629,6 +1623,8 @@ export interface AssignContactOwnerInput {
   readonly contact_id: string
   /** ID of the user to assign as the contact owner. */
   readonly owner_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Assign an Owner to a Contact. `POST /contacts/{contact_id}/owner` */
@@ -1636,6 +1632,7 @@ export const assignContactOwner = /*#__PURE__*/ operation<AssignContactOwnerInpu
   id: "assign_contact_owner",
   method: "POST",
   path: "/contacts/{contact_id}/owner",
+  body: "json",
   response: ContactOwnerResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1645,6 +1642,8 @@ export interface AssignOwnerToContactsInput {
   readonly contact_ids: string
   /** ID of the user to assign as the contact owner. */
   readonly owner_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Assign an Owner to Multiple Contacts. `POST /contacts/owner` */
@@ -1652,6 +1651,7 @@ export const assignOwnerToContacts = /*#__PURE__*/ operation<AssignOwnerToContac
   id: "assign_owner_to_contacts",
   method: "POST",
   path: "/contacts/owner",
+  body: "json",
   response: ContactOwnerResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1659,6 +1659,8 @@ export const assignOwnerToContacts = /*#__PURE__*/ operation<AssignOwnerToContac
 export interface MarkContactsFor1099TrackingInput {
   /** Comma-separated IDs of the contacts to mark for 1099 tracking. Maximum of 200 contacts per request. */
   readonly contact_ids?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark Multiple Contacts for 1099 Tracking. `POST /contacts/track1099` */
@@ -1666,6 +1668,7 @@ export const markContactsFor1099Tracking = /*#__PURE__*/ operation<MarkContactsF
   id: "mark_contacts_for_1099_tracking",
   method: "POST",
   path: "/contacts/track1099",
+  body: "json",
   response: Contact1099TrackingResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1679,6 +1682,8 @@ export interface VerifyContactBankAccountInput {
   readonly first_deposit_amount?: number
   /** Second micro-deposit amount credited to the bank account. */
   readonly second_deposit_amount?: number
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Verify a Contact Bank Account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/verify` */
@@ -1686,6 +1691,7 @@ export const verifyContactBankAccount = /*#__PURE__*/ operation<VerifyContactBan
   id: "verify_contact_bank_account",
   method: "POST",
   path: "/contacts/{contact_id}/bankaccount/{bank_account_id}/verify",
+  body: "json",
   response: VerifyBankAccountResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1775,6 +1781,8 @@ export const deleteContact = /*#__PURE__*/ operation<DeleteContactInput, typeof 
 export interface MarkContactActiveInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Active. `POST /contacts/{contact_id}/active` */
@@ -1782,6 +1790,7 @@ export const markContactActive = /*#__PURE__*/ operation<MarkContactActiveInput,
   id: "mark_contact_active",
   method: "POST",
   path: "/contacts/{contact_id}/active",
+  body: "json",
   response: MarkAsActiveResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1789,6 +1798,8 @@ export const markContactActive = /*#__PURE__*/ operation<MarkContactActiveInput,
 export interface MarkContactInactiveInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Inactive. `POST /contacts/{contact_id}/inactive` */
@@ -1796,6 +1807,7 @@ export const markContactInactive = /*#__PURE__*/ operation<MarkContactInactiveIn
   id: "mark_contact_inactive",
   method: "POST",
   path: "/contacts/{contact_id}/inactive",
+  body: "json",
   response: MarkAsInactiveResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1819,6 +1831,8 @@ export const enableContactPortal = /*#__PURE__*/ operation<EnableContactPortalIn
 export interface EnableContactPaymentReminderInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Enable Payment Reminders. `POST /contacts/{contact_id}/paymentreminder/enable` */
@@ -1826,6 +1840,7 @@ export const enableContactPaymentReminder = /*#__PURE__*/ operation<EnableContac
   id: "enable_contact_payment_reminder",
   method: "POST",
   path: "/contacts/{contact_id}/paymentreminder/enable",
+  body: "json",
   response: EnablePaymentRemindersResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1833,6 +1848,8 @@ export const enableContactPaymentReminder = /*#__PURE__*/ operation<EnableContac
 export interface DisableContactPaymentReminderInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Disable Payment Reminders. `POST /contacts/{contact_id}/paymentreminder/disable` */
@@ -1840,6 +1857,7 @@ export const disableContactPaymentReminder = /*#__PURE__*/ operation<DisableCont
   id: "disable_contact_payment_reminder",
   method: "POST",
   path: "/contacts/{contact_id}/paymentreminder/disable",
+  body: "json",
   response: DisablePaymentRemindersResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1911,7 +1929,7 @@ export const emailContact = /*#__PURE__*/ operation<EmailContactInput, typeof Em
   id: "email_contact",
   method: "POST",
   path: "/contacts/{contact_id}/email",
-  body: "json",
+  body: "multipart",
   response: EmailContactResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -1937,7 +1955,7 @@ export const listContactComments = /*#__PURE__*/ operation<ListContactCommentsIn
 export interface AddContactCommentInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: ContactCommentRequest
+  readonly body: ContactCommentRequest
 }
 
 /** Add a comment to a contact. `POST /contacts/{contact_id}/comments` */
@@ -1967,7 +1985,7 @@ export const getContactAddress = /*#__PURE__*/ operation<GetContactAddressInput,
 export interface AddContactAddressInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: AddAdditionalAddressRequest
+  readonly body: AddAdditionalAddressRequest
 }
 
 /** Add Additional Address. `POST /contacts/{contact_id}/address` */
@@ -2035,6 +2053,8 @@ export const listContactCreditNoteRefunds = /*#__PURE__*/ operation<ListContactC
 export interface TrackContact1099Input {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Track 1099. `POST /contacts/{contact_id}/track1099` */
@@ -2042,6 +2062,7 @@ export const trackContact1099 = /*#__PURE__*/ operation<TrackContact1099Input, t
   id: "track_contact_1099",
   method: "POST",
   path: "/contacts/{contact_id}/track1099",
+  body: "json",
   response: Track1099Response,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2049,6 +2070,8 @@ export const trackContact1099 = /*#__PURE__*/ operation<TrackContact1099Input, t
 export interface UntrackContact1099Input {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Untrack 1099. `POST /contacts/{contact_id}/untrack1099` */
@@ -2056,6 +2079,7 @@ export const untrackContact1099 = /*#__PURE__*/ operation<UntrackContact1099Inpu
   id: "untrack_contact_1099",
   method: "POST",
   path: "/contacts/{contact_id}/untrack1099",
+  body: "json",
   response: Untrack1099Response,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2079,7 +2103,7 @@ export const getUnusedRetainerPayments = /*#__PURE__*/ operation<GetUnusedRetain
 export interface AddContactBankAccountInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: ContactBankAccountRequest
+  readonly body: ContactBankAccountRequest
 }
 
 /** Add a bank account to a contact. `POST /contacts/{contact_id}/bankaccount` */
@@ -2113,7 +2137,7 @@ export interface UpdateContactBankAccountInput {
   readonly contact_id: string
   /** Unique identifier of the contact bank account. Note: This value is a set of numeric characters. */
   readonly bank_account_id: string
-  readonly body?: ContactBankAccountRequest
+  readonly body: ContactBankAccountRequest
 }
 
 /** Update a contact bank account. `PUT /contacts/{contact_id}/bankaccount/{bank_account_id}` */
@@ -2147,6 +2171,8 @@ export interface ApproveContactBankAccountInput {
   readonly contact_id: string
   /** Unique identifier of the contact bank account. Note: This value is a set of numeric characters. */
   readonly bank_account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a contact bank account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/approve` */
@@ -2154,6 +2180,7 @@ export const approveContactBankAccount = /*#__PURE__*/ operation<ApproveContactB
   id: "approve_contact_bank_account",
   method: "POST",
   path: "/contacts/{contact_id}/bankaccount/{bank_account_id}/approve",
+  body: "json",
   response: ApproveContactBankAccountResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2163,6 +2190,8 @@ export interface DeclineContactBankAccountInput {
   readonly contact_id: string
   /** Unique identifier of the contact bank account. Note: This value is a set of numeric characters. */
   readonly bank_account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Decline a contact bank account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/decline` */
@@ -2170,6 +2199,7 @@ export const declineContactBankAccount = /*#__PURE__*/ operation<DeclineContactB
   id: "decline_contact_bank_account",
   method: "POST",
   path: "/contacts/{contact_id}/bankaccount/{bank_account_id}/decline",
+  body: "json",
   response: DeclineContactBankAccountResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2202,7 +2232,7 @@ export const listAllContactBankAccounts = /*#__PURE__*/ operation<ListAllContact
 export interface AddContactCardInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: ContactCardRequest
+  readonly body: ContactCardRequest
 }
 
 /** Add a card to a contact. `POST /contacts/{contact_id}/card` */
@@ -2236,7 +2266,7 @@ export interface UpdateContactCardInput {
   readonly contact_id: string
   /** Unique identifier of the contact card. Note: This value is a set of numeric characters. */
   readonly card_id: string
-  readonly body?: ContactCardRequest
+  readonly body: ContactCardRequest
 }
 
 /** Update a contact card. `PUT /contacts/{contact_id}/card/{card_id}` */
@@ -2320,6 +2350,8 @@ export const getContactContactPerson = /*#__PURE__*/ operation<GetContactContact
 export interface InviteContactPersonToPortalInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Invite a contact person to the portal. `POST /contacts/contactpersons/{contactperson_id}/portal/invite` */
@@ -2327,6 +2359,7 @@ export const inviteContactPersonToPortal = /*#__PURE__*/ operation<InviteContact
   id: "invite_contact_person_to_portal",
   method: "POST",
   path: "/contacts/contactpersons/{contactperson_id}/portal/invite",
+  body: "json",
   response: InviteContactPersonToPortalResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2334,6 +2367,8 @@ export const inviteContactPersonToPortal = /*#__PURE__*/ operation<InviteContact
 export interface ResendContactPersonPortalInviteInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resend a portal invite. `POST /contacts/contactpersons/{contactperson_id}/portal/invite/resend` */
@@ -2341,6 +2376,7 @@ export const resendContactPersonPortalInvite = /*#__PURE__*/ operation<ResendCon
   id: "resend_contact_person_portal_invite",
   method: "POST",
   path: "/contacts/contactpersons/{contactperson_id}/portal/invite/resend",
+  body: "json",
   response: ResendContactPersonPortalInviteResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2348,6 +2384,8 @@ export const resendContactPersonPortalInvite = /*#__PURE__*/ operation<ResendCon
 export interface EnableContactPersonSmsInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Enable SMS for a contact person. `POST /contacts/contactpersons/{contactperson_id}/sms/enable` */
@@ -2355,6 +2393,7 @@ export const enableContactPersonSms = /*#__PURE__*/ operation<EnableContactPerso
   id: "enable_contact_person_sms",
   method: "POST",
   path: "/contacts/contactpersons/{contactperson_id}/sms/enable",
+  body: "json",
   response: EnableContactPersonSmsResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2362,6 +2401,8 @@ export const enableContactPersonSms = /*#__PURE__*/ operation<EnableContactPerso
 export interface DisableContactPersonSmsInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Disable SMS for a contact person. `POST /contacts/contactpersons/{contactperson_id}/sms/disable` */
@@ -2369,6 +2410,7 @@ export const disableContactPersonSms = /*#__PURE__*/ operation<DisableContactPer
   id: "disable_contact_person_sms",
   method: "POST",
   path: "/contacts/contactpersons/{contactperson_id}/sms/disable",
+  body: "json",
   response: DisableContactPersonSmsResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2397,11 +2439,11 @@ export interface GetContactDocumentInput {
 }
 
 /** Get a contact document. `GET /contacts/{contact_id}/documents/{document_id}` */
-export const getContactDocument = /*#__PURE__*/ operation<GetContactDocumentInput, typeof GetContactDocumentResponse>({
+export const getContactDocument = /*#__PURE__*/ operation<GetContactDocumentInput, undefined>({
   id: "get_contact_document",
   method: "GET",
   path: "/contacts/{contact_id}/documents/{document_id}",
-  response: GetContactDocumentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.contacts.READ"],
 })
 
@@ -2410,6 +2452,8 @@ export interface UpdateContactDocumentInput {
   readonly contact_id: string
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a contact document. `PUT /contacts/{contact_id}/documents/{document_id}` */
@@ -2417,6 +2461,7 @@ export const updateContactDocument = /*#__PURE__*/ operation<UpdateContactDocume
   id: "update_contact_document",
   method: "PUT",
   path: "/contacts/{contact_id}/documents/{document_id}",
+  body: "json",
   response: UpdateContactDocumentResponse,
   scopes: ["ZohoBooks.contacts.UPDATE"],
 })
@@ -2437,13 +2482,17 @@ export const deleteContactDocument = /*#__PURE__*/ operation<DeleteContactDocume
   scopes: ["ZohoBooks.contacts.DELETE"],
 })
 
-export interface RestoreContactDocumentsInput {}
+export interface RestoreContactDocumentsInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Restore contact documents. `POST /contacts/documents/restore` */
 export const restoreContactDocuments = /*#__PURE__*/ operation<RestoreContactDocumentsInput, typeof RestoreContactDocumentsResponse>({
   id: "restore_contact_documents",
   method: "POST",
   path: "/contacts/documents/restore",
+  body: "json",
   response: RestoreContactDocumentsResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2451,7 +2500,7 @@ export const restoreContactDocuments = /*#__PURE__*/ operation<RestoreContactDoc
 export interface UpdateContactTagsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body: Readonly<Record<string, unknown>>
 }
 
 /** Update contact tags. `PUT /contacts/{contact_id}/tags` */
@@ -2497,7 +2546,7 @@ export const listContactTaxInfo = /*#__PURE__*/ operation<ListContactTaxInfoInpu
 export interface AddContactTaxInfoInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body: Readonly<Record<string, unknown>>
 }
 
 /** Add contact tax information. `POST /contacts/{contact_id}/taxinfo` */
@@ -2515,7 +2564,7 @@ export interface UpdateContactTaxInfoInput {
   readonly contact_id: string
   /** Unique identifier of the tax information. Note: This value is a set of numeric characters. */
   readonly tax_info_id: string
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body: Readonly<Record<string, unknown>>
 }
 
 /** Update contact tax information. `PUT /contacts/{contact_id}/taxinfo/{tax_info_id}` */
@@ -2560,6 +2609,8 @@ export interface MarkContactAddressAsBillingInput {
   readonly contact_id: string
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an address as billing. `POST /contacts/{contact_id}/address/{address_id}/markasbilling` */
@@ -2567,6 +2618,7 @@ export const markContactAddressAsBilling = /*#__PURE__*/ operation<MarkContactAd
   id: "mark_contact_address_as_billing",
   method: "POST",
   path: "/contacts/{contact_id}/address/{address_id}/markasbilling",
+  body: "json",
   response: MarkContactAddressAsBillingResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2576,6 +2628,8 @@ export interface MarkContactAddressAsShippingInput {
   readonly contact_id: string
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an address as shipping. `POST /contacts/{contact_id}/address/{address_id}/markasshipping` */
@@ -2583,6 +2637,7 @@ export const markContactAddressAsShipping = /*#__PURE__*/ operation<MarkContactA
   id: "mark_contact_address_as_shipping",
   method: "POST",
   path: "/contacts/{contact_id}/address/{address_id}/markasshipping",
+  body: "json",
   response: MarkContactAddressAsShippingResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2592,6 +2647,8 @@ export interface VerifyContactAddressByIdInput {
   readonly contact_id: string
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Verify a contact address. `POST /contacts/{contact_id}/address/{address_id}/verify` */
@@ -2599,6 +2656,7 @@ export const verifyContactAddressById = /*#__PURE__*/ operation<VerifyContactAdd
   id: "verify_contact_address_by_id",
   method: "POST",
   path: "/contacts/{contact_id}/address/{address_id}/verify",
+  body: "json",
   response: VerifyContactAddressByIdResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2606,6 +2664,9 @@ export const verifyContactAddressById = /*#__PURE__*/ operation<VerifyContactAdd
 export interface AddContactAttachmentInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add an attachment to a contact. `POST /contacts/{contact_id}/attachment` */
@@ -2613,6 +2674,8 @@ export const addContactAttachment = /*#__PURE__*/ operation<AddContactAttachment
   id: "add_contact_attachment",
   method: "POST",
   path: "/contacts/{contact_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddContactAttachmentResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2620,6 +2683,8 @@ export const addContactAttachment = /*#__PURE__*/ operation<AddContactAttachment
 export interface MergeContactInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Merge contacts. `POST /contacts/{contact_id}/merge` */
@@ -2627,6 +2692,7 @@ export const mergeContact = /*#__PURE__*/ operation<MergeContactInput, typeof Me
   id: "merge_contact",
   method: "POST",
   path: "/contacts/{contact_id}/merge",
+  body: "json",
   response: MergeContactResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2634,6 +2700,8 @@ export const mergeContact = /*#__PURE__*/ operation<MergeContactInput, typeof Me
 export interface VerifyContactEinvoiceInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Verify contact e-invoice details. `POST /contacts/{contact_id}/einvoice/verify` */
@@ -2641,6 +2709,7 @@ export const verifyContactEinvoice = /*#__PURE__*/ operation<VerifyContactEinvoi
   id: "verify_contact_einvoice",
   method: "POST",
   path: "/contacts/{contact_id}/einvoice/verify",
+  body: "json",
   response: VerifyContactEinvoiceResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2648,6 +2717,8 @@ export const verifyContactEinvoice = /*#__PURE__*/ operation<VerifyContactEinvoi
 export interface DisableContactPortalInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Disable the contact portal. `POST /contacts/{contact_id}/portal/disable` */
@@ -2655,6 +2726,7 @@ export const disableContactPortal = /*#__PURE__*/ operation<DisableContactPortal
   id: "disable_contact_portal",
   method: "POST",
   path: "/contacts/{contact_id}/portal/disable",
+  body: "json",
   response: DisableContactPortalResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2670,13 +2742,17 @@ export const getContactsSmsContent = /*#__PURE__*/ operation<GetContactsSmsConte
   scopes: ["ZohoBooks.contacts.READ"],
 })
 
-export interface SendContactsSmsInput {}
+export interface SendContactsSmsInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Send SMS to contacts. `POST /contacts/sms` */
 export const sendContactsSms = /*#__PURE__*/ operation<SendContactsSmsInput, typeof SendContactsSmsResponse>({
   id: "send_contacts_sms",
   method: "POST",
   path: "/contacts/sms",
+  body: "json",
   response: SendContactsSmsResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2698,6 +2774,8 @@ export const getContactSmsContent = /*#__PURE__*/ operation<GetContactSmsContent
 export interface SendContactSmsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send SMS to a contact. `POST /contacts/{contact_id}/sms` */
@@ -2705,6 +2783,7 @@ export const sendContactSms = /*#__PURE__*/ operation<SendContactSmsInput, typeo
   id: "send_contact_sms",
   method: "POST",
   path: "/contacts/{contact_id}/sms",
+  body: "json",
   response: SendContactSmsResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2824,6 +2903,8 @@ export const getContactOpeningBalances = /*#__PURE__*/ operation<GetContactOpeni
 export interface UpdateContactTrnStatusInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update contact TRN status. `POST /contacts/{contact_id}/trnstatus` */
@@ -2831,6 +2912,7 @@ export const updateContactTrnStatus = /*#__PURE__*/ operation<UpdateContactTrnSt
   id: "update_contact_trn_status",
   method: "POST",
   path: "/contacts/{contact_id}/trnstatus",
+  body: "json",
   response: UpdateContactTrnStatusResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -2852,6 +2934,8 @@ export const getContactClientReviewEmail = /*#__PURE__*/ operation<GetContactCli
 export interface SendContactClientReviewEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send a client review email. `POST /contacts/{contact_id}/clientreviews/email` */
@@ -2859,6 +2943,7 @@ export const sendContactClientReviewEmail = /*#__PURE__*/ operation<SendContactC
   id: "send_contact_client_review_email",
   method: "POST",
   path: "/contacts/{contact_id}/clientreviews/email",
+  body: "json",
   response: SendContactClientReviewEmailResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2880,6 +2965,8 @@ export const getContactPaymentMethodEmail = /*#__PURE__*/ operation<GetContactPa
 export interface SendContactPaymentMethodEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send a payment method request email. `POST /contacts/{contact_id}/paymentmethod/email` */
@@ -2887,6 +2974,7 @@ export const sendContactPaymentMethodEmail = /*#__PURE__*/ operation<SendContact
   id: "send_contact_payment_method_email",
   method: "POST",
   path: "/contacts/{contact_id}/paymentmethod/email",
+  body: "json",
   response: SendContactPaymentMethodEmailResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -2908,6 +2996,8 @@ export const getContactVendorStatementEmail = /*#__PURE__*/ operation<GetContact
 export interface SendContactVendorStatementEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send a vendor statement email. `POST /contacts/{contact_id}/vendorstatements/email` */
@@ -2915,6 +3005,32 @@ export const sendContactVendorStatementEmail = /*#__PURE__*/ operation<SendConta
   id: "send_contact_vendor_statement_email",
   method: "POST",
   path: "/contacts/{contact_id}/vendorstatements/email",
+  body: "json",
   response: SendContactVendorStatementEmailResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
+
+export type CreateContactResponse = CreateAContactResponse
+export type UpdateContactUsingCustomFieldResponse = UpdateAContactResponse
+export type AssignContactOwnerResponse = ContactOwnerResponse
+export type AssignOwnerToContactsResponse = ContactOwnerResponse
+export type MarkContactsFor1099TrackingResponse = Contact1099TrackingResponse
+export type VerifyContactBankAccountResponse = VerifyBankAccountResponse
+export type VerifyContactAddressResponse = VerifyAddressResponse
+export type UpdateContactResponse = UpdateAContactResponse
+export type DeleteContactResponse = DeleteAContactResponse
+export type MarkContactActiveResponse = MarkAsActiveResponse
+export type MarkContactInactiveResponse = MarkAsInactiveResponse
+export type EnableContactPortalResponse = EnablePortalAccessResponse
+export type EnableContactPaymentReminderResponse = EnablePaymentRemindersResponse
+export type DisableContactPaymentReminderResponse = DisablePaymentRemindersResponse
+export type GetContactStatementMailResponse = GetStatementMailContentResponse
+export type EmailContactStatementResponse = EmailStatementResponse
+export type ListContactCommentsResponse = ListCommentsResponse
+export type GetContactAddressResponse = GetContactAddressesResponse
+export type AddContactAddressResponse = AddAdditionalAddressResponse
+export type UpdateContactAddressResponse = EditAdditionalAddressResponse
+export type DeleteContactAddressResponse = DeleteAdditionalAddressResponse
+export type ListContactCreditNoteRefundsResponse = ListRefundsResponse
+export type TrackContact1099Response = Track1099Response
+export type UntrackContact1099Response = Untrack1099Response

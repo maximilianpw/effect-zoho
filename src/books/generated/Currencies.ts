@@ -53,10 +53,10 @@ export const UpdateACurrencyResponse = Schema.Struct({
 })
 export type UpdateACurrencyResponse = typeof UpdateACurrencyResponse.Type
 
-export const DeleteACurrencyResponse = Schema.Struct({
+export const DeleteACurrencyResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACurrencyResponse = typeof DeleteACurrencyResponse.Type
 
 export const ListExchangeRatesResponse = Schema.Struct({
@@ -86,16 +86,16 @@ export const GetAnExchangeRateResponse = Schema.Struct({
 })
 export type GetAnExchangeRateResponse = typeof GetAnExchangeRateResponse.Type
 
-export const UpdateAnExchangeRateResponse = Schema.Struct({
+export const UpdateAnExchangeRateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnExchangeRateResponse = typeof UpdateAnExchangeRateResponse.Type
 
-export const DeleteAnExchageRateResponse = Schema.Struct({
+export const DeleteAnExchageRateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnExchageRateResponse = typeof DeleteAnExchageRateResponse.Type
 
 export interface CreateACurrencyRequest {
@@ -233,7 +233,7 @@ export const listExchangeRates = /*#__PURE__*/ operation<ListExchangeRatesInput,
 export interface CreateExchangeRateInput {
   /** Unique identifier of the currency. */
   readonly currency_id: string
-  readonly body?: CreateAnExchangeRateRequest
+  readonly body: CreateAnExchangeRateRequest
 }
 
 /** Create an exchange rate. `POST /settings/currencies/{currency_id}/exchangerates` */
@@ -267,7 +267,7 @@ export interface UpdateExchangeRateInput {
   readonly currency_id: string
   /** Unique identifier of the exchange rate. */
   readonly exchange_rate_id: string
-  readonly body?: UpdateAnExchangeRateRequest
+  readonly body: UpdateAnExchangeRateRequest
 }
 
 /** Update an exchange rate. `PUT /settings/currencies/{currency_id}/exchangerates/{exchange_rate_id}` */
@@ -295,3 +295,12 @@ export const deleteExchangeRate = /*#__PURE__*/ operation<DeleteExchangeRateInpu
   response: DeleteAnExchageRateResponse,
   scopes: ["ZohoBooks.settings.DELETE"],
 })
+
+export type CreateCurrencyResponse = CreateACurrencyResponse
+export type GetCurrencyResponse = GetACurrencyResponse
+export type UpdateCurrencyResponse = UpdateACurrencyResponse
+export type DeleteCurrencyResponse = DeleteACurrencyResponse
+export type CreateExchangeRateResponse = CreateAnExchangeRateResponse
+export type GetExchangeRateResponse = GetAnExchangeRateResponse
+export type UpdateExchangeRateResponse = UpdateAnExchangeRateResponse
+export type DeleteExchangeRateResponse = DeleteAnExchageRateResponse

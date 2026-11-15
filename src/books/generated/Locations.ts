@@ -4,10 +4,10 @@ import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
 import { operation } from '../Operation.ts'
 
-export const EnableLocationResponse = Schema.Struct({
+export const EnableLocationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnableLocationResponse = typeof EnableLocationResponse.Type
 
 export const Address = Schema.Struct({
@@ -52,7 +52,7 @@ export const Locations = Schema.Struct({
   email: W.str,
   is_primary: W.bool,
   phone: W.str,
-  status: W.any,
+  status: W.str,
   location_id: W.str,
   location_name: W.str,
   type: W.str,
@@ -81,28 +81,28 @@ export const UpdateLocationResponse = Schema.Struct({
 })
 export type UpdateLocationResponse = typeof UpdateLocationResponse.Type
 
-export const DeleteALocationResponse = Schema.Struct({
+export const DeleteALocationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteALocationResponse = typeof DeleteALocationResponse.Type
 
-export const MarkAsActiveResponse = Schema.Struct({
+export const MarkAsActiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsActiveResponse = typeof MarkAsActiveResponse.Type
 
-export const MarkAsInactiveResponse = Schema.Struct({
+export const MarkAsInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsInactiveResponse = typeof MarkAsInactiveResponse.Type
 
-export const MarkAsPrimaryResponse = Schema.Struct({
+export const MarkAsPrimaryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsPrimaryResponse = typeof MarkAsPrimaryResponse.Type
 
 export interface AddressInput {
@@ -174,13 +174,17 @@ export interface UpdateLocationRequest {
   readonly user_ids?: string
 }
 
-export interface EnableLocationsInput {}
+export interface EnableLocationsInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Enable Locations. `POST /settings/locations/enable` */
 export const enableLocations = /*#__PURE__*/ operation<EnableLocationsInput, typeof EnableLocationResponse>({
   id: "enable_locations",
   method: "POST",
   path: "/settings/locations/enable",
+  body: "json",
   response: EnableLocationResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -243,6 +247,8 @@ export const deleteLocation = /*#__PURE__*/ operation<DeleteLocationInput, typeo
 export interface MarkLocationActiveInput {
   /** Unique identifier of the location. */
   readonly location_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Active. `POST /locations/{location_id}/active` */
@@ -250,6 +256,7 @@ export const markLocationActive = /*#__PURE__*/ operation<MarkLocationActiveInpu
   id: "mark_location_active",
   method: "POST",
   path: "/locations/{location_id}/active",
+  body: "json",
   response: MarkAsActiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -257,6 +264,8 @@ export const markLocationActive = /*#__PURE__*/ operation<MarkLocationActiveInpu
 export interface MarkLocationInactiveInput {
   /** Unique identifier of the location. */
   readonly location_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Inactive. `POST /locations/{location_id}/inactive` */
@@ -264,6 +273,7 @@ export const markLocationInactive = /*#__PURE__*/ operation<MarkLocationInactive
   id: "mark_location_inactive",
   method: "POST",
   path: "/locations/{location_id}/inactive",
+  body: "json",
   response: MarkAsInactiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -271,6 +281,8 @@ export const markLocationInactive = /*#__PURE__*/ operation<MarkLocationInactive
 export interface MarkLocationPrimaryInput {
   /** Unique identifier of the location. */
   readonly location_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Primary. `POST /locations/{location_id}/markasprimary` */
@@ -278,6 +290,15 @@ export const markLocationPrimary = /*#__PURE__*/ operation<MarkLocationPrimaryIn
   id: "mark_location_primary",
   method: "POST",
   path: "/locations/{location_id}/markasprimary",
+  body: "json",
   response: MarkAsPrimaryResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
+
+export type EnableLocationsResponse = EnableLocationResponse
+export type ListLocationsResponse = ListAllLocationResponse
+export type CreateLocationResponse = CreateALocationResponse
+export type DeleteLocationResponse = DeleteALocationResponse
+export type MarkLocationActiveResponse = MarkAsActiveResponse
+export type MarkLocationInactiveResponse = MarkAsInactiveResponse
+export type MarkLocationPrimaryResponse = MarkAsPrimaryResponse

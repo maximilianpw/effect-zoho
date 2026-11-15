@@ -154,16 +154,16 @@ export const UpdateDeliveryChallanResponse = Schema.Struct({
 })
 export type UpdateDeliveryChallanResponse = typeof UpdateDeliveryChallanResponse.Type
 
-export const DeleteDeliveryChallanResponse = Schema.Struct({
+export const DeleteDeliveryChallanResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteDeliveryChallanResponse = typeof DeleteDeliveryChallanResponse.Type
 
-export const ActionDeliveryChallanResponse = Schema.Struct({
+export const ActionDeliveryChallanResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActionDeliveryChallanResponse = typeof ActionDeliveryChallanResponse.Type
 
 export const ListTemplatesResponse = Schema.Struct({
@@ -426,6 +426,8 @@ export const deleteDeliveryChallan = /*#__PURE__*/ operation<DeleteDeliveryChall
 export interface MarkDeliveryChallanAsOpenInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a delivery challan as open. `POST /deliverychallans/{deliverychallan_id}/status/open` */
@@ -433,6 +435,7 @@ export const markDeliveryChallanAsOpen = /*#__PURE__*/ operation<MarkDeliveryCha
   id: "mark_delivery_challan_as_open",
   method: "POST",
   path: "/deliverychallans/{deliverychallan_id}/status/open",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.CREATE"],
 })
@@ -440,6 +443,8 @@ export const markDeliveryChallanAsOpen = /*#__PURE__*/ operation<MarkDeliveryCha
 export interface MarkDeliveryChallanAsDeliveredInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a delivery challan as delivered. `POST /deliverychallans/{deliverychallan_id}/status/delivered` */
@@ -447,6 +452,7 @@ export const markDeliveryChallanAsDelivered = /*#__PURE__*/ operation<MarkDelive
   id: "mark_delivery_challan_as_delivered",
   method: "POST",
   path: "/deliverychallans/{deliverychallan_id}/status/delivered",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.CREATE"],
 })
@@ -454,6 +460,8 @@ export const markDeliveryChallanAsDelivered = /*#__PURE__*/ operation<MarkDelive
 export interface MarkDeliveryChallanAsReturnedInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a delivery challan as returned. `POST /deliverychallans/{deliverychallan_id}/status/returned` */
@@ -461,6 +469,7 @@ export const markDeliveryChallanAsReturned = /*#__PURE__*/ operation<MarkDeliver
   id: "mark_delivery_challan_as_returned",
   method: "POST",
   path: "/deliverychallans/{deliverychallan_id}/status/returned",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.CREATE"],
 })
@@ -468,6 +477,8 @@ export const markDeliveryChallanAsReturned = /*#__PURE__*/ operation<MarkDeliver
 export interface MarkDeliveryChallanAsUndeliveredInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a delivery challan as undelivered. `POST /deliverychallans/{deliverychallan_id}/status/undelivered` */
@@ -475,6 +486,7 @@ export const markDeliveryChallanAsUndelivered = /*#__PURE__*/ operation<MarkDeli
   id: "mark_delivery_challan_as_undelivered",
   method: "POST",
   path: "/deliverychallans/{deliverychallan_id}/status/undelivered",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.CREATE"],
 })
@@ -482,7 +494,7 @@ export const markDeliveryChallanAsUndelivered = /*#__PURE__*/ operation<MarkDeli
 export interface ReturnDeliveryChallansInput {
   /** Comma-separated IDs of delivery challans to mark as returned. */
   readonly deliverychallan_ids: string
-  readonly body?: ReturnDeliveryChallanRequest
+  readonly body: ReturnDeliveryChallanRequest
 }
 
 /** Return delivery challans. `PUT /deliverychallans/return` */
@@ -498,6 +510,8 @@ export const returnDeliveryChallans = /*#__PURE__*/ operation<ReturnDeliveryChal
 export interface UndoReturnDeliveryChallansInput {
   /** Comma-separated IDs of delivery challans to undo return. */
   readonly deliverychallan_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Undo return of delivery challans. `PUT /deliverychallans/undo/return` */
@@ -505,6 +519,7 @@ export const undoReturnDeliveryChallans = /*#__PURE__*/ operation<UndoReturnDeli
   id: "undo_return_delivery_challans",
   method: "PUT",
   path: "/deliverychallans/undo/return",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.UPDATE"],
 })
@@ -512,7 +527,7 @@ export const undoReturnDeliveryChallans = /*#__PURE__*/ operation<UndoReturnDeli
 export interface AddAttachmentToDeliveryChallanInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
-  readonly body?: {
+  readonly body: {
     /** File to attach. Max size 10 MB. */
     readonly attachment?: ZohoFile
   }
@@ -576,6 +591,8 @@ export interface UpdateDeliveryChallanTemplateInput {
   readonly deliverychallan_id: string
   /** Unique identifier of the template. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a delivery challan template. `PUT /deliverychallans/{deliverychallan_id}/templates/{template_id}` */
@@ -583,6 +600,7 @@ export const updateDeliveryChallanTemplate = /*#__PURE__*/ operation<UpdateDeliv
   id: "update_delivery_challan_template",
   method: "PUT",
   path: "/deliverychallans/{deliverychallan_id}/templates/{template_id}",
+  body: "json",
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.UPDATE"],
 })
@@ -590,7 +608,7 @@ export const updateDeliveryChallanTemplate = /*#__PURE__*/ operation<UpdateDeliv
 export interface UpdateDeliveryChallanShippingAddressInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
-  readonly body?: UpdateShippingAddressRequest
+  readonly body: UpdateShippingAddressRequest
 }
 
 /** Update shipping address. `PUT /deliverychallans/{deliverychallan_id}/address/shipping` */
@@ -602,3 +620,15 @@ export const updateDeliveryChallanShippingAddress = /*#__PURE__*/ operation<Upda
   response: ActionDeliveryChallanResponse,
   scopes: ["ZohoBooks.deliverychallans.UPDATE"],
 })
+
+export type MarkDeliveryChallanAsOpenResponse = ActionDeliveryChallanResponse
+export type MarkDeliveryChallanAsDeliveredResponse = ActionDeliveryChallanResponse
+export type MarkDeliveryChallanAsReturnedResponse = ActionDeliveryChallanResponse
+export type MarkDeliveryChallanAsUndeliveredResponse = ActionDeliveryChallanResponse
+export type ReturnDeliveryChallansResponse = ActionDeliveryChallanResponse
+export type UndoReturnDeliveryChallansResponse = ActionDeliveryChallanResponse
+export type AddAttachmentToDeliveryChallanResponse = ActionDeliveryChallanResponse
+export type DeleteDeliveryChallanAttachmentResponse = ActionDeliveryChallanResponse
+export type ListDeliveryChallanTemplatesResponse = ListTemplatesResponse
+export type UpdateDeliveryChallanTemplateResponse = ActionDeliveryChallanResponse
+export type UpdateDeliveryChallanShippingAddressResponse = ActionDeliveryChallanResponse

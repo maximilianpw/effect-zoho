@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const ListAllCreditNotesResponse = Schema.Struct({
   code: W.num,
@@ -376,10 +376,10 @@ export const GetACreditNoteResponse = Schema.Struct({
 })
 export type GetACreditNoteResponse = typeof GetACreditNoteResponse.Type
 
-export const DeleteACreditNoteResponse = Schema.Struct({
+export const DeleteACreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACreditNoteResponse = typeof DeleteACreditNoteResponse.Type
 
 export const GetEmailContentResponse = Schema.Struct({
@@ -415,40 +415,40 @@ export const GetEmailContentResponse = Schema.Struct({
 })
 export type GetEmailContentResponse = typeof GetEmailContentResponse.Type
 
-export const EmailACreditNoteResponse = Schema.Struct({
+export const EmailACreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailACreditNoteResponse = typeof EmailACreditNoteResponse.Type
 
-export const VoidACreditNoteResponse = Schema.Struct({
+export const VoidACreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidACreditNoteResponse = typeof VoidACreditNoteResponse.Type
 
-export const ConvertCreditNoteToDraftResponse = Schema.Struct({
+export const ConvertCreditNoteToDraftResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ConvertCreditNoteToDraftResponse = typeof ConvertCreditNoteToDraftResponse.Type
 
-export const ConvertToOpenResponse = Schema.Struct({
+export const ConvertToOpenResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ConvertToOpenResponse = typeof ConvertToOpenResponse.Type
 
-export const SubmitACreditNoteForApprovalResponse = Schema.Struct({
+export const SubmitACreditNoteForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitACreditNoteForApprovalResponse = typeof SubmitACreditNoteForApprovalResponse.Type
 
-export const ApproveACreditNoteResponse = Schema.Struct({
+export const ApproveACreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveACreditNoteResponse = typeof ApproveACreditNoteResponse.Type
 
 export const ToMailIds = W.Arr(W.Str)
@@ -467,16 +467,16 @@ export const EmailHistoryResponse = Schema.Struct({
 })
 export type EmailHistoryResponse = typeof EmailHistoryResponse.Type
 
-export const UpdateBillingAddressResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
-export const UpdateShippingAddressResponse = Schema.Struct({
+export const UpdateShippingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateShippingAddressResponse = typeof UpdateShippingAddressResponse.Type
 
 export const ListCreditNoteTemplateResponse = Schema.Struct({
@@ -490,10 +490,10 @@ export const ListCreditNoteTemplateResponse = Schema.Struct({
 })
 export type ListCreditNoteTemplateResponse = typeof ListCreditNoteTemplateResponse.Type
 
-export const UpdateACreditNoteTemplateResponse = Schema.Struct({
+export const UpdateACreditNoteTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateACreditNoteTemplateResponse = typeof UpdateACreditNoteTemplateResponse.Type
 
 export const ListInvoicesCreditedResponse = Schema.Struct({
@@ -511,16 +511,16 @@ export const ListInvoicesCreditedResponse = Schema.Struct({
 })
 export type ListInvoicesCreditedResponse = typeof ListInvoicesCreditedResponse.Type
 
-export const CreditToAnInvoiceResponse = Schema.Struct({
+export const CreditToAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreditToAnInvoiceResponse = typeof CreditToAnInvoiceResponse.Type
 
-export const DeleteInvoicesCreditedResponse = Schema.Struct({
+export const DeleteInvoicesCreditedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoicesCreditedResponse = typeof DeleteInvoicesCreditedResponse.Type
 
 export const ListCreditNoteCommentsAndHistoryResponse = Schema.Struct({
@@ -543,16 +543,16 @@ export const ListCreditNoteCommentsAndHistoryResponse = Schema.Struct({
 })
 export type ListCreditNoteCommentsAndHistoryResponse = typeof ListCreditNoteCommentsAndHistoryResponse.Type
 
-export const AddACommentResponse = Schema.Struct({
+export const AddACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddACommentResponse = typeof AddACommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export const ListCreditNoteRefundsResponse = Schema.Struct({
@@ -660,70 +660,58 @@ export const UpdateCreditNoteRefundResponse = Schema.Struct({
 })
 export type UpdateCreditNoteRefundResponse = typeof UpdateCreditNoteRefundResponse.Type
 
-export const DeleteCreditNoteRefundResponse = Schema.Struct({
+export const DeleteCreditNoteRefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCreditNoteRefundResponse = typeof DeleteCreditNoteRefundResponse.Type
 
-export const ApproveCreditNotesResponse = Schema.Struct({
+export const ApproveCreditNotesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveCreditNotesResponse = typeof ApproveCreditNotesResponse.Type
 
-export const SubmitCreditNotesResponse = Schema.Struct({
+export const SubmitCreditNotesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitCreditNotesResponse = typeof SubmitCreditNotesResponse.Type
 
-export const FinalizeCreditNoteApprovalResponse = Schema.Struct({
+export const FinalizeCreditNoteApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type FinalizeCreditNoteApprovalResponse = typeof FinalizeCreditNoteApprovalResponse.Type
 
-export const RejectCreditNoteResponse = Schema.Struct({
+export const RejectCreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RejectCreditNoteResponse = typeof RejectCreditNoteResponse.Type
 
-export const GetCreditNoteSignatureTemplateResponse = Schema.Struct({
+export const GetCreditNoteSignatureTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetCreditNoteSignatureTemplateResponse = typeof GetCreditNoteSignatureTemplateResponse.Type
 
-export const PrintCreditNotesResponse = Schema.Struct({
+export const AddCreditNoteAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type PrintCreditNotesResponse = typeof PrintCreditNotesResponse.Type
-
-export const AddCreditNoteAttachmentResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddCreditNoteAttachmentResponse = typeof AddCreditNoteAttachmentResponse.Type
 
-export const GetCreditNoteDocumentResponse = Schema.Struct({
+export const UpdateCreditNoteDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetCreditNoteDocumentResponse = typeof GetCreditNoteDocumentResponse.Type
-
-export const UpdateCreditNoteDocumentResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateCreditNoteDocumentResponse = typeof UpdateCreditNoteDocumentResponse.Type
 
-export const DeleteCreditNoteDocumentResponse = Schema.Struct({
+export const DeleteCreditNoteDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCreditNoteDocumentResponse = typeof DeleteCreditNoteDocumentResponse.Type
 
 export const GetCreditNoteCustomFieldsResponse = Schema.Struct({
@@ -733,130 +721,130 @@ export const GetCreditNoteCustomFieldsResponse = Schema.Struct({
 })
 export type GetCreditNoteCustomFieldsResponse = typeof GetCreditNoteCustomFieldsResponse.Type
 
-export const UpdateCreditNoteCustomFieldsResponse = Schema.Struct({
+export const UpdateCreditNoteCustomFieldsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateCreditNoteCustomFieldsResponse = typeof UpdateCreditNoteCustomFieldsResponse.Type
 
-export const GetCreditNoteMailContentResponse = Schema.Struct({
+export const GetCreditNoteMailContentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetCreditNoteMailContentResponse = typeof GetCreditNoteMailContentResponse.Type
 
-export const AddCreditNoteDigitalSignatureResponse = Schema.Struct({
+export const AddCreditNoteDigitalSignatureResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddCreditNoteDigitalSignatureResponse = typeof AddCreditNoteDigitalSignatureResponse.Type
 
-export const UploadCreditNoteDigitalSignatureResponse = Schema.Struct({
+export const UploadCreditNoteDigitalSignatureResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UploadCreditNoteDigitalSignatureResponse = typeof UploadCreditNoteDigitalSignatureResponse.Type
 
-export const ApplyCreditNoteSubstatusResponse = Schema.Struct({
+export const ApplyCreditNoteSubstatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyCreditNoteSubstatusResponse = typeof ApplyCreditNoteSubstatusResponse.Type
 
-export const DeleteCreditNoteSubstatusResponse = Schema.Struct({
+export const DeleteCreditNoteSubstatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCreditNoteSubstatusResponse = typeof DeleteCreditNoteSubstatusResponse.Type
 
-export const ListCreditNotesEinvoiceResponse = Schema.Struct({
+export const ListCreditNotesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListCreditNotesEinvoiceResponse = typeof ListCreditNotesEinvoiceResponse.Type
 
-export const PushCreditNotesEinvoiceResponse = Schema.Struct({
+export const PushCreditNotesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushCreditNotesEinvoiceResponse = typeof PushCreditNotesEinvoiceResponse.Type
 
-export const CancelCreditNotesEinvoiceResponse = Schema.Struct({
+export const CancelCreditNotesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelCreditNotesEinvoiceResponse = typeof CancelCreditNotesEinvoiceResponse.Type
 
-export const GetCreditNoteEinvoiceResponse = Schema.Struct({
+export const GetCreditNoteEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetCreditNoteEinvoiceResponse = typeof GetCreditNoteEinvoiceResponse.Type
 
-export const PushCreditNoteEinvoiceResponse = Schema.Struct({
+export const PushCreditNoteEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushCreditNoteEinvoiceResponse = typeof PushCreditNoteEinvoiceResponse.Type
 
-export const CancelCreditNoteEinvoiceResponse = Schema.Struct({
+export const CancelCreditNoteEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelCreditNoteEinvoiceResponse = typeof CancelCreditNoteEinvoiceResponse.Type
 
-export const FetchCreditNoteEinvoiceResponse = Schema.Struct({
+export const FetchCreditNoteEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type FetchCreditNoteEinvoiceResponse = typeof FetchCreditNoteEinvoiceResponse.Type
 
-export const DeleteCreditNoteEinvoiceStatusResponse = Schema.Struct({
+export const DeleteCreditNoteEinvoiceStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCreditNoteEinvoiceStatusResponse = typeof DeleteCreditNoteEinvoiceStatusResponse.Type
 
-export const MarkCreditNoteEinvoicePushedResponse = Schema.Struct({
+export const MarkCreditNoteEinvoicePushedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkCreditNoteEinvoicePushedResponse = typeof MarkCreditNoteEinvoicePushedResponse.Type
 
-export const MarkCreditNoteEinvoiceCancelledResponse = Schema.Struct({
+export const MarkCreditNoteEinvoiceCancelledResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkCreditNoteEinvoiceCancelledResponse = typeof MarkCreditNoteEinvoiceCancelledResponse.Type
 
-export const RecallCreditNoteEinvoiceStatusResponse = Schema.Struct({
+export const RecallCreditNoteEinvoiceStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RecallCreditNoteEinvoiceStatusResponse = typeof RecallCreditNoteEinvoiceStatusResponse.Type
 
-export const PushCreditNoteRefundEinvoiceResponse = Schema.Struct({
+export const PushCreditNoteRefundEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushCreditNoteRefundEinvoiceResponse = typeof PushCreditNoteRefundEinvoiceResponse.Type
 
-export const MarkCreditNoteReadyToPushResponse = Schema.Struct({
+export const MarkCreditNoteReadyToPushResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkCreditNoteReadyToPushResponse = typeof MarkCreditNoteReadyToPushResponse.Type
 
-export const UpdateCreditNoteCfdiStatusResponse = Schema.Struct({
+export const UpdateCreditNoteCfdiStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateCreditNoteCfdiStatusResponse = typeof UpdateCreditNoteCfdiStatusResponse.Type
 
-export const CancelEinvoiceCreditNoteResponse = Schema.Struct({
+export const CancelEinvoiceCreditNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelEinvoiceCreditNoteResponse = typeof CancelEinvoiceCreditNoteResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -1512,7 +1500,7 @@ export interface EmailCreditNoteInput {
   /** Customer ID of the customer for whom the credit note is raised. */
   readonly customer_id?: string
   /** The files to be attached with the email. */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   readonly body: EmailACreditNoteRequest
 }
 
@@ -1521,6 +1509,7 @@ export const emailCreditNote = /*#__PURE__*/ operation<EmailCreditNoteInput, typ
   id: "email_credit_note",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailACreditNoteResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
@@ -1529,6 +1518,8 @@ export const emailCreditNote = /*#__PURE__*/ operation<EmailCreditNoteInput, typ
 export interface MarkCreditNoteVoidInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void a Credit Note. `POST /creditnotes/{creditnote_id}/status/void` */
@@ -1536,6 +1527,7 @@ export const markCreditNoteVoid = /*#__PURE__*/ operation<MarkCreditNoteVoidInpu
   id: "mark_credit_note_void",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/status/void",
+  body: "json",
   response: VoidACreditNoteResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1543,6 +1535,8 @@ export const markCreditNoteVoid = /*#__PURE__*/ operation<MarkCreditNoteVoidInpu
 export interface MarkCreditNoteDraftInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Convert Credit Note to Draft.. `POST /creditnotes/{creditnote_id}/status/draft` */
@@ -1550,6 +1544,7 @@ export const markCreditNoteDraft = /*#__PURE__*/ operation<MarkCreditNoteDraftIn
   id: "mark_credit_note_draft",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/status/draft",
+  body: "json",
   response: ConvertCreditNoteToDraftResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1557,6 +1552,8 @@ export const markCreditNoteDraft = /*#__PURE__*/ operation<MarkCreditNoteDraftIn
 export interface MarkCreditNoteOpenInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Convert to Open. `POST /creditnotes/{creditnote_id}/status/open` */
@@ -1564,6 +1561,7 @@ export const markCreditNoteOpen = /*#__PURE__*/ operation<MarkCreditNoteOpenInpu
   id: "mark_credit_note_open",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/status/open",
+  body: "json",
   response: ConvertToOpenResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1571,6 +1569,8 @@ export const markCreditNoteOpen = /*#__PURE__*/ operation<MarkCreditNoteOpenInpu
 export interface SubmitCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a credit note for approval. `POST /creditnotes/{creditnote_id}/submit` */
@@ -1578,6 +1578,7 @@ export const submitCreditNote = /*#__PURE__*/ operation<SubmitCreditNoteInput, t
   id: "submit_credit_note",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/submit",
+  body: "json",
   response: SubmitACreditNoteForApprovalResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1585,6 +1586,8 @@ export const submitCreditNote = /*#__PURE__*/ operation<SubmitCreditNoteInput, t
 export interface ApproveCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a credit note.. `POST /creditnotes/{creditnote_id}/approve` */
@@ -1592,6 +1595,7 @@ export const approveCreditNote = /*#__PURE__*/ operation<ApproveCreditNoteInput,
   id: "approve_credit_note",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/approve",
+  body: "json",
   response: ApproveACreditNoteResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1613,7 +1617,7 @@ export const getCreditNoteEmailHistory = /*#__PURE__*/ operation<GetCreditNoteEm
 export interface UpdateCreditNoteBillingAddressInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /creditnotes/{creditnote_id}/address/billing` */
@@ -1629,7 +1633,7 @@ export const updateCreditNoteBillingAddress = /*#__PURE__*/ operation<UpdateCred
 export interface UpdateCreditNoteShippingAddressInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
-  readonly body?: UpdateShippingAddressRequest
+  readonly body: UpdateShippingAddressRequest
 }
 
 /** Update Shipping address. `PUT /creditnotes/{creditnote_id}/address/shipping` */
@@ -1658,6 +1662,8 @@ export interface UpdateCreditNoteTemplateInput {
   readonly creditnote_id: string
   /** Unique identifier of the credit note template. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a credit note template. `PUT /creditnotes/{creditnote_id}/templates/{template_id}` */
@@ -1665,6 +1671,7 @@ export const updateCreditNoteTemplate = /*#__PURE__*/ operation<UpdateCreditNote
   id: "update_credit_note_template",
   method: "PUT",
   path: "/creditnotes/{creditnote_id}/templates/{template_id}",
+  body: "json",
   response: UpdateACreditNoteTemplateResponse,
   scopes: ["ZohoBooks.creditnotes.UPDATE"],
 })
@@ -1732,7 +1739,7 @@ export const listCreditNoteComments = /*#__PURE__*/ operation<ListCreditNoteComm
 export interface AddCreditNoteCommentInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
-  readonly body?: AddACommentRequest
+  readonly body: AddACommentRequest
 }
 
 /** Add a comment. `POST /creditnotes/{creditnote_id}/comments` */
@@ -1802,7 +1809,7 @@ export const listCreditNoteRefundsOfACreditNote = /*#__PURE__*/ operation<ListCr
 export interface CreateCreditNoteRefundInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
-  readonly body?: RefundCreditNoteRequest
+  readonly body: RefundCreditNoteRequest
 }
 
 /** Refund credit note. `POST /creditnotes/{creditnote_id}/refunds` */
@@ -1836,7 +1843,7 @@ export interface UpdateCreditNoteRefundInput {
   readonly creditnote_id: string
   /** Unique identifier of the credit note refund. */
   readonly creditnote_refund_id: string
-  readonly body?: UpdateCreditNoteRefundRequest
+  readonly body: UpdateCreditNoteRefundRequest
 }
 
 /** Update credit note refund. `PUT /creditnotes/{creditnote_id}/refunds/{creditnote_refund_id}` */
@@ -1868,6 +1875,8 @@ export const deleteCreditNoteRefund = /*#__PURE__*/ operation<DeleteCreditNoteRe
 export interface ApproveCreditNotesInput {
   /** Comma-separated IDs of the credit notes to approve. Note: This value is a set of numeric characters separated by comma. */
   readonly creditnote_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve credit notes. `POST /creditnotes/approve` */
@@ -1875,6 +1884,7 @@ export const approveCreditNotes = /*#__PURE__*/ operation<ApproveCreditNotesInpu
   id: "approve_credit_notes",
   method: "POST",
   path: "/creditnotes/approve",
+  body: "json",
   response: ApproveCreditNotesResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1882,6 +1892,8 @@ export const approveCreditNotes = /*#__PURE__*/ operation<ApproveCreditNotesInpu
 export interface SubmitCreditNotesInput {
   /** Comma-separated IDs of the credit notes to submit for approval. Note: This value is a set of numeric characters separated by comma. */
   readonly creditnote_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit credit notes for approval. `POST /creditnotes/submit` */
@@ -1889,6 +1901,7 @@ export const submitCreditNotes = /*#__PURE__*/ operation<SubmitCreditNotesInput,
   id: "submit_credit_notes",
   method: "POST",
   path: "/creditnotes/submit",
+  body: "json",
   response: SubmitCreditNotesResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1896,6 +1909,8 @@ export const submitCreditNotes = /*#__PURE__*/ operation<SubmitCreditNotesInput,
 export interface FinalizeCreditNoteApprovalInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Finalize approval of a credit note. `POST /creditnotes/{creditnote_id}/approve/final` */
@@ -1903,6 +1918,7 @@ export const finalizeCreditNoteApproval = /*#__PURE__*/ operation<FinalizeCredit
   id: "finalize_credit_note_approval",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/approve/final",
+  body: "json",
   response: FinalizeCreditNoteApprovalResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1912,6 +1928,8 @@ export interface RejectCreditNoteInput {
   readonly creditnote_id: string
   /** Reason for rejecting the credit note. */
   readonly reason?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reject a credit note. `POST /creditnotes/{creditnote_id}/reject` */
@@ -1919,6 +1937,7 @@ export const rejectCreditNote = /*#__PURE__*/ operation<RejectCreditNoteInput, t
   id: "reject_credit_note",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/reject",
+  body: "json",
   response: RejectCreditNoteResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1943,11 +1962,11 @@ export interface PrintCreditNotesInput {
 }
 
 /** Print credit notes. `GET /creditnotes/print` */
-export const printCreditNotes = /*#__PURE__*/ operation<PrintCreditNotesInput, typeof PrintCreditNotesResponse>({
+export const printCreditNotes = /*#__PURE__*/ operation<PrintCreditNotesInput, undefined>({
   id: "print_credit_notes",
   method: "GET",
   path: "/creditnotes/print",
-  response: PrintCreditNotesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.creditnotes.READ"],
 })
 
@@ -1957,7 +1976,9 @@ export interface AddCreditNoteAttachmentInput {
   /** True to send the attachment with the credit note when it is emailed. */
   readonly can_send_in_mail?: boolean
   /** The file to be attached. Allowed extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to a credit note. `POST /creditnotes/{creditnote_id}/attachment` */
@@ -1965,6 +1986,8 @@ export const addCreditNoteAttachment = /*#__PURE__*/ operation<AddCreditNoteAtta
   id: "add_credit_note_attachment",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddCreditNoteAttachmentResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -1979,11 +2002,11 @@ export interface GetCreditNoteDocumentInput {
 }
 
 /** Retrieve a credit note document. `GET /creditnotes/{creditnote_id}/documents/{document_id}` */
-export const getCreditNoteDocument = /*#__PURE__*/ operation<GetCreditNoteDocumentInput, typeof GetCreditNoteDocumentResponse>({
+export const getCreditNoteDocument = /*#__PURE__*/ operation<GetCreditNoteDocumentInput, undefined>({
   id: "get_credit_note_document",
   method: "GET",
   path: "/creditnotes/{creditnote_id}/documents/{document_id}",
-  response: GetCreditNoteDocumentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -1992,6 +2015,8 @@ export interface UpdateCreditNoteDocumentInput {
   readonly creditnote_id: string
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a credit note document. `PUT /creditnotes/{creditnote_id}/documents/{document_id}` */
@@ -1999,6 +2024,7 @@ export const updateCreditNoteDocument = /*#__PURE__*/ operation<UpdateCreditNote
   id: "update_credit_note_document",
   method: "PUT",
   path: "/creditnotes/{creditnote_id}/documents/{document_id}",
+  body: "json",
   response: UpdateCreditNoteDocumentResponse,
   scopes: ["ZohoBooks.creditnotes.UPDATE"],
 })
@@ -2036,7 +2062,7 @@ export const getCreditNoteCustomFields = /*#__PURE__*/ operation<GetCreditNoteCu
 export interface UpdateCreditNoteCustomFieldsInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
-  readonly body?: UpdateCreditNoteCustomFieldsRequest
+  readonly body: UpdateCreditNoteCustomFieldsRequest
 }
 
 /** Update credit note custom fields. `POST /creditnotes/{creditnote_id}/customfields` */
@@ -2066,6 +2092,8 @@ export const getCreditNoteMailContent = /*#__PURE__*/ operation<GetCreditNoteMai
 export interface AddCreditNoteDigitalSignatureInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add a digital signature to a credit note. `POST /creditnotes/{creditnote_id}/dsign` */
@@ -2073,6 +2101,7 @@ export const addCreditNoteDigitalSignature = /*#__PURE__*/ operation<AddCreditNo
   id: "add_credit_note_digital_signature",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/dsign",
+  body: "json",
   response: AddCreditNoteDigitalSignatureResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2081,7 +2110,9 @@ export interface UploadCreditNoteDigitalSignatureInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** The signed file to be uploaded. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Upload a signed credit note. `POST /creditnotes/{creditnote_id}/dsign/upload` */
@@ -2089,6 +2120,8 @@ export const uploadCreditNoteDigitalSignature = /*#__PURE__*/ operation<UploadCr
   id: "upload_credit_note_digital_signature",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/dsign/upload",
+  files: ["attachment"],
+  body: "json",
   response: UploadCreditNoteDigitalSignatureResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2112,6 +2145,8 @@ export interface ApplyCreditNoteSubstatusInput {
   readonly creditnote_id: string
   /** Identifier of the sub-status to apply or remove. */
   readonly substatus_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Apply a sub-status to a credit note. `POST /creditnotes/{creditnote_id}/substatus/{substatus_id}` */
@@ -2119,6 +2154,7 @@ export const applyCreditNoteSubstatus = /*#__PURE__*/ operation<ApplyCreditNoteS
   id: "apply_credit_note_substatus",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/substatus/{substatus_id}",
+  body: "json",
   response: ApplyCreditNoteSubstatusResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2150,24 +2186,32 @@ export const listCreditNotesEinvoice = /*#__PURE__*/ operation<ListCreditNotesEi
   scopes: ["ZohoBooks.creditnotes.READ"],
 })
 
-export interface PushCreditNotesEinvoiceInput {}
+export interface PushCreditNotesEinvoiceInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Push credit note e-invoices. `POST /creditnotes/einvoice/push` */
 export const pushCreditNotesEinvoice = /*#__PURE__*/ operation<PushCreditNotesEinvoiceInput, typeof PushCreditNotesEinvoiceResponse>({
   id: "push_credit_notes_einvoice",
   method: "POST",
   path: "/creditnotes/einvoice/push",
+  body: "json",
   response: PushCreditNotesEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
 
-export interface CancelCreditNotesEinvoiceInput {}
+export interface CancelCreditNotesEinvoiceInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Cancel credit note e-invoices. `POST /creditnotes/einvoice/cancel` */
 export const cancelCreditNotesEinvoice = /*#__PURE__*/ operation<CancelCreditNotesEinvoiceInput, typeof CancelCreditNotesEinvoiceResponse>({
   id: "cancel_credit_notes_einvoice",
   method: "POST",
   path: "/creditnotes/einvoice/cancel",
+  body: "json",
   response: CancelCreditNotesEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2189,6 +2233,8 @@ export const getCreditNoteEinvoice = /*#__PURE__*/ operation<GetCreditNoteEinvoi
 export interface PushCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Push a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/push` */
@@ -2196,6 +2242,7 @@ export const pushCreditNoteEinvoice = /*#__PURE__*/ operation<PushCreditNoteEinv
   id: "push_credit_note_einvoice",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/einvoice/push",
+  body: "json",
   response: PushCreditNoteEinvoiceResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2203,6 +2250,8 @@ export const pushCreditNoteEinvoice = /*#__PURE__*/ operation<PushCreditNoteEinv
 export interface CancelCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/cancel` */
@@ -2210,6 +2259,7 @@ export const cancelCreditNoteEinvoice = /*#__PURE__*/ operation<CancelCreditNote
   id: "cancel_credit_note_einvoice",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/einvoice/cancel",
+  body: "json",
   response: CancelCreditNoteEinvoiceResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2217,6 +2267,8 @@ export const cancelCreditNoteEinvoice = /*#__PURE__*/ operation<CancelCreditNote
 export interface FetchCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Fetch a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/fetch` */
@@ -2224,6 +2276,7 @@ export const fetchCreditNoteEinvoice = /*#__PURE__*/ operation<FetchCreditNoteEi
   id: "fetch_credit_note_einvoice",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/einvoice/fetch",
+  body: "json",
   response: FetchCreditNoteEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2245,7 +2298,7 @@ export const deleteCreditNoteEinvoiceStatus = /*#__PURE__*/ operation<DeleteCred
 export interface MarkCreditNoteEinvoicePushedInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
-  readonly body?: MarkCreditNoteEinvoicePushedRequest
+  readonly body: MarkCreditNoteEinvoicePushedRequest
 }
 
 /** Mark a credit note e-invoice as manually pushed. `POST /creditnotes/{creditnote_id}/einvoice/status/push` */
@@ -2261,6 +2314,8 @@ export const markCreditNoteEinvoicePushed = /*#__PURE__*/ operation<MarkCreditNo
 export interface MarkCreditNoteEinvoiceCancelledInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a credit note e-invoice as cancelled. `POST /creditnotes/{creditnote_id}/einvoice/status/cancel` */
@@ -2268,6 +2323,7 @@ export const markCreditNoteEinvoiceCancelled = /*#__PURE__*/ operation<MarkCredi
   id: "mark_credit_note_einvoice_cancelled",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/einvoice/status/cancel",
+  body: "json",
   response: MarkCreditNoteEinvoiceCancelledResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2275,6 +2331,8 @@ export const markCreditNoteEinvoiceCancelled = /*#__PURE__*/ operation<MarkCredi
 export interface RecallCreditNoteEinvoiceStatusInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Recall a credit note e-invoice status. `POST /creditnotes/{creditnote_id}/einvoice/status/recall` */
@@ -2282,6 +2340,7 @@ export const recallCreditNoteEinvoiceStatus = /*#__PURE__*/ operation<RecallCred
   id: "recall_credit_note_einvoice_status",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/einvoice/status/recall",
+  body: "json",
   response: RecallCreditNoteEinvoiceStatusResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2289,6 +2348,8 @@ export const recallCreditNoteEinvoiceStatus = /*#__PURE__*/ operation<RecallCred
 export interface PushCreditNoteRefundEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Push a credit note refund e-invoice. `POST /creditnotes/{creditnote_id}/refunds/einvoice/push` */
@@ -2296,6 +2357,7 @@ export const pushCreditNoteRefundEinvoice = /*#__PURE__*/ operation<PushCreditNo
   id: "push_credit_note_refund_einvoice",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/refunds/einvoice/push",
+  body: "json",
   response: PushCreditNoteRefundEinvoiceResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2303,6 +2365,8 @@ export const pushCreditNoteRefundEinvoice = /*#__PURE__*/ operation<PushCreditNo
 export interface MarkCreditNoteReadyToPushInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a credit note as ready to push. `POST /creditnotes/{creditnote_id}/status/readytopush` */
@@ -2310,6 +2374,7 @@ export const markCreditNoteReadyToPush = /*#__PURE__*/ operation<MarkCreditNoteR
   id: "mark_credit_note_ready_to_push",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/status/readytopush",
+  body: "json",
   response: MarkCreditNoteReadyToPushResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2317,6 +2382,8 @@ export const markCreditNoteReadyToPush = /*#__PURE__*/ operation<MarkCreditNoteR
 export interface UpdateCreditNoteCfdiStatusInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a credit note CFDI status. `POST /creditnotes/{creditnote_id}/cfdi/status` */
@@ -2324,6 +2391,7 @@ export const updateCreditNoteCfdiStatus = /*#__PURE__*/ operation<UpdateCreditNo
   id: "update_credit_note_cfdi_status",
   method: "POST",
   path: "/creditnotes/{creditnote_id}/cfdi/status",
+  body: "json",
   response: UpdateCreditNoteCfdiStatusResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
@@ -2331,6 +2399,8 @@ export const updateCreditNoteCfdiStatus = /*#__PURE__*/ operation<UpdateCreditNo
 export interface CancelEinvoiceCreditNoteInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel an e-invoice credit note. `POST /einvoices/creditnotes/{creditnote_id}/cancel` */
@@ -2338,6 +2408,36 @@ export const cancelEinvoiceCreditNote = /*#__PURE__*/ operation<CancelEinvoiceCr
   id: "cancel_einvoice_credit_note",
   method: "POST",
   path: "/einvoices/creditnotes/{creditnote_id}/cancel",
+  body: "json",
   response: CancelEinvoiceCreditNoteResponse,
   scopes: ["ZohoBooks.creditnotes.CREATE"],
 })
+
+export type ListCreditNotesResponse = ListAllCreditNotesResponse
+export type CreateCreditNoteResponse = CreateACreditNoteResponse
+export type UpdateCreditNoteUsingCustomFieldResponse = UpdateACreditNoteResponse
+export type GetCreditNoteResponse = GetACreditNoteResponse
+export type UpdateCreditNoteResponse = UpdateACreditNoteResponse
+export type DeleteCreditNoteResponse = DeleteACreditNoteResponse
+export type GetCreditNoteEmailResponse = GetEmailContentResponse
+export type EmailCreditNoteResponse = EmailACreditNoteResponse
+export type MarkCreditNoteVoidResponse = VoidACreditNoteResponse
+export type MarkCreditNoteDraftResponse = ConvertCreditNoteToDraftResponse
+export type MarkCreditNoteOpenResponse = ConvertToOpenResponse
+export type SubmitCreditNoteResponse = SubmitACreditNoteForApprovalResponse
+export type ApproveCreditNoteResponse = ApproveACreditNoteResponse
+export type GetCreditNoteEmailHistoryResponse = EmailHistoryResponse
+export type UpdateCreditNoteBillingAddressResponse = UpdateBillingAddressResponse
+export type UpdateCreditNoteShippingAddressResponse = UpdateShippingAddressResponse
+export type ListCreditNoteTemplatesResponse = ListCreditNoteTemplateResponse
+export type UpdateCreditNoteTemplateResponse = UpdateACreditNoteTemplateResponse
+export type ListInvoicesOfCreditNoteResponse = ListInvoicesCreditedResponse
+export type ApplyCreditNoteToInvoiceResponse = CreditToAnInvoiceResponse
+export type DeleteInvoiceOfCreditNoteResponse = DeleteInvoicesCreditedResponse
+export type ListCreditNoteCommentsResponse = ListCreditNoteCommentsAndHistoryResponse
+export type AddCreditNoteCommentResponse = AddACommentResponse
+export type DeleteCreditNoteCommentResponse = DeleteACommentResponse
+export type ListCreditNoteRefundsOfAllCreditNotesResponse = ListCreditNoteRefundsResponse
+export type ListCreditNoteRefundsOfACreditNoteResponse = ListRefundsOfACreditNoteResponse
+export type CreateCreditNoteRefundResponse = RefundCreditNoteResponse
+export type GetCreditNoteRefundByIdResponse = GetCreditNoteRefundResponse

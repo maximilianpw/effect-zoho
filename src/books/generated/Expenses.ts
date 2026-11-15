@@ -315,10 +315,10 @@ export const GetAnExpenseResponse = Schema.Struct({
 })
 export type GetAnExpenseResponse = typeof GetAnExpenseResponse.Type
 
-export const DeleteAnExpenseResponse = Schema.Struct({
+export const DeleteAnExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnExpenseResponse = typeof DeleteAnExpenseResponse.Type
 
 export const ListExpenseHistoryAndCommentsResponse = Schema.Struct({
@@ -380,28 +380,22 @@ export const GetAnEmployeeResponse = Schema.Struct({
 })
 export type GetAnEmployeeResponse = typeof GetAnEmployeeResponse.Type
 
-export const DeleteAnEmployeeResponse = Schema.Struct({
+export const DeleteAnEmployeeResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnEmployeeResponse = typeof DeleteAnEmployeeResponse.Type
 
-export const GetAnExpenseReceiptResponse = Schema.Struct({
+export const AddReceiptToAnExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetAnExpenseReceiptResponse = typeof GetAnExpenseReceiptResponse.Type
-
-export const AddReceiptToAnExpenseResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddReceiptToAnExpenseResponse = typeof AddReceiptToAnExpenseResponse.Type
 
-export const DeleteAReceiptResponse = Schema.Struct({
+export const DeleteAReceiptResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAReceiptResponse = typeof DeleteAReceiptResponse.Type
 
 export const AddAttachmentToAnExpenseResponse = Schema.Struct({
@@ -752,7 +746,7 @@ export const listExpenses = /*#__PURE__*/ operation<ListExpensesInput, typeof Li
 
 export interface CreateExpenseInput {
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: string
+  readonly receipt?: ZohoFile
   readonly body: CreateAnExpenseRequest
 }
 
@@ -761,6 +755,7 @@ export const createExpense = /*#__PURE__*/ operation<CreateExpenseInput, typeof 
   id: "create_expense",
   method: "POST",
   path: "/expenses",
+  files: ["receipt"],
   body: "json",
   response: CreateAnExpenseResponse,
   scopes: ["ZohoBooks.expenses.CREATE"],
@@ -805,7 +800,7 @@ export interface UpdateExpenseInput {
   /** Unique identifier of the expense. Note: This value is a set of numeric characters. */
   readonly expense_id: string
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: string
+  readonly receipt?: ZohoFile
   /** Delete the existing receipt. If this parameter is set to true, the existing receipt will be deleted and the receipt provided in the request will be attached to the expense. If this parameter is not sent in the request, then the existing receipt will be retained and the new receipt provided in the request will be ignored. */
   readonly delete_receipt?: boolean
   readonly body: UpdateAnExpenseRequest
@@ -816,6 +811,7 @@ export const updateExpense = /*#__PURE__*/ operation<UpdateExpenseInput, typeof 
   id: "update_expense",
   method: "PUT",
   path: "/expenses/{expense_id}",
+  files: ["receipt"],
   body: "json",
   response: UpdateAnExpenseResponse,
   scopes: ["ZohoBooks.expenses.UPDATE"],
@@ -915,11 +911,11 @@ export interface GetExpenseReceiptInput {
 }
 
 /** Get an expense receipt. `GET /expenses/{expense_id}/receipt` */
-export const getExpenseReceipt = /*#__PURE__*/ operation<GetExpenseReceiptInput, typeof GetAnExpenseReceiptResponse>({
+export const getExpenseReceipt = /*#__PURE__*/ operation<GetExpenseReceiptInput, undefined>({
   id: "get_expense_receipt",
   method: "GET",
   path: "/expenses/{expense_id}/receipt",
-  response: GetAnExpenseReceiptResponse,
+  response: undefined,
   scopes: ["ZohoBooks.expenses.READ"],
 })
 
@@ -927,7 +923,9 @@ export interface CreateExpenseReceiptInput {
   /** Unique identifier of the expense. Note: This value is a set of numeric characters. */
   readonly expense_id: string
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: string
+  readonly receipt?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add receipt to an expense.. `POST /expenses/{expense_id}/receipt` */
@@ -935,6 +933,8 @@ export const createExpenseReceipt = /*#__PURE__*/ operation<CreateExpenseReceipt
   id: "create_expense_receipt",
   method: "POST",
   path: "/expenses/{expense_id}/receipt",
+  files: ["receipt"],
+  body: "json",
   response: AddReceiptToAnExpenseResponse,
   scopes: ["ZohoBooks.expenses.CREATE"],
 })
@@ -968,3 +968,16 @@ export const addExpenseAttachment = /*#__PURE__*/ operation<AddExpenseAttachment
   response: AddAttachmentToAnExpenseResponse,
   scopes: ["ZohoBooks.expenses.CREATE"],
 })
+
+export type CreateExpenseResponse = CreateAnExpenseResponse
+export type UpdateExpenseUsingCustomFieldResponse = UpdateAnExpenseResponse
+export type GetExpenseResponse = GetAnExpenseResponse
+export type UpdateExpenseResponse = UpdateAnExpenseResponse
+export type DeleteExpenseResponse = DeleteAnExpenseResponse
+export type ListExpenseCommentsResponse = ListExpenseHistoryAndCommentsResponse
+export type CreateEmployeeResponse = CreateAnEmployeeResponse
+export type GetEmployeeResponse = GetAnEmployeeResponse
+export type DeleteEmployeeResponse = DeleteAnEmployeeResponse
+export type CreateExpenseReceiptResponse = AddReceiptToAnExpenseResponse
+export type DeleteExpenseReceiptResponse = DeleteAReceiptResponse
+export type AddExpenseAttachmentResponse = AddAttachmentToAnExpenseResponse

@@ -91,10 +91,10 @@ export const UpdateACustomerDebitNoteResponse = Schema.Struct({
 })
 export type UpdateACustomerDebitNoteResponse = typeof UpdateACustomerDebitNoteResponse.Type
 
-export const DeleteACustomerDebitNoteResponse = Schema.Struct({
+export const DeleteACustomerDebitNoteResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACustomerDebitNoteResponse = typeof DeleteACustomerDebitNoteResponse.Type
 
 export interface CreateACustomerDebitNoteRequest {
@@ -356,3 +356,8 @@ export const deleteCustomerDebitNote = /*#__PURE__*/ operation<DeleteCustomerDeb
   response: DeleteACustomerDebitNoteResponse,
   scopes: ["ZohoBooks.invoices.DELETE"],
 })
+
+export type CreateCustomerDebitNoteResponse = CreateACustomerDebitNoteResponse
+export type GetCustomerDebitNoteResponse = GetACustomerDebitNoteResponse
+export type UpdateCustomerDebitNoteResponse = UpdateACustomerDebitNoteResponse
+export type DeleteCustomerDebitNoteResponse = DeleteACustomerDebitNoteResponse

@@ -100,22 +100,22 @@ export const UpdateAnAccountResponse = Schema.Struct({
 })
 export type UpdateAnAccountResponse = typeof UpdateAnAccountResponse.Type
 
-export const DeleteAnAccountResponse = Schema.Struct({
+export const DeleteAnAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAccountResponse = typeof DeleteAnAccountResponse.Type
 
-export const MarkAnAccountAsActiveResponse = Schema.Struct({
+export const MarkAnAccountAsActiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnAccountAsActiveResponse = typeof MarkAnAccountAsActiveResponse.Type
 
-export const MarkAnAccountAsInactiveResponse = Schema.Struct({
+export const MarkAnAccountAsInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnAccountAsInactiveResponse = typeof MarkAnAccountAsInactiveResponse.Type
 
 export const ListOfTransactionsForAnAccountResponse = Schema.Struct({
@@ -145,10 +145,10 @@ export const ListOfTransactionsForAnAccountResponse = Schema.Struct({
 })
 export type ListOfTransactionsForAnAccountResponse = typeof ListOfTransactionsForAnAccountResponse.Type
 
-export const DeleteATransactionResponse = Schema.Struct({
+export const DeleteATransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATransactionResponse = typeof DeleteATransactionResponse.Type
 
 export interface CreateAnAccountRequest {
@@ -242,7 +242,7 @@ export const listChartOfAccounts = /*#__PURE__*/ operation<ListChartOfAccountsIn
 })
 
 export interface CreateChartOfAccountInput {
-  readonly body?: CreateAnAccountRequest
+  readonly body: CreateAnAccountRequest
 }
 
 /** Create an account. `POST /chartofaccounts` */
@@ -272,7 +272,7 @@ export const getChartOfAccount = /*#__PURE__*/ operation<GetChartOfAccountInput,
 export interface UpdateChartOfAccountInput {
   /** Unique identifier of the account. */
   readonly account_id: string
-  readonly body?: UpdateAnAccountRequest
+  readonly body: UpdateAnAccountRequest
 }
 
 /** Update an account. `PUT /chartofaccounts/{account_id}` */
@@ -302,6 +302,8 @@ export const deleteChartOfAccount = /*#__PURE__*/ operation<DeleteChartOfAccount
 export interface MarkChartOfAccountActiveInput {
   /** Unique identifier of the account. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an account as active. `POST /chartofaccounts/{account_id}/active` */
@@ -309,6 +311,7 @@ export const markChartOfAccountActive = /*#__PURE__*/ operation<MarkChartOfAccou
   id: "mark_chart_of_account_active",
   method: "POST",
   path: "/chartofaccounts/{account_id}/active",
+  body: "json",
   response: MarkAnAccountAsActiveResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -316,6 +319,8 @@ export const markChartOfAccountActive = /*#__PURE__*/ operation<MarkChartOfAccou
 export interface MarkChartOfAccountInactiveInput {
   /** Unique identifier of the account. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an account as inactive. `POST /chartofaccounts/{account_id}/inactive` */
@@ -323,6 +328,7 @@ export const markChartOfAccountInactive = /*#__PURE__*/ operation<MarkChartOfAcc
   id: "mark_chart_of_account_inactive",
   method: "POST",
   path: "/chartofaccounts/{account_id}/inactive",
+  body: "json",
   response: MarkAnAccountAsInactiveResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -330,6 +336,8 @@ export const markChartOfAccountInactive = /*#__PURE__*/ operation<MarkChartOfAcc
 export interface BulkMarkChartOfAccountsActiveInput {
   /** Comma separated account IDs to be marked as active. */
   readonly account_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk mark accounts as active. `POST /chartofaccounts/active` */
@@ -337,6 +345,7 @@ export const bulkMarkChartOfAccountsActive = /*#__PURE__*/ operation<BulkMarkCha
   id: "bulk_mark_chart_of_accounts_active",
   method: "POST",
   path: "/chartofaccounts/active",
+  body: "json",
   response: MarkAnAccountAsActiveResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -344,6 +353,8 @@ export const bulkMarkChartOfAccountsActive = /*#__PURE__*/ operation<BulkMarkCha
 export interface BulkMarkChartOfAccountsInactiveInput {
   /** Comma separated account IDs to be marked as inactive. */
   readonly account_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk mark accounts as inactive. `POST /chartofaccounts/inactive` */
@@ -351,6 +362,7 @@ export const bulkMarkChartOfAccountsInactive = /*#__PURE__*/ operation<BulkMarkC
   id: "bulk_mark_chart_of_accounts_inactive",
   method: "POST",
   path: "/chartofaccounts/inactive",
+  body: "json",
   response: MarkAnAccountAsInactiveResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -426,3 +438,15 @@ export const deleteChartOfAccountTransaction = /*#__PURE__*/ operation<DeleteCha
   response: DeleteATransactionResponse,
   scopes: ["ZohoBooks.accountants.DELETE"],
 })
+
+export type CreateChartOfAccountResponse = CreateAnAccountResponse
+export type GetChartOfAccountResponse = GetAnAccountResponse
+export type UpdateChartOfAccountResponse = UpdateAnAccountResponse
+export type DeleteChartOfAccountResponse = DeleteAnAccountResponse
+export type MarkChartOfAccountActiveResponse = MarkAnAccountAsActiveResponse
+export type MarkChartOfAccountInactiveResponse = MarkAnAccountAsInactiveResponse
+export type BulkMarkChartOfAccountsActiveResponse = MarkAnAccountAsActiveResponse
+export type BulkMarkChartOfAccountsInactiveResponse = MarkAnAccountAsInactiveResponse
+export type BulkDeleteChartOfAccountsResponse = DeleteAnAccountResponse
+export type ListChartOfAccountTransactionsResponse = ListOfTransactionsForAnAccountResponse
+export type DeleteChartOfAccountTransactionResponse = DeleteATransactionResponse

@@ -162,10 +162,10 @@ export const UpdateATransactionResponse = Schema.Struct({
 })
 export type UpdateATransactionResponse = typeof UpdateATransactionResponse.Type
 
-export const DeleteATransactionResponse = Schema.Struct({
+export const DeleteATransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATransactionResponse = typeof DeleteATransactionResponse.Type
 
 export const GetMatchingTransactionsResponse = Schema.Struct({
@@ -186,82 +186,82 @@ export const GetMatchingTransactionsResponse = Schema.Struct({
 })
 export type GetMatchingTransactionsResponse = typeof GetMatchingTransactionsResponse.Type
 
-export const MatchATransactionResponse = Schema.Struct({
+export const MatchATransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MatchATransactionResponse = typeof MatchATransactionResponse.Type
 
-export const UnmatchAMatchedTransactionResponse = Schema.Struct({
+export const UnmatchAMatchedTransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UnmatchAMatchedTransactionResponse = typeof UnmatchAMatchedTransactionResponse.Type
 
-export const ExcludeATransactionResponse = Schema.Struct({
+export const ExcludeATransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ExcludeATransactionResponse = typeof ExcludeATransactionResponse.Type
 
-export const RestoreATransactionResponse = Schema.Struct({
+export const RestoreATransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RestoreATransactionResponse = typeof RestoreATransactionResponse.Type
 
-export const CategorizeAnUncategorizedTransactionResponse = Schema.Struct({
+export const CategorizeAnUncategorizedTransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAnUncategorizedTransactionResponse = typeof CategorizeAnUncategorizedTransactionResponse.Type
 
-export const CategorizeAsExpenseResponse = Schema.Struct({
+export const CategorizeAsExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsExpenseResponse = typeof CategorizeAsExpenseResponse.Type
 
-export const UncategorizeACategorizedTransactionResponse = Schema.Struct({
+export const UncategorizeACategorizedTransactionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UncategorizeACategorizedTransactionResponse = typeof UncategorizeACategorizedTransactionResponse.Type
 
-export const CategorizeAVendorPaymentResponse = Schema.Struct({
+export const CategorizeAVendorPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAVendorPaymentResponse = typeof CategorizeAVendorPaymentResponse.Type
 
-export const CategorizeAsCustomerPaymentResponse = Schema.Struct({
+export const CategorizeAsCustomerPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsCustomerPaymentResponse = typeof CategorizeAsCustomerPaymentResponse.Type
 
-export const CategorizeAsCreditNoteRefundsResponse = Schema.Struct({
+export const CategorizeAsCreditNoteRefundsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsCreditNoteRefundsResponse = typeof CategorizeAsCreditNoteRefundsResponse.Type
 
-export const CategorizeAsVendorCreditRefundsResponse = Schema.Struct({
+export const CategorizeAsVendorCreditRefundsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsVendorCreditRefundsResponse = typeof CategorizeAsVendorCreditRefundsResponse.Type
 
-export const CategorizeAsCustomerPaymentRefundResponse = Schema.Struct({
+export const CategorizeAsCustomerPaymentRefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsCustomerPaymentRefundResponse = typeof CategorizeAsCustomerPaymentRefundResponse.Type
 
-export const CategorizeAsVendorPaymentRefundResponse = Schema.Struct({
+export const CategorizeAsVendorPaymentRefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CategorizeAsVendorPaymentRefundResponse = typeof CategorizeAsVendorPaymentRefundResponse.Type
 
 export interface CreateATransactionForAnAccountRequest {
@@ -1022,7 +1022,7 @@ export interface MatchBankTransactionInput {
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
   readonly account_id?: string
-  readonly body?: MatchATransactionRequest
+  readonly body: MatchATransactionRequest
 }
 
 /** Match a transaction. `POST /banktransactions/uncategorized/{transaction_id}/match` */
@@ -1040,6 +1040,8 @@ export interface UnmatchBankTransactionInput {
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
   readonly account_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Unmatch a matched transaction. `POST /banktransactions/{transaction_id}/unmatch` */
@@ -1047,6 +1049,7 @@ export const unmatchBankTransaction = /*#__PURE__*/ operation<UnmatchBankTransac
   id: "unmatch_bank_transaction",
   method: "POST",
   path: "/banktransactions/{transaction_id}/unmatch",
+  body: "json",
   response: UnmatchAMatchedTransactionResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -1056,6 +1059,8 @@ export interface ExcludeBankTransactionInput {
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
   readonly account_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Exclude a transaction. `POST /banktransactions/uncategorized/{transaction_id}/exclude` */
@@ -1063,6 +1068,7 @@ export const excludeBankTransaction = /*#__PURE__*/ operation<ExcludeBankTransac
   id: "exclude_bank_transaction",
   method: "POST",
   path: "/banktransactions/uncategorized/{transaction_id}/exclude",
+  body: "json",
   response: ExcludeATransactionResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -1072,6 +1078,8 @@ export interface RestoreBankTransactionInput {
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
   readonly account_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Restore a transaction. `POST /banktransactions/uncategorized/{transaction_id}/restore` */
@@ -1079,6 +1087,7 @@ export const restoreBankTransaction = /*#__PURE__*/ operation<RestoreBankTransac
   id: "restore_bank_transaction",
   method: "POST",
   path: "/banktransactions/uncategorized/{transaction_id}/restore",
+  body: "json",
   response: RestoreATransactionResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -1108,7 +1117,7 @@ export interface CategorizeBankTransactionAsExpenseInput {
   readonly totalFiles?: number
   /** Comma-separated list of document IDs to be attached to the transaction. */
   readonly document_ids?: string
-  readonly body?: CategorizeAsExpenseRequest
+  readonly body: CategorizeAsExpenseRequest
 }
 
 /** Categorize as expense. `POST /banktransactions/uncategorized/{transaction_id}/categorize/expenses` */
@@ -1126,6 +1135,8 @@ export interface UncategorizeBankTransactionInput {
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
   readonly account_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Uncategorize a categorized transaction. `POST /banktransactions/{transaction_id}/uncategorize` */
@@ -1133,6 +1144,7 @@ export const uncategorizeBankTransaction = /*#__PURE__*/ operation<UncategorizeB
   id: "uncategorize_bank_transaction",
   method: "POST",
   path: "/banktransactions/{transaction_id}/uncategorize",
+  body: "json",
   response: UncategorizeACategorizedTransactionResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -1140,7 +1152,7 @@ export const uncategorizeBankTransaction = /*#__PURE__*/ operation<UncategorizeB
 export interface CategorizeBankTransactionAsVendorPaymentInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
-  readonly body?: CategorizeAVendorPaymentRequest
+  readonly body: CategorizeAVendorPaymentRequest
 }
 
 /** Categorize a vendor payment. `POST /banktransactions/uncategorized/{transaction_id}/categorize/vendorpayments` */
@@ -1156,7 +1168,7 @@ export const categorizeBankTransactionAsVendorPayment = /*#__PURE__*/ operation<
 export interface CategorizeBankTransactionAsCustomerPaymentInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
-  readonly body?: CategorizeAsCustomerPaymentRequest
+  readonly body: CategorizeAsCustomerPaymentRequest
 }
 
 /** Categorize as customer payment. `POST /banktransactions/uncategorized/{transaction_id}/categorize/customerpayments` */
@@ -1232,3 +1244,20 @@ export const categorizeAsVendorPaymentRefund = /*#__PURE__*/ operation<Categoriz
   response: CategorizeAsVendorPaymentRefundResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
+
+export type ListBankTransactionsResponse = GetTransactionsListResponse
+export type CreateBankTransactionResponse = CreateATransactionForAnAccountResponse
+export type GetBankTransactionResponse = GetTransactionResponse
+export type UpdateBankTransactionResponse = UpdateATransactionResponse
+export type DeleteBankTransactionResponse = DeleteATransactionResponse
+export type GetMatchingBankTransactionsResponse = GetMatchingTransactionsResponse
+export type MatchBankTransactionResponse = MatchATransactionResponse
+export type UnmatchBankTransactionResponse = UnmatchAMatchedTransactionResponse
+export type ExcludeBankTransactionResponse = ExcludeATransactionResponse
+export type RestoreBankTransactionResponse = RestoreATransactionResponse
+export type CategorizeBankTransactionResponse = CategorizeAnUncategorizedTransactionResponse
+export type CategorizeBankTransactionAsExpenseResponse = CategorizeAsExpenseResponse
+export type UncategorizeBankTransactionResponse = UncategorizeACategorizedTransactionResponse
+export type CategorizeBankTransactionAsVendorPaymentResponse = CategorizeAVendorPaymentResponse
+export type CategorizeBankTransactionAsCustomerPaymentResponse = CategorizeAsCustomerPaymentResponse
+export type CategorizeBankTransactionAsPaymentRefundResponse = CategorizeAsCustomerPaymentRefundResponse

@@ -31,10 +31,10 @@ export const ListUsersResponse = Schema.Struct({
 })
 export type ListUsersResponse = typeof ListUsersResponse.Type
 
-export const CreateAUserResponse = Schema.Struct({
+export const CreateAUserResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateAUserResponse = typeof CreateAUserResponse.Type
 
 export const GetAUserResponse = Schema.Struct({
@@ -60,16 +60,16 @@ export const GetAUserResponse = Schema.Struct({
 })
 export type GetAUserResponse = typeof GetAUserResponse.Type
 
-export const UpdateAUserResponse = Schema.Struct({
+export const UpdateAUserResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAUserResponse = typeof UpdateAUserResponse.Type
 
-export const DeleteAUserResponse = Schema.Struct({
+export const DeleteAUserResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAUserResponse = typeof DeleteAUserResponse.Type
 
 export const GetCurrentUserResponse = Schema.Struct({
@@ -95,22 +95,22 @@ export const GetCurrentUserResponse = Schema.Struct({
 })
 export type GetCurrentUserResponse = typeof GetCurrentUserResponse.Type
 
-export const InviteAUserResponse = Schema.Struct({
+export const InviteAUserResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InviteAUserResponse = typeof InviteAUserResponse.Type
 
-export const MarkUserAsActiveResponse = Schema.Struct({
+export const MarkUserAsActiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkUserAsActiveResponse = typeof MarkUserAsActiveResponse.Type
 
-export const MarkUserAsInactiveResponse = Schema.Struct({
+export const MarkUserAsInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkUserAsInactiveResponse = typeof MarkUserAsInactiveResponse.Type
 
 export interface CreateAUserRequest {
@@ -227,6 +227,8 @@ export const getCurrentUser = /*#__PURE__*/ operation<GetCurrentUserInput, typeo
 export interface InviteUserInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Invite a user. `POST /users/{user_id}/invite` */
@@ -234,6 +236,7 @@ export const inviteUser = /*#__PURE__*/ operation<InviteUserInput, typeof Invite
   id: "invite_user",
   method: "POST",
   path: "/users/{user_id}/invite",
+  body: "json",
   response: InviteAUserResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -241,6 +244,8 @@ export const inviteUser = /*#__PURE__*/ operation<InviteUserInput, typeof Invite
 export interface MarkUserActiveInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark user as active. `POST /users/{user_id}/active` */
@@ -248,6 +253,7 @@ export const markUserActive = /*#__PURE__*/ operation<MarkUserActiveInput, typeo
   id: "mark_user_active",
   method: "POST",
   path: "/users/{user_id}/active",
+  body: "json",
   response: MarkUserAsActiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -255,6 +261,8 @@ export const markUserActive = /*#__PURE__*/ operation<MarkUserActiveInput, typeo
 export interface MarkUserInactiveInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark user as inactive. `POST /users/{user_id}/inactive` */
@@ -262,6 +270,15 @@ export const markUserInactive = /*#__PURE__*/ operation<MarkUserInactiveInput, t
   id: "mark_user_inactive",
   method: "POST",
   path: "/users/{user_id}/inactive",
+  body: "json",
   response: MarkUserAsInactiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
+
+export type CreateUserResponse = CreateAUserResponse
+export type GetUserResponse = GetAUserResponse
+export type UpdateUserResponse = UpdateAUserResponse
+export type DeleteUserResponse = DeleteAUserResponse
+export type InviteUserResponse = InviteAUserResponse
+export type MarkUserActiveResponse = MarkUserAsActiveResponse
+export type MarkUserInactiveResponse = MarkUserAsInactiveResponse

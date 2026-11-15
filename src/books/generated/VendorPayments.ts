@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const TagsResponse = W.Arr(Schema.Struct({
     tag_id: W.str,
@@ -191,10 +191,10 @@ export const UpdateAVendorPaymentResponse = Schema.Struct({
 })
 export type UpdateAVendorPaymentResponse = typeof UpdateAVendorPaymentResponse.Type
 
-export const BulkDeleteVendorPaymentsResponse = Schema.Struct({
+export const BulkDeleteVendorPaymentsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkDeleteVendorPaymentsResponse = typeof BulkDeleteVendorPaymentsResponse.Type
 
 export const GetAVendorPaymentResponse = Schema.Struct({
@@ -244,10 +244,10 @@ export const GetAVendorPaymentResponse = Schema.Struct({
 })
 export type GetAVendorPaymentResponse = typeof GetAVendorPaymentResponse.Type
 
-export const DeleteAVendorPaymentResponse = Schema.Struct({
+export const DeleteAVendorPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAVendorPaymentResponse = typeof DeleteAVendorPaymentResponse.Type
 
 export const ListRefundsOfAVendorPaymentResponse = Schema.Struct({
@@ -292,10 +292,10 @@ export const UpdateARefundResponse = Schema.Struct({
 })
 export type UpdateARefundResponse = typeof UpdateARefundResponse.Type
 
-export const DeleteARefundResponse = Schema.Struct({
+export const DeleteARefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARefundResponse = typeof DeleteARefundResponse.Type
 
 export const GetVendorPaymentEmailContentResponse = Schema.Struct({
@@ -327,10 +327,10 @@ export const GetVendorPaymentEmailContentResponse = Schema.Struct({
 })
 export type GetVendorPaymentEmailContentResponse = typeof GetVendorPaymentEmailContentResponse.Type
 
-export const EmailAVendorPaymentResponse = Schema.Struct({
+export const EmailAVendorPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailAVendorPaymentResponse = typeof EmailAVendorPaymentResponse.Type
 
 export interface CreateAVendorPaymentRequest {
@@ -735,7 +735,7 @@ export interface EmailVendorPaymentInput {
   /** Send the vendor payment attachment with the email. */
   readonly send_attachment?: boolean
   /** Files to be attached to the email */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   /** Name of the file to be attached */
   readonly file_name?: string
   readonly body: EmailAVendorPaymentRequest
@@ -746,7 +746,20 @@ export const emailVendorPayment = /*#__PURE__*/ operation<EmailVendorPaymentInpu
   id: "email_vendor_payment",
   method: "POST",
   path: "/vendorpayments/{payment_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailAVendorPaymentResponse,
   scopes: ["ZohoBooks.vendorpayments.CREATE"],
 })
+
+export type CreateVendorPaymentResponse = CreateAVendorPaymentResponse
+export type UpdateVendorPaymentUsingCustomFieldResponse = UpdateAVendorPaymentResponse
+export type GetVendorPaymentResponse = GetAVendorPaymentResponse
+export type UpdateVendorPaymentResponse = UpdateAVendorPaymentResponse
+export type DeleteVendorPaymentResponse = DeleteAVendorPaymentResponse
+export type ListVendorPaymentRefundsResponse = ListRefundsOfAVendorPaymentResponse
+export type RefundExcessVendorPaymentResponse = RefundAnExcessVendorPaymentResponse
+export type GetVendorPaymentRefundResponse = DetailsOfARefundResponse
+export type UpdateVendorPaymentRefundResponse = UpdateARefundResponse
+export type DeleteVendorPaymentRefundResponse = DeleteARefundResponse
+export type EmailVendorPaymentResponse = EmailAVendorPaymentResponse

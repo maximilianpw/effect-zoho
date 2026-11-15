@@ -87,16 +87,16 @@ export const UpdateASelfBilledInvoiceResponse = Schema.Struct({
 })
 export type UpdateASelfBilledInvoiceResponse = typeof UpdateASelfBilledInvoiceResponse.Type
 
-export const DeleteASelfBilledInvoiceResponse = Schema.Struct({
+export const DeleteASelfBilledInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteASelfBilledInvoiceResponse = typeof DeleteASelfBilledInvoiceResponse.Type
 
-export const PushSelfBilledInvoiceEinvoiceResponse = Schema.Struct({
+export const PushSelfBilledInvoiceEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushSelfBilledInvoiceEinvoiceResponse = typeof PushSelfBilledInvoiceEinvoiceResponse.Type
 
 export interface CreateASelfBilledInvoiceRequest {
@@ -496,6 +496,8 @@ export const deleteSelfBilledInvoice = /*#__PURE__*/ operation<DeleteSelfBilledI
 export interface PushSelfBilledInvoiceEinvoiceInput {
   /** Unique identifier of the self-billed invoice. Note: This value is a set of numeric characters. */
   readonly bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Push a self-billed invoice e-invoice. `POST /selfbilledinvoices/{bill_id}/einvoice/push` */
@@ -503,6 +505,12 @@ export const pushSelfBilledInvoiceEinvoice = /*#__PURE__*/ operation<PushSelfBil
   id: "push_self_billed_invoice_einvoice",
   method: "POST",
   path: "/selfbilledinvoices/{bill_id}/einvoice/push",
+  body: "json",
   response: PushSelfBilledInvoiceEinvoiceResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
+
+export type CreateSelfBilledInvoiceResponse = CreateASelfBilledInvoiceResponse
+export type GetSelfBilledInvoiceResponse = GetASelfBilledInvoiceResponse
+export type UpdateSelfBilledInvoiceResponse = UpdateASelfBilledInvoiceResponse
+export type DeleteSelfBilledInvoiceResponse = DeleteASelfBilledInvoiceResponse

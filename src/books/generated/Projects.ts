@@ -207,22 +207,22 @@ export const GetAProjectResponse = Schema.Struct({
 })
 export type GetAProjectResponse = typeof GetAProjectResponse.Type
 
-export const DeleteProjectResponse = Schema.Struct({
+export const DeleteProjectResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteProjectResponse = typeof DeleteProjectResponse.Type
 
-export const ActivateProjectResponse = Schema.Struct({
+export const ActivateProjectResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActivateProjectResponse = typeof ActivateProjectResponse.Type
 
-export const InactivateAProjectResponse = Schema.Struct({
+export const InactivateAProjectResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InactivateAProjectResponse = typeof InactivateAProjectResponse.Type
 
 export const CloneProjectResponse = Schema.Struct({
@@ -362,10 +362,10 @@ export const UpdateUserResponse = Schema.Struct({
 })
 export type UpdateUserResponse = typeof UpdateUserResponse.Type
 
-export const DeleteUserResponse = Schema.Struct({
+export const DeleteUserResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteUserResponse = typeof DeleteUserResponse.Type
 
 export const ListCommentsResponse = Schema.Struct({
@@ -401,10 +401,10 @@ export const PostCommentResponse = Schema.Struct({
 })
 export type PostCommentResponse = typeof PostCommentResponse.Type
 
-export const DeleteCommentResponse = Schema.Struct({
+export const DeleteCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCommentResponse = typeof DeleteCommentResponse.Type
 
 export const ListInvoicesResponse = Schema.Struct({
@@ -445,7 +445,7 @@ export const ListTasksResponse = Schema.Struct({
     project_name: W.str,
     customer_name: W.str,
     billed_hours: W.str,
-    log_time: W.num,
+    log_time: W.str,
     un_billed_hours: W.str,
   }))),
   page_context: W.field(Schema.Struct({
@@ -468,7 +468,7 @@ export const TaskResponse = Schema.Struct({
   project_name: W.str,
   customer_name: W.str,
   billed_hours: W.str,
-  log_time: W.num,
+  log_time: W.str,
   un_billed_hours: W.str,
 })
 export type TaskResponse = typeof TaskResponse.Type
@@ -508,16 +508,16 @@ export const UpdateATaskResponse = Schema.Struct({
     project_name: W.str,
     customer_name: W.str,
     billed_hours: W.str,
-    log_time: W.num,
+    log_time: W.str,
     un_billed_hours: W.str,
   })),
 })
 export type UpdateATaskResponse = typeof UpdateATaskResponse.Type
 
-export const DeleteTaskResponse = Schema.Struct({
+export const DeleteTaskResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTaskResponse = typeof DeleteTaskResponse.Type
 
 export interface CreateAProjectRequest {
@@ -822,6 +822,8 @@ export const deleteProject = /*#__PURE__*/ operation<DeleteProjectInput, typeof 
 export interface MarkProjectActiveInput {
   /** Unique identifier of the project. */
   readonly project_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Activate project. `POST /projects/{project_id}/active` */
@@ -829,6 +831,7 @@ export const markProjectActive = /*#__PURE__*/ operation<MarkProjectActiveInput,
   id: "mark_project_active",
   method: "POST",
   path: "/projects/{project_id}/active",
+  body: "json",
   response: ActivateProjectResponse,
   scopes: ["ZohoBooks.projects.CREATE"],
 })
@@ -836,6 +839,8 @@ export const markProjectActive = /*#__PURE__*/ operation<MarkProjectActiveInput,
 export interface MarkProjectInactiveInput {
   /** Unique identifier of the project. */
   readonly project_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Inactivate a project. `POST /projects/{project_id}/inactive` */
@@ -843,6 +848,7 @@ export const markProjectInactive = /*#__PURE__*/ operation<MarkProjectInactiveIn
   id: "mark_project_inactive",
   method: "POST",
   path: "/projects/{project_id}/inactive",
+  body: "json",
   response: InactivateAProjectResponse,
   scopes: ["ZohoBooks.projects.CREATE"],
 })
@@ -930,7 +936,7 @@ export interface UpdateProjectUserInput {
   readonly project_id: string
   /** Unique identifier of the user. */
   readonly user_id: string
-  readonly body?: UpdateUserRequest
+  readonly body: UpdateUserRequest
 }
 
 /** Update user. `PUT /projects/{project_id}/users/{user_id}` */
@@ -1108,3 +1114,24 @@ export const deleteProjectTask = /*#__PURE__*/ operation<DeleteProjectTaskInput,
   response: DeleteTaskResponse,
   scopes: ["ZohoBooks.projects.DELETE"],
 })
+
+export type CreateProjectResponse = CreateAProjectResponse
+export type UpdateProjectsUsingCustomFieldResponse = UpdateProjectResponse
+export type GetProjectResponse = GetAProjectResponse
+export type MarkProjectActiveResponse = ActivateProjectResponse
+export type MarkProjectInactiveResponse = InactivateAProjectResponse
+export type ListProjectUsersResponse = ListUsersResponse
+export type AddProjectUserResponse = AssignUsersResponse
+export type InviteProjectUserResponse = InviteUserResponse
+export type GetProjectUserResponse = GetAUserResponse
+export type UpdateProjectUserResponse = UpdateUserResponse
+export type DeleteProjectUserResponse = DeleteUserResponse
+export type ListProjectCommentsResponse = ListCommentsResponse
+export type AddProjectCommentResponse = PostCommentResponse
+export type DeleteProjectCommentResponse = DeleteCommentResponse
+export type ListProjectInvoicesResponse = ListInvoicesResponse
+export type ListProjectTasksResponse = ListTasksResponse
+export type AddProjectTaskResponse = AddATaskResponse
+export type GetProjectTaskResponse = GetATaskResponse
+export type UpdateProjectTaskResponse = UpdateATaskResponse
+export type DeleteProjectTaskResponse = DeleteTaskResponse

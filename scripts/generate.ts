@@ -19,6 +19,9 @@ interface SchemaNode {
   readonly items?: SchemaNode
   readonly allOf?: ReadonlyArray<SchemaNode>
   readonly readOnly?: boolean
+  readonly example?: unknown
+  readonly oneOf?: unknown
+  readonly anyOf?: unknown
 }
 
 interface ParameterNode {
@@ -50,6 +53,7 @@ interface Document {
 }
 
 const methods = ['get', 'post', 'put', 'delete'] as const
+const unsupportedMethods = ['patch', 'head', 'options', 'trace']
 const reservedNames = new Set([
   'Array', 'Boolean', 'Date', 'Error', 'Function', 'Map', 'Number', 'Object', 'Promise', 'Record', 'Set', 'String', 'Symbol',
   'Blob', 'Uint8Array', 'Schema', 'W', 'operation', 'ZohoFile',
@@ -58,6 +62,51 @@ const reservedNames = new Set([
 /** Path segments Zoho writes as a regular expression without declaring a parameter for them. */
 const undeclaredPathParameters: Readonly<Record<string, ReadonlyArray<string>>> = {
   '/reportingtags/(\\d+)/options/all': ['tag_id'],
+}
+
+/** Upload operations whose documents declare no file at all. Zoho's other uploads name the field `attachment`. */
+const undeclaredFileParameters: Readonly<Record<string, string>> = {
+  add_contact_attachment: 'attachment',
+  add_bank_reconciliation_attachment: 'attachment',
+}
+
+/** Modules whose file name is singular or unclear beside the rest. */
+const moduleNames: Readonly<Record<string, string>> = {
+  'base-currency-adjustment.yml': 'BaseCurrencyAdjustments',
+  'currency.yml': 'Currencies',
+  'integration.yml': 'CrmIntegration',
+  'pricelists.yml': 'PriceLists',
+  'purchase-order.yml': 'PurchaseOrders',
+  'sales-order.yml': 'SalesOrders',
+  'sales-receipt.yml': 'SalesReceipts',
+}
+
+/** A GET whose documented response is only Zoho's result code, at a path that serves a file. */
+const downloadPath = /(attachment|receipt|documents\/\{\w+\}|pdf|print|deliverynotes|packingslips)$/
+
+const usedCorrections = new Set<string>()
+
+const blank = (value: unknown): boolean => typeof value === 'string' && value.trim() === ''
+
+/**
+ * The scalar a schema really carries. A number or boolean whose own example cannot
+ * be read as one (`log_time: number`, example `'13:06'`) is text, and a schema with
+ * no type takes the type of its example.
+ */
+function scalarKind(shape: SchemaNode): 'any' | 'boolean' | 'number' | 'string' {
+  const example = shape.example
+  switch (shape.type) {
+    case 'string': return 'string'
+    case 'integer':
+    case 'number':
+      return typeof example === 'string' && !blank(example) && !Number.isFinite(Number(example)) ? 'string' : 'number'
+    case 'boolean':
+      return typeof example === 'string' && !blank(example) && example !== 'true' && example !== 'false' ? 'string' : 'boolean'
+    case undefined:
+      return typeof example === 'string' ? 'string' : typeof example === 'number' ? 'number' : typeof example === 'boolean' ? 'boolean' : 'any'
+    default:
+      throw new Error(`Unsupported schema type ${shape.type}`)
+  }
 }
 
 const words = (name: string): string[] => name.split(/[^A-Za-z0-9]+/).filter((word) => word !== '')
@@ -84,9 +133,11 @@ class Module {
   private readonly responseDeclarations = new Map<string, string>()
   private readonly inputDeclarations = new Map<string, string>()
   private readonly operations: string[] = []
+  private readonly aliases: Array<readonly [alias: string, response: string]> = []
 
   constructor(readonly file: string, private readonly document: Document) {
-    this.name = pascal(file.replace(/\.yml$/, ''))
+    this.name = moduleNames[file] ?? pascal(file.replace(/\.yml$/, ''))
+    if (moduleNames[file] !== undefined) usedCorrections.add(file)
     this.schemas = document.components?.schemas ?? {}
     this.parameters = document.components?.parameters ?? {}
   }
@@ -103,12 +154,14 @@ class Module {
   }
 
   private merged(node: SchemaNode): SchemaNode {
+    if (node.oneOf !== undefined || node.anyOf !== undefined) throw new Error(`${this.file}: oneOf and anyOf are not supported`)
     if (node.allOf === undefined) return node
     const members = node.allOf.map((member) => this.merged(this.resolve(member)))
     return {
       type: 'object',
       properties: Object.assign({}, node.properties, ...members.map((member) => member.properties ?? {})),
-      required: [...(node.required ?? []), ...members.flatMap((member) => member.required ?? [])],
+      // Zoho builds an update body from the create body with allOf; what creating requires, updating does not.
+      required: node.required ?? [],
     }
   }
 
@@ -116,14 +169,18 @@ class Module {
     const shape = this.merged(node)
     if (shape.type === 'array') return 'array'
     if (shape.properties !== undefined && Object.keys(shape.properties).length > 0) return 'object'
-    switch (shape.type) {
-      case 'object': return 'record'
-      case 'string': return 'string'
-      case 'integer':
-      case 'number': return 'number'
-      case 'boolean': return 'boolean'
-      default: return 'any'
-    }
+    return shape.type === 'object' ? 'record' : scalarKind(shape)
+  }
+
+  private isFile(node: SchemaNode): boolean {
+    const shape = this.resolve(node)
+    return shape.format === 'binary' || (shape.type === 'array' && shape.items !== undefined && this.isFile(shape.items))
+  }
+
+  /** A response documented as nothing but Zoho's result code and message. */
+  private isResultOnly(node: SchemaNode): boolean {
+    const names = Object.keys(this.merged(this.resolve(node)).properties ?? {})
+    return names.every((name) => name === 'code' || name === 'message')
   }
 
   private declare(component: string, use: 'input' | 'response'): string {
@@ -132,7 +189,7 @@ class Module {
     if (existing !== undefined) return existing
     let name = `${pascal(component)}${use === 'response' || /request$/i.test(component) ? '' : 'Input'}`
     if (use === 'input' && this.taken.has(name)) name = `${name}Input`
-    while (this.taken.has(name) || reservedNames.has(name)) name = `${name}_`
+    if (this.taken.has(name) || reservedNames.has(name)) throw new Error(`${this.file}: the name ${name} for ${component} is already in use`)
     this.taken.add(name)
     this.names.set(id, name)
     return name
@@ -184,6 +241,12 @@ class Module {
     return `Schema.Struct({\n${fields.join('\n')}\n${indent}})`
   }
 
+  /** A result-only response keeps whatever else Zoho sends, since its document says nothing about the payload. */
+  private responseObject(shape: SchemaNode): string {
+    const struct = this.responseStruct(shape, '')
+    return this.isResultOnly(shape) ? `Schema.StructWithRest(${struct}, [Schema.Record(Schema.String, Schema.Unknown)])` : struct
+  }
+
   private responseDeclaration(component: string): string {
     const name = this.declare(component, 'response')
     if (!this.responseDeclarations.has(name)) {
@@ -191,7 +254,7 @@ class Module {
       const shape = this.merged(this.schema(component))
       const body = this.kind(shape) === 'array'
         ? `W.Arr(${shape.items === undefined ? 'W.Any' : this.responseItem(shape.items)})`
-        : this.responseStruct(shape, '')
+        : this.responseObject(shape)
       this.responseDeclarations.delete(name)
       this.responseDeclarations.set(name, `export const ${name} = ${body}\nexport type ${name} = typeof ${name}.Type\n`)
     }
@@ -246,14 +309,12 @@ class Module {
     return name
   }
 
-  private hasRequiredProperty(node: SchemaNode): boolean {
-    return (this.merged(this.resolve(node)).required ?? []).length > 0
-  }
-
   private parameterType(parameter: ParameterNode): string {
     const schema = parameter.schema === undefined ? undefined : this.resolve(parameter.schema)
     if (schema === undefined) return 'string | number | boolean'
     if (schema.enum !== undefined && schema.enum.length > 0) return schema.enum.map((value) => JSON.stringify(value)).join(' | ')
+    if (schema.format === 'binary') return 'ZohoFile'
+    if (this.isFile(schema)) return 'ReadonlyArray<ZohoFile>'
     switch (schema.type) {
       case 'string': return 'string'
       case 'integer':
@@ -262,7 +323,8 @@ class Module {
       // Zoho takes structured query values as JSON text; the client serialises them.
       case 'array': return 'ReadonlyArray<unknown>'
       case 'object': return 'Readonly<Record<string, unknown>>'
-      default: return 'string | number | boolean'
+      case undefined: return 'string | number | boolean'
+      default: throw new Error(`${this.file}: parameter ${parameter.name} has unsupported type ${schema.type}`)
     }
   }
 
@@ -278,19 +340,28 @@ class Module {
       if (parameter === undefined) throw new Error(`${this.file}: parameter ${reference.$ref} is not defined`)
       // The client supplies the organisation query parameter. A name declared for both the path and the query is the path value.
       if (parameter.name === 'organization_id' && parameter.in === 'query') continue
+      // Operation parameters come after the path's shared ones and override them.
       const previous = declared.get(parameter.name)
-      if (previous === undefined || parameter.in === 'path') declared.set(parameter.name, parameter)
+      if (previous === undefined || parameter.in === 'path' || previous.in === parameter.in) declared.set(parameter.name, parameter)
+    }
+    const undeclaredFile = undeclaredFileParameters[node.operationId]
+    if (undeclaredFile !== undefined) {
+      if (declared.has(undeclaredFile)) throw new Error(`${this.file}: ${node.operationId} now declares ${undeclaredFile}`)
+      usedCorrections.add(node.operationId)
+      declared.set(undeclaredFile, { name: undeclaredFile, in: 'query', schema: { type: 'string', format: 'binary' } })
     }
 
     // Two paths spell a parameter as a regular expression instead of a template name.
     const unnamed = [...declared.values()].filter((parameter) => parameter.in === 'path' && !template.includes(`{${parameter.name}}`))
     const undeclared = [...(undeclaredPathParameters[template] ?? [])]
+    if (undeclared.length > 0) usedCorrections.add(template)
     const path = template.replace(/\(\\d\+\)/g, () => {
       const parameterName = unnamed.shift()?.name ?? undeclared.shift()
       if (parameterName === undefined) throw new Error(`${this.file}: ${template} has an unnamed segment with no parameter`)
       if (declared.get(parameterName)?.in !== 'path') declared.set(parameterName, { name: parameterName, in: 'path', schema: { type: 'string' } })
       return `{${parameterName}}`
     })
+    if (!/^(\/(\{\w+\}|[\w.-]+))+$/.test(path)) throw new Error(`${this.file}: ${node.operationId} has an unusable path ${path}`)
     const inPath = new Set([...path.matchAll(/\{(\w+)\}/g)].map((match) => match[1]!))
     for (const parameter of declared.values()) {
       if (parameter.in === 'path' && !inPath.has(parameter.name)) throw new Error(`${this.file}: ${node.operationId} declares unused path parameter ${parameter.name}`)
@@ -306,27 +377,40 @@ class Module {
     })
 
     const content = node.requestBody?.content ?? {}
-    const bodyKind = content['application/json'] !== undefined ? 'json' : content['multipart/form-data'] !== undefined ? 'multipart' : undefined
-    if (bodyKind === undefined && Object.keys(content).length > 0) throw new Error(`${this.file}: ${node.operationId} has an unsupported request body`)
-    if (bodyKind !== undefined) {
-      const bodySchema = content[bodyKind === 'json' ? 'application/json' : 'multipart/form-data']!.schema ?? {}
-      const required = node.requestBody?.required === true || this.hasRequiredProperty(bodySchema)
-      fields.push(`  readonly body${required ? '' : '?'}: ${this.inputType(bodySchema, '  ')}`)
+    const unsupported = Object.keys(content).filter((type) => type !== 'application/json' && type !== 'multipart/form-data')
+    if (unsupported.length > 0 || Object.keys(content).length > 1) throw new Error(`${this.file}: ${node.operationId} has an unsupported request body`)
+    const bodySchema = Object.values(content)[0]?.schema
+    let bodyKind: 'json' | 'multipart' | undefined
+    if (bodySchema !== undefined) {
+      // Zoho documents a few uploads as JSON; a file can only travel as multipart.
+      const carriesFile = Object.values(this.merged(this.resolve(bodySchema)).properties ?? {}).some((property) => this.isFile(property))
+      bodyKind = content['multipart/form-data'] !== undefined || carriesFile ? 'multipart' : 'json'
+      fields.push(`  readonly body: ${this.inputType(bodySchema, '  ')}`)
+    } else if (method === 'post' || method === 'put') {
+      // Many actions that take a body are documented without one.
+      bodyKind = 'json'
+      fields.push('  /** Zoho documents no body for this operation. */\n  readonly body?: Readonly<Record<string, unknown>>')
     }
+    const fileParameters = [...declared.values()].filter((parameter) => parameter.schema !== undefined && this.isFile(parameter.schema)).map((parameter) => parameter.name)
 
     const responses = Object.values(node.responses ?? {})
     if (responses.length !== 1) throw new Error(`${this.file}: ${node.operationId} documents ${responses.length} responses`)
-    const responseSchema = responses[0]!.content?.['application/json']?.schema
+    const responseContent = responses[0]!.content ?? {}
+    const responseSchema = responseContent['application/json']?.schema
+    const servesFile = Object.keys(responseContent).some((type) => type !== 'application/json') || (method === 'get' && downloadPath.test(path))
+    const operationResponse = `${pascal(node.operationId)}Response`
     let response = 'undefined'
-    if (responseSchema !== undefined) {
+    // A file endpoint documented with only a result code returns the file, not JSON.
+    if (responseSchema !== undefined && !(servesFile && this.isResultOnly(responseSchema))) {
       if (responseSchema.$ref !== undefined) response = this.responseDeclaration(refName(responseSchema.$ref))
       else {
-        response = `${pascal(node.operationId)}Response`
-        while (this.taken.has(response) || reservedNames.has(response)) response = `${response}_`
+        response = operationResponse
+        if (this.taken.has(response) || reservedNames.has(response)) throw new Error(`${this.file}: the name ${response} is already in use`)
         this.taken.add(response)
-        this.responseDeclarations.set(response, `export const ${response} = ${this.responseStruct(this.merged(responseSchema), '')}\nexport type ${response} = typeof ${response}.Type\n`)
+        this.responseDeclarations.set(response, `export const ${response} = ${this.responseObject(this.merged(responseSchema))}\nexport type ${response} = typeof ${response}.Type\n`)
       }
     }
+    if (response !== 'undefined' && response !== operationResponse) this.aliases.push([operationResponse, response])
 
     const scopes = [...new Set((node.security ?? []).flatMap((requirement) => Object.values(requirement).flat()))]
     const headers = [...declared.values()].filter((parameter) => parameter.in === 'header').map((parameter) => parameter.name)
@@ -335,7 +419,10 @@ class Module {
       `method: ${JSON.stringify(method.toUpperCase())}`,
       `path: ${JSON.stringify(path)}`,
       ...(headers.length === 0 ? [] : [`headers: ${JSON.stringify(headers)}`]),
+      ...(fileParameters.length === 0 ? [] : [`files: ${JSON.stringify(fileParameters)}`]),
       ...(bodyKind === undefined ? [] : [`body: ${JSON.stringify(bodyKind)}`]),
+      // The organisation endpoints are not scoped to the client's organisation.
+      ...(path.startsWith('/organizations') ? ['organization: false'] : []),
       `response: ${response}`,
       `scopes: ${JSON.stringify(scopes)}`,
     ]
@@ -348,13 +435,19 @@ class Module {
 
   render(): string {
     for (const [template, item] of Object.entries(this.document.paths)) {
+      const skipped = unsupportedMethods.filter((method) => item[method] !== undefined)
+      if (skipped.length > 0) throw new Error(`${this.file}: ${template} uses unsupported method ${skipped.join(', ')}`)
       const shared = (item['parameters'] ?? []) as ReadonlyArray<ParameterNode>
       for (const method of methods) {
         const node = item[method] as OperationNode | undefined
         if (node !== undefined) this.addOperation(template, method, shared, node)
       }
     }
-    const body = [...this.responseDeclarations.values(), ...this.inputDeclarations.values(), ...this.operations].join('\n')
+    // Zoho names response schemas after its documentation headings; these name the type after the operation too.
+    const aliases = this.aliases
+      .filter(([alias]) => !this.taken.has(alias))
+      .map(([alias, response]) => `export type ${alias} = ${response}`)
+    const body = [...this.responseDeclarations.values(), ...this.inputDeclarations.values(), ...this.operations, aliases.join('\n'), ''].join('\n')
     return [
       banner,
       ...(this.responseDeclarations.size > 0 ? ["import * as Schema from 'effect/Schema'", "import * as W from '../../internal/wire.ts'"] : []),
@@ -367,7 +460,7 @@ class Module {
 
 const files = readdirSync(specDirectory).filter((file) => file.endsWith('.yml')).sort()
 const outputs = new Map<string, string>()
-const moduleNames: string[] = []
+const generatedModules: string[] = []
 const operationIds = new Set<string>()
 for (const file of files) {
   const document = parse(readFileSync(join(specDirectory, file), 'utf8')) as Document
@@ -381,13 +474,16 @@ for (const file of files) {
   }
   const module = new Module(file, document)
   outputs.set(join(outputDirectory, `${module.name}.ts`), module.render())
-  moduleNames.push(module.name)
+  generatedModules.push(module.name)
 }
+const unusedCorrections = [...Object.keys(undeclaredPathParameters), ...Object.keys(undeclaredFileParameters), ...Object.keys(moduleNames)]
+  .filter((correction) => !usedCorrections.has(correction))
+if (unusedCorrections.length > 0) throw new Error(`These corrections no longer match Zoho's documents: ${unusedCorrections.join(', ')}`)
 outputs.set(indexFile, [
   banner,
   "export * from './Operation.ts'",
   "export * from './ZohoBooksClient.ts'",
-  ...moduleNames.map((name) => `export * as ${name} from './generated/${name}.ts'`),
+  ...generatedModules.map((name) => `export * as ${name} from './generated/${name}.ts'`),
   '',
 ].join('\n'))
 
@@ -404,5 +500,5 @@ if (process.argv.includes('--check')) {
   rmSync(outputDirectory, { recursive: true, force: true })
   mkdirSync(outputDirectory, { recursive: true })
   for (const [path, content] of outputs) writeFileSync(path, content)
-  console.log(`Generated ${operationIds.size} operations in ${moduleNames.length} modules.`)
+  console.log(`Generated ${operationIds.size} operations in ${generatedModules.length} modules.`)
 }

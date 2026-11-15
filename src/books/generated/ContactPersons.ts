@@ -57,10 +57,10 @@ export const UpdateAContactPersonResponse = Schema.Struct({
 })
 export type UpdateAContactPersonResponse = typeof UpdateAContactPersonResponse.Type
 
-export const DeleteAContactPersonResponse = Schema.Struct({
+export const DeleteAContactPersonResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAContactPersonResponse = typeof DeleteAContactPersonResponse.Type
 
 export const ListContactPersonsResponse = Schema.Struct({
@@ -113,10 +113,10 @@ export const GetAContactPersonResponse = Schema.Struct({
 })
 export type GetAContactPersonResponse = typeof GetAContactPersonResponse.Type
 
-export const MarkAsPrimaryContactPersonResponse = Schema.Struct({
+export const MarkAsPrimaryContactPersonResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsPrimaryContactPersonResponse = typeof MarkAsPrimaryContactPersonResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -263,6 +263,8 @@ export const getContactPerson = /*#__PURE__*/ operation<GetContactPersonInput, t
 export interface MarkContactPersonPrimaryInput {
   /** Unique identifier of the contact person. */
   readonly contact_person_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as primary contact person. `POST /contacts/contactpersons/{contact_person_id}/primary` */
@@ -270,6 +272,13 @@ export const markContactPersonPrimary = /*#__PURE__*/ operation<MarkContactPerso
   id: "mark_contact_person_primary",
   method: "POST",
   path: "/contacts/contactpersons/{contact_person_id}/primary",
+  body: "json",
   response: MarkAsPrimaryContactPersonResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
+
+export type CreateContactPersonResponse = CreateAContactPersonResponse
+export type UpdateContactPersonResponse = UpdateAContactPersonResponse
+export type DeleteContactPersonResponse = DeleteAContactPersonResponse
+export type GetContactPersonResponse = GetAContactPersonResponse
+export type MarkContactPersonPrimaryResponse = MarkAsPrimaryContactPersonResponse

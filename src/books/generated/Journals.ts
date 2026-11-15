@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const TagsResponse = W.Arr(Schema.Struct({
     tag_id: W.str,
@@ -140,22 +140,22 @@ export const UpdateAJournalResponse = Schema.Struct({
 })
 export type UpdateAJournalResponse = typeof UpdateAJournalResponse.Type
 
-export const DeleteAJournalResponse = Schema.Struct({
+export const DeleteAJournalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAJournalResponse = typeof DeleteAJournalResponse.Type
 
-export const MarkAJournalAsPublishedResponse = Schema.Struct({
+export const MarkAJournalAsPublishedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAJournalAsPublishedResponse = typeof MarkAJournalAsPublishedResponse.Type
 
-export const AddAttachmentToAJournalResponse = Schema.Struct({
+export const AddAttachmentToAJournalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToAJournalResponse = typeof AddAttachmentToAJournalResponse.Type
 
 export const Comment = W.Arr(Schema.Struct({
@@ -176,10 +176,10 @@ export const AddCommentResponse = Schema.Struct({
 })
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export const ReverseJournalResponse = Schema.Struct({
@@ -189,10 +189,10 @@ export const ReverseJournalResponse = Schema.Struct({
 })
 export type ReverseJournalResponse = typeof ReverseJournalResponse.Type
 
-export const ActionJournalResponse = Schema.Struct({
+export const ActionJournalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActionJournalResponse = typeof ActionJournalResponse.Type
 
 export const ListJournalCreditsResponse = Schema.Struct({
@@ -541,6 +541,8 @@ export const deleteJournal = /*#__PURE__*/ operation<DeleteJournalInput, typeof 
 export interface MarkJournalPublishedInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a journal as published. `POST /journals/{journal_id}/status/publish` */
@@ -548,6 +550,7 @@ export const markJournalPublished = /*#__PURE__*/ operation<MarkJournalPublished
   id: "mark_journal_published",
   method: "POST",
   path: "/journals/{journal_id}/status/publish",
+  body: "json",
   response: MarkAJournalAsPublishedResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -556,13 +559,15 @@ export interface AddJournalAttachmentInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** The file that is to be added as an Attachment in the Journal */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   /** Document that is to be attached */
-  readonly doc?: string
+  readonly doc?: ZohoFile
   /** Total number of files. */
   readonly totalFiles?: number
   /** ID's of the document */
   readonly document_ids?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to a journal. `POST /journals/{journal_id}/attachment` */
@@ -570,6 +575,8 @@ export const addJournalAttachment = /*#__PURE__*/ operation<AddJournalAttachment
   id: "add_journal_attachment",
   method: "POST",
   path: "/journals/{journal_id}/attachment",
+  files: ["attachment","doc"],
+  body: "json",
   response: AddAttachmentToAJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -577,7 +584,7 @@ export const addJournalAttachment = /*#__PURE__*/ operation<AddJournalAttachment
 export interface AddJournalCommentInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
-  readonly body?: AddCommentRequest
+  readonly body: AddCommentRequest
 }
 
 /** Add comment. `POST /journals/{journal_id}/comments` */
@@ -613,6 +620,8 @@ export interface ReverseJournalInput {
   readonly reversal_date: string
   /** Whether the reversal is scheduled. */
   readonly is_reversal_scheduled: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reverse a journal. `POST /journals/{journal_id}/reverse` */
@@ -620,6 +629,7 @@ export const reverseJournal = /*#__PURE__*/ operation<ReverseJournalInput, typeo
   id: "reverse_journal",
   method: "POST",
   path: "/journals/{journal_id}/reverse",
+  body: "json",
   response: ReverseJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -627,6 +637,8 @@ export const reverseJournal = /*#__PURE__*/ operation<ReverseJournalInput, typeo
 export interface SubmitJournalForApprovalInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a journal for approval. `POST /journals/{journal_id}/submit` */
@@ -634,6 +646,7 @@ export const submitJournalForApproval = /*#__PURE__*/ operation<SubmitJournalFor
   id: "submit_journal_for_approval",
   method: "POST",
   path: "/journals/{journal_id}/submit",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -641,6 +654,8 @@ export const submitJournalForApproval = /*#__PURE__*/ operation<SubmitJournalFor
 export interface ApproveJournalInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a journal. `POST /journals/{journal_id}/approve` */
@@ -648,6 +663,7 @@ export const approveJournal = /*#__PURE__*/ operation<ApproveJournalInput, typeo
   id: "approve_journal",
   method: "POST",
   path: "/journals/{journal_id}/approve",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -657,6 +673,8 @@ export interface RejectJournalInput {
   readonly journal_id: string
   /** Reason for rejecting the journal. Max-length [500]. */
   readonly reason?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reject a journal. `POST /journals/{journal_id}/reject` */
@@ -664,6 +682,7 @@ export const rejectJournal = /*#__PURE__*/ operation<RejectJournalInput, typeof 
   id: "reject_journal",
   method: "POST",
   path: "/journals/{journal_id}/reject",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -687,7 +706,7 @@ export interface ApplyJournalCreditsToInvoicesInput {
   readonly journal_id: string
   /** Unique identifier of the journal line item. */
   readonly journal_line_id: string
-  readonly body?: ApplyCreditsRequest
+  readonly body: ApplyCreditsRequest
 }
 
 /** Apply journal credits to invoices. `POST /journals/{journal_id}/credits/{journal_line_id}/invoices` */
@@ -705,7 +724,7 @@ export interface ApplyJournalCreditsToBillsInput {
   readonly journal_id: string
   /** Unique identifier of the journal line item. */
   readonly journal_line_id: string
-  readonly body?: ApplyCreditsRequest
+  readonly body: ApplyCreditsRequest
 }
 
 /** Apply journal credits to bills. `POST /journals/{journal_id}/credits/{journal_line_id}/bills` */
@@ -753,6 +772,8 @@ export const deleteJournalCreditsPayables = /*#__PURE__*/ operation<DeleteJourna
 export interface BulkSubmitJournalsInput {
   /** Comma separated journal IDs to be submitted. Maximum of 25. */
   readonly journal_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk submit journals for approval. `POST /journals/submit` */
@@ -760,6 +781,7 @@ export const bulkSubmitJournals = /*#__PURE__*/ operation<BulkSubmitJournalsInpu
   id: "bulk_submit_journals",
   method: "POST",
   path: "/journals/submit",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -767,6 +789,8 @@ export const bulkSubmitJournals = /*#__PURE__*/ operation<BulkSubmitJournalsInpu
 export interface BulkApproveJournalsInput {
   /** Comma separated journal IDs to be approved. Maximum of 25. */
   readonly journal_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk approve journals. `POST /journals/approve` */
@@ -774,6 +798,7 @@ export const bulkApproveJournals = /*#__PURE__*/ operation<BulkApproveJournalsIn
   id: "bulk_approve_journals",
   method: "POST",
   path: "/journals/approve",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -781,6 +806,8 @@ export const bulkApproveJournals = /*#__PURE__*/ operation<BulkApproveJournalsIn
 export interface BulkPublishJournalsInput {
   /** Comma separated journal IDs to be published. Maximum of 10. */
   readonly journal_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk publish journals. `POST /journals/status/publish` */
@@ -788,6 +815,7 @@ export const bulkPublishJournals = /*#__PURE__*/ operation<BulkPublishJournalsIn
   id: "bulk_publish_journals",
   method: "POST",
   path: "/journals/status/publish",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -885,6 +913,8 @@ export const deleteRecurringJournal = /*#__PURE__*/ operation<DeleteRecurringJou
 export interface ResumeRecurringJournalInput {
   /** Unique identifier of the recurring journal. */
   readonly recurring_journal_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resume a recurring journal. `POST /recurringjournals/{recurring_journal_id}/status/resume` */
@@ -892,6 +922,7 @@ export const resumeRecurringJournal = /*#__PURE__*/ operation<ResumeRecurringJou
   id: "resume_recurring_journal",
   method: "POST",
   path: "/recurringjournals/{recurring_journal_id}/status/resume",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -899,6 +930,8 @@ export const resumeRecurringJournal = /*#__PURE__*/ operation<ResumeRecurringJou
 export interface StopRecurringJournalInput {
   /** Unique identifier of the recurring journal. */
   readonly recurring_journal_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Stop a recurring journal. `POST /recurringjournals/{recurring_journal_id}/status/stop` */
@@ -906,6 +939,7 @@ export const stopRecurringJournal = /*#__PURE__*/ operation<StopRecurringJournal
   id: "stop_recurring_journal",
   method: "POST",
   path: "/recurringjournals/{recurring_journal_id}/status/stop",
+  body: "json",
   response: ActionJournalResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -941,3 +975,31 @@ export const getTransactionJournalView = /*#__PURE__*/ operation<GetTransactionJ
   response: GetJournalResponse,
   scopes: ["ZohoBooks.accountants.READ"],
 })
+
+export type ListJournalsResponse = GetJournalListResponse
+export type CreateJournalResponse = CreateAJournalResponse
+export type UpdateJournalResponse = UpdateAJournalResponse
+export type DeleteJournalResponse = DeleteAJournalResponse
+export type MarkJournalPublishedResponse = MarkAJournalAsPublishedResponse
+export type AddJournalAttachmentResponse = AddAttachmentToAJournalResponse
+export type AddJournalCommentResponse = AddCommentResponse
+export type DeleteJournalCommentResponse = DeleteACommentResponse
+export type SubmitJournalForApprovalResponse = ActionJournalResponse
+export type ApproveJournalResponse = ActionJournalResponse
+export type RejectJournalResponse = ActionJournalResponse
+export type ApplyJournalCreditsToInvoicesResponse = ActionJournalResponse
+export type ApplyJournalCreditsToBillsResponse = ActionJournalResponse
+export type DeleteJournalCreditsReceivablesResponse = ActionJournalResponse
+export type DeleteJournalCreditsPayablesResponse = ActionJournalResponse
+export type BulkSubmitJournalsResponse = ActionJournalResponse
+export type BulkApproveJournalsResponse = ActionJournalResponse
+export type BulkPublishJournalsResponse = ActionJournalResponse
+export type BulkDeleteJournalsResponse = DeleteAJournalResponse
+export type CreateRecurringJournalResponse = CreateAJournalResponse
+export type GetRecurringJournalResponse = GetJournalResponse
+export type UpdateRecurringJournalResponse = UpdateAJournalResponse
+export type DeleteRecurringJournalResponse = DeleteAJournalResponse
+export type ResumeRecurringJournalResponse = ActionJournalResponse
+export type StopRecurringJournalResponse = ActionJournalResponse
+export type ListChildJournalsResponse = GetJournalListResponse
+export type GetTransactionJournalViewResponse = GetJournalResponse

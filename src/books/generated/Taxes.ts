@@ -77,10 +77,10 @@ export const UpdateATaxResponse = Schema.Struct({
 })
 export type UpdateATaxResponse = typeof UpdateATaxResponse.Type
 
-export const DeleteATaxResponse = Schema.Struct({
+export const DeleteATaxResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATaxResponse = typeof DeleteATaxResponse.Type
 
 export const GetATaxGroupResponse = Schema.Struct({
@@ -123,10 +123,10 @@ export const UpdateATaxGroupResponse = Schema.Struct({
 })
 export type UpdateATaxGroupResponse = typeof UpdateATaxGroupResponse.Type
 
-export const DeleteATaxGroupResponse = Schema.Struct({
+export const DeleteATaxGroupResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATaxGroupResponse = typeof DeleteATaxGroupResponse.Type
 
 export const CreateATaxGroupResponse = Schema.Struct({
@@ -192,10 +192,10 @@ export const UpdateATaxAuthorityUsAndCaEditionOnlyResponse = Schema.Struct({
 })
 export type UpdateATaxAuthorityUsAndCaEditionOnlyResponse = typeof UpdateATaxAuthorityUsAndCaEditionOnlyResponse.Type
 
-export const DeleteATaxAuthorityUsAndCaEditionOnlyResponse = Schema.Struct({
+export const DeleteATaxAuthorityUsAndCaEditionOnlyResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATaxAuthorityUsAndCaEditionOnlyResponse = typeof DeleteATaxAuthorityUsAndCaEditionOnlyResponse.Type
 
 export const ListTaxExemptionsUsEditionOnlyResponse = Schema.Struct({
@@ -246,10 +246,10 @@ export const UpdateATaxExemptionUsEditionOnlyResponse = Schema.Struct({
 })
 export type UpdateATaxExemptionUsEditionOnlyResponse = typeof UpdateATaxExemptionUsEditionOnlyResponse.Type
 
-export const DeleteATaxExemptionUsEditionOnlyResponse = Schema.Struct({
+export const DeleteATaxExemptionUsEditionOnlyResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteATaxExemptionUsEditionOnlyResponse = typeof DeleteATaxExemptionUsEditionOnlyResponse.Type
 
 export interface CreateATaxRequest {
@@ -405,7 +405,7 @@ export const listTaxes = /*#__PURE__*/ operation<ListTaxesInput, typeof ListTaxe
 })
 
 export interface CreateTaxInput {
-  readonly body?: CreateATaxRequest
+  readonly body: CreateATaxRequest
 }
 
 /** Create a tax. `POST /settings/taxes` */
@@ -435,7 +435,7 @@ export const getTax = /*#__PURE__*/ operation<GetTaxInput, typeof GetATaxRespons
 export interface UpdateTaxInput {
   /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
   readonly tax_id: string
-  readonly body?: UpdateATaxRequest
+  readonly body: UpdateATaxRequest
 }
 
 /** Update a tax. `PUT /settings/taxes/{tax_id}` */
@@ -479,7 +479,7 @@ export const getTaxGroup = /*#__PURE__*/ operation<GetTaxGroupInput, typeof GetA
 export interface UpdateTaxGroupInput {
   /** Unique identifier of the tax group. Note: This value is a set of numeric characters. */
   readonly tax_group_id: string
-  readonly body?: UpdateATaxGroupRequest
+  readonly body: UpdateATaxGroupRequest
 }
 
 /** Update a tax group. `PUT /settings/taxgroups/{tax_group_id}` */
@@ -507,7 +507,7 @@ export const deleteTaxGroup = /*#__PURE__*/ operation<DeleteTaxGroupInput, typeo
 })
 
 export interface CreateTaxGroupInput {
-  readonly body?: CreateATaxGroupRequest
+  readonly body: CreateATaxGroupRequest
 }
 
 /** Create a tax group. `POST /settings/taxgroups` */
@@ -562,7 +562,7 @@ export const getTaxAuthority = /*#__PURE__*/ operation<GetTaxAuthorityInput, typ
 export interface UpdateTaxAuthorityInput {
   /** Unique identifier of the tax authority. Note: This value is a set of numeric characters. */
   readonly tax_authority_id: string
-  readonly body?: UpdateATaxAuthorityUsAndCaEditionOnlyRequest
+  readonly body: UpdateATaxAuthorityUsAndCaEditionOnlyRequest
 }
 
 /** Update a tax authority [US and CA Edition only]. `PUT /settings/taxauthorities/{tax_authority_id}` */
@@ -657,3 +657,22 @@ export const deleteTaxExemption = /*#__PURE__*/ operation<DeleteTaxExemptionInpu
   response: DeleteATaxExemptionUsEditionOnlyResponse,
   scopes: ["ZohoBooks.settings.DELETE"],
 })
+
+export type CreateTaxResponse = CreateATaxResponse
+export type GetTaxResponse = GetATaxResponse
+export type UpdateTaxResponse = UpdateATaxResponse
+export type DeleteTaxResponse = DeleteATaxResponse
+export type GetTaxGroupResponse = GetATaxGroupResponse
+export type UpdateTaxGroupResponse = UpdateATaxGroupResponse
+export type DeleteTaxGroupResponse = DeleteATaxGroupResponse
+export type CreateTaxGroupResponse = CreateATaxGroupResponse
+export type ListTaxAuthoritiesResponse = ListTaxAuthoritiesUsEditionOnlyResponse
+export type CreateTaxAuthorityResponse = CreateATaxAuthorityUsAndCaEditionOnlyResponse
+export type GetTaxAuthorityResponse = GetATaxAuthorityUsAndCaEditionOnlyResponse
+export type UpdateTaxAuthorityResponse = UpdateATaxAuthorityUsAndCaEditionOnlyResponse
+export type DeleteTaxAuthorityResponse = DeleteATaxAuthorityUsAndCaEditionOnlyResponse
+export type ListTaxExemptionsResponse = ListTaxExemptionsUsEditionOnlyResponse
+export type CreateTaxExemptionResponse = CreateATaxExemptionUsEditionOnlyResponse
+export type GetTaxExemptionResponse = GetATaxExemptionUsEditionOnlyResponse
+export type UpdateTaxExemptionResponse = UpdateATaxExemptionUsEditionOnlyResponse
+export type DeleteTaxExemptionResponse = DeleteATaxExemptionUsEditionOnlyResponse

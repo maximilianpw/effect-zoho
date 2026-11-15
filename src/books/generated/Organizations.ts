@@ -153,10 +153,10 @@ export const UpdateAnOrganizationResponse = Schema.Struct({
 })
 export type UpdateAnOrganizationResponse = typeof UpdateAnOrganizationResponse.Type
 
-export const GetOrganizationAddressResponse = Schema.Struct({
+export const GetOrganizationAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetOrganizationAddressResponse = typeof GetOrganizationAddressResponse.Type
 
 export const OrganizationAddressResponse = Schema.Struct({
@@ -176,34 +176,34 @@ export const OrganizationAddressResponse = Schema.Struct({
 })
 export type OrganizationAddressResponse = typeof OrganizationAddressResponse.Type
 
-export const DeleteOrganizationAddressResponse = Schema.Struct({
+export const DeleteOrganizationAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteOrganizationAddressResponse = typeof DeleteOrganizationAddressResponse.Type
 
-export const CopyOrganizationSettingsResponse = Schema.Struct({
+export const CopyOrganizationSettingsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CopyOrganizationSettingsResponse = typeof CopyOrganizationSettingsResponse.Type
 
-export const DowngradeOrganizationToInvoiceResponse = Schema.Struct({
+export const DowngradeOrganizationToInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DowngradeOrganizationToInvoiceResponse = typeof DowngradeOrganizationToInvoiceResponse.Type
 
-export const UpgradeOrganizationToBooksResponse = Schema.Struct({
+export const UpgradeOrganizationToBooksResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpgradeOrganizationToBooksResponse = typeof UpgradeOrganizationToBooksResponse.Type
 
-export const MarkOrganizationInactiveResponse = Schema.Struct({
+export const MarkOrganizationInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkOrganizationInactiveResponse = typeof MarkOrganizationInactiveResponse.Type
 
 export interface AddressInput {
@@ -330,6 +330,7 @@ export const listOrganizations = /*#__PURE__*/ operation<ListOrganizationsInput,
   id: "list_organizations",
   method: "GET",
   path: "/organizations",
+  organization: false,
   response: ListOrganizationsResponse,
   scopes: ["ZohoBooks.settings.READ"],
 })
@@ -344,6 +345,7 @@ export const createOrganization = /*#__PURE__*/ operation<CreateOrganizationInpu
   method: "POST",
   path: "/organizations",
   body: "json",
+  organization: false,
   response: CreateAnOrganizationResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -358,6 +360,7 @@ export const getOrganization = /*#__PURE__*/ operation<GetOrganizationInput, typ
   id: "get_organization",
   method: "GET",
   path: "/organizations/{organization_id}",
+  organization: false,
   response: GetAnOrganizationResponse,
   scopes: ["ZohoBooks.settings.READ"],
 })
@@ -365,7 +368,7 @@ export const getOrganization = /*#__PURE__*/ operation<GetOrganizationInput, typ
 export interface UpdateOrganizationInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
-  readonly body?: UpdateAnOrganizationRequest
+  readonly body: UpdateAnOrganizationRequest
 }
 
 /** Update an organization. `PUT /organizations/{organization_id}` */
@@ -374,6 +377,7 @@ export const updateOrganization = /*#__PURE__*/ operation<UpdateOrganizationInpu
   method: "PUT",
   path: "/organizations/{organization_id}",
   body: "json",
+  organization: false,
   response: UpdateAnOrganizationResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -398,6 +402,7 @@ export const listOrganizationsForUser = /*#__PURE__*/ operation<ListOrganization
   id: "list_organizations_for_user",
   method: "GET",
   path: "/organizations/user",
+  organization: false,
   response: ListOrganizationsResponse,
   scopes: ["ZohoBooks.settings.READ"],
 })
@@ -409,12 +414,13 @@ export const getOrganizationAddress = /*#__PURE__*/ operation<GetOrganizationAdd
   id: "get_organization_address",
   method: "GET",
   path: "/organizations/address",
+  organization: false,
   response: GetOrganizationAddressResponse,
   scopes: ["ZohoBooks.settings.READ"],
 })
 
 export interface CreateOrganizationAddressInput {
-  readonly body?: OrganizationAddressRequest
+  readonly body: OrganizationAddressRequest
 }
 
 /** Create the organization address. `POST /organizations/address` */
@@ -423,6 +429,7 @@ export const createOrganizationAddress = /*#__PURE__*/ operation<CreateOrganizat
   method: "POST",
   path: "/organizations/address",
   body: "json",
+  organization: false,
   response: OrganizationAddressResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -430,7 +437,7 @@ export const createOrganizationAddress = /*#__PURE__*/ operation<CreateOrganizat
 export interface UpdateOrganizationAddressInput {
   /** Unique identifier of the organization address. Note: This value is a set of numeric characters. */
   readonly address_id: string
-  readonly body?: OrganizationAddressRequest
+  readonly body: OrganizationAddressRequest
 }
 
 /** Update the organization address. `PUT /organizations/address/{address_id}` */
@@ -439,6 +446,7 @@ export const updateOrganizationAddress = /*#__PURE__*/ operation<UpdateOrganizat
   method: "PUT",
   path: "/organizations/address/{address_id}",
   body: "json",
+  organization: false,
   response: OrganizationAddressResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -453,6 +461,7 @@ export const deleteOrganizationAddress = /*#__PURE__*/ operation<DeleteOrganizat
   id: "delete_organization_address",
   method: "DELETE",
   path: "/organizations/address/{address_id}",
+  organization: false,
   response: DeleteOrganizationAddressResponse,
   scopes: ["ZohoBooks.settings.DELETE"],
 })
@@ -462,6 +471,8 @@ export interface CopyOrganizationSettingsInput {
   readonly organization_id: string
   /** The settings to copy to the organization. */
   readonly settings_to_copy: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Copy settings to an organization. `POST /organizations/{organization_id}/copysettings` */
@@ -469,6 +480,8 @@ export const copyOrganizationSettings = /*#__PURE__*/ operation<CopyOrganization
   id: "copy_organization_settings",
   method: "POST",
   path: "/organizations/{organization_id}/copysettings",
+  body: "json",
+  organization: false,
   response: CopyOrganizationSettingsResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -476,6 +489,8 @@ export const copyOrganizationSettings = /*#__PURE__*/ operation<CopyOrganization
 export interface DowngradeOrganizationToInvoiceInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Downgrade an organization to Zoho Invoice. `POST /organizations/{organization_id}/downgradetoinvoice` */
@@ -483,6 +498,8 @@ export const downgradeOrganizationToInvoice = /*#__PURE__*/ operation<DowngradeO
   id: "downgrade_organization_to_invoice",
   method: "POST",
   path: "/organizations/{organization_id}/downgradetoinvoice",
+  body: "json",
+  organization: false,
   response: DowngradeOrganizationToInvoiceResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -490,6 +507,8 @@ export const downgradeOrganizationToInvoice = /*#__PURE__*/ operation<DowngradeO
 export interface UpgradeOrganizationToBooksInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Upgrade an organization to Zoho Books. `POST /organizations/{organization_id}/upgradetobooks` */
@@ -497,6 +516,8 @@ export const upgradeOrganizationToBooks = /*#__PURE__*/ operation<UpgradeOrganiz
   id: "upgrade_organization_to_books",
   method: "POST",
   path: "/organizations/{organization_id}/upgradetobooks",
+  body: "json",
+  organization: false,
   response: UpgradeOrganizationToBooksResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -504,6 +525,8 @@ export const upgradeOrganizationToBooks = /*#__PURE__*/ operation<UpgradeOrganiz
 export interface MarkOrganizationInactiveInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an organization as inactive. `POST /organizations/{organization_id}/inactive` */
@@ -511,6 +534,15 @@ export const markOrganizationInactive = /*#__PURE__*/ operation<MarkOrganization
   id: "mark_organization_inactive",
   method: "POST",
   path: "/organizations/{organization_id}/inactive",
+  body: "json",
+  organization: false,
   response: MarkOrganizationInactiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
+
+export type CreateOrganizationResponse = CreateAnOrganizationResponse
+export type GetOrganizationResponse = GetAnOrganizationResponse
+export type UpdateOrganizationResponse = UpdateAnOrganizationResponse
+export type ListOrganizationsForUserResponse = ListOrganizationsResponse
+export type CreateOrganizationAddressResponse = OrganizationAddressResponse
+export type UpdateOrganizationAddressResponse = OrganizationAddressResponse

@@ -86,16 +86,16 @@ export const CreateARuleResponse = Schema.Struct({
 })
 export type CreateARuleResponse = typeof CreateARuleResponse.Type
 
-export const BulkUpdateBankAccountRulesResponse = Schema.Struct({
+export const BulkUpdateBankAccountRulesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkUpdateBankAccountRulesResponse = typeof BulkUpdateBankAccountRulesResponse.Type
 
-export const BulkDeleteBankAccountRulesResponse = Schema.Struct({
+export const BulkDeleteBankAccountRulesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkDeleteBankAccountRulesResponse = typeof BulkDeleteBankAccountRulesResponse.Type
 
 export const GetARuleResponse = Schema.Struct({
@@ -139,46 +139,46 @@ export const UpdateARuleResponse = Schema.Struct({
 })
 export type UpdateARuleResponse = typeof UpdateARuleResponse.Type
 
-export const DeleteARuleResponse = Schema.Struct({
+export const DeleteARuleResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARuleResponse = typeof DeleteARuleResponse.Type
 
-export const ReorderBankAccountRulesResponse = Schema.Struct({
+export const ReorderBankAccountRulesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ReorderBankAccountRulesResponse = typeof ReorderBankAccountRulesResponse.Type
 
-export const SkipSuggestedBankAccountRuleResponse = Schema.Struct({
+export const SkipSuggestedBankAccountRuleResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SkipSuggestedBankAccountRuleResponse = typeof SkipSuggestedBankAccountRuleResponse.Type
 
-export const ListBankAccountMatchFiltersResponse = Schema.Struct({
+export const ListBankAccountMatchFiltersResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankAccountMatchFiltersResponse = typeof ListBankAccountMatchFiltersResponse.Type
 
-export const CreateBankAccountMatchFilterResponse = Schema.Struct({
+export const CreateBankAccountMatchFilterResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateBankAccountMatchFilterResponse = typeof CreateBankAccountMatchFilterResponse.Type
 
-export const UpdateBankAccountMatchFilterResponse = Schema.Struct({
+export const UpdateBankAccountMatchFilterResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBankAccountMatchFilterResponse = typeof UpdateBankAccountMatchFilterResponse.Type
 
-export const DeleteBankAccountMatchFilterResponse = Schema.Struct({
+export const DeleteBankAccountMatchFilterResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteBankAccountMatchFilterResponse = typeof DeleteBankAccountMatchFilterResponse.Type
 
 export interface CreateARuleRequest {
@@ -313,13 +313,17 @@ export const createBankAccountRule = /*#__PURE__*/ operation<CreateBankAccountRu
   scopes: ["ZohoBooks.banking.CREATE"],
 })
 
-export interface BulkUpdateBankAccountRulesInput {}
+export interface BulkUpdateBankAccountRulesInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Bulk update rules. `PUT /bankaccounts/rules` */
 export const bulkUpdateBankAccountRules = /*#__PURE__*/ operation<BulkUpdateBankAccountRulesInput, typeof BulkUpdateBankAccountRulesResponse>({
   id: "bulk_update_bank_account_rules",
   method: "PUT",
   path: "/bankaccounts/rules",
+  body: "json",
   response: BulkUpdateBankAccountRulesResponse,
   scopes: ["ZohoBooks.banking.UPDATE"],
 })
@@ -382,24 +386,32 @@ export const deleteBankAccountRule = /*#__PURE__*/ operation<DeleteBankAccountRu
   scopes: ["ZohoBooks.banking.DELETE"],
 })
 
-export interface ReorderBankAccountRulesInput {}
+export interface ReorderBankAccountRulesInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Reorder rules. `POST /bankaccounts/rules/order` */
 export const reorderBankAccountRules = /*#__PURE__*/ operation<ReorderBankAccountRulesInput, typeof ReorderBankAccountRulesResponse>({
   id: "reorder_bank_account_rules",
   method: "POST",
   path: "/bankaccounts/rules/order",
+  body: "json",
   response: ReorderBankAccountRulesResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
 
-export interface SkipSuggestedBankAccountRuleInput {}
+export interface SkipSuggestedBankAccountRuleInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Skip a suggested rule. `POST /bankaccounts/rules/skipsuggest` */
 export const skipSuggestedBankAccountRule = /*#__PURE__*/ operation<SkipSuggestedBankAccountRuleInput, typeof SkipSuggestedBankAccountRuleResponse>({
   id: "skip_suggested_bank_account_rule",
   method: "POST",
   path: "/bankaccounts/rules/skipsuggest",
+  body: "json",
   response: SkipSuggestedBankAccountRuleResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -416,7 +428,7 @@ export const listBankAccountMatchFilters = /*#__PURE__*/ operation<ListBankAccou
 })
 
 export interface CreateBankAccountMatchFilterInput {
-  readonly body?: BankAccountMatchFilterRequest
+  readonly body: BankAccountMatchFilterRequest
 }
 
 /** Create a match filter. `POST /bankaccounts/matchfilters` */
@@ -432,7 +444,7 @@ export const createBankAccountMatchFilter = /*#__PURE__*/ operation<CreateBankAc
 export interface UpdateBankAccountMatchFilterInput {
   /** Unique identifier of the match filter. Note: This value is a set of numeric characters. */
   readonly match_filter_id: string
-  readonly body?: BankAccountMatchFilterRequest
+  readonly body: BankAccountMatchFilterRequest
 }
 
 /** Update a match filter. `PUT /bankaccounts/matchfilters/{match_filter_id}` */
@@ -458,3 +470,9 @@ export const deleteBankAccountMatchFilter = /*#__PURE__*/ operation<DeleteBankAc
   response: DeleteBankAccountMatchFilterResponse,
   scopes: ["ZohoBooks.banking.DELETE"],
 })
+
+export type ListBankAccountRulesResponse = GetRulesListResponse
+export type CreateBankAccountRuleResponse = CreateARuleResponse
+export type GetBankAccountRuleResponse = GetARuleResponse
+export type UpdateBankAccountRuleResponse = UpdateARuleResponse
+export type DeleteBankAccountRuleResponse = DeleteARuleResponse

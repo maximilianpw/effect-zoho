@@ -346,46 +346,46 @@ export const UpdateARetainerinvoiceResponse = Schema.Struct({
 })
 export type UpdateARetainerinvoiceResponse = typeof UpdateARetainerinvoiceResponse.Type
 
-export const DeleteARetainerInvoiceResponse = Schema.Struct({
+export const DeleteARetainerInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARetainerInvoiceResponse = typeof DeleteARetainerInvoiceResponse.Type
 
-export const MarkARetainerInvoiceAsSentResponse = Schema.Struct({
+export const MarkARetainerInvoiceAsSentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkARetainerInvoiceAsSentResponse = typeof MarkARetainerInvoiceAsSentResponse.Type
 
-export const UpdateRetainerInvoiceTemplateResponse = Schema.Struct({
+export const UpdateRetainerInvoiceTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateRetainerInvoiceTemplateResponse = typeof UpdateRetainerInvoiceTemplateResponse.Type
 
-export const VoidARetainerInvoiceResponse = Schema.Struct({
+export const VoidARetainerInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidARetainerInvoiceResponse = typeof VoidARetainerInvoiceResponse.Type
 
-export const MarkAsDraftResponse = Schema.Struct({
+export const MarkAsDraftResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsDraftResponse = typeof MarkAsDraftResponse.Type
 
-export const SubmitARetainerInvoiceForApprovalResponse = Schema.Struct({
+export const SubmitARetainerInvoiceForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitARetainerInvoiceForApprovalResponse = typeof SubmitARetainerInvoiceForApprovalResponse.Type
 
-export const ApproveARetainerInvoiceResponse = Schema.Struct({
+export const ApproveARetainerInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveARetainerInvoiceResponse = typeof ApproveARetainerInvoiceResponse.Type
 
 export const DeprecatedPlaceholdersUsed = W.Arr(W.Str)
@@ -427,16 +427,16 @@ export const GetRetainerInvoiceEmailContentResponse = Schema.Struct({
 })
 export type GetRetainerInvoiceEmailContentResponse = typeof GetRetainerInvoiceEmailContentResponse.Type
 
-export const EmailARetainerInvoiceResponse = Schema.Struct({
+export const EmailARetainerInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailARetainerInvoiceResponse = typeof EmailARetainerInvoiceResponse.Type
 
-export const UpdateBillingAddressResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
 export const ListRetainerInvoiceTemplatesResponse = Schema.Struct({
@@ -450,22 +450,16 @@ export const ListRetainerInvoiceTemplatesResponse = Schema.Struct({
 })
 export type ListRetainerInvoiceTemplatesResponse = typeof ListRetainerInvoiceTemplatesResponse.Type
 
-export const GetARetainerInvoiceAttachmentResponse = Schema.Struct({
+export const AddAttachmentToARetainerInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetARetainerInvoiceAttachmentResponse = typeof GetARetainerInvoiceAttachmentResponse.Type
-
-export const AddAttachmentToARetainerInvoiceResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToARetainerInvoiceResponse = typeof AddAttachmentToARetainerInvoiceResponse.Type
 
-export const DeleteAnAttachmentResponse = Schema.Struct({
+export const DeleteAnAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAttachmentResponse = typeof DeleteAnAttachmentResponse.Type
 
 export const ListRetainerInvoiceCommentsAndHistoryResponse = Schema.Struct({
@@ -488,10 +482,10 @@ export const ListRetainerInvoiceCommentsAndHistoryResponse = Schema.Struct({
 })
 export type ListRetainerInvoiceCommentsAndHistoryResponse = typeof ListRetainerInvoiceCommentsAndHistoryResponse.Type
 
-export const AddCommentResponse = Schema.Struct({
+export const AddCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
 export const UpdateCommentResponse = Schema.Struct({
@@ -511,28 +505,28 @@ export const UpdateCommentResponse = Schema.Struct({
 })
 export type UpdateCommentResponse = typeof UpdateCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
-export const ApplyRetainerPaymentsToInvoicesResponse = Schema.Struct({
+export const ApplyRetainerPaymentsToInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyRetainerPaymentsToInvoicesResponse = typeof ApplyRetainerPaymentsToInvoicesResponse.Type
 
-export const DeleteAppliedRetainerPaymentResponse = Schema.Struct({
+export const DeleteAppliedRetainerPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAppliedRetainerPaymentResponse = typeof DeleteAppliedRetainerPaymentResponse.Type
 
-export const CreateRetainerInvoiceAsyncOnlinePaymentResponse = Schema.Struct({
+export const CreateRetainerInvoiceAsyncOnlinePaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateRetainerInvoiceAsyncOnlinePaymentResponse = typeof CreateRetainerInvoiceAsyncOnlinePaymentResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -816,6 +810,8 @@ export const deleteRetainerInvoice = /*#__PURE__*/ operation<DeleteRetainerInvoi
 export interface MarkRetainerInvoiceSentInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a retainer invoice as sent. `POST /retainerinvoices/{retainerinvoice_id}/status/sent` */
@@ -823,6 +819,7 @@ export const markRetainerInvoiceSent = /*#__PURE__*/ operation<MarkRetainerInvoi
   id: "mark_retainer_invoice_sent",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/status/sent",
+  body: "json",
   response: MarkARetainerInvoiceAsSentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -832,6 +829,8 @@ export interface UpdateRetainerInvoiceTemplateInput {
   readonly retainerinvoice_id: string
   /** Unique identifier of the retainer invoice template. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update retainer invoice template. `PUT /retainerinvoices/{retainerinvoice_id}/templates/{template_id}` */
@@ -839,6 +838,7 @@ export const updateRetainerInvoiceTemplate = /*#__PURE__*/ operation<UpdateRetai
   id: "update_retainer_invoice_template",
   method: "PUT",
   path: "/retainerinvoices/{retainerinvoice_id}/templates/{template_id}",
+  body: "json",
   response: UpdateRetainerInvoiceTemplateResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -846,6 +846,8 @@ export const updateRetainerInvoiceTemplate = /*#__PURE__*/ operation<UpdateRetai
 export interface MarkRetainerInvoiceVoidInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void a retainer invoice. `POST /retainerinvoices/{retainerinvoice_id}/status/void` */
@@ -853,6 +855,7 @@ export const markRetainerInvoiceVoid = /*#__PURE__*/ operation<MarkRetainerInvoi
   id: "mark_retainer_invoice_void",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/status/void",
+  body: "json",
   response: VoidARetainerInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -862,6 +865,8 @@ export interface MarkRetainerInvoiceDraftInput {
   readonly retainerinvoice_id: string
   /** Reason for marking the retainer invoice as draft. */
   readonly reason?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as draft. `POST /retainerinvoices/{retainerinvoice_id}/status/draft` */
@@ -869,6 +874,7 @@ export const markRetainerInvoiceDraft = /*#__PURE__*/ operation<MarkRetainerInvo
   id: "mark_retainer_invoice_draft",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/status/draft",
+  body: "json",
   response: MarkAsDraftResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -876,6 +882,8 @@ export const markRetainerInvoiceDraft = /*#__PURE__*/ operation<MarkRetainerInvo
 export interface SubmitRetainerInvoiceInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a retainer invoice for approval. `POST /retainerinvoices/{retainerinvoice_id}/submit` */
@@ -883,6 +891,7 @@ export const submitRetainerInvoice = /*#__PURE__*/ operation<SubmitRetainerInvoi
   id: "submit_retainer_invoice",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/submit",
+  body: "json",
   response: SubmitARetainerInvoiceForApprovalResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -890,6 +899,8 @@ export const submitRetainerInvoice = /*#__PURE__*/ operation<SubmitRetainerInvoi
 export interface ApproveRetainerInvoiceInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a retainer invoice.. `POST /retainerinvoices/{retainerinvoice_id}/approve` */
@@ -897,6 +908,7 @@ export const approveRetainerInvoice = /*#__PURE__*/ operation<ApproveRetainerInv
   id: "approve_retainer_invoice",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/approve",
+  body: "json",
   response: ApproveARetainerInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -923,7 +935,7 @@ export interface EmailRetainerInvoiceInput {
   /** Send the retainer invoice attachment a with the email. */
   readonly send_attachment?: boolean
   /** Files to be attached to the email */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   readonly body: EmailARetainerInvoiceRequest
 }
 
@@ -932,6 +944,7 @@ export const emailRetainerInvoice = /*#__PURE__*/ operation<EmailRetainerInvoice
   id: "email_retainer_invoice",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailARetainerInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
@@ -940,7 +953,7 @@ export const emailRetainerInvoice = /*#__PURE__*/ operation<EmailRetainerInvoice
 export interface UpdateRetainerInvoiceBillingAddressInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /retainerinvoices/{retainerinvoice_id}/address/billing` */
@@ -970,18 +983,18 @@ export interface GetRetainerInvoiceAttachmentInput {
 }
 
 /** Get a retainer invoice attachment. `GET /retainerinvoices/{retainerinvoice_id}/attachment` */
-export const getRetainerInvoiceAttachment = /*#__PURE__*/ operation<GetRetainerInvoiceAttachmentInput, typeof GetARetainerInvoiceAttachmentResponse>({
+export const getRetainerInvoiceAttachment = /*#__PURE__*/ operation<GetRetainerInvoiceAttachmentInput, undefined>({
   id: "get_retainer_invoice_attachment",
   method: "GET",
   path: "/retainerinvoices/{retainerinvoice_id}/attachment",
-  response: GetARetainerInvoiceAttachmentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
 export interface AddRetainerInvoiceAttachmentInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
-  readonly body?: AddAttachmentToARetainerInvoiceRequest
+  readonly body: AddAttachmentToARetainerInvoiceRequest
 }
 
 /** Add attachment to a retainer invoice. `POST /retainerinvoices/{retainerinvoice_id}/attachment` */
@@ -989,7 +1002,7 @@ export const addRetainerInvoiceAttachment = /*#__PURE__*/ operation<AddRetainerI
   id: "add_retainer_invoice_attachment",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/attachment",
-  body: "json",
+  body: "multipart",
   response: AddAttachmentToARetainerInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -1027,7 +1040,7 @@ export const listRetainerInvoice = /*#__PURE__*/ operation<ListRetainerInvoiceIn
 export interface AddRetainerInvoiceCommentInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
-  readonly body?: AddCommentRequest
+  readonly body: AddCommentRequest
 }
 
 /** Add comment. `POST /retainerinvoices/{retainerinvoice_id}/comments` */
@@ -1045,7 +1058,7 @@ export interface UpdateRetainerInvoiceCommentInput {
   readonly retainerinvoice_id: string
   /** Unique identifier of the comment. */
   readonly comment_id: string
-  readonly body?: UpdateCommentRequest
+  readonly body: UpdateCommentRequest
 }
 
 /** Update comment. `PUT /retainerinvoices/{retainerinvoice_id}/comments/{comment_id}` */
@@ -1077,7 +1090,7 @@ export const deleteRetainerInvoiceComment = /*#__PURE__*/ operation<DeleteRetain
 export interface ApplyRetainerPaymentsToInvoicesInput {
   /** Unique identifier of the retainer invoice. Note: This value is a set of numeric characters. */
   readonly retainerinvoice_id: string
-  readonly body?: ApplyRetainerPaymentsToInvoicesRequest
+  readonly body: ApplyRetainerPaymentsToInvoicesRequest
 }
 
 /** Apply retainer invoice payments to invoices. `POST /retainerinvoices/{retainerinvoice_id}/invoices` */
@@ -1109,6 +1122,8 @@ export const deleteAppliedRetainerPayment = /*#__PURE__*/ operation<DeleteApplie
 export interface CreateRetainerInvoiceAsyncOnlinePaymentInput {
   /** Unique identifier of the retainer invoice. Note: This value is a set of numeric characters. */
   readonly retainerinvoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Record an asynchronous online payment for a retainer invoice. `POST /retainerinvoices/{retainerinvoice_id}/onlinepayments/asynchronous` */
@@ -1116,6 +1131,27 @@ export const createRetainerInvoiceAsyncOnlinePayment = /*#__PURE__*/ operation<C
   id: "create_retainer_invoice_async_online_payment",
   method: "POST",
   path: "/retainerinvoices/{retainerinvoice_id}/onlinepayments/asynchronous",
+  body: "json",
   response: CreateRetainerInvoiceAsyncOnlinePaymentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
+
+export type ListRetainerInvoicesResponse = ListARetainerInvoicesResponse
+export type CreateRetainerInvoiceResponse = CreateARetainerinvoiceResponse
+export type GetRetainerInvoiceResponse = GetARetainerInvoiceResponse
+export type UpdateRetainerInvoiceResponse = UpdateARetainerinvoiceResponse
+export type DeleteRetainerInvoiceResponse = DeleteARetainerInvoiceResponse
+export type MarkRetainerInvoiceSentResponse = MarkARetainerInvoiceAsSentResponse
+export type MarkRetainerInvoiceVoidResponse = VoidARetainerInvoiceResponse
+export type MarkRetainerInvoiceDraftResponse = MarkAsDraftResponse
+export type SubmitRetainerInvoiceResponse = SubmitARetainerInvoiceForApprovalResponse
+export type ApproveRetainerInvoiceResponse = ApproveARetainerInvoiceResponse
+export type GetRetainerInvoiceEmailResponse = GetRetainerInvoiceEmailContentResponse
+export type EmailRetainerInvoiceResponse = EmailARetainerInvoiceResponse
+export type UpdateRetainerInvoiceBillingAddressResponse = UpdateBillingAddressResponse
+export type AddRetainerInvoiceAttachmentResponse = AddAttachmentToARetainerInvoiceResponse
+export type DeleteRetainerInvoiceAttachmentResponse = DeleteAnAttachmentResponse
+export type ListRetainerInvoiceResponse = ListRetainerInvoiceCommentsAndHistoryResponse
+export type AddRetainerInvoiceCommentResponse = AddCommentResponse
+export type UpdateRetainerInvoiceCommentResponse = UpdateCommentResponse
+export type DeleteRetainerInvoiceCommentResponse = DeleteACommentResponse

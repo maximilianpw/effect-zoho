@@ -49,7 +49,7 @@ export const PaymentResponse = Schema.Struct({
   invoices: W.field(W.Arr(Schema.Struct({
     invoice_id: W.str,
     invoice_number: W.str,
-    date: W.any,
+    date: W.str,
     invoice_amount: W.num,
     amount_applied: W.num,
     balance_amount: W.num,
@@ -94,7 +94,7 @@ export const UpdateAPaymentResponse = Schema.Struct({
     invoices: W.field(W.Arr(Schema.Struct({
       invoice_id: W.str,
       invoice_number: W.str,
-      date: W.any,
+      date: W.str,
       invoice_amount: W.num,
       amount_applied: W.num,
       balance_amount: W.num,
@@ -115,10 +115,10 @@ export const UpdateAPaymentResponse = Schema.Struct({
 })
 export type UpdateAPaymentResponse = typeof UpdateAPaymentResponse.Type
 
-export const BulkDeleteCustomerPaymentsResponse = Schema.Struct({
+export const BulkDeleteCustomerPaymentsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkDeleteCustomerPaymentsResponse = typeof BulkDeleteCustomerPaymentsResponse.Type
 
 export const RetrieveAPaymentResponse = Schema.Struct({
@@ -140,7 +140,7 @@ export const RetrieveAPaymentResponse = Schema.Struct({
     invoices: W.field(W.Arr(Schema.Struct({
       invoice_id: W.str,
       invoice_number: W.str,
-      date: W.any,
+      date: W.str,
       invoice_amount: W.num,
       amount_applied: W.num,
       balance_amount: W.num,
@@ -161,10 +161,10 @@ export const RetrieveAPaymentResponse = Schema.Struct({
 })
 export type RetrieveAPaymentResponse = typeof RetrieveAPaymentResponse.Type
 
-export const DeleteAPaymentResponse = Schema.Struct({
+export const DeleteAPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAPaymentResponse = typeof DeleteAPaymentResponse.Type
 
 export const ListRefundsOfACustomerPaymentResponse = Schema.Struct({
@@ -209,10 +209,10 @@ export const RefundAnExcessCustomerPaymentResponse = Schema.Struct({
 })
 export type RefundAnExcessCustomerPaymentResponse = typeof RefundAnExcessCustomerPaymentResponse.Type
 
-export const UpdateAnCustomerpaymentCustomfieldResponse = Schema.Struct({
+export const UpdateAnCustomerpaymentCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnCustomerpaymentCustomfieldResponse = typeof UpdateAnCustomerpaymentCustomfieldResponse.Type
 
 export const DetailsOfARefundResponse = Schema.Struct({
@@ -249,10 +249,10 @@ export const UpdateARefundResponse = Schema.Struct({
 })
 export type UpdateARefundResponse = typeof UpdateARefundResponse.Type
 
-export const DeleteARefundResponse = Schema.Struct({
+export const DeleteARefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARefundResponse = typeof DeleteARefundResponse.Type
 
 export interface CreateAPaymentRequest {
@@ -587,7 +587,7 @@ export const createCustomerPaymentRefund = /*#__PURE__*/ operation<CreateCustome
 export interface UpdateCustomFieldsInCustomerPaymentInput {
   /** Unique identifier of the customer payment. Note: This value is a set of numeric characters. */
   readonly customer_payment_id: string
-  readonly body?: UpdateACustomerpaymentCustomfieldRequest
+  readonly body: UpdateACustomerpaymentCustomfieldRequest
 }
 
 /** Update custom field in existing customerpayments. `PUT /customerpayment/{customer_payment_id}/customfields` */
@@ -649,3 +649,15 @@ export const deleteCustomerPaymentRefund = /*#__PURE__*/ operation<DeleteCustome
   response: DeleteARefundResponse,
   scopes: ["ZohoBooks.customerpayments.DELETE"],
 })
+
+export type CreateCustomerPaymentResponse = CreateAPaymentResponse
+export type UpdateCustomerPaymentUsingCustomFieldResponse = UpdateAPaymentResponse
+export type GetCustomerPaymentResponse = RetrieveAPaymentResponse
+export type UpdateCustomerPaymentResponse = UpdateAPaymentResponse
+export type DeleteCustomerPaymentResponse = DeleteAPaymentResponse
+export type ListCustomerPaymentRefundsResponse = ListRefundsOfACustomerPaymentResponse
+export type CreateCustomerPaymentRefundResponse = RefundAnExcessCustomerPaymentResponse
+export type UpdateCustomFieldsInCustomerPaymentResponse = UpdateAnCustomerpaymentCustomfieldResponse
+export type GetCustomerPaymentRefundResponse = DetailsOfARefundResponse
+export type UpdateCustomerPaymentRefundResponse = UpdateARefundResponse
+export type DeleteCustomerPaymentRefundResponse = DeleteARefundResponse

@@ -341,34 +341,34 @@ export const GetASalesOrderResponse = Schema.Struct({
 })
 export type GetASalesOrderResponse = typeof GetASalesOrderResponse.Type
 
-export const DeleteASalesOrderResponse = Schema.Struct({
+export const DeleteASalesOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteASalesOrderResponse = typeof DeleteASalesOrderResponse.Type
 
-export const UpdateAnSalesorderCustomfieldResponse = Schema.Struct({
+export const UpdateAnSalesorderCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnSalesorderCustomfieldResponse = typeof UpdateAnSalesorderCustomfieldResponse.Type
 
-export const MarkASalesOrderAsOpenResponse = Schema.Struct({
+export const MarkASalesOrderAsOpenResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkASalesOrderAsOpenResponse = typeof MarkASalesOrderAsOpenResponse.Type
 
-export const MarkASalesOrderAsVoidResponse = Schema.Struct({
+export const MarkASalesOrderAsVoidResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkASalesOrderAsVoidResponse = typeof MarkASalesOrderAsVoidResponse.Type
 
-export const UpdateSalesOrderSubStatusResponse = Schema.Struct({
+export const UpdateSalesOrderSubStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateSalesOrderSubStatusResponse = typeof UpdateSalesOrderSubStatusResponse.Type
 
 export const BccMails = W.Arr(W.Str)
@@ -443,46 +443,34 @@ export const GetSalesOrderEmailContentResponse = Schema.Struct({
 })
 export type GetSalesOrderEmailContentResponse = typeof GetSalesOrderEmailContentResponse.Type
 
-export const EmailASalesOrderResponse = Schema.Struct({
+export const EmailASalesOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailASalesOrderResponse = typeof EmailASalesOrderResponse.Type
 
-export const SubmitASalesOrderForApprovalResponse = Schema.Struct({
+export const SubmitASalesOrderForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitASalesOrderForApprovalResponse = typeof SubmitASalesOrderForApprovalResponse.Type
 
-export const ApproveASalesOrderResponse = Schema.Struct({
+export const ApproveASalesOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveASalesOrderResponse = typeof ApproveASalesOrderResponse.Type
 
-export const BulkExportSalesOrdersResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type BulkExportSalesOrdersResponse = typeof BulkExportSalesOrdersResponse.Type
-
-export const BulkPrintSalesOrdersResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
-export type BulkPrintSalesOrdersResponse = typeof BulkPrintSalesOrdersResponse.Type
-
-export const UpdateBillingAddressResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
-export const UpdateShippingAddressResponse = Schema.Struct({
+export const UpdateShippingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateShippingAddressResponse = typeof UpdateShippingAddressResponse.Type
 
 export const Templates = W.Arr(Schema.Struct({
@@ -499,34 +487,28 @@ export const ListSalesOrderTemplatesResponse = Schema.Struct({
 })
 export type ListSalesOrderTemplatesResponse = typeof ListSalesOrderTemplatesResponse.Type
 
-export const UpdateSalesOrderTemplateResponse = Schema.Struct({
+export const UpdateSalesOrderTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateSalesOrderTemplateResponse = typeof UpdateSalesOrderTemplateResponse.Type
 
-export const GetASalesOrderAttachmentResponse = Schema.Struct({
+export const AddAttachmentToASalesOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetASalesOrderAttachmentResponse = typeof GetASalesOrderAttachmentResponse.Type
-
-export const AddAttachmentToASalesOrderResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToASalesOrderResponse = typeof AddAttachmentToASalesOrderResponse.Type
 
-export const UpdateAttachmentPreferenceResponse = Schema.Struct({
+export const UpdateAttachmentPreferenceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAttachmentPreferenceResponse = typeof UpdateAttachmentPreferenceResponse.Type
 
-export const DeleteAnAttachmentResponse = Schema.Struct({
+export const DeleteAnAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAttachmentResponse = typeof DeleteAnAttachmentResponse.Type
 
 export const ListSalesOrderCommentsAndHistoryResponse = Schema.Struct({
@@ -566,10 +548,10 @@ export const UpdateCommentResponse = Schema.Struct({
 })
 export type UpdateCommentResponse = typeof UpdateCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -1119,7 +1101,7 @@ export interface CreateSalesOrderInput {
   /** Total number of files. */
   readonly totalFiles?: number
   /** Document that is to be attached */
-  readonly doc?: string
+  readonly doc?: ZohoFile
   readonly body: CreateASalesOrderRequest
 }
 
@@ -1128,6 +1110,7 @@ export const createSalesOrder = /*#__PURE__*/ operation<CreateSalesOrderInput, t
   id: "create_sales_order",
   method: "POST",
   path: "/salesorders",
+  files: ["doc"],
   body: "json",
   response: CreateASalesOrderResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
@@ -1182,7 +1165,7 @@ export interface UpdateSalesOrderInput {
   /** Total number of files. */
   readonly totalFiles?: number
   /** Document that is to be attached */
-  readonly doc?: string
+  readonly doc?: ZohoFile
   readonly body: UpdateASalesOrderRequest
 }
 
@@ -1191,6 +1174,7 @@ export const updateSalesOrder = /*#__PURE__*/ operation<UpdateSalesOrderInput, t
   id: "update_sales_order",
   method: "PUT",
   path: "/salesorders/{salesorder_id}",
+  files: ["doc"],
   body: "json",
   response: UpdateASalesOrderResponse,
   scopes: ["ZohoBooks.salesorders.UPDATE"],
@@ -1213,7 +1197,7 @@ export const deleteSalesOrder = /*#__PURE__*/ operation<DeleteSalesOrderInput, t
 export interface UpdateSalesorderCustomfieldsInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
-  readonly body?: UpdateASalesorderCustomfieldRequest
+  readonly body: UpdateASalesorderCustomfieldRequest
 }
 
 /** Update custom field in existing salesorders. `PUT /salesorder/{salesorder_id}/customfields` */
@@ -1229,6 +1213,8 @@ export const updateSalesorderCustomfields = /*#__PURE__*/ operation<UpdateSaleso
 export interface MarkSalesOrderAsOpenInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a sales order as open. `POST /salesorders/{salesorder_id}/status/open` */
@@ -1236,6 +1222,7 @@ export const markSalesOrderAsOpen = /*#__PURE__*/ operation<MarkSalesOrderAsOpen
   id: "mark_sales_order_as_open",
   method: "POST",
   path: "/salesorders/{salesorder_id}/status/open",
+  body: "json",
   response: MarkASalesOrderAsOpenResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1243,7 +1230,7 @@ export const markSalesOrderAsOpen = /*#__PURE__*/ operation<MarkSalesOrderAsOpen
 export interface MarkSalesOrderAsVoidInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
-  readonly body?: MarkASalesOrderAsVoidRequest
+  readonly body: MarkASalesOrderAsVoidRequest
 }
 
 /** Mark a sales order as void. `POST /salesorders/{salesorder_id}/status/void` */
@@ -1261,6 +1248,8 @@ export interface UpdateSalesOrderSubStatusInput {
   readonly salesorder_id: string
   /** Unique code of the status of a sales order. */
   readonly status_code: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update a sales order sub status. `POST /salesorders/{salesorder_id}/substatus/{status_code}` */
@@ -1268,6 +1257,7 @@ export const updateSalesOrderSubStatus = /*#__PURE__*/ operation<UpdateSalesOrde
   id: "update_sales_order_sub_status",
   method: "POST",
   path: "/salesorders/{salesorder_id}/substatus/{status_code}",
+  body: "json",
   response: UpdateSalesOrderSubStatusResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1292,7 +1282,7 @@ export interface EmailSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Attachments of the Sales Order */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   /** Send the sales order attachment a with the email. */
   readonly send_attachment?: boolean
   /** Name of the file. */
@@ -1305,7 +1295,8 @@ export const emailSalesOrder = /*#__PURE__*/ operation<EmailSalesOrderInput, typ
   id: "email_sales_order",
   method: "POST",
   path: "/salesorders/{salesorder_id}/email",
-  body: "json",
+  files: ["attachments"],
+  body: "multipart",
   response: EmailASalesOrderResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1313,6 +1304,8 @@ export const emailSalesOrder = /*#__PURE__*/ operation<EmailSalesOrderInput, typ
 export interface SubmitSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a sales order for approval. `POST /salesorders/{salesorder_id}/submit` */
@@ -1320,6 +1313,7 @@ export const submitSalesOrder = /*#__PURE__*/ operation<SubmitSalesOrderInput, t
   id: "submit_sales_order",
   method: "POST",
   path: "/salesorders/{salesorder_id}/submit",
+  body: "json",
   response: SubmitASalesOrderForApprovalResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1327,6 +1321,8 @@ export const submitSalesOrder = /*#__PURE__*/ operation<SubmitSalesOrderInput, t
 export interface ApproveSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a sales order.. `POST /salesorders/{salesorder_id}/approve` */
@@ -1334,6 +1330,7 @@ export const approveSalesOrder = /*#__PURE__*/ operation<ApproveSalesOrderInput,
   id: "approve_sales_order",
   method: "POST",
   path: "/salesorders/{salesorder_id}/approve",
+  body: "json",
   response: ApproveASalesOrderResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1341,29 +1338,29 @@ export const approveSalesOrder = /*#__PURE__*/ operation<ApproveSalesOrderInput,
 export interface BulkExportSalesOrdersAsPdfInput {}
 
 /** Bulk export sales orders. `GET /salesorders/pdf` */
-export const bulkExportSalesOrdersAsPdf = /*#__PURE__*/ operation<BulkExportSalesOrdersAsPdfInput, typeof BulkExportSalesOrdersResponse>({
+export const bulkExportSalesOrdersAsPdf = /*#__PURE__*/ operation<BulkExportSalesOrdersAsPdfInput, undefined>({
   id: "bulk_export_sales_orders_as_pdf",
   method: "GET",
   path: "/salesorders/pdf",
-  response: BulkExportSalesOrdersResponse,
+  response: undefined,
   scopes: ["ZohoBooks.salesorders.READ"],
 })
 
 export interface BulkPrintSalesOrdersInput {}
 
 /** Bulk print sales orders. `GET /salesorders/print` */
-export const bulkPrintSalesOrders = /*#__PURE__*/ operation<BulkPrintSalesOrdersInput, typeof BulkPrintSalesOrdersResponse>({
+export const bulkPrintSalesOrders = /*#__PURE__*/ operation<BulkPrintSalesOrdersInput, undefined>({
   id: "bulk_print_sales_orders",
   method: "GET",
   path: "/salesorders/print",
-  response: BulkPrintSalesOrdersResponse,
+  response: undefined,
   scopes: ["ZohoBooks.salesorders.READ"],
 })
 
 export interface UpdateSalesOrderBillingAddressInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /salesorders/{salesorder_id}/address/billing` */
@@ -1379,7 +1376,7 @@ export const updateSalesOrderBillingAddress = /*#__PURE__*/ operation<UpdateSale
 export interface UpdateSalesOrderShippingAddressInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
-  readonly body?: UpdateShippingAddressRequest
+  readonly body: UpdateShippingAddressRequest
 }
 
 /** Update shipping address. `PUT /salesorders/{salesorder_id}/address/shipping` */
@@ -1408,6 +1405,8 @@ export interface UpdateSalesOrderTemplateInput {
   readonly salesorder_id: string
   /** Unique identifier of the sales order template. Note: This value is a set of numeric characters. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update sales order template. `PUT /salesorders/{salesorder_id}/templates/{template_id}` */
@@ -1415,6 +1414,7 @@ export const updateSalesOrderTemplate = /*#__PURE__*/ operation<UpdateSalesOrder
   id: "update_sales_order_template",
   method: "PUT",
   path: "/salesorders/{salesorder_id}/templates/{template_id}",
+  body: "json",
   response: UpdateSalesOrderTemplateResponse,
   scopes: ["ZohoBooks.salesorders.UPDATE"],
 })
@@ -1429,11 +1429,11 @@ export interface GetSalesOrderAttachmentInput {
 }
 
 /** Get a sales order attachment. `GET /salesorders/{salesorder_id}/attachment` */
-export const getSalesOrderAttachment = /*#__PURE__*/ operation<GetSalesOrderAttachmentInput, typeof GetASalesOrderAttachmentResponse>({
+export const getSalesOrderAttachment = /*#__PURE__*/ operation<GetSalesOrderAttachmentInput, undefined>({
   id: "get_sales_order_attachment",
   method: "GET",
   path: "/salesorders/{salesorder_id}/attachment",
-  response: GetASalesOrderAttachmentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.salesorders.READ"],
 })
 
@@ -1441,15 +1441,17 @@ export interface AddSalesOrderAttachmentInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** The file that is to be added as an Attachment in the Sales Order */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   /** Can the file be sent in mail. */
   readonly can_send_in_mail?: boolean
   /** Document that is to be attached */
-  readonly doc?: string
+  readonly doc?: ZohoFile
   /** Total number of files. */
   readonly totalFiles?: number
   /** ID's of the document. Note: This value is a set of numeric characters characters separated by comma. */
   readonly document_ids?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to a sales order. `POST /salesorders/{salesorder_id}/attachment` */
@@ -1457,6 +1459,8 @@ export const addSalesOrderAttachment = /*#__PURE__*/ operation<AddSalesOrderAtta
   id: "add_sales_order_attachment",
   method: "POST",
   path: "/salesorders/{salesorder_id}/attachment",
+  files: ["attachment","doc"],
+  body: "json",
   response: AddAttachmentToASalesOrderResponse,
   scopes: ["ZohoBooks.salesorders.CREATE"],
 })
@@ -1466,6 +1470,8 @@ export interface UpdateSalesOrderAttachmentPreferenceInput {
   readonly salesorder_id: string
   /** Can the file be sent in mail. */
   readonly can_send_in_mail: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update attachment preference. `PUT /salesorders/{salesorder_id}/attachment` */
@@ -1473,6 +1479,7 @@ export const updateSalesOrderAttachmentPreference = /*#__PURE__*/ operation<Upda
   id: "update_sales_order_attachment_preference",
   method: "PUT",
   path: "/salesorders/{salesorder_id}/attachment",
+  body: "json",
   response: UpdateAttachmentPreferenceResponse,
   scopes: ["ZohoBooks.salesorders.UPDATE"],
 })
@@ -1508,7 +1515,7 @@ export const listSalesOrderComments = /*#__PURE__*/ operation<ListSalesOrderComm
 export interface AddSalesOrderCommentInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
-  readonly body?: AddCommentRequest
+  readonly body: AddCommentRequest
 }
 
 /** Add comment. `POST /salesorders/{salesorder_id}/comments` */
@@ -1526,7 +1533,7 @@ export interface UpdateSalesOrderCommentInput {
   readonly salesorder_id: string
   /** Unique identifier of the comment. Note: This value is a set of numeric characters. */
   readonly comment_id: string
-  readonly body?: UpdateCommentRequest
+  readonly body: UpdateCommentRequest
 }
 
 /** Update comment. `PUT /salesorders/{salesorder_id}/comments/{comment_id}` */
@@ -1554,3 +1561,25 @@ export const deleteSalesOrderComment = /*#__PURE__*/ operation<DeleteSalesOrderC
   response: DeleteACommentResponse,
   scopes: ["ZohoBooks.salesorders.DELETE"],
 })
+
+export type CreateSalesOrderResponse = CreateASalesOrderResponse
+export type UpdateSalesOrderUsingCustomFieldResponse = UpdateASalesOrderResponse
+export type GetSalesOrderResponse = GetASalesOrderResponse
+export type UpdateSalesOrderResponse = UpdateASalesOrderResponse
+export type DeleteSalesOrderResponse = DeleteASalesOrderResponse
+export type UpdateSalesorderCustomfieldsResponse = UpdateAnSalesorderCustomfieldResponse
+export type MarkSalesOrderAsOpenResponse = MarkASalesOrderAsOpenResponse
+export type MarkSalesOrderAsVoidResponse = MarkASalesOrderAsVoidResponse
+export type GetSalesOrderEmailResponse = GetSalesOrderEmailContentResponse
+export type EmailSalesOrderResponse = EmailASalesOrderResponse
+export type SubmitSalesOrderResponse = SubmitASalesOrderForApprovalResponse
+export type ApproveSalesOrderResponse = ApproveASalesOrderResponse
+export type UpdateSalesOrderBillingAddressResponse = UpdateBillingAddressResponse
+export type UpdateSalesOrderShippingAddressResponse = UpdateShippingAddressResponse
+export type AddSalesOrderAttachmentResponse = AddAttachmentToASalesOrderResponse
+export type UpdateSalesOrderAttachmentPreferenceResponse = UpdateAttachmentPreferenceResponse
+export type DeleteSalesOrderAttachmentResponse = DeleteAnAttachmentResponse
+export type ListSalesOrderCommentsResponse = ListSalesOrderCommentsAndHistoryResponse
+export type AddSalesOrderCommentResponse = AddCommentResponse
+export type UpdateSalesOrderCommentResponse = UpdateCommentResponse
+export type DeleteSalesOrderCommentResponse = DeleteACommentResponse

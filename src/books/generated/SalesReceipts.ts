@@ -78,16 +78,16 @@ export const UpdateASalesReceiptResponse = Schema.Struct({
 })
 export type UpdateASalesReceiptResponse = typeof UpdateASalesReceiptResponse.Type
 
-export const DeleteASalesReceiptResponse = Schema.Struct({
+export const DeleteASalesReceiptResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteASalesReceiptResponse = typeof DeleteASalesReceiptResponse.Type
 
-export const EmailASalesReceiptResponse = Schema.Struct({
+export const EmailASalesReceiptResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailASalesReceiptResponse = typeof EmailASalesReceiptResponse.Type
 
 export interface CreateASalesReceiptRequest {
@@ -290,3 +290,9 @@ export const emailSalesReceipt = /*#__PURE__*/ operation<EmailSalesReceiptInput,
   response: EmailASalesReceiptResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
+
+export type CreateSalesReceiptResponse = CreateASalesReceiptResponse
+export type GetSalesReceiptResponse = GetASalesReceiptResponse
+export type UpdateSalesReceiptResponse = UpdateASalesReceiptResponse
+export type DeleteSalesReceiptResponse = DeleteASalesReceiptResponse
+export type EmailSalesReceiptResponse = EmailASalesReceiptResponse

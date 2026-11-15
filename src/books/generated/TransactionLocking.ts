@@ -50,10 +50,10 @@ export const UpdateTransactionLockResponse = Schema.Struct({
 })
 export type UpdateTransactionLockResponse = typeof UpdateTransactionLockResponse.Type
 
-export const DeleteTransactionLockResponse = Schema.Struct({
+export const DeleteTransactionLockResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTransactionLockResponse = typeof DeleteTransactionLockResponse.Type
 
 export const PageContext = Schema.Struct({
@@ -133,7 +133,7 @@ export const getTransactionLock = /*#__PURE__*/ operation<GetTransactionLockInpu
 })
 
 export interface UpdateTransactionLockInput {
-  readonly body?: UpdateTransactionLockRequest
+  readonly body: UpdateTransactionLockRequest
 }
 
 /** Update transaction lock. `PUT /transactionlock` */
@@ -149,7 +149,7 @@ export const updateTransactionLock = /*#__PURE__*/ operation<UpdateTransactionLo
 export interface DeleteTransactionLockInput {
   /** ID of the transaction lock to delete. */
   readonly transaction_lock_id: string
-  readonly body?: DeleteTransactionLockRequest
+  readonly body: DeleteTransactionLockRequest
 }
 
 /** Delete a transaction lock. `DELETE /transactionlock` */
@@ -199,7 +199,7 @@ export const listTransactionLocks = /*#__PURE__*/ operation<ListTransactionLocks
 })
 
 export interface UpdatePartialUnlockInput {
-  readonly body?: UpdatePartialUnlockRequest
+  readonly body: UpdatePartialUnlockRequest
 }
 
 /** Update partial unlock settings. `PUT /transactionlock/partialunlock` */
@@ -211,3 +211,5 @@ export const updatePartialUnlock = /*#__PURE__*/ operation<UpdatePartialUnlockIn
   response: UpdatePartialUnlockResponse,
   scopes: ["ZohoBooks.accountants.UPDATE"],
 })
+
+export type GetAccountingPeriodTransactionLockResponse = GetTransactionLockResponse

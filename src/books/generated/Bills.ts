@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const PageContext = Schema.Struct({
   page: W.num,
@@ -336,40 +336,40 @@ export const GetABillResponse = Schema.Struct({
 })
 export type GetABillResponse = typeof GetABillResponse.Type
 
-export const DeleteABillResponse = Schema.Struct({
+export const DeleteABillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteABillResponse = typeof DeleteABillResponse.Type
 
-export const UpdateAnBillCustomfieldResponse = Schema.Struct({
+export const UpdateAnBillCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnBillCustomfieldResponse = typeof UpdateAnBillCustomfieldResponse.Type
 
-export const VoidABillResponse = Schema.Struct({
+export const VoidABillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidABillResponse = typeof VoidABillResponse.Type
 
-export const MarkABillAsOpenResponse = Schema.Struct({
+export const MarkABillAsOpenResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkABillAsOpenResponse = typeof MarkABillAsOpenResponse.Type
 
-export const SubmitABillForApprovalResponse = Schema.Struct({
+export const SubmitABillForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitABillForApprovalResponse = typeof SubmitABillForApprovalResponse.Type
 
-export const ApproveABillResponse = Schema.Struct({
+export const ApproveABillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveABillResponse = typeof ApproveABillResponse.Type
 
 export const UpdateBillingAddressResponse = Schema.Struct({
@@ -400,34 +400,28 @@ export const ListBillPaymentsResponse = Schema.Struct({
 })
 export type ListBillPaymentsResponse = typeof ListBillPaymentsResponse.Type
 
-export const ApplyCreditsResponse = Schema.Struct({
+export const ApplyCreditsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyCreditsResponse = typeof ApplyCreditsResponse.Type
 
-export const DeleteAPaymentResponse = Schema.Struct({
+export const DeleteAPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAPaymentResponse = typeof DeleteAPaymentResponse.Type
 
-export const GetABillAttachmentResponse = Schema.Struct({
+export const AddAttachmentToABillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetABillAttachmentResponse = typeof GetABillAttachmentResponse.Type
-
-export const AddAttachmentToABillResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToABillResponse = typeof AddAttachmentToABillResponse.Type
 
-export const DeleteAnAttachmentResponse = Schema.Struct({
+export const DeleteAnAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAttachmentResponse = typeof DeleteAnAttachmentResponse.Type
 
 export const ListBillCommentsAndHistoryResponse = Schema.Struct({
@@ -470,10 +464,10 @@ export const AddCommentResponse = Schema.Struct({
 })
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export const ConvertPoToBillResponse = Schema.Struct({
@@ -976,7 +970,7 @@ export const listBills = /*#__PURE__*/ operation<ListBillsInput, typeof ListBill
 
 export interface CreateBillInput {
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   readonly body: CreateABillRequest
 }
 
@@ -985,6 +979,7 @@ export const createBill = /*#__PURE__*/ operation<CreateBillInput, typeof Create
   id: "create_bill",
   method: "POST",
   path: "/bills",
+  files: ["attachment"],
   body: "json",
   response: CreateABillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
@@ -1029,7 +1024,7 @@ export interface UpdateBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   readonly body: UpdateABillRequest
 }
 
@@ -1038,6 +1033,7 @@ export const updateBill = /*#__PURE__*/ operation<UpdateBillInput, typeof Update
   id: "update_bill",
   method: "PUT",
   path: "/bills/{bill_id}",
+  files: ["attachment"],
   body: "json",
   response: UpdateABillResponse,
   scopes: ["ZohoBooks.bills.UPDATE"],
@@ -1060,7 +1056,7 @@ export const deleteBill = /*#__PURE__*/ operation<DeleteBillInput, typeof Delete
 export interface UpdateCustomFieldsInBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
-  readonly body?: UpdateABillCustomfieldRequest
+  readonly body: UpdateABillCustomfieldRequest
 }
 
 /** Update custom field in existing bills. `PUT /bill/{bill_id}/customfields` */
@@ -1076,6 +1072,8 @@ export const updateCustomFieldsInBill = /*#__PURE__*/ operation<UpdateCustomFiel
 export interface MarkBillVoidInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void a bill. `POST /bills/{bill_id}/status/void` */
@@ -1083,6 +1081,7 @@ export const markBillVoid = /*#__PURE__*/ operation<MarkBillVoidInput, typeof Vo
   id: "mark_bill_void",
   method: "POST",
   path: "/bills/{bill_id}/status/void",
+  body: "json",
   response: VoidABillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -1090,6 +1089,8 @@ export const markBillVoid = /*#__PURE__*/ operation<MarkBillVoidInput, typeof Vo
 export interface MarkBillOpenInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a bill as open. `POST /bills/{bill_id}/status/open` */
@@ -1097,6 +1098,7 @@ export const markBillOpen = /*#__PURE__*/ operation<MarkBillOpenInput, typeof Ma
   id: "mark_bill_open",
   method: "POST",
   path: "/bills/{bill_id}/status/open",
+  body: "json",
   response: MarkABillAsOpenResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -1104,6 +1106,8 @@ export const markBillOpen = /*#__PURE__*/ operation<MarkBillOpenInput, typeof Ma
 export interface SubmitBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a bill for approval. `POST /bills/{bill_id}/submit` */
@@ -1111,6 +1115,7 @@ export const submitBill = /*#__PURE__*/ operation<SubmitBillInput, typeof Submit
   id: "submit_bill",
   method: "POST",
   path: "/bills/{bill_id}/submit",
+  body: "json",
   response: SubmitABillForApprovalResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -1118,6 +1123,8 @@ export const submitBill = /*#__PURE__*/ operation<SubmitBillInput, typeof Submit
 export interface ApproveBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a bill. `POST /bills/{bill_id}/approve` */
@@ -1125,6 +1132,7 @@ export const approveBill = /*#__PURE__*/ operation<ApproveBillInput, typeof Appr
   id: "approve_bill",
   method: "POST",
   path: "/bills/{bill_id}/approve",
+  body: "json",
   response: ApproveABillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -1132,7 +1140,7 @@ export const approveBill = /*#__PURE__*/ operation<ApproveBillInput, typeof Appr
 export interface UpdateBillBillingAddressInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /bills/{bill_id}/address/billing` */
@@ -1162,7 +1170,7 @@ export const listBillPayments = /*#__PURE__*/ operation<ListBillPaymentsInput, t
 export interface ApplyCreditsToBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
-  readonly body?: ApplyCreditsRequest
+  readonly body: ApplyCreditsRequest
 }
 
 /** Apply credits. `POST /bills/{bill_id}/credits` */
@@ -1199,11 +1207,11 @@ export interface GetBillAttachmentInput {
 }
 
 /** Get a bill attachment. `GET /bills/{bill_id}/attachment` */
-export const getBillAttachment = /*#__PURE__*/ operation<GetBillAttachmentInput, typeof GetABillAttachmentResponse>({
+export const getBillAttachment = /*#__PURE__*/ operation<GetBillAttachmentInput, undefined>({
   id: "get_bill_attachment",
   method: "GET",
   path: "/bills/{bill_id}/attachment",
-  response: GetABillAttachmentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.bills.READ"],
 })
 
@@ -1211,7 +1219,9 @@ export interface AddBillAttachmentInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to a bill. `POST /bills/{bill_id}/attachment` */
@@ -1219,6 +1229,8 @@ export const addBillAttachment = /*#__PURE__*/ operation<AddBillAttachmentInput,
   id: "add_bill_attachment",
   method: "POST",
   path: "/bills/{bill_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddAttachmentToABillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -1296,3 +1308,23 @@ export const convertPurchaseOrderToBill = /*#__PURE__*/ operation<ConvertPurchas
   response: ConvertPoToBillResponse,
   scopes: ["ZohoBooks.bills.READ"],
 })
+
+export type CreateBillResponse = CreateABillResponse
+export type UpdateBillUsingCustomFieldResponse = UpdateABillResponse
+export type GetBillResponse = GetABillResponse
+export type UpdateBillResponse = UpdateABillResponse
+export type DeleteBillResponse = DeleteABillResponse
+export type UpdateCustomFieldsInBillResponse = UpdateAnBillCustomfieldResponse
+export type MarkBillVoidResponse = VoidABillResponse
+export type MarkBillOpenResponse = MarkABillAsOpenResponse
+export type SubmitBillResponse = SubmitABillForApprovalResponse
+export type ApproveBillResponse = ApproveABillResponse
+export type UpdateBillBillingAddressResponse = UpdateBillingAddressResponse
+export type ApplyCreditsToBillResponse = ApplyCreditsResponse
+export type DeleteBillPaymentResponse = DeleteAPaymentResponse
+export type AddBillAttachmentResponse = AddAttachmentToABillResponse
+export type DeleteBillAttachmentResponse = DeleteAnAttachmentResponse
+export type GetBillCommentsResponse = ListBillCommentsAndHistoryResponse
+export type AddBillCommentResponse = AddCommentResponse
+export type DeleteBillCommentResponse = DeleteACommentResponse
+export type ConvertPurchaseOrderToBillResponse = ConvertPoToBillResponse

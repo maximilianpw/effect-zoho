@@ -45,6 +45,8 @@ export type ImportAnItemUsingTheCrmProductIdResponse = typeof ImportAnItemUsingT
 export interface ImportCustomerUsingCrmAccountIdInput {
   /** Unique identifier of the zoho crm account. */
   readonly crm_account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Import a customer using the CRM account ID. `POST /crm/account/{crm_account_id}/import` */
@@ -52,6 +54,7 @@ export const importCustomerUsingCrmAccountId = /*#__PURE__*/ operation<ImportCus
   id: "import_customer_using_crm_account_id",
   method: "POST",
   path: "/crm/account/{crm_account_id}/import",
+  body: "json",
   response: ImportACustomerUsingTheCrmAccountIdResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -59,6 +62,8 @@ export const importCustomerUsingCrmAccountId = /*#__PURE__*/ operation<ImportCus
 export interface ImportCustomerUsingCrmContactIdInput {
   /** Unique identifier of the zoho crm contact. */
   readonly crm_contact_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Import a customer using CRM contact ID. `POST /crm/contact/{crm_contact_id}/import` */
@@ -66,6 +71,7 @@ export const importCustomerUsingCrmContactId = /*#__PURE__*/ operation<ImportCus
   id: "import_customer_using_crm_contact_id",
   method: "POST",
   path: "/crm/contact/{crm_contact_id}/import",
+  body: "json",
   response: ImportACustomerUsingCrmContactIdResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -73,6 +79,8 @@ export const importCustomerUsingCrmContactId = /*#__PURE__*/ operation<ImportCus
 export interface ImportVendorUsingCrmVendorIdInput {
   /** Unique identifier of the zoho crm vendor. */
   readonly crm_vendor_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Import a vendor using the CRM vendor ID. `POST /crm/vendor/{crm_vendor_id}/import` */
@@ -80,6 +88,7 @@ export const importVendorUsingCrmVendorId = /*#__PURE__*/ operation<ImportVendor
   id: "import_vendor_using_crm_vendor_id",
   method: "POST",
   path: "/crm/vendor/{crm_vendor_id}/import",
+  body: "json",
   response: ImportAVendorUsingTheCrmVendorIdResponse,
   scopes: ["ZohoBooks.contacts.CREATE"],
 })
@@ -87,6 +96,8 @@ export const importVendorUsingCrmVendorId = /*#__PURE__*/ operation<ImportVendor
 export interface ImportItemUsingCrmProductIdInput {
   /** Unique identifier of the zoho crm product. */
   readonly crm_product_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Import an item using the CRM product ID. `POST /crm/item/{crm_product_id}/import` */
@@ -94,6 +105,12 @@ export const importItemUsingCrmProductId = /*#__PURE__*/ operation<ImportItemUsi
   id: "import_item_using_crm_product_id",
   method: "POST",
   path: "/crm/item/{crm_product_id}/import",
+  body: "json",
   response: ImportAnItemUsingTheCrmProductIdResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
+
+export type ImportCustomerUsingCrmAccountIdResponse = ImportACustomerUsingTheCrmAccountIdResponse
+export type ImportCustomerUsingCrmContactIdResponse = ImportACustomerUsingCrmContactIdResponse
+export type ImportVendorUsingCrmVendorIdResponse = ImportAVendorUsingTheCrmVendorIdResponse
+export type ImportItemUsingCrmProductIdResponse = ImportAnItemUsingTheCrmProductIdResponse

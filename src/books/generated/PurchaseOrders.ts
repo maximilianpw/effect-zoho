@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const CustomFields = W.Arr(Schema.Struct({
     customfield_id: W.str,
@@ -257,64 +257,64 @@ export const GetAPurchaseOrderResponse = Schema.Struct({
 })
 export type GetAPurchaseOrderResponse = typeof GetAPurchaseOrderResponse.Type
 
-export const DeletePurchaseOrderResponse = Schema.Struct({
+export const DeletePurchaseOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeletePurchaseOrderResponse = typeof DeletePurchaseOrderResponse.Type
 
-export const UpdateAnPurchaseorderCustomfieldResponse = Schema.Struct({
+export const UpdateAnPurchaseorderCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnPurchaseorderCustomfieldResponse = typeof UpdateAnPurchaseorderCustomfieldResponse.Type
 
-export const MarkAPurchaseOrderAsOpenResponse = Schema.Struct({
+export const MarkAPurchaseOrderAsOpenResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAPurchaseOrderAsOpenResponse = typeof MarkAPurchaseOrderAsOpenResponse.Type
 
-export const MarkAsBilledResponse = Schema.Struct({
+export const MarkAsBilledResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsBilledResponse = typeof MarkAsBilledResponse.Type
 
-export const CancelAPurchaseOrderResponse = Schema.Struct({
+export const CancelAPurchaseOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelAPurchaseOrderResponse = typeof CancelAPurchaseOrderResponse.Type
 
-export const SubmitAPurchaseOrderForApprovalResponse = Schema.Struct({
+export const SubmitAPurchaseOrderForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitAPurchaseOrderForApprovalResponse = typeof SubmitAPurchaseOrderForApprovalResponse.Type
 
-export const ApproveAPurchaseOrderResponse = Schema.Struct({
+export const ApproveAPurchaseOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveAPurchaseOrderResponse = typeof ApproveAPurchaseOrderResponse.Type
 
-export const GetPurchaseOrderEmailContentResponse = Schema.Struct({
+export const GetPurchaseOrderEmailContentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetPurchaseOrderEmailContentResponse = typeof GetPurchaseOrderEmailContentResponse.Type
 
-export const EmailAPurchaseOrderResponse = Schema.Struct({
+export const EmailAPurchaseOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailAPurchaseOrderResponse = typeof EmailAPurchaseOrderResponse.Type
 
-export const UpdateBillingAddressResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
 export const Templates = W.Arr(Schema.Struct({
@@ -331,34 +331,28 @@ export const ListPurchaseOrderTemplatesResponse = Schema.Struct({
 })
 export type ListPurchaseOrderTemplatesResponse = typeof ListPurchaseOrderTemplatesResponse.Type
 
-export const UpdatePurchaseOrderTemplateResponse = Schema.Struct({
+export const UpdatePurchaseOrderTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdatePurchaseOrderTemplateResponse = typeof UpdatePurchaseOrderTemplateResponse.Type
 
-export const GetAPurchaseOrderAttachmentResponse = Schema.Struct({
+export const AddAttachmentToAPurchaseOrderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetAPurchaseOrderAttachmentResponse = typeof GetAPurchaseOrderAttachmentResponse.Type
-
-export const AddAttachmentToAPurchaseOrderResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToAPurchaseOrderResponse = typeof AddAttachmentToAPurchaseOrderResponse.Type
 
-export const UpdateAttachmentPreferenceResponse = Schema.Struct({
+export const UpdateAttachmentPreferenceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAttachmentPreferenceResponse = typeof UpdateAttachmentPreferenceResponse.Type
 
-export const DeleteAnAttachmentResponse = Schema.Struct({
+export const DeleteAnAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAttachmentResponse = typeof DeleteAnAttachmentResponse.Type
 
 export const ListPurchaseOrderCommentsAndHistoryResponse = Schema.Struct({
@@ -400,22 +394,22 @@ export const AddCommentResponse = Schema.Struct({
 })
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
-export const UpdateCommentResponse = Schema.Struct({
+export const UpdateCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateCommentResponse = typeof UpdateCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
-export const RejectPurchaseOrder = Schema.Struct({
+export const RejectPurchaseOrder = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RejectPurchaseOrder = typeof RejectPurchaseOrder.Type
 
 export interface CommunicationPreferenceInput {
@@ -862,7 +856,7 @@ export const listPurchaseOrders = /*#__PURE__*/ operation<ListPurchaseOrdersInpu
 
 export interface CreatePurchaseOrderInput {
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   /** Ignore auto purchase order number generation for this purchase order. This mandates the purchase order number. */
   readonly ignore_auto_number_generation?: boolean
   readonly body: CreateAPurchaseOrderRequest
@@ -873,6 +867,7 @@ export const createPurchaseOrder = /*#__PURE__*/ operation<CreatePurchaseOrderIn
   id: "create_purchase_order",
   method: "POST",
   path: "/purchaseorders",
+  files: ["attachment"],
   body: "json",
   response: CreateAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
@@ -921,7 +916,7 @@ export interface UpdatePurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
   /** Ignore auto purchase order number generation for this purchase order. This mandates the purchase order number. */
   readonly ignore_auto_number_generation?: boolean
   readonly body: UpdateAPurchaseOrderRequest
@@ -932,6 +927,7 @@ export const updatePurchaseOrder = /*#__PURE__*/ operation<UpdatePurchaseOrderIn
   id: "update_purchase_order",
   method: "PUT",
   path: "/purchaseorders/{purchaseorder_id}",
+  files: ["attachment"],
   body: "json",
   response: UpdateAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.UPDATE"],
@@ -954,7 +950,7 @@ export const deletePurchaseOrder = /*#__PURE__*/ operation<DeletePurchaseOrderIn
 export interface UpdateCustomFieldsInPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
-  readonly body?: UpdateAPurchaseorderCustomfieldRequest
+  readonly body: UpdateAPurchaseorderCustomfieldRequest
 }
 
 /** Update custom field in existing purchaseorders. `PUT /purchaseorder/{purchaseorder_id}/customfields` */
@@ -970,6 +966,8 @@ export const updateCustomFieldsInPurchaseOrder = /*#__PURE__*/ operation<UpdateC
 export interface MarkPurchaseOrderOpenInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark a purchase order as open. `POST /purchaseorders/{purchaseorder_id}/status/open` */
@@ -977,6 +975,7 @@ export const markPurchaseOrderOpen = /*#__PURE__*/ operation<MarkPurchaseOrderOp
   id: "mark_purchase_order_open",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/status/open",
+  body: "json",
   response: MarkAPurchaseOrderAsOpenResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -984,6 +983,8 @@ export const markPurchaseOrderOpen = /*#__PURE__*/ operation<MarkPurchaseOrderOp
 export interface MarkPurchaseOrderBilledInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as billed. `POST /purchaseorders/{purchaseorder_id}/status/billed` */
@@ -991,6 +992,7 @@ export const markPurchaseOrderBilled = /*#__PURE__*/ operation<MarkPurchaseOrder
   id: "mark_purchase_order_billed",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/status/billed",
+  body: "json",
   response: MarkAsBilledResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -998,6 +1000,8 @@ export const markPurchaseOrderBilled = /*#__PURE__*/ operation<MarkPurchaseOrder
 export interface MarkPurchaseOrderCancelledInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel a purchase order. `POST /purchaseorders/{purchaseorder_id}/status/cancelled` */
@@ -1005,6 +1009,7 @@ export const markPurchaseOrderCancelled = /*#__PURE__*/ operation<MarkPurchaseOr
   id: "mark_purchase_order_cancelled",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/status/cancelled",
+  body: "json",
   response: CancelAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -1012,6 +1017,8 @@ export const markPurchaseOrderCancelled = /*#__PURE__*/ operation<MarkPurchaseOr
 export interface SubmitPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a purchase order for approval. `POST /purchaseorders/{purchaseorder_id}/submit` */
@@ -1019,6 +1026,7 @@ export const submitPurchaseOrder = /*#__PURE__*/ operation<SubmitPurchaseOrderIn
   id: "submit_purchase_order",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/submit",
+  body: "json",
   response: SubmitAPurchaseOrderForApprovalResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -1026,6 +1034,8 @@ export const submitPurchaseOrder = /*#__PURE__*/ operation<SubmitPurchaseOrderIn
 export interface ApprovePurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a purchase order. `POST /purchaseorders/{purchaseorder_id}/approve` */
@@ -1033,6 +1043,7 @@ export const approvePurchaseOrder = /*#__PURE__*/ operation<ApprovePurchaseOrder
   id: "approve_purchase_order",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/approve",
+  body: "json",
   response: ApproveAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -1057,7 +1068,7 @@ export interface EmailPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** The files to be attached with the email. */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   /** Send the purchase order attachment a with the email. */
   readonly send_attachment?: boolean
   /** Name of the file */
@@ -1070,6 +1081,7 @@ export const emailPurchaseOrder = /*#__PURE__*/ operation<EmailPurchaseOrderInpu
   id: "email_purchase_order",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
@@ -1078,7 +1090,7 @@ export const emailPurchaseOrder = /*#__PURE__*/ operation<EmailPurchaseOrderInpu
 export interface UpdatePurchaseOrderBillingAddressInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /purchaseorders/{purchaseorder_id}/address/billing` */
@@ -1109,6 +1121,8 @@ export interface UpdatePurchaseOrderTemplateInput {
   readonly template_id: string
   /** List of available templates for the purchase order. */
   readonly templates?: ReadonlyArray<unknown>
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update purchase order template. `PUT /purchaseorders/{purchaseorder_id}/templates/{template_id}` */
@@ -1116,6 +1130,7 @@ export const updatePurchaseOrderTemplate = /*#__PURE__*/ operation<UpdatePurchas
   id: "update_purchase_order_template",
   method: "PUT",
   path: "/purchaseorders/{purchaseorder_id}/templates/{template_id}",
+  body: "json",
   response: UpdatePurchaseOrderTemplateResponse,
   scopes: ["ZohoBooks.purchaseorders.UPDATE"],
 })
@@ -1128,11 +1143,11 @@ export interface GetPurchaseOrderAttachmentInput {
 }
 
 /** Get a purchase order attachment. `GET /purchaseorders/{purchaseorder_id}/attachment` */
-export const getPurchaseOrderAttachment = /*#__PURE__*/ operation<GetPurchaseOrderAttachmentInput, typeof GetAPurchaseOrderAttachmentResponse>({
+export const getPurchaseOrderAttachment = /*#__PURE__*/ operation<GetPurchaseOrderAttachmentInput, undefined>({
   id: "get_purchase_order_attachment",
   method: "GET",
   path: "/purchaseorders/{purchaseorder_id}/attachment",
-  response: GetAPurchaseOrderAttachmentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.purchaseorders.READ"],
 })
 
@@ -1140,7 +1155,9 @@ export interface AddPurchaseOrderAttachmentInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to a purchase order. `POST /purchaseorders/{purchaseorder_id}/attachment` */
@@ -1148,6 +1165,8 @@ export const addPurchaseOrderAttachment = /*#__PURE__*/ operation<AddPurchaseOrd
   id: "add_purchase_order_attachment",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddAttachmentToAPurchaseOrderResponse,
   scopes: ["ZohoBooks.purchaseorders.CREATE"],
 })
@@ -1157,6 +1176,8 @@ export interface UpdatePurchaseOrderAttachmentInput {
   readonly purchaseorder_id: string
   /** Boolean to send the attachment with the purchase order when emailed. */
   readonly can_send_in_mail: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update attachment preference. `PUT /purchaseorders/{purchaseorder_id}/attachment` */
@@ -1164,6 +1185,7 @@ export const updatePurchaseOrderAttachment = /*#__PURE__*/ operation<UpdatePurch
   id: "update_purchase_order_attachment",
   method: "PUT",
   path: "/purchaseorders/{purchaseorder_id}/attachment",
+  body: "json",
   response: UpdateAttachmentPreferenceResponse,
   scopes: ["ZohoBooks.purchaseorders.UPDATE"],
 })
@@ -1217,7 +1239,7 @@ export interface UpdatePurchaseOrderCommentInput {
   readonly purchaseorder_id: string
   /** Unique identifier of the comment. Note: This value is a set of numeric characters. */
   readonly comment_id: string
-  readonly body?: UpdateCommentRequest
+  readonly body: UpdateCommentRequest
 }
 
 /** Update comment. `PUT /purchaseorders/{purchaseorder_id}/comments/{comment_id}` */
@@ -1249,6 +1271,8 @@ export const deletePurchaseOrderComment = /*#__PURE__*/ operation<DeletePurchase
 export interface RejectPurchaseOrdersInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reject Purchase Order. `POST /purchaseorders/{purchaseorder_id}/reject` */
@@ -1256,6 +1280,29 @@ export const rejectPurchaseOrders = /*#__PURE__*/ operation<RejectPurchaseOrders
   id: "reject_purchase_orders",
   method: "POST",
   path: "/purchaseorders/{purchaseorder_id}/reject",
+  body: "json",
   response: RejectPurchaseOrder,
   scopes: ["ZohoBooks.purchaseorders.UPDATE"],
 })
+
+export type CreatePurchaseOrderResponse = CreateAPurchaseOrderResponse
+export type UpdatePurchaseOrderUsingCustomFieldResponse = UpdateAPurchaseOrderResponse
+export type GetPurchaseOrderResponse = GetAPurchaseOrderResponse
+export type UpdatePurchaseOrderResponse = UpdateAPurchaseOrderResponse
+export type UpdateCustomFieldsInPurchaseOrderResponse = UpdateAnPurchaseorderCustomfieldResponse
+export type MarkPurchaseOrderOpenResponse = MarkAPurchaseOrderAsOpenResponse
+export type MarkPurchaseOrderBilledResponse = MarkAsBilledResponse
+export type MarkPurchaseOrderCancelledResponse = CancelAPurchaseOrderResponse
+export type SubmitPurchaseOrderResponse = SubmitAPurchaseOrderForApprovalResponse
+export type ApprovePurchaseOrderResponse = ApproveAPurchaseOrderResponse
+export type GetPurchaseOrderEmailResponse = GetPurchaseOrderEmailContentResponse
+export type EmailPurchaseOrderResponse = EmailAPurchaseOrderResponse
+export type UpdatePurchaseOrderBillingAddressResponse = UpdateBillingAddressResponse
+export type AddPurchaseOrderAttachmentResponse = AddAttachmentToAPurchaseOrderResponse
+export type UpdatePurchaseOrderAttachmentResponse = UpdateAttachmentPreferenceResponse
+export type DeletePurchaseOrderAttachmentResponse = DeleteAnAttachmentResponse
+export type ListPurchaseOrderCommentsResponse = ListPurchaseOrderCommentsAndHistoryResponse
+export type AddPurchaseOrderCommentResponse = AddCommentResponse
+export type UpdatePurchaseOrderCommentResponse = UpdateCommentResponse
+export type DeletePurchaseOrderCommentResponse = DeleteACommentResponse
+export type RejectPurchaseOrdersResponse = RejectPurchaseOrder

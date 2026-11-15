@@ -80,22 +80,22 @@ export const UpdatePricebookResponse = Schema.Struct({
 })
 export type UpdatePricebookResponse = typeof UpdatePricebookResponse.Type
 
-export const DeleteThePricebookResponse = Schema.Struct({
+export const DeleteThePricebookResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteThePricebookResponse = typeof DeleteThePricebookResponse.Type
 
-export const MarkAsActiveResponse = Schema.Struct({
+export const MarkAsActiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsActiveResponse = typeof MarkAsActiveResponse.Type
 
-export const MarkAsInactiveResponse = Schema.Struct({
+export const MarkAsInactiveResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsInactiveResponse = typeof MarkAsInactiveResponse.Type
 
 export interface CreateAPricebookRequest {
@@ -263,6 +263,8 @@ export const deletePricebook = /*#__PURE__*/ operation<DeletePricebookInput, typ
 export interface MarkPricebookActiveInput {
   /** Unique identifier of the pricebook. */
   readonly pricebook_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Active. `POST /pricebooks/{pricebook_id}/active` */
@@ -270,6 +272,7 @@ export const markPricebookActive = /*#__PURE__*/ operation<MarkPricebookActiveIn
   id: "mark_pricebook_active",
   method: "POST",
   path: "/pricebooks/{pricebook_id}/active",
+  body: "json",
   response: MarkAsActiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
@@ -277,6 +280,8 @@ export const markPricebookActive = /*#__PURE__*/ operation<MarkPricebookActiveIn
 export interface MarkPricebookInactiveInput {
   /** Unique identifier of the pricebook. */
   readonly pricebook_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as Inactive. `POST /pricebooks/{pricebook_id}/inactive` */
@@ -284,6 +289,13 @@ export const markPricebookInactive = /*#__PURE__*/ operation<MarkPricebookInacti
   id: "mark_pricebook_inactive",
   method: "POST",
   path: "/pricebooks/{pricebook_id}/inactive",
+  body: "json",
   response: MarkAsInactiveResponse,
   scopes: ["ZohoBooks.settings.CREATE"],
 })
+
+export type ListPricebooksResponse = ListAllPricebooksResponse
+export type CreatePricebookResponse = CreateAPricebookResponse
+export type DeletePricebookResponse = DeleteThePricebookResponse
+export type MarkPricebookActiveResponse = MarkAsActiveResponse
+export type MarkPricebookInactiveResponse = MarkAsInactiveResponse

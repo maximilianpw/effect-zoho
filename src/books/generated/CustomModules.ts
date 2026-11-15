@@ -42,10 +42,10 @@ export const UpdateModuleConfigurationResponse = Schema.Struct({
 })
 export type UpdateModuleConfigurationResponse = typeof UpdateModuleConfigurationResponse.Type
 
-export const DeleteModuleConfigurationResponse = Schema.Struct({
+export const DeleteModuleConfigurationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteModuleConfigurationResponse = typeof DeleteModuleConfigurationResponse.Type
 
 export const ModuleRecordResponse = Schema.Struct({
@@ -117,10 +117,10 @@ export const BulkUpdateCustomModuleResponse = Schema.Struct({
 })
 export type BulkUpdateCustomModuleResponse = typeof BulkUpdateCustomModuleResponse.Type
 
-export const DeleteCustomModulesResponse = Schema.Struct({
+export const DeleteCustomModulesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCustomModulesResponse = typeof DeleteCustomModulesResponse.Type
 
 export const Comments = W.Arr(Schema.Struct({
@@ -210,10 +210,10 @@ export const UpdateCustomModuleResponse = Schema.Struct({
 })
 export type UpdateCustomModuleResponse = typeof UpdateCustomModuleResponse.Type
 
-export const DeleteIndividualRecordsResponse = Schema.Struct({
+export const DeleteIndividualRecordsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteIndividualRecordsResponse = typeof DeleteIndividualRecordsResponse.Type
 
 export interface CreateModuleConfigurationRequest {
@@ -590,3 +590,15 @@ export const deleteCustomModuleRecord = /*#__PURE__*/ operation<DeleteCustomModu
   response: DeleteIndividualRecordsResponse,
   scopes: ["ZohoBooks.custommodules.ALL"],
 })
+
+export type ListCustomModulesResponse = ListModuleConfigurationsResponse
+export type CreateCustomModuleResponse = CreateModuleConfigurationResponse
+export type GetCustomModuleResponse = GetModuleConfigurationResponse
+export type DeleteCustomModuleResponse = DeleteModuleConfigurationResponse
+export type ListCustomModuleRecordsResponse = GetRecordListOfACustomModuleResponse
+export type CreateCustomModuleRecordResponse = CreateCustomModulesResponse
+export type BulkUpdateCustomModuleRecordsResponse = BulkUpdateCustomModuleResponse
+export type DeleteCustomModuleRecordsResponse = DeleteCustomModulesResponse
+export type GetCustomModuleRecordResponse = GetIndividualRecordDetailsResponse
+export type UpdateCustomModuleRecordResponse = UpdateCustomModuleResponse
+export type DeleteCustomModuleRecordResponse = DeleteIndividualRecordsResponse

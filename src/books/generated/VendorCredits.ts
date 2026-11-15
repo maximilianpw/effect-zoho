@@ -430,34 +430,34 @@ export const UpdateVendorCreditResponse = Schema.Struct({
 })
 export type UpdateVendorCreditResponse = typeof UpdateVendorCreditResponse.Type
 
-export const DeleteVendorCreditResponse = Schema.Struct({
+export const DeleteVendorCreditResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteVendorCreditResponse = typeof DeleteVendorCreditResponse.Type
 
-export const ConvertToOpenResponse = Schema.Struct({
+export const ConvertToOpenResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ConvertToOpenResponse = typeof ConvertToOpenResponse.Type
 
-export const VoidVendorCreditResponse = Schema.Struct({
+export const VoidVendorCreditResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidVendorCreditResponse = typeof VoidVendorCreditResponse.Type
 
-export const SubmitAVendorCreditForApprovalResponse = Schema.Struct({
+export const SubmitAVendorCreditForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitAVendorCreditForApprovalResponse = typeof SubmitAVendorCreditForApprovalResponse.Type
 
-export const ApproveAVendorCreditResponse = Schema.Struct({
+export const ApproveAVendorCreditResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveAVendorCreditResponse = typeof ApproveAVendorCreditResponse.Type
 
 export const ListBillsCreditedResponse = Schema.Struct({
@@ -480,10 +480,10 @@ export const ApplyCreditsToABillResponse = Schema.Struct({
 })
 export type ApplyCreditsToABillResponse = typeof ApplyCreditsToABillResponse.Type
 
-export const DeleteBillsCreditedResponse = Schema.Struct({
+export const DeleteBillsCreditedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteBillsCreditedResponse = typeof DeleteBillsCreditedResponse.Type
 
 export const ListRefundsOfAVendorCreditResponse = Schema.Struct({
@@ -553,10 +553,10 @@ export const UpdateVendorCreditRefundResponse = Schema.Struct({
 })
 export type UpdateVendorCreditRefundResponse = typeof UpdateVendorCreditRefundResponse.Type
 
-export const DeleteVendorCreditRefundResponse = Schema.Struct({
+export const DeleteVendorCreditRefundResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteVendorCreditRefundResponse = typeof DeleteVendorCreditRefundResponse.Type
 
 export const ListVendorCreditRefundsResponse = Schema.Struct({
@@ -612,10 +612,10 @@ export const AddACommentResponse = Schema.Struct({
 })
 export type AddACommentResponse = typeof AddACommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export interface CreateAVendorCreditRequest {
@@ -1032,6 +1032,8 @@ export const deleteVendorCredit = /*#__PURE__*/ operation<DeleteVendorCreditInpu
 export interface MarkVendorCreditOpenInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Convert to open. `POST /vendorcredits/{vendor_credit_id}/status/open` */
@@ -1039,6 +1041,7 @@ export const markVendorCreditOpen = /*#__PURE__*/ operation<MarkVendorCreditOpen
   id: "mark_vendor_credit_open",
   method: "POST",
   path: "/vendorcredits/{vendor_credit_id}/status/open",
+  body: "json",
   response: ConvertToOpenResponse,
   scopes: ["ZohoBooks.debitnotes.CREATE"],
 })
@@ -1046,6 +1049,8 @@ export const markVendorCreditOpen = /*#__PURE__*/ operation<MarkVendorCreditOpen
 export interface MarkVendorCreditVoidInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void vendor credit. `POST /vendorcredits/{vendor_credit_id}/status/void` */
@@ -1053,6 +1058,7 @@ export const markVendorCreditVoid = /*#__PURE__*/ operation<MarkVendorCreditVoid
   id: "mark_vendor_credit_void",
   method: "POST",
   path: "/vendorcredits/{vendor_credit_id}/status/void",
+  body: "json",
   response: VoidVendorCreditResponse,
   scopes: ["ZohoBooks.debitnotes.CREATE"],
 })
@@ -1060,6 +1066,8 @@ export const markVendorCreditVoid = /*#__PURE__*/ operation<MarkVendorCreditVoid
 export interface SubmitVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit a Vendor credit for approval. `POST /vendorcredits/{vendor_credit_id}/submit` */
@@ -1067,6 +1075,7 @@ export const submitVendorCredit = /*#__PURE__*/ operation<SubmitVendorCreditInpu
   id: "submit_vendor_credit",
   method: "POST",
   path: "/vendorcredits/{vendor_credit_id}/submit",
+  body: "json",
   response: SubmitAVendorCreditForApprovalResponse,
   scopes: ["ZohoBooks.debitnotes.CREATE"],
 })
@@ -1074,6 +1083,8 @@ export const submitVendorCredit = /*#__PURE__*/ operation<SubmitVendorCreditInpu
 export interface ApproveVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve a Vendor credit. `POST /vendorcredits/{vendor_credit_id}/approve` */
@@ -1081,6 +1092,7 @@ export const approveVendorCredit = /*#__PURE__*/ operation<ApproveVendorCreditIn
   id: "approve_vendor_credit",
   method: "POST",
   path: "/vendorcredits/{vendor_credit_id}/approve",
+  body: "json",
   response: ApproveAVendorCreditResponse,
   scopes: ["ZohoBooks.debitnotes.CREATE"],
 })
@@ -1282,3 +1294,16 @@ export const deleteVendorCreditComment = /*#__PURE__*/ operation<DeleteVendorCre
   response: DeleteACommentResponse,
   scopes: ["ZohoBooks.debitnotes.DELETE"],
 })
+
+export type CreateVendorCreditResponse = CreateAVendorCreditResponse
+export type MarkVendorCreditOpenResponse = ConvertToOpenResponse
+export type MarkVendorCreditVoidResponse = VoidVendorCreditResponse
+export type SubmitVendorCreditResponse = SubmitAVendorCreditForApprovalResponse
+export type ApproveVendorCreditResponse = ApproveAVendorCreditResponse
+export type DeleteVendorCreditBillResponse = DeleteBillsCreditedResponse
+export type ListVendorCreditRefundsOfAVendorCreditResponse = ListRefundsOfAVendorCreditResponse
+export type RefundVendorCreditResponse = RefundAVendorCreditResponse
+export type ListVendorCreditRefundsOfAllVendorCreditsResponse = ListVendorCreditRefundsResponse
+export type ListVendorCreditCommentsResponse = ListVendorCreditCommentsAndHistoryResponse
+export type AddVendorCreditCommentResponse = AddACommentResponse
+export type DeleteVendorCreditCommentResponse = DeleteACommentResponse

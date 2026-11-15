@@ -78,10 +78,10 @@ export const LogTimeEntriesResponse = Schema.Struct({
 })
 export type LogTimeEntriesResponse = typeof LogTimeEntriesResponse.Type
 
-export const DeleteTimeEntriesResponse = Schema.Struct({
+export const DeleteTimeEntriesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTimeEntriesResponse = typeof DeleteTimeEntriesResponse.Type
 
 export const GetATimeEntryResponse = Schema.Struct({
@@ -149,10 +149,10 @@ export const UpdateTimeEntryResponse = Schema.Struct({
 })
 export type UpdateTimeEntryResponse = typeof UpdateTimeEntryResponse.Type
 
-export const DeleteTimeEntryResponse = Schema.Struct({
+export const DeleteTimeEntryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTimeEntryResponse = typeof DeleteTimeEntryResponse.Type
 
 export const StartTimerResponse = Schema.Struct({
@@ -401,6 +401,8 @@ export const deleteTimeEntry = /*#__PURE__*/ operation<DeleteTimeEntryInput, typ
 export interface StartEntryTimerInput {
   /** Unique identifier of the time entry. */
   readonly time_entry_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Start timer. `POST /projects/timeentries/{time_entry_id}/timer/start` */
@@ -408,17 +410,22 @@ export const startEntryTimer = /*#__PURE__*/ operation<StartEntryTimerInput, typ
   id: "start_entry_timer",
   method: "POST",
   path: "/projects/timeentries/{time_entry_id}/timer/start",
+  body: "json",
   response: StartTimerResponse,
   scopes: ["ZohoBooks.projects.CREATE"],
 })
 
-export interface StopEntryTimerInput {}
+export interface StopEntryTimerInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Stop timer. `POST /projects/timeentries/timer/stop` */
 export const stopEntryTimer = /*#__PURE__*/ operation<StopEntryTimerInput, typeof StopTimerResponse>({
   id: "stop_entry_timer",
   method: "POST",
   path: "/projects/timeentries/timer/stop",
+  body: "json",
   response: StopTimerResponse,
   scopes: ["ZohoBooks.projects.CREATE"],
 })
@@ -433,3 +440,9 @@ export const getRunningTimer = /*#__PURE__*/ operation<GetRunningTimerInput, typ
   response: GetTimerResponse,
   scopes: ["ZohoBooks.projects.READ"],
 })
+
+export type CreateTimeEntriesResponse = LogTimeEntriesResponse
+export type GetTimeEntryResponse = GetATimeEntryResponse
+export type StartEntryTimerResponse = StartTimerResponse
+export type StopEntryTimerResponse = StopTimerResponse
+export type GetRunningTimerResponse = GetTimerResponse

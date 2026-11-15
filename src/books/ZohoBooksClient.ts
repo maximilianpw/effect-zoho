@@ -33,6 +33,8 @@ export interface ZohoBooksRequest {
   readonly query?: Readonly<Record<string, string>>
   readonly headers?: Readonly<Record<string, string>>
   readonly body?: ZohoBooksBody
+  /** `false` leaves out `organization_id`, for the endpoints that list or create organisations. */
+  readonly organization?: false
 }
 
 export interface ZohoBinary {
@@ -98,7 +100,9 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
 
         const build = (request: ZohoBooksRequest, token: Redacted.Redacted<string>) => {
           const built = HttpClientRequest.make(request.method)(`${base}${request.path}`).pipe(
-            HttpClientRequest.setUrlParams({ ...request.query, organization_id: options.organizationId }),
+            HttpClientRequest.setUrlParams(request.organization === false
+              ? { ...request.query }
+              : { ...request.query, organization_id: options.organizationId }),
             HttpClientRequest.setHeaders({ ...request.headers, Authorization: `Zoho-oauthtoken ${Redacted.value(token)}` }),
           )
           if (request.body === undefined) return built

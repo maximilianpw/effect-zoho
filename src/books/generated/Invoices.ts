@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const CustomFields = W.Arr(Schema.Struct({
     customfield_id: W.str,
@@ -381,10 +381,10 @@ export const UpdateAnInvoiceResponse = Schema.Struct({
 })
 export type UpdateAnInvoiceResponse = typeof UpdateAnInvoiceResponse.Type
 
-export const DeleteInvoicesResponse = Schema.Struct({
+export const DeleteInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoicesResponse = typeof DeleteInvoicesResponse.Type
 
 export const GetAnInvoiceResponse = Schema.Struct({
@@ -498,34 +498,34 @@ export const GetAnInvoiceResponse = Schema.Struct({
 })
 export type GetAnInvoiceResponse = typeof GetAnInvoiceResponse.Type
 
-export const DeleteAnInvoiceResponse = Schema.Struct({
+export const DeleteAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnInvoiceResponse = typeof DeleteAnInvoiceResponse.Type
 
-export const MarkAnInvoiceAsSentResponse = Schema.Struct({
+export const MarkAnInvoiceAsSentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnInvoiceAsSentResponse = typeof MarkAnInvoiceAsSentResponse.Type
 
-export const VoidAnInvoiceResponse = Schema.Struct({
+export const VoidAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidAnInvoiceResponse = typeof VoidAnInvoiceResponse.Type
 
-export const MarkAsDraftResponse = Schema.Struct({
+export const MarkAsDraftResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAsDraftResponse = typeof MarkAsDraftResponse.Type
 
-export const EmailInvoicesResponse = Schema.Struct({
+export const EmailInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailInvoicesResponse = typeof EmailInvoicesResponse.Type
 
 export const CreateAnInstantInvoiceResponse = Schema.Struct({
@@ -670,16 +670,16 @@ export const MapInvoiceWithSalesorderResponse = Schema.Struct({
 })
 export type MapInvoiceWithSalesorderResponse = typeof MapInvoiceWithSalesorderResponse.Type
 
-export const SubmitAnInvoiceForApprovalResponse = Schema.Struct({
+export const SubmitAnInvoiceForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitAnInvoiceForApprovalResponse = typeof SubmitAnInvoiceForApprovalResponse.Type
 
-export const ApproveAnInvoiceResponse = Schema.Struct({
+export const ApproveAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveAnInvoiceResponse = typeof ApproveAnInvoiceResponse.Type
 
 export const BccMails = W.Arr(W.Str)
@@ -749,10 +749,10 @@ export const GetInvoiceEmailContentResponse = Schema.Struct({
 })
 export type GetInvoiceEmailContentResponse = typeof GetInvoiceEmailContentResponse.Type
 
-export const EmailAnInvoiceResponse = Schema.Struct({
+export const EmailAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailAnInvoiceResponse = typeof EmailAnInvoiceResponse.Type
 
 export const GetPaymentReminderMailContentResponse = Schema.Struct({
@@ -810,10 +810,10 @@ export const GetPaymentReminderMailContentResponse = Schema.Struct({
 })
 export type GetPaymentReminderMailContentResponse = typeof GetPaymentReminderMailContentResponse.Type
 
-export const RemindCustomerResponse = Schema.Struct({
+export const RemindCustomerResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RemindCustomerResponse = typeof RemindCustomerResponse.Type
 
 export const BulkInvoiceReminderResponse = Schema.Struct({
@@ -833,52 +833,40 @@ export const BulkInvoiceReminderResponse = Schema.Struct({
 })
 export type BulkInvoiceReminderResponse = typeof BulkInvoiceReminderResponse.Type
 
-export const BulkExportInvoicesResponse = Schema.Struct({
+export const DisablePaymentReminderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type BulkExportInvoicesResponse = typeof BulkExportInvoicesResponse.Type
-
-export const BulkPrintInvoicesResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
-export type BulkPrintInvoicesResponse = typeof BulkPrintInvoicesResponse.Type
-
-export const DisablePaymentReminderResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DisablePaymentReminderResponse = typeof DisablePaymentReminderResponse.Type
 
-export const EnablePaymentReminderResponse = Schema.Struct({
+export const EnablePaymentReminderResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnablePaymentReminderResponse = typeof EnablePaymentReminderResponse.Type
 
-export const WriteOffInvoiceResponse = Schema.Struct({
+export const WriteOffInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type WriteOffInvoiceResponse = typeof WriteOffInvoiceResponse.Type
 
-export const CancelWriteOffResponse = Schema.Struct({
+export const CancelWriteOffResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelWriteOffResponse = typeof CancelWriteOffResponse.Type
 
-export const UpdateBillingAddressResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
-export const UpdateShippingAddressResponse = Schema.Struct({
+export const UpdateShippingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateShippingAddressResponse = typeof UpdateShippingAddressResponse.Type
 
 export const ListInvoiceTemplatesResponse = Schema.Struct({
@@ -892,10 +880,10 @@ export const ListInvoiceTemplatesResponse = Schema.Struct({
 })
 export type ListInvoiceTemplatesResponse = typeof ListInvoiceTemplatesResponse.Type
 
-export const UpdateInvoiceTemplateResponse = Schema.Struct({
+export const UpdateInvoiceTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateInvoiceTemplateResponse = typeof UpdateInvoiceTemplateResponse.Type
 
 export const ListInvoicePaymentsResponse = Schema.Struct({
@@ -932,46 +920,40 @@ export const ListCreditsAppliedResponse = Schema.Struct({
 })
 export type ListCreditsAppliedResponse = typeof ListCreditsAppliedResponse.Type
 
-export const ApplyCreditsResponse = Schema.Struct({
+export const ApplyCreditsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyCreditsResponse = typeof ApplyCreditsResponse.Type
 
-export const DeleteAPaymentResponse = Schema.Struct({
+export const DeleteAPaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAPaymentResponse = typeof DeleteAPaymentResponse.Type
 
-export const DeleteAppliedCreditResponse = Schema.Struct({
+export const DeleteAppliedCreditResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAppliedCreditResponse = typeof DeleteAppliedCreditResponse.Type
 
-export const GetAnInvoiceAttachmentResponse = Schema.Struct({
+export const AddAttachmentToAnInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetAnInvoiceAttachmentResponse = typeof GetAnInvoiceAttachmentResponse.Type
-
-export const AddAttachmentToAnInvoiceResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentToAnInvoiceResponse = typeof AddAttachmentToAnInvoiceResponse.Type
 
-export const UpdateAttachmentPreferenceResponse = Schema.Struct({
+export const UpdateAttachmentPreferenceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAttachmentPreferenceResponse = typeof UpdateAttachmentPreferenceResponse.Type
 
-export const DeleteAnAttachmentResponse = Schema.Struct({
+export const DeleteAnAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAttachmentResponse = typeof DeleteAnAttachmentResponse.Type
 
 export const GetInvoiceDocumentResponse = Schema.Struct({
@@ -990,28 +972,28 @@ export const GetInvoiceDocumentResponse = Schema.Struct({
 })
 export type GetInvoiceDocumentResponse = typeof GetInvoiceDocumentResponse.Type
 
-export const AddInvoiceDocumentResponse = Schema.Struct({
+export const AddInvoiceDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddInvoiceDocumentResponse = typeof AddInvoiceDocumentResponse.Type
 
-export const DeleteInvoiceDocumentResponse = Schema.Struct({
+export const DeleteInvoiceDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoiceDocumentResponse = typeof DeleteInvoiceDocumentResponse.Type
 
-export const DeleteTheExpenseReceiptResponse = Schema.Struct({
+export const DeleteTheExpenseReceiptResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTheExpenseReceiptResponse = typeof DeleteTheExpenseReceiptResponse.Type
 
-export const UpdateAnInvoiceCustomfieldResponse = Schema.Struct({
+export const UpdateAnInvoiceCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnInvoiceCustomfieldResponse = typeof UpdateAnInvoiceCustomfieldResponse.Type
 
 export const ListInvoiceCommentsAndHistoryResponse = Schema.Struct({
@@ -1034,10 +1016,10 @@ export const ListInvoiceCommentsAndHistoryResponse = Schema.Struct({
 })
 export type ListInvoiceCommentsAndHistoryResponse = typeof ListInvoiceCommentsAndHistoryResponse.Type
 
-export const AddCommentResponse = Schema.Struct({
+export const AddCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
 export const UpdateCommentResponse = Schema.Struct({
@@ -1057,10 +1039,10 @@ export const UpdateCommentResponse = Schema.Struct({
 })
 export type UpdateCommentResponse = typeof UpdateCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export const PaymentLinkResponse = Schema.Struct({
@@ -1072,382 +1054,358 @@ export const PaymentLinkResponse = Schema.Struct({
 })
 export type PaymentLinkResponse = typeof PaymentLinkResponse.Type
 
-export const ApproveInvoicesResponse = Schema.Struct({
+export const ApproveInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveInvoicesResponse = typeof ApproveInvoicesResponse.Type
 
-export const VoidInvoicesResponse = Schema.Struct({
+export const VoidInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidInvoicesResponse = typeof VoidInvoicesResponse.Type
 
-export const CreateInvoicesFromProjectsResponse = Schema.Struct({
+export const CreateInvoicesFromProjectsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateInvoicesFromProjectsResponse = typeof CreateInvoicesFromProjectsResponse.Type
 
-export const GetInvoiceDeliveryNotesResponse = Schema.Struct({
+export const FinalizeInvoiceApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetInvoiceDeliveryNotesResponse = typeof GetInvoiceDeliveryNotesResponse.Type
-
-export const GetInvoicePackingSlipsResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
-export type GetInvoicePackingSlipsResponse = typeof GetInvoicePackingSlipsResponse.Type
-
-export const FinalizeInvoiceApprovalResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type FinalizeInvoiceApprovalResponse = typeof FinalizeInvoiceApprovalResponse.Type
 
-export const RejectInvoiceResponse = Schema.Struct({
+export const RejectInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RejectInvoiceResponse = typeof RejectInvoiceResponse.Type
 
-export const SendInvoiceSnailMailResponse = Schema.Struct({
+export const SendInvoiceSnailMailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendInvoiceSnailMailResponse = typeof SendInvoiceSnailMailResponse.Type
 
-export const AddInvoiceOnlinePaymentBankAccountResponse = Schema.Struct({
+export const AddInvoiceOnlinePaymentBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddInvoiceOnlinePaymentBankAccountResponse = typeof AddInvoiceOnlinePaymentBankAccountResponse.Type
 
-export const ApplyPricebookToInvoiceResponse = Schema.Struct({
+export const ApplyPricebookToInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyPricebookToInvoiceResponse = typeof ApplyPricebookToInvoiceResponse.Type
 
-export const SubmitInvoicesResponse = Schema.Struct({
+export const SubmitInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitInvoicesResponse = typeof SubmitInvoicesResponse.Type
 
-export const MarkInvoicesSentResponse = Schema.Struct({
+export const MarkInvoicesSentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkInvoicesSentResponse = typeof MarkInvoicesSentResponse.Type
 
-export const WriteOffInvoicesResponse = Schema.Struct({
+export const WriteOffInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type WriteOffInvoicesResponse = typeof WriteOffInvoicesResponse.Type
 
-export const MarkInvoicesShippedResponse = Schema.Struct({
+export const MarkInvoicesShippedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkInvoicesShippedResponse = typeof MarkInvoicesShippedResponse.Type
 
-export const UnshipInvoicesResponse = Schema.Struct({
+export const UnshipInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UnshipInvoicesResponse = typeof UnshipInvoicesResponse.Type
 
-export const CreateInvoicesFromEstimatesResponse = Schema.Struct({
+export const CreateInvoicesFromEstimatesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateInvoicesFromEstimatesResponse = typeof CreateInvoicesFromEstimatesResponse.Type
 
-export const PreviewInvoiceCouponsResponse = Schema.Struct({
+export const PreviewInvoiceCouponsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PreviewInvoiceCouponsResponse = typeof PreviewInvoiceCouponsResponse.Type
 
-export const UnmapInvoicesFromSalesordersResponse = Schema.Struct({
+export const UnmapInvoicesFromSalesordersResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UnmapInvoicesFromSalesordersResponse = typeof UnmapInvoicesFromSalesordersResponse.Type
 
-export const GetInvoiceDashboardResponse = Schema.Struct({
+export const GetInvoiceDashboardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceDashboardResponse = typeof GetInvoiceDashboardResponse.Type
 
-export const GetInvoiceByReferenceResponse = Schema.Struct({
+export const GetInvoiceByReferenceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceByReferenceResponse = typeof GetInvoiceByReferenceResponse.Type
 
-export const GetInvoiceCustomFieldsResponse = Schema.Struct({
+export const GetInvoiceCustomFieldsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceCustomFieldsResponse = typeof GetInvoiceCustomFieldsResponse.Type
 
-export const GetInvoiceAdvancedTrackingDetailsResponse = Schema.Struct({
+export const GetInvoiceAdvancedTrackingDetailsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceAdvancedTrackingDetailsResponse = typeof GetInvoiceAdvancedTrackingDetailsResponse.Type
 
-export const UpdateInvoiceAdvancedTrackingDetailsResponse = Schema.Struct({
+export const UpdateInvoiceAdvancedTrackingDetailsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateInvoiceAdvancedTrackingDetailsResponse = typeof UpdateInvoiceAdvancedTrackingDetailsResponse.Type
 
-export const PrintInvoiceDeliveryNoteResponse = Schema.Struct({
+export const GetInvoiceQrCodeResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type PrintInvoiceDeliveryNoteResponse = typeof PrintInvoiceDeliveryNoteResponse.Type
-
-export const PrintInvoicePackingSlipResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
-export type PrintInvoicePackingSlipResponse = typeof PrintInvoicePackingSlipResponse.Type
-
-export const GetInvoiceQrCodeResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceQrCodeResponse = typeof GetInvoiceQrCodeResponse.Type
 
-export const GetInvoiceSmsResponse = Schema.Struct({
+export const GetInvoiceSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceSmsResponse = typeof GetInvoiceSmsResponse.Type
 
-export const SendInvoiceSmsResponse = Schema.Struct({
+export const SendInvoiceSmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendInvoiceSmsResponse = typeof SendInvoiceSmsResponse.Type
 
-export const GetInvoiceSignatureTemplateResponse = Schema.Struct({
+export const GetInvoiceSignatureTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceSignatureTemplateResponse = typeof GetInvoiceSignatureTemplateResponse.Type
 
-export const AddInvoiceDigitalSignatureResponse = Schema.Struct({
+export const AddInvoiceDigitalSignatureResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddInvoiceDigitalSignatureResponse = typeof AddInvoiceDigitalSignatureResponse.Type
 
-export const UploadInvoiceDigitalSignatureResponse = Schema.Struct({
+export const UploadInvoiceDigitalSignatureResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UploadInvoiceDigitalSignatureResponse = typeof UploadInvoiceDigitalSignatureResponse.Type
 
-export const UploadInvoiceDocumentResponse = Schema.Struct({
+export const UploadInvoiceDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UploadInvoiceDocumentResponse = typeof UploadInvoiceDocumentResponse.Type
 
-export const UpdateInvoiceCfdiStatusResponse = Schema.Struct({
+export const UpdateInvoiceCfdiStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateInvoiceCfdiStatusResponse = typeof UpdateInvoiceCfdiStatusResponse.Type
 
-export const CancelInvoiceResponse = Schema.Struct({
+export const CancelInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelInvoiceResponse = typeof CancelInvoiceResponse.Type
 
-export const MarkInvoiceReadyToPushResponse = Schema.Struct({
+export const MarkInvoiceReadyToPushResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkInvoiceReadyToPushResponse = typeof MarkInvoiceReadyToPushResponse.Type
 
-export const ApplyInvoiceSubstatusResponse = Schema.Struct({
+export const ApplyInvoiceSubstatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApplyInvoiceSubstatusResponse = typeof ApplyInvoiceSubstatusResponse.Type
 
-export const DeleteInvoiceSubstatusResponse = Schema.Struct({
+export const DeleteInvoiceSubstatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoiceSubstatusResponse = typeof DeleteInvoiceSubstatusResponse.Type
 
-export const DeleteInvoiceLineItemResponse = Schema.Struct({
+export const DeleteInvoiceLineItemResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoiceLineItemResponse = typeof DeleteInvoiceLineItemResponse.Type
 
-export const ScheduleInvoiceEmailResponse = Schema.Struct({
+export const ScheduleInvoiceEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ScheduleInvoiceEmailResponse = typeof ScheduleInvoiceEmailResponse.Type
 
-export const CancelScheduledInvoiceEmailResponse = Schema.Struct({
+export const CancelScheduledInvoiceEmailResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelScheduledInvoiceEmailResponse = typeof CancelScheduledInvoiceEmailResponse.Type
 
-export const ForcePayInvoiceResponse = Schema.Struct({
+export const ForcePayInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ForcePayInvoiceResponse = typeof ForcePayInvoiceResponse.Type
 
-export const MailInvoicePdfResponse = Schema.Struct({
+export const MailInvoicePdfResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MailInvoicePdfResponse = typeof MailInvoicePdfResponse.Type
 
-export const InvoiceSynchronousOnlinePaymentResponse = Schema.Struct({
+export const InvoiceSynchronousOnlinePaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InvoiceSynchronousOnlinePaymentResponse = typeof InvoiceSynchronousOnlinePaymentResponse.Type
 
-export const InvoiceAsynchronousOnlinePaymentResponse = Schema.Struct({
+export const InvoiceAsynchronousOnlinePaymentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InvoiceAsynchronousOnlinePaymentResponse = typeof InvoiceAsynchronousOnlinePaymentResponse.Type
 
-export const GetInvoicePaymentQrResponse = Schema.Struct({
+export const GetInvoicePaymentQrResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoicePaymentQrResponse = typeof GetInvoicePaymentQrResponse.Type
 
-export const GetInvoicePaymentQrStatusResponse = Schema.Struct({
+export const GetInvoicePaymentQrStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoicePaymentQrStatusResponse = typeof GetInvoicePaymentQrStatusResponse.Type
 
-export const SendInvoiceDunningNotificationsResponse = Schema.Struct({
+export const SendInvoiceDunningNotificationsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendInvoiceDunningNotificationsResponse = typeof SendInvoiceDunningNotificationsResponse.Type
 
-export const SendInvoiceRetrySmsResponse = Schema.Struct({
+export const SendInvoiceRetrySmsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SendInvoiceRetrySmsResponse = typeof SendInvoiceRetrySmsResponse.Type
 
-export const GetInvoiceMetadataResponse = Schema.Struct({
+export const GetInvoiceMetadataResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceMetadataResponse = typeof GetInvoiceMetadataResponse.Type
 
-export const UpdateInvoiceMetadataResponse = Schema.Struct({
+export const UpdateInvoiceMetadataResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateInvoiceMetadataResponse = typeof UpdateInvoiceMetadataResponse.Type
 
-export const ListInvoicesEinvoiceResponse = Schema.Struct({
+export const ListInvoicesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListInvoicesEinvoiceResponse = typeof ListInvoicesEinvoiceResponse.Type
 
-export const PushInvoicesEinvoiceResponse = Schema.Struct({
+export const PushInvoicesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushInvoicesEinvoiceResponse = typeof PushInvoicesEinvoiceResponse.Type
 
-export const CancelInvoicesEinvoiceResponse = Schema.Struct({
+export const CancelInvoicesEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelInvoicesEinvoiceResponse = typeof CancelInvoicesEinvoiceResponse.Type
 
-export const GetInvoiceEinvoiceResponse = Schema.Struct({
+export const GetInvoiceEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetInvoiceEinvoiceResponse = typeof GetInvoiceEinvoiceResponse.Type
 
-export const PushInvoiceEinvoiceResponse = Schema.Struct({
+export const PushInvoiceEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type PushInvoiceEinvoiceResponse = typeof PushInvoiceEinvoiceResponse.Type
 
-export const CancelInvoiceEinvoiceResponse = Schema.Struct({
+export const CancelInvoiceEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelInvoiceEinvoiceResponse = typeof CancelInvoiceEinvoiceResponse.Type
 
-export const FetchInvoiceEinvoiceResponse = Schema.Struct({
+export const FetchInvoiceEinvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type FetchInvoiceEinvoiceResponse = typeof FetchInvoiceEinvoiceResponse.Type
 
-export const DeleteInvoiceEinvoiceStatusResponse = Schema.Struct({
+export const DeleteInvoiceEinvoiceStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteInvoiceEinvoiceStatusResponse = typeof DeleteInvoiceEinvoiceStatusResponse.Type
 
-export const MarkInvoiceEinvoicePushedResponse = Schema.Struct({
+export const MarkInvoiceEinvoicePushedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkInvoiceEinvoicePushedResponse = typeof MarkInvoiceEinvoicePushedResponse.Type
 
-export const MarkInvoiceEinvoiceCancelledResponse = Schema.Struct({
+export const MarkInvoiceEinvoiceCancelledResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkInvoiceEinvoiceCancelledResponse = typeof MarkInvoiceEinvoiceCancelledResponse.Type
 
-export const RecallInvoiceEinvoiceStatusResponse = Schema.Struct({
+export const RecallInvoiceEinvoiceStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type RecallInvoiceEinvoiceStatusResponse = typeof RecallInvoiceEinvoiceStatusResponse.Type
 
-export const UpdateInvoiceEinvoicePaymentStatusResponse = Schema.Struct({
+export const UpdateInvoiceEinvoicePaymentStatusResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateInvoiceEinvoicePaymentStatusResponse = typeof UpdateInvoiceEinvoicePaymentStatusResponse.Type
 
-export const CancelEinvoiceInvoiceResponse = Schema.Struct({
+export const CancelEinvoiceInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelEinvoiceInvoiceResponse = typeof CancelEinvoiceInvoiceResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -2362,6 +2320,8 @@ export const deleteInvoice = /*#__PURE__*/ operation<DeleteInvoiceInput, typeof 
 export interface MarkInvoiceSentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an invoice as sent. `POST /invoices/{invoice_id}/status/sent` */
@@ -2369,6 +2329,7 @@ export const markInvoiceSent = /*#__PURE__*/ operation<MarkInvoiceSentInput, typ
   id: "mark_invoice_sent",
   method: "POST",
   path: "/invoices/{invoice_id}/status/sent",
+  body: "json",
   response: MarkAnInvoiceAsSentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2376,6 +2337,8 @@ export const markInvoiceSent = /*#__PURE__*/ operation<MarkInvoiceSentInput, typ
 export interface MarkInvoiceVoidInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void an invoice. `POST /invoices/{invoice_id}/status/void` */
@@ -2383,6 +2346,7 @@ export const markInvoiceVoid = /*#__PURE__*/ operation<MarkInvoiceVoidInput, typ
   id: "mark_invoice_void",
   method: "POST",
   path: "/invoices/{invoice_id}/status/void",
+  body: "json",
   response: VoidAnInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2390,6 +2354,8 @@ export const markInvoiceVoid = /*#__PURE__*/ operation<MarkInvoiceVoidInput, typ
 export interface MarkInvoiceDraftInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark as draft. `POST /invoices/{invoice_id}/status/draft` */
@@ -2397,6 +2363,7 @@ export const markInvoiceDraft = /*#__PURE__*/ operation<MarkInvoiceDraftInput, t
   id: "mark_invoice_draft",
   method: "POST",
   path: "/invoices/{invoice_id}/status/draft",
+  body: "json",
   response: MarkAsDraftResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2404,7 +2371,7 @@ export const markInvoiceDraft = /*#__PURE__*/ operation<MarkInvoiceDraftInput, t
 export interface EmailInvoicesInput {
   /** Comma separated invoice ids which are to be emailed. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
-  readonly body?: EmailInvoicesRequest
+  readonly body: EmailInvoicesRequest
 }
 
 /** Email multiple invoices. `POST /invoices/email` */
@@ -2420,6 +2387,8 @@ export const emailInvoices = /*#__PURE__*/ operation<EmailInvoicesInput, typeof 
 export interface CreateInvoiceFromSalesorderInput {
   /** Unique identifier of the sales order from which the invoice has to be created. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Create an instant invoice. `POST /invoices/fromsalesorder` */
@@ -2427,6 +2396,7 @@ export const createInvoiceFromSalesorder = /*#__PURE__*/ operation<CreateInvoice
   id: "create_invoice_from_salesorder",
   method: "POST",
   path: "/invoices/fromsalesorder",
+  body: "json",
   response: CreateAnInstantInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2434,6 +2404,8 @@ export const createInvoiceFromSalesorder = /*#__PURE__*/ operation<CreateInvoice
 export interface MapInvoiceWithSalesorderInput {
   /** Array of invoice IDs to be associated with a sales order. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Associate invoices with sales order. `POST /invoices/mapwithorder` */
@@ -2441,6 +2413,7 @@ export const mapInvoiceWithSalesorder = /*#__PURE__*/ operation<MapInvoiceWithSa
   id: "map_invoice_with_salesorder",
   method: "POST",
   path: "/invoices/mapwithorder",
+  body: "json",
   response: MapInvoiceWithSalesorderResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -2448,6 +2421,8 @@ export const mapInvoiceWithSalesorder = /*#__PURE__*/ operation<MapInvoiceWithSa
 export interface SubmitInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit an invoice for approval. `POST /invoices/{invoice_id}/submit` */
@@ -2455,6 +2430,7 @@ export const submitInvoice = /*#__PURE__*/ operation<SubmitInvoiceInput, typeof 
   id: "submit_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/submit",
+  body: "json",
   response: SubmitAnInvoiceForApprovalResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2462,6 +2438,8 @@ export const submitInvoice = /*#__PURE__*/ operation<SubmitInvoiceInput, typeof 
 export interface ApproveInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve an invoice.. `POST /invoices/{invoice_id}/approve` */
@@ -2469,6 +2447,7 @@ export const approveInvoice = /*#__PURE__*/ operation<ApproveInvoiceInput, typeo
   id: "approve_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/approve",
+  body: "json",
   response: ApproveAnInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2497,7 +2476,7 @@ export interface EmailInvoiceInput {
   /** Send the invoice attachment a with the email. */
   readonly send_attachment?: boolean
   /** Files to be attached to the email */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   readonly body: EmailAnInvoiceRequest
 }
 
@@ -2506,6 +2485,7 @@ export const emailInvoice = /*#__PURE__*/ operation<EmailInvoiceInput, typeof Em
   id: "email_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailAnInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
@@ -2531,7 +2511,7 @@ export interface RemindCustomerForInvoicePaymentInput {
   /** Send customer statement pdf a with email. */
   readonly send_customer_statement?: boolean
   /** Files to be attached to the email */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   readonly body: RemindCustomerRequest
 }
 
@@ -2540,6 +2520,7 @@ export const remindCustomerForInvoicePayment = /*#__PURE__*/ operation<RemindCus
   id: "remind_customer_for_invoice_payment",
   method: "POST",
   path: "/invoices/{invoice_id}/paymentreminder",
+  files: ["attachments"],
   body: "json",
   response: RemindCustomerResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
@@ -2548,6 +2529,8 @@ export const remindCustomerForInvoicePayment = /*#__PURE__*/ operation<RemindCus
 export interface BulkInvoiceReminderInput {
   /** Array of invoice ids for which the reminder has to be sent. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Bulk invoice reminder. `POST /invoices/paymentreminder` */
@@ -2555,6 +2538,7 @@ export const bulkInvoiceReminder = /*#__PURE__*/ operation<BulkInvoiceReminderIn
   id: "bulk_invoice_reminder",
   method: "POST",
   path: "/invoices/paymentreminder",
+  body: "json",
   response: BulkInvoiceReminderResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2565,11 +2549,11 @@ export interface BulkExportInvoicesAsPdfInput {
 }
 
 /** Bulk export Invoices. `GET /invoices/pdf` */
-export const bulkExportInvoicesAsPdf = /*#__PURE__*/ operation<BulkExportInvoicesAsPdfInput, typeof BulkExportInvoicesResponse>({
+export const bulkExportInvoicesAsPdf = /*#__PURE__*/ operation<BulkExportInvoicesAsPdfInput, undefined>({
   id: "bulk_export_invoices_as_pdf",
   method: "GET",
   path: "/invoices/pdf",
-  response: BulkExportInvoicesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -2579,17 +2563,19 @@ export interface BulkPrintInvoicesInput {
 }
 
 /** Bulk print invoices. `GET /invoices/print` */
-export const bulkPrintInvoices = /*#__PURE__*/ operation<BulkPrintInvoicesInput, typeof BulkPrintInvoicesResponse>({
+export const bulkPrintInvoices = /*#__PURE__*/ operation<BulkPrintInvoicesInput, undefined>({
   id: "bulk_print_invoices",
   method: "GET",
   path: "/invoices/print",
-  response: BulkPrintInvoicesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
 export interface DisableInvoicePaymentReminderInput {
   /** Unique identifier of the invoice. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Disable payment reminder. `POST /invoices/{invoice_id}/paymentreminder/disable` */
@@ -2597,6 +2583,7 @@ export const disableInvoicePaymentReminder = /*#__PURE__*/ operation<DisableInvo
   id: "disable_invoice_payment_reminder",
   method: "POST",
   path: "/invoices/{invoice_id}/paymentreminder/disable",
+  body: "json",
   response: DisablePaymentReminderResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2604,6 +2591,8 @@ export const disableInvoicePaymentReminder = /*#__PURE__*/ operation<DisableInvo
 export interface EnableInvoicePaymentReminderInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Enable payment reminder. `POST /invoices/{invoice_id}/paymentreminder/enable` */
@@ -2611,6 +2600,7 @@ export const enableInvoicePaymentReminder = /*#__PURE__*/ operation<EnableInvoic
   id: "enable_invoice_payment_reminder",
   method: "POST",
   path: "/invoices/{invoice_id}/paymentreminder/enable",
+  body: "json",
   response: EnablePaymentReminderResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2618,6 +2608,8 @@ export const enableInvoicePaymentReminder = /*#__PURE__*/ operation<EnableInvoic
 export interface WriteOffInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Write off invoice. `POST /invoices/{invoice_id}/writeoff` */
@@ -2625,6 +2617,7 @@ export const writeOffInvoice = /*#__PURE__*/ operation<WriteOffInvoiceInput, typ
   id: "write_off_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/writeoff",
+  body: "json",
   response: WriteOffInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2632,6 +2625,8 @@ export const writeOffInvoice = /*#__PURE__*/ operation<WriteOffInvoiceInput, typ
 export interface CancelWriteOffInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel write off. `POST /invoices/{invoice_id}/writeoff/cancel` */
@@ -2639,6 +2634,7 @@ export const cancelWriteOffInvoice = /*#__PURE__*/ operation<CancelWriteOffInvoi
   id: "cancel_write_off_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/writeoff/cancel",
+  body: "json",
   response: CancelWriteOffResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2646,7 +2642,7 @@ export const cancelWriteOffInvoice = /*#__PURE__*/ operation<CancelWriteOffInvoi
 export interface UpdateInvoiceBillingAddressInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /invoices/{invoice_id}/address/billing` */
@@ -2662,7 +2658,7 @@ export const updateInvoiceBillingAddress = /*#__PURE__*/ operation<UpdateInvoice
 export interface UpdateInvoiceShippingAddressInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: UpdateShippingAddressRequestInput
+  readonly body: UpdateShippingAddressRequestInput
 }
 
 /** Update shipping address. `PUT /invoices/{invoice_id}/address/shipping` */
@@ -2691,6 +2687,8 @@ export interface UpdateInvoiceTemplateInput {
   readonly invoice_id: string
   /** Unique identifier of the invoice template. Note: This value is a set of numeric characters. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update invoice template. `PUT /invoices/{invoice_id}/templates/{template_id}` */
@@ -2698,6 +2696,7 @@ export const updateInvoiceTemplate = /*#__PURE__*/ operation<UpdateInvoiceTempla
   id: "update_invoice_template",
   method: "PUT",
   path: "/invoices/{invoice_id}/templates/{template_id}",
+  body: "json",
   response: UpdateInvoiceTemplateResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -2786,11 +2785,11 @@ export interface GetInvoiceAttachmentInput {
 }
 
 /** Get last attached attachment. `GET /invoices/{invoice_id}/attachment` */
-export const getInvoiceAttachment = /*#__PURE__*/ operation<GetInvoiceAttachmentInput, typeof GetAnInvoiceAttachmentResponse>({
+export const getInvoiceAttachment = /*#__PURE__*/ operation<GetInvoiceAttachmentInput, undefined>({
   id: "get_invoice_attachment",
   method: "GET",
   path: "/invoices/{invoice_id}/attachment",
-  response: GetAnInvoiceAttachmentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -2800,7 +2799,9 @@ export interface AddInvoiceAttachmentInput {
   /** True to send the attachment with the invoice when emailed. */
   readonly can_send_in_mail?: boolean
   /** The file to be attached.Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add attachment to an invoice. `POST /invoices/{invoice_id}/attachment` */
@@ -2808,6 +2809,8 @@ export const addInvoiceAttachment = /*#__PURE__*/ operation<AddInvoiceAttachment
   id: "add_invoice_attachment",
   method: "POST",
   path: "/invoices/{invoice_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddAttachmentToAnInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2817,6 +2820,8 @@ export interface UpdateInvoiceAttachmentPreferenceInput {
   readonly invoice_id: string
   /** Boolean to send the attachment with the invoice when emailed. */
   readonly can_send_in_mail: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update attachment preference. `PUT /invoices/{invoice_id}/attachment` */
@@ -2824,6 +2829,7 @@ export const updateInvoiceAttachmentPreference = /*#__PURE__*/ operation<UpdateI
   id: "update_invoice_attachment_preference",
   method: "PUT",
   path: "/invoices/{invoice_id}/attachment",
+  body: "json",
   response: UpdateAttachmentPreferenceResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -2865,6 +2871,8 @@ export interface AddInvoiceDocumentInput {
   readonly invoice_id: string
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add a document to an invoice. `POST /invoices/{invoice_id}/documents/{document_id}` */
@@ -2872,6 +2880,7 @@ export const addInvoiceDocument = /*#__PURE__*/ operation<AddInvoiceDocumentInpu
   id: "add_invoice_document",
   method: "POST",
   path: "/invoices/{invoice_id}/documents/{document_id}",
+  body: "json",
   response: AddInvoiceDocumentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -2909,7 +2918,7 @@ export const deleteInvoiceExpenseReceipt = /*#__PURE__*/ operation<DeleteInvoice
 export interface UpdateCustomFieldsInInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: UpdateAnInvoiceCustomfieldRequest
+  readonly body: UpdateAnInvoiceCustomfieldRequest
 }
 
 /** Update custom field in existing invoices. `PUT /invoice/{invoice_id}/customfields` */
@@ -2939,7 +2948,7 @@ export const listInvoiceComments = /*#__PURE__*/ operation<ListInvoiceCommentsIn
 export interface AddInvoiceCommentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: CreateACommentRequest
+  readonly body: CreateACommentRequest
 }
 
 /** Add comment. `POST /invoices/{invoice_id}/comments` */
@@ -2957,7 +2966,7 @@ export interface UpdateInvoiceCommentInput {
   readonly invoice_id: string
   /** Unique identifier of the comment. Note: This value is a set of numeric characters. */
   readonly comment_id: string
-  readonly body?: UpdateACommentRequest
+  readonly body: UpdateACommentRequest
 }
 
 /** Update comment. `PUT /invoices/{invoice_id}/comments/{comment_id}` */
@@ -3009,6 +3018,8 @@ export const generateInvoicePaymentLink = /*#__PURE__*/ operation<GenerateInvoic
 export interface ApproveInvoicesInput {
   /** Comma-separated IDs of the invoices to approve. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve invoices. `POST /invoices/approve` */
@@ -3016,6 +3027,7 @@ export const approveInvoices = /*#__PURE__*/ operation<ApproveInvoicesInput, typ
   id: "approve_invoices",
   method: "POST",
   path: "/invoices/approve",
+  body: "json",
   response: ApproveInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3027,6 +3039,8 @@ export interface VoidInvoicesInput {
   readonly can_create_network_entity?: boolean
   /** Whether to unmap the associated sales orders when voiding the invoices. */
   readonly unmap_salesorder?: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark invoices as void. `POST /invoices/status/void` */
@@ -3034,6 +3048,7 @@ export const voidInvoices = /*#__PURE__*/ operation<VoidInvoicesInput, typeof Vo
   id: "void_invoices",
   method: "POST",
   path: "/invoices/status/void",
+  body: "json",
   response: VoidInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3043,6 +3058,8 @@ export interface CreateInvoicesFromProjectsInput {
   readonly project_ids?: string
   /** Invoice number to assign to the created invoice. Max-length [30]. */
   readonly invoice_number?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Create invoices from projects. `POST /invoices/fromprojects` */
@@ -3050,6 +3067,7 @@ export const createInvoicesFromProjects = /*#__PURE__*/ operation<CreateInvoices
   id: "create_invoices_from_projects",
   method: "POST",
   path: "/invoices/fromprojects",
+  body: "json",
   response: CreateInvoicesFromProjectsResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3066,11 +3084,11 @@ export interface GetInvoiceDeliveryNotesInput {
 }
 
 /** Get delivery notes for invoices. `GET /invoices/deliverynotes` */
-export const getInvoiceDeliveryNotes = /*#__PURE__*/ operation<GetInvoiceDeliveryNotesInput, typeof GetInvoiceDeliveryNotesResponse>({
+export const getInvoiceDeliveryNotes = /*#__PURE__*/ operation<GetInvoiceDeliveryNotesInput, undefined>({
   id: "get_invoice_delivery_notes",
   method: "GET",
   path: "/invoices/deliverynotes",
-  response: GetInvoiceDeliveryNotesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -3086,17 +3104,19 @@ export interface GetInvoicePackingSlipsInput {
 }
 
 /** Get packing slips for invoices. `GET /invoices/packingslips` */
-export const getInvoicePackingSlips = /*#__PURE__*/ operation<GetInvoicePackingSlipsInput, typeof GetInvoicePackingSlipsResponse>({
+export const getInvoicePackingSlips = /*#__PURE__*/ operation<GetInvoicePackingSlipsInput, undefined>({
   id: "get_invoice_packing_slips",
   method: "GET",
   path: "/invoices/packingslips",
-  response: GetInvoicePackingSlipsResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
 export interface FinalizeInvoiceApprovalInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Finalize approval of an invoice. `POST /invoices/{invoice_id}/approve/final` */
@@ -3104,6 +3124,7 @@ export const finalizeInvoiceApproval = /*#__PURE__*/ operation<FinalizeInvoiceAp
   id: "finalize_invoice_approval",
   method: "POST",
   path: "/invoices/{invoice_id}/approve/final",
+  body: "json",
   response: FinalizeInvoiceApprovalResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3115,6 +3136,8 @@ export interface RejectInvoiceInput {
   readonly reason?: string
   /** Whether the request originates from an oEmbed context. */
   readonly isCallForOEmbed?: boolean
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reject an invoice. `POST /invoices/{invoice_id}/reject` */
@@ -3122,6 +3145,7 @@ export const rejectInvoice = /*#__PURE__*/ operation<RejectInvoiceInput, typeof 
   id: "reject_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/reject",
+  body: "json",
   response: RejectInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3131,6 +3155,8 @@ export interface SendInvoiceViaSnailMailInput {
   readonly invoice_id: string
   /** ID of the contact person to send the invoice to. */
   readonly contact_person_id?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send an invoice via snail mail. `POST /invoices/{invoice_id}/snailmail` */
@@ -3138,6 +3164,7 @@ export const sendInvoiceViaSnailMail = /*#__PURE__*/ operation<SendInvoiceViaSna
   id: "send_invoice_via_snail_mail",
   method: "POST",
   path: "/invoices/{invoice_id}/snailmail",
+  body: "json",
   response: SendInvoiceSnailMailResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3145,7 +3172,7 @@ export const sendInvoiceViaSnailMail = /*#__PURE__*/ operation<SendInvoiceViaSna
 export interface AddInvoiceOnlinePaymentBankAccountInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: AddInvoiceOnlinePaymentBankAccountRequest
+  readonly body: AddInvoiceOnlinePaymentBankAccountRequest
 }
 
 /** Add a bank account for invoice online payments. `POST /invoices/{invoice_id}/onlinepayments/bankaccount` */
@@ -3163,6 +3190,8 @@ export interface ApplyPricebookToInvoiceInput {
   readonly invoice_id: string
   /** Unique identifier of the price book to apply. */
   readonly pricebook_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Apply a price book to an invoice. `PUT /invoices/{invoice_id}/pricebooks/{pricebook_id}` */
@@ -3170,6 +3199,7 @@ export const applyPricebookToInvoice = /*#__PURE__*/ operation<ApplyPricebookToI
   id: "apply_pricebook_to_invoice",
   method: "PUT",
   path: "/invoices/{invoice_id}/pricebooks/{pricebook_id}",
+  body: "json",
   response: ApplyPricebookToInvoiceResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -3177,6 +3207,8 @@ export const applyPricebookToInvoice = /*#__PURE__*/ operation<ApplyPricebookToI
 export interface SubmitInvoicesInput {
   /** Comma-separated IDs of the invoices to submit. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit invoices for approval. `POST /invoices/submit` */
@@ -3184,6 +3216,7 @@ export const submitInvoices = /*#__PURE__*/ operation<SubmitInvoicesInput, typeo
   id: "submit_invoices",
   method: "POST",
   path: "/invoices/submit",
+  body: "json",
   response: SubmitInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3191,6 +3224,8 @@ export const submitInvoices = /*#__PURE__*/ operation<SubmitInvoicesInput, typeo
 export interface MarkInvoicesSentInput {
   /** Comma-separated IDs of the invoices to mark as sent. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark invoices as sent. `POST /invoices/status/sent` */
@@ -3198,6 +3233,7 @@ export const markInvoicesSent = /*#__PURE__*/ operation<MarkInvoicesSentInput, t
   id: "mark_invoices_sent",
   method: "POST",
   path: "/invoices/status/sent",
+  body: "json",
   response: MarkInvoicesSentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3205,6 +3241,8 @@ export const markInvoicesSent = /*#__PURE__*/ operation<MarkInvoicesSentInput, t
 export interface WriteOffInvoicesInput {
   /** Comma-separated IDs of the invoices to write off. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Write off invoices. `POST /invoices/writeoff` */
@@ -3212,6 +3250,7 @@ export const writeOffInvoices = /*#__PURE__*/ operation<WriteOffInvoicesInput, t
   id: "write_off_invoices",
   method: "POST",
   path: "/invoices/writeoff",
+  body: "json",
   response: WriteOffInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3219,6 +3258,8 @@ export const writeOffInvoices = /*#__PURE__*/ operation<WriteOffInvoicesInput, t
 export interface MarkInvoicesShippedInput {
   /** Comma-separated IDs of the invoices to mark as shipped. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark invoices as shipped. `POST /invoices/markasshipped` */
@@ -3226,6 +3267,7 @@ export const markInvoicesShipped = /*#__PURE__*/ operation<MarkInvoicesShippedIn
   id: "mark_invoices_shipped",
   method: "POST",
   path: "/invoices/markasshipped",
+  body: "json",
   response: MarkInvoicesShippedResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3233,6 +3275,8 @@ export const markInvoicesShipped = /*#__PURE__*/ operation<MarkInvoicesShippedIn
 export interface UnshipInvoicesInput {
   /** Comma-separated IDs of the invoices to mark as unshipped. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark invoices as unshipped. `POST /invoices/unship` */
@@ -3240,6 +3284,7 @@ export const unshipInvoices = /*#__PURE__*/ operation<UnshipInvoicesInput, typeo
   id: "unship_invoices",
   method: "POST",
   path: "/invoices/unship",
+  body: "json",
   response: UnshipInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3247,6 +3292,8 @@ export const unshipInvoices = /*#__PURE__*/ operation<UnshipInvoicesInput, typeo
 export interface CreateInvoicesFromEstimatesInput {
   /** Comma-separated IDs of the estimates to create invoices from. Note: This value is a set of numeric characters separated by comma. */
   readonly estimate_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Create invoices from estimates. `POST /invoices/fromestimates` */
@@ -3254,6 +3301,7 @@ export const createInvoicesFromEstimates = /*#__PURE__*/ operation<CreateInvoice
   id: "create_invoices_from_estimates",
   method: "POST",
   path: "/invoices/fromestimates",
+  body: "json",
   response: CreateInvoicesFromEstimatesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3272,13 +3320,17 @@ export const previewInvoiceCoupons = /*#__PURE__*/ operation<PreviewInvoiceCoupo
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
 
-export interface UnmapInvoicesFromSalesordersInput {}
+export interface UnmapInvoicesFromSalesordersInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Unmap invoices from sales orders. `PUT /invoices/unmap/salesorders` */
 export const unmapInvoicesFromSalesorders = /*#__PURE__*/ operation<UnmapInvoicesFromSalesordersInput, typeof UnmapInvoicesFromSalesordersResponse>({
   id: "unmap_invoices_from_salesorders",
   method: "PUT",
   path: "/invoices/unmap/salesorders",
+  body: "json",
   response: UnmapInvoicesFromSalesordersResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -3342,7 +3394,7 @@ export const getInvoiceAdvancedTrackingDetails = /*#__PURE__*/ operation<GetInvo
 export interface UpdateInvoiceAdvancedTrackingDetailsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body: Readonly<Record<string, unknown>>
 }
 
 /** Update invoice advanced tracking details. `PUT /invoices/{invoice_id}/advancedtrackingdetails` */
@@ -3361,11 +3413,11 @@ export interface PrintInvoiceDeliveryNoteInput {
 }
 
 /** Print invoice delivery note. `GET /invoices/{invoice_id}/deliverynote/print` */
-export const printInvoiceDeliveryNote = /*#__PURE__*/ operation<PrintInvoiceDeliveryNoteInput, typeof PrintInvoiceDeliveryNoteResponse>({
+export const printInvoiceDeliveryNote = /*#__PURE__*/ operation<PrintInvoiceDeliveryNoteInput, undefined>({
   id: "print_invoice_delivery_note",
   method: "GET",
   path: "/invoices/{invoice_id}/deliverynote/print",
-  response: PrintInvoiceDeliveryNoteResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -3375,11 +3427,11 @@ export interface PrintInvoicePackingSlipInput {
 }
 
 /** Print invoice packing slip. `GET /invoices/{invoice_id}/packingslip/print` */
-export const printInvoicePackingSlip = /*#__PURE__*/ operation<PrintInvoicePackingSlipInput, typeof PrintInvoicePackingSlipResponse>({
+export const printInvoicePackingSlip = /*#__PURE__*/ operation<PrintInvoicePackingSlipInput, undefined>({
   id: "print_invoice_packing_slip",
   method: "GET",
   path: "/invoices/{invoice_id}/packingslip/print",
-  response: PrintInvoicePackingSlipResponse,
+  response: undefined,
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
@@ -3414,6 +3466,8 @@ export const getInvoiceSms = /*#__PURE__*/ operation<GetInvoiceSmsInput, typeof 
 export interface SendInvoiceSmsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send invoice by SMS. `POST /invoices/{invoice_id}/sms` */
@@ -3421,6 +3475,7 @@ export const sendInvoiceSms = /*#__PURE__*/ operation<SendInvoiceSmsInput, typeo
   id: "send_invoice_sms",
   method: "POST",
   path: "/invoices/{invoice_id}/sms",
+  body: "json",
   response: SendInvoiceSmsResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3442,6 +3497,8 @@ export const getInvoiceSignatureTemplate = /*#__PURE__*/ operation<GetInvoiceSig
 export interface AddInvoiceDigitalSignatureInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add a digital signature to an invoice. `POST /invoices/{invoice_id}/dsign` */
@@ -3449,6 +3506,7 @@ export const addInvoiceDigitalSignature = /*#__PURE__*/ operation<AddInvoiceDigi
   id: "add_invoice_digital_signature",
   method: "POST",
   path: "/invoices/{invoice_id}/dsign",
+  body: "json",
   response: AddInvoiceDigitalSignatureResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3457,7 +3515,9 @@ export interface UploadInvoiceDigitalSignatureInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** The signed file to be uploaded. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Upload a signed invoice. `POST /invoices/{invoice_id}/dsign/upload` */
@@ -3465,6 +3525,8 @@ export const uploadInvoiceDigitalSignature = /*#__PURE__*/ operation<UploadInvoi
   id: "upload_invoice_digital_signature",
   method: "POST",
   path: "/invoices/{invoice_id}/dsign/upload",
+  files: ["attachment"],
+  body: "json",
   response: UploadInvoiceDigitalSignatureResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3475,7 +3537,9 @@ export interface UploadInvoiceDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** The file to be uploaded. */
-  readonly attachment?: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Upload an invoice document file. `POST /invoices/{invoice_id}/documents/{document_id}/upload` */
@@ -3483,6 +3547,8 @@ export const uploadInvoiceDocument = /*#__PURE__*/ operation<UploadInvoiceDocume
   id: "upload_invoice_document",
   method: "POST",
   path: "/invoices/{invoice_id}/documents/{document_id}/upload",
+  files: ["attachment"],
+  body: "json",
   response: UploadInvoiceDocumentResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3490,6 +3556,8 @@ export const uploadInvoiceDocument = /*#__PURE__*/ operation<UploadInvoiceDocume
 export interface UpdateInvoiceCfdiStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update an invoice CFDI status. `POST /invoices/{invoice_id}/cfdi/status` */
@@ -3497,6 +3565,7 @@ export const updateInvoiceCfdiStatus = /*#__PURE__*/ operation<UpdateInvoiceCfdi
   id: "update_invoice_cfdi_status",
   method: "POST",
   path: "/invoices/{invoice_id}/cfdi/status",
+  body: "json",
   response: UpdateInvoiceCfdiStatusResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3504,6 +3573,8 @@ export const updateInvoiceCfdiStatus = /*#__PURE__*/ operation<UpdateInvoiceCfdi
 export interface CancelInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel an invoice. `POST /invoices/{invoice_id}/status/cancel` */
@@ -3511,6 +3582,7 @@ export const cancelInvoice = /*#__PURE__*/ operation<CancelInvoiceInput, typeof 
   id: "cancel_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/status/cancel",
+  body: "json",
   response: CancelInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3518,6 +3590,8 @@ export const cancelInvoice = /*#__PURE__*/ operation<CancelInvoiceInput, typeof 
 export interface MarkInvoiceReadyToPushInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an invoice as ready to push. `POST /invoices/{invoice_id}/status/readytopush` */
@@ -3525,6 +3599,7 @@ export const markInvoiceReadyToPush = /*#__PURE__*/ operation<MarkInvoiceReadyTo
   id: "mark_invoice_ready_to_push",
   method: "POST",
   path: "/invoices/{invoice_id}/status/readytopush",
+  body: "json",
   response: MarkInvoiceReadyToPushResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3534,6 +3609,8 @@ export interface ApplyInvoiceSubstatusInput {
   readonly invoice_id: string
   /** Identifier of the sub-status to apply or remove. */
   readonly substatus_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Apply a sub-status to an invoice. `POST /invoices/{invoice_id}/substatus/{substatus_id}` */
@@ -3541,6 +3618,7 @@ export const applyInvoiceSubstatus = /*#__PURE__*/ operation<ApplyInvoiceSubstat
   id: "apply_invoice_substatus",
   method: "POST",
   path: "/invoices/{invoice_id}/substatus/{substatus_id}",
+  body: "json",
   response: ApplyInvoiceSubstatusResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3580,7 +3658,7 @@ export const deleteInvoiceLineItem = /*#__PURE__*/ operation<DeleteInvoiceLineIt
 export interface ScheduleInvoiceEmailInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: ScheduleInvoiceEmailRequest
+  readonly body: ScheduleInvoiceEmailRequest
 }
 
 /** Schedule an invoice email. `POST /invoices/{invoice_id}/email/schedule` */
@@ -3610,6 +3688,8 @@ export const cancelScheduledInvoiceEmail = /*#__PURE__*/ operation<CancelSchedul
 export interface ForcePayInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Force pay an invoice. `POST /invoices/{invoice_id}/forcepay` */
@@ -3617,6 +3697,7 @@ export const forcePayInvoice = /*#__PURE__*/ operation<ForcePayInvoiceInput, typ
   id: "force_pay_invoice",
   method: "POST",
   path: "/invoices/{invoice_id}/forcepay",
+  body: "json",
   response: ForcePayInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3624,6 +3705,8 @@ export const forcePayInvoice = /*#__PURE__*/ operation<ForcePayInvoiceInput, typ
 export interface MailInvoicePdfInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Email an invoice as PDF. `POST /invoices/{invoice_id}/mailpdf` */
@@ -3631,6 +3714,7 @@ export const mailInvoicePdf = /*#__PURE__*/ operation<MailInvoicePdfInput, typeo
   id: "mail_invoice_pdf",
   method: "POST",
   path: "/invoices/{invoice_id}/mailpdf",
+  body: "json",
   response: MailInvoicePdfResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3638,7 +3722,7 @@ export const mailInvoicePdf = /*#__PURE__*/ operation<MailInvoicePdfInput, typeo
 export interface CreateInvoiceSynchronousOnlinePaymentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: InvoiceSynchronousOnlinePaymentRequest
+  readonly body: InvoiceSynchronousOnlinePaymentRequest
 }
 
 /** Process a synchronous online payment for an invoice. `POST /invoices/{invoice_id}/onlinepayments/synchronous` */
@@ -3654,7 +3738,7 @@ export const createInvoiceSynchronousOnlinePayment = /*#__PURE__*/ operation<Cre
 export interface CreateInvoiceAsynchronousOnlinePaymentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: InvoiceAsynchronousOnlinePaymentRequest
+  readonly body: InvoiceAsynchronousOnlinePaymentRequest
 }
 
 /** Process an asynchronous online payment for an invoice. `POST /invoices/{invoice_id}/onlinepayments/asynchronous` */
@@ -3698,6 +3782,8 @@ export const getInvoicePaymentQrStatus = /*#__PURE__*/ operation<GetInvoicePayme
 export interface SendInvoiceDunningNotificationsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Send invoice dunning notifications. `POST /invoices/{invoice_id}/senddunningnotifications` */
@@ -3705,6 +3791,7 @@ export const sendInvoiceDunningNotifications = /*#__PURE__*/ operation<SendInvoi
   id: "send_invoice_dunning_notifications",
   method: "POST",
   path: "/invoices/{invoice_id}/senddunningnotifications",
+  body: "json",
   response: SendInvoiceDunningNotificationsResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3712,6 +3799,8 @@ export const sendInvoiceDunningNotifications = /*#__PURE__*/ operation<SendInvoi
 export interface SendInvoiceRetrySmsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resend invoice payment SMS. `POST /invoices/{invoice_id}/sendretrysms` */
@@ -3719,6 +3808,7 @@ export const sendInvoiceRetrySms = /*#__PURE__*/ operation<SendInvoiceRetrySmsIn
   id: "send_invoice_retry_sms",
   method: "POST",
   path: "/invoices/{invoice_id}/sendretrysms",
+  body: "json",
   response: SendInvoiceRetrySmsResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3744,6 +3834,8 @@ export interface UpdateInvoiceMetadataInput {
   readonly invoice_id: string
   /** Name of the metadata key. */
   readonly metadata_name: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update invoice metadata. `PUT /invoices/{invoice_id}/metadata/{metadata_name}` */
@@ -3751,6 +3843,7 @@ export const updateInvoiceMetadata = /*#__PURE__*/ operation<UpdateInvoiceMetada
   id: "update_invoice_metadata",
   method: "PUT",
   path: "/invoices/{invoice_id}/metadata/{metadata_name}",
+  body: "json",
   response: UpdateInvoiceMetadataResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -3766,24 +3859,32 @@ export const listInvoicesEinvoice = /*#__PURE__*/ operation<ListInvoicesEinvoice
   scopes: ["ZohoBooks.invoices.READ"],
 })
 
-export interface PushInvoicesEinvoiceInput {}
+export interface PushInvoicesEinvoiceInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Push invoice e-invoices. `POST /invoices/einvoice/push` */
 export const pushInvoicesEinvoice = /*#__PURE__*/ operation<PushInvoicesEinvoiceInput, typeof PushInvoicesEinvoiceResponse>({
   id: "push_invoices_einvoice",
   method: "POST",
   path: "/invoices/einvoice/push",
+  body: "json",
   response: PushInvoicesEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
 
-export interface CancelInvoicesEinvoiceInput {}
+export interface CancelInvoicesEinvoiceInput {
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
+}
 
 /** Cancel invoice e-invoices. `POST /invoices/einvoice/cancel` */
 export const cancelInvoicesEinvoice = /*#__PURE__*/ operation<CancelInvoicesEinvoiceInput, typeof CancelInvoicesEinvoiceResponse>({
   id: "cancel_invoices_einvoice",
   method: "POST",
   path: "/invoices/einvoice/cancel",
+  body: "json",
   response: CancelInvoicesEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3805,6 +3906,8 @@ export const getInvoiceEinvoice = /*#__PURE__*/ operation<GetInvoiceEinvoiceInpu
 export interface PushInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Push an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/push` */
@@ -3812,6 +3915,7 @@ export const pushInvoiceEinvoice = /*#__PURE__*/ operation<PushInvoiceEinvoiceIn
   id: "push_invoice_einvoice",
   method: "POST",
   path: "/invoices/{invoice_id}/einvoice/push",
+  body: "json",
   response: PushInvoiceEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3819,6 +3923,8 @@ export const pushInvoiceEinvoice = /*#__PURE__*/ operation<PushInvoiceEinvoiceIn
 export interface CancelInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/cancel` */
@@ -3826,6 +3932,7 @@ export const cancelInvoiceEinvoice = /*#__PURE__*/ operation<CancelInvoiceEinvoi
   id: "cancel_invoice_einvoice",
   method: "POST",
   path: "/invoices/{invoice_id}/einvoice/cancel",
+  body: "json",
   response: CancelInvoiceEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3833,6 +3940,8 @@ export const cancelInvoiceEinvoice = /*#__PURE__*/ operation<CancelInvoiceEinvoi
 export interface FetchInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Fetch an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/fetch` */
@@ -3840,6 +3949,7 @@ export const fetchInvoiceEinvoice = /*#__PURE__*/ operation<FetchInvoiceEinvoice
   id: "fetch_invoice_einvoice",
   method: "POST",
   path: "/invoices/{invoice_id}/einvoice/fetch",
+  body: "json",
   response: FetchInvoiceEinvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3861,7 +3971,7 @@ export const deleteInvoiceEinvoiceStatus = /*#__PURE__*/ operation<DeleteInvoice
 export interface MarkInvoiceEinvoicePushedInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
-  readonly body?: MarkInvoiceEinvoicePushedRequest
+  readonly body: MarkInvoiceEinvoicePushedRequest
 }
 
 /** Mark an invoice e-invoice as manually pushed. `POST /invoices/{invoice_id}/einvoice/status/push` */
@@ -3877,6 +3987,8 @@ export const markInvoiceEinvoicePushed = /*#__PURE__*/ operation<MarkInvoiceEinv
 export interface MarkInvoiceEinvoiceCancelledInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an invoice e-invoice as cancelled. `POST /invoices/{invoice_id}/einvoice/status/cancel` */
@@ -3884,6 +3996,7 @@ export const markInvoiceEinvoiceCancelled = /*#__PURE__*/ operation<MarkInvoiceE
   id: "mark_invoice_einvoice_cancelled",
   method: "POST",
   path: "/invoices/{invoice_id}/einvoice/status/cancel",
+  body: "json",
   response: MarkInvoiceEinvoiceCancelledResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3891,6 +4004,8 @@ export const markInvoiceEinvoiceCancelled = /*#__PURE__*/ operation<MarkInvoiceE
 export interface RecallInvoiceEinvoiceStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Recall an invoice e-invoice status. `POST /invoices/{invoice_id}/einvoice/status/recall` */
@@ -3898,6 +4013,7 @@ export const recallInvoiceEinvoiceStatus = /*#__PURE__*/ operation<RecallInvoice
   id: "recall_invoice_einvoice_status",
   method: "POST",
   path: "/invoices/{invoice_id}/einvoice/status/recall",
+  body: "json",
   response: RecallInvoiceEinvoiceStatusResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -3905,6 +4021,8 @@ export const recallInvoiceEinvoiceStatus = /*#__PURE__*/ operation<RecallInvoice
 export interface UpdateInvoiceEinvoicePaymentStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update an invoice e-invoice payment status. `PUT /invoices/{invoice_id}/einvoice/paymentstatus` */
@@ -3912,6 +4030,7 @@ export const updateInvoiceEinvoicePaymentStatus = /*#__PURE__*/ operation<Update
   id: "update_invoice_einvoice_payment_status",
   method: "PUT",
   path: "/invoices/{invoice_id}/einvoice/paymentstatus",
+  body: "json",
   response: UpdateInvoiceEinvoicePaymentStatusResponse,
   scopes: ["ZohoBooks.invoices.UPDATE"],
 })
@@ -3919,6 +4038,8 @@ export const updateInvoiceEinvoicePaymentStatus = /*#__PURE__*/ operation<Update
 export interface CancelEinvoiceInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel an e-invoice invoice. `POST /einvoices/invoices/{invoice_id}/cancel` */
@@ -3926,6 +4047,46 @@ export const cancelEinvoiceInvoice = /*#__PURE__*/ operation<CancelEinvoiceInvoi
   id: "cancel_einvoice_invoice",
   method: "POST",
   path: "/einvoices/invoices/{invoice_id}/cancel",
+  body: "json",
   response: CancelEinvoiceInvoiceResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
+
+export type CreateInvoiceResponse = CreateAnInvoiceResponse
+export type UpdateInvoiceUsingCustomFieldResponse = UpdateAnInvoiceResponse
+export type GetInvoiceResponse = GetAnInvoiceResponse
+export type UpdateInvoiceResponse = UpdateAnInvoiceResponse
+export type DeleteInvoiceResponse = DeleteAnInvoiceResponse
+export type MarkInvoiceSentResponse = MarkAnInvoiceAsSentResponse
+export type MarkInvoiceVoidResponse = VoidAnInvoiceResponse
+export type MarkInvoiceDraftResponse = MarkAsDraftResponse
+export type CreateInvoiceFromSalesorderResponse = CreateAnInstantInvoiceResponse
+export type SubmitInvoiceResponse = SubmitAnInvoiceForApprovalResponse
+export type ApproveInvoiceResponse = ApproveAnInvoiceResponse
+export type GetInvoiceEmailResponse = GetInvoiceEmailContentResponse
+export type EmailInvoiceResponse = EmailAnInvoiceResponse
+export type GetPaymentReminderMailContentForInvoiceResponse = GetPaymentReminderMailContentResponse
+export type RemindCustomerForInvoicePaymentResponse = RemindCustomerResponse
+export type DisableInvoicePaymentReminderResponse = DisablePaymentReminderResponse
+export type EnableInvoicePaymentReminderResponse = EnablePaymentReminderResponse
+export type CancelWriteOffInvoiceResponse = CancelWriteOffResponse
+export type UpdateInvoiceBillingAddressResponse = UpdateBillingAddressResponse
+export type UpdateInvoiceShippingAddressResponse = UpdateShippingAddressResponse
+export type ListInvoiceCreditsAppliedResponse = ListCreditsAppliedResponse
+export type ApplyCreditsToInvoiceResponse = ApplyCreditsResponse
+export type DeleteInvoicePaymentResponse = DeleteAPaymentResponse
+export type DeleteInvoiceAppliedCreditResponse = DeleteAppliedCreditResponse
+export type AddInvoiceAttachmentResponse = AddAttachmentToAnInvoiceResponse
+export type UpdateInvoiceAttachmentPreferenceResponse = UpdateAttachmentPreferenceResponse
+export type DeleteInvoiceAttachmentResponse = DeleteAnAttachmentResponse
+export type GetInvoiceDocumentDetailsResponse = GetInvoiceDocumentResponse
+export type DeleteInvoiceExpenseReceiptResponse = DeleteTheExpenseReceiptResponse
+export type UpdateCustomFieldsInInvoiceResponse = UpdateAnInvoiceCustomfieldResponse
+export type ListInvoiceCommentsResponse = ListInvoiceCommentsAndHistoryResponse
+export type AddInvoiceCommentResponse = AddCommentResponse
+export type UpdateInvoiceCommentResponse = UpdateCommentResponse
+export type DeleteInvoiceCommentResponse = DeleteACommentResponse
+export type GenerateInvoicePaymentLinkResponse = PaymentLinkResponse
+export type SendInvoiceViaSnailMailResponse = SendInvoiceSnailMailResponse
+export type CreateInvoiceSynchronousOnlinePaymentResponse = InvoiceSynchronousOnlinePaymentResponse
+export type CreateInvoiceAsynchronousOnlinePaymentResponse = InvoiceAsynchronousOnlinePaymentResponse

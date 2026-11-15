@@ -51,45 +51,45 @@ export const ReportingTagsResponse = Schema.Struct({
 })
 export type ReportingTagsResponse = typeof ReportingTagsResponse.Type
 
-export const MarkDefaultOptionResponse = Schema.Struct({
+export const MarkDefaultOptionResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkDefaultOptionResponse = typeof MarkDefaultOptionResponse.Type
 
-export const DeleteTagResponse = Schema.Struct({
+export const DeleteTagResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteTagResponse = typeof DeleteTagResponse.Type
 
-export const UpdateOptionsResponse = Schema.Struct({
+export const UpdateOptionsResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateOptionsResponse = typeof UpdateOptionsResponse.Type
 
-export const UpdateCriteriaResponse = Schema.Struct({
+export const UpdateCriteriaResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateCriteriaResponse = typeof UpdateCriteriaResponse.Type
 
-export const ActiveTagResponse = Schema.Struct({
+export const ActiveTagResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActiveTagResponse = typeof ActiveTagResponse.Type
 
-export const InactiveTagResponse = Schema.Struct({
+export const InactiveTagResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InactiveTagResponse = typeof InactiveTagResponse.Type
 
-export const ActiveTagOptionResponse = Schema.Struct({
+export const ActiveTagOptionResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActiveTagOptionResponse = typeof ActiveTagOptionResponse.Type
 
-export const InactiveTagOptionResponse = Schema.Struct({
+export const InactiveTagOptionResponse = Schema.StructWithRest(Schema.Struct({
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type InactiveTagOptionResponse = typeof InactiveTagOptionResponse.Type
 
 export const DependentTags = W.Arr(Schema.Struct({
@@ -282,6 +282,8 @@ export interface MarkDefaultOptionInput {
   readonly tag_id: string
   /** ID of the option to be marked as default. If this parameter is not sent or sent empty, the current default option of the tag will be removed. */
   readonly default_option_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an option as default for a reporting tag. `POST /reportingtags/{tag_id}` */
@@ -289,6 +291,7 @@ export const markDefaultOption = /*#__PURE__*/ operation<MarkDefaultOptionInput,
   id: "mark_default_option",
   method: "POST",
   path: "/reportingtags/{tag_id}",
+  body: "json",
   response: MarkDefaultOptionResponse,
   scopes: ["ZohoBooks.settings.READ"],
 })
@@ -358,6 +361,8 @@ export const updateTagCriteria = /*#__PURE__*/ operation<UpdateTagCriteriaInput,
 export interface ActiveTagInput {
   /** ID of the reporting tag */
   readonly tag_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark Reporting Tag as active. `POST /reportingtags/{tag_id}/active` */
@@ -365,6 +370,7 @@ export const activeTag = /*#__PURE__*/ operation<ActiveTagInput, typeof ActiveTa
   id: "active_tag",
   method: "POST",
   path: "/reportingtags/{tag_id}/active",
+  body: "json",
   response: ActiveTagResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -372,6 +378,8 @@ export const activeTag = /*#__PURE__*/ operation<ActiveTagInput, typeof ActiveTa
 export interface InactiveTagInput {
   /** ID of the reporting tag */
   readonly tag_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark Reporting Tag as inactive. `POST /reportingtags/{tag_id}/inactive` */
@@ -379,6 +387,7 @@ export const inactiveTag = /*#__PURE__*/ operation<InactiveTagInput, typeof Inac
   id: "inactive_tag",
   method: "POST",
   path: "/reportingtags/{tag_id}/inactive",
+  body: "json",
   response: InactiveTagResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -388,6 +397,8 @@ export interface ActiveTagOptionInput {
   readonly tag_id: string
   /** ID of a reporting tag's option */
   readonly option_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an option as active. `POST /reportingtags/{tag_id}/option/{option_id}/active` */
@@ -395,6 +406,7 @@ export const activeTagOption = /*#__PURE__*/ operation<ActiveTagOptionInput, typ
   id: "active_tag_option",
   method: "POST",
   path: "/reportingtags/{tag_id}/option/{option_id}/active",
+  body: "json",
   response: ActiveTagOptionResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -404,6 +416,8 @@ export interface InactiveTagOptionInput {
   readonly tag_id: string
   /** ID of a reporting tag's option */
   readonly option_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an option as inactive. `POST /reportingtags/{tag_id}/option/{option_id}/inactive` */
@@ -411,6 +425,7 @@ export const inactiveTagOption = /*#__PURE__*/ operation<InactiveTagOptionInput,
   id: "inactive_tag_option",
   method: "POST",
   path: "/reportingtags/{tag_id}/option/{option_id}/inactive",
+  body: "json",
   response: InactiveTagOptionResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -445,7 +460,7 @@ export const allTagOptions = /*#__PURE__*/ operation<AllTagOptionsInput, typeof 
 })
 
 export interface ReorderTagsInput {
-  readonly body?: {
+  readonly body: {
     /** List of reporting tag IDs in the desired order */
     readonly tags?: ReadonlyArray<string>
   }
@@ -460,3 +475,10 @@ export const reorderTags = /*#__PURE__*/ operation<ReorderTagsInput, typeof Reor
   response: ReorderTagsResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
+
+export type CreateTagResponse = ReportingTagsResponse
+export type UpdateTagResponse = ReportingTagsResponse
+export type UpdateTagOptionsResponse = UpdateOptionsResponse
+export type UpdateTagCriteriaResponse = UpdateCriteriaResponse
+export type GetAllTagOptionsResponse = OptionsDetailPageResponse
+export type AllTagOptionsResponse = AllOptionsResponse

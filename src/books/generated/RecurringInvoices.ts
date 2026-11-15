@@ -302,28 +302,28 @@ export const GetARecurringInvoiceResponse = Schema.Struct({
 })
 export type GetARecurringInvoiceResponse = typeof GetARecurringInvoiceResponse.Type
 
-export const DeleteARecurringInvoiceResponse = Schema.Struct({
+export const DeleteARecurringInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARecurringInvoiceResponse = typeof DeleteARecurringInvoiceResponse.Type
 
-export const StopARecurringInvoiceResponse = Schema.Struct({
+export const StopARecurringInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type StopARecurringInvoiceResponse = typeof StopARecurringInvoiceResponse.Type
 
-export const ResumeARecurringInvoiceResponse = Schema.Struct({
+export const ResumeARecurringInvoiceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ResumeARecurringInvoiceResponse = typeof ResumeARecurringInvoiceResponse.Type
 
-export const UpdateRecurringInvoiceTemplateResponse = Schema.Struct({
+export const UpdateRecurringInvoiceTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateRecurringInvoiceTemplateResponse = typeof UpdateRecurringInvoiceTemplateResponse.Type
 
 export const ListRecurringInvoiceHistoryResponse = Schema.Struct({
@@ -346,22 +346,22 @@ export const ListRecurringInvoiceHistoryResponse = Schema.Struct({
 })
 export type ListRecurringInvoiceHistoryResponse = typeof ListRecurringInvoiceHistoryResponse.Type
 
-export const ResumeRecurringInvoicesResponse = Schema.Struct({
+export const ResumeRecurringInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ResumeRecurringInvoicesResponse = typeof ResumeRecurringInvoicesResponse.Type
 
-export const StopRecurringInvoicesResponse = Schema.Struct({
+export const StopRecurringInvoicesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type StopRecurringInvoicesResponse = typeof StopRecurringInvoicesResponse.Type
 
-export const GetRecurringInvoiceDashboardResponse = Schema.Struct({
+export const GetRecurringInvoiceDashboardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetRecurringInvoiceDashboardResponse = typeof GetRecurringInvoiceDashboardResponse.Type
 
 export const ListRecurringInvoiceChildInvoicesResponse = Schema.Struct({
@@ -393,40 +393,40 @@ export const ListRecurringInvoiceChildInvoicesResponse = Schema.Struct({
 })
 export type ListRecurringInvoiceChildInvoicesResponse = typeof ListRecurringInvoiceChildInvoicesResponse.Type
 
-export const EnableRecurringInvoiceAutobillResponse = Schema.Struct({
+export const EnableRecurringInvoiceAutobillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EnableRecurringInvoiceAutobillResponse = typeof EnableRecurringInvoiceAutobillResponse.Type
 
-export const DisableRecurringInvoiceAutobillResponse = Schema.Struct({
+export const DisableRecurringInvoiceAutobillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DisableRecurringInvoiceAutobillResponse = typeof DisableRecurringInvoiceAutobillResponse.Type
 
-export const DeleteRecurringInvoiceBankAccountResponse = Schema.Struct({
+export const DeleteRecurringInvoiceBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteRecurringInvoiceBankAccountResponse = typeof DeleteRecurringInvoiceBankAccountResponse.Type
 
-export const DeleteRecurringInvoiceCardResponse = Schema.Struct({
+export const DeleteRecurringInvoiceCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteRecurringInvoiceCardResponse = typeof DeleteRecurringInvoiceCardResponse.Type
 
-export const AssociateRecurringInvoiceBankAccountResponse = Schema.Struct({
+export const AssociateRecurringInvoiceBankAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AssociateRecurringInvoiceBankAccountResponse = typeof AssociateRecurringInvoiceBankAccountResponse.Type
 
-export const AssociateRecurringInvoiceCardResponse = Schema.Struct({
+export const AssociateRecurringInvoiceCardResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AssociateRecurringInvoiceCardResponse = typeof AssociateRecurringInvoiceCardResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -912,7 +912,7 @@ export const deleteRecurringInvoice = /*#__PURE__*/ operation<DeleteRecurringInv
 export interface StopRecurringInvoiceInput {
   /** Unique identifier of the recurring invoice. */
   readonly recurring_invoice_id: string
-  readonly body?: StopARecurringInvoiceRequest
+  readonly body: StopARecurringInvoiceRequest
 }
 
 /** Stop a Recurring Invoice. `POST /recurringinvoices/{recurring_invoice_id}/status/stop` */
@@ -928,7 +928,7 @@ export const stopRecurringInvoice = /*#__PURE__*/ operation<StopRecurringInvoice
 export interface ResumeRecurringInvoiceInput {
   /** Unique identifier of the recurring invoice. */
   readonly recurring_invoice_id: string
-  readonly body?: ResumeARecurringInvoiceRequest
+  readonly body: ResumeARecurringInvoiceRequest
 }
 
 /** Resume a Recurring Invoice. `POST /recurringinvoices/{recurring_invoice_id}/status/resume` */
@@ -946,7 +946,7 @@ export interface UpdateRecurringInvoiceTemplateInput {
   readonly recurring_invoice_id: string
   /** Unique identifier of the recurring invoice template. */
   readonly template_id: string
-  readonly body?: UpdateRecurringInvoiceTemplateRequest
+  readonly body: UpdateRecurringInvoiceTemplateRequest
 }
 
 /** Update Recurring Invoice template. `PUT /recurringinvoices/{recurring_invoice_id}/templates/{template_id}` */
@@ -976,6 +976,8 @@ export const listRecurringInvoiceHistory = /*#__PURE__*/ operation<ListRecurring
 export interface ResumeRecurringInvoicesInput {
   /** Comma-separated IDs of the recurring invoices to resume. Note: This value is a set of numeric characters separated by comma. */
   readonly recurring_invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resume recurring invoices. `POST /recurringinvoices/status/resume` */
@@ -983,6 +985,7 @@ export const resumeRecurringInvoices = /*#__PURE__*/ operation<ResumeRecurringIn
   id: "resume_recurring_invoices",
   method: "POST",
   path: "/recurringinvoices/status/resume",
+  body: "json",
   response: ResumeRecurringInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -990,6 +993,8 @@ export const resumeRecurringInvoices = /*#__PURE__*/ operation<ResumeRecurringIn
 export interface StopRecurringInvoicesInput {
   /** Comma-separated IDs of the recurring invoices to stop. Note: This value is a set of numeric characters separated by comma. */
   readonly recurring_invoice_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Stop recurring invoices. `POST /recurringinvoices/status/stop` */
@@ -997,6 +1002,7 @@ export const stopRecurringInvoices = /*#__PURE__*/ operation<StopRecurringInvoic
   id: "stop_recurring_invoices",
   method: "POST",
   path: "/recurringinvoices/status/stop",
+  body: "json",
   response: StopRecurringInvoicesResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -1035,6 +1041,8 @@ export const listRecurringInvoiceChildInvoices = /*#__PURE__*/ operation<ListRec
 export interface EnableRecurringInvoiceAutobillInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Enable auto-bill for a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/autobill/enable` */
@@ -1042,6 +1050,7 @@ export const enableRecurringInvoiceAutobill = /*#__PURE__*/ operation<EnableRecu
   id: "enable_recurring_invoice_autobill",
   method: "POST",
   path: "/recurringinvoices/{recurring_invoice_id}/autobill/enable",
+  body: "json",
   response: EnableRecurringInvoiceAutobillResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -1049,6 +1058,8 @@ export const enableRecurringInvoiceAutobill = /*#__PURE__*/ operation<EnableRecu
 export interface DisableRecurringInvoiceAutobillInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Disable auto-bill for a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/autobill/disable` */
@@ -1056,6 +1067,7 @@ export const disableRecurringInvoiceAutobill = /*#__PURE__*/ operation<DisableRe
   id: "disable_recurring_invoice_autobill",
   method: "POST",
   path: "/recurringinvoices/{recurring_invoice_id}/autobill/disable",
+  body: "json",
   response: DisableRecurringInvoiceAutobillResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -1097,6 +1109,8 @@ export interface AssociateRecurringInvoiceBankAccountInput {
   readonly recurring_invoice_id: string
   /** Unique identifier of the bank account. Note: This value is a set of numeric characters. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Associate a bank account with a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/bankaccount/{account_id}` */
@@ -1104,6 +1118,7 @@ export const associateRecurringInvoiceBankAccount = /*#__PURE__*/ operation<Asso
   id: "associate_recurring_invoice_bank_account",
   method: "POST",
   path: "/recurringinvoices/{recurring_invoice_id}/bankaccount/{account_id}",
+  body: "json",
   response: AssociateRecurringInvoiceBankAccountResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
@@ -1113,6 +1128,8 @@ export interface AssociateRecurringInvoiceCardInput {
   readonly recurring_invoice_id: string
   /** Unique identifier of the card. Note: This value is a set of numeric characters. */
   readonly card_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Associate a card with a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/card/{card_id}` */
@@ -1120,6 +1137,15 @@ export const associateRecurringInvoiceCard = /*#__PURE__*/ operation<AssociateRe
   id: "associate_recurring_invoice_card",
   method: "POST",
   path: "/recurringinvoices/{recurring_invoice_id}/card/{card_id}",
+  body: "json",
   response: AssociateRecurringInvoiceCardResponse,
   scopes: ["ZohoBooks.invoices.CREATE"],
 })
+
+export type ListRecurringInvoicesResponse = ListAllRecurringInvoiceResponse
+export type CreateRecurringInvoiceResponse = CreateARecurringInvoiceResponse
+export type UpdateRecurringInvoiceUsingCustomFieldResponse = UpdateRecurringInvoiceResponse
+export type GetRecurringInvoiceResponse = GetARecurringInvoiceResponse
+export type DeleteRecurringInvoiceResponse = DeleteARecurringInvoiceResponse
+export type StopRecurringInvoiceResponse = StopARecurringInvoiceResponse
+export type ResumeRecurringInvoiceResponse = ResumeARecurringInvoiceResponse

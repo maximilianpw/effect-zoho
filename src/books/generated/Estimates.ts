@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const ListEstimatesResponse = Schema.Struct({
   code: W.num,
@@ -312,46 +312,46 @@ export const GetAnEstimateResponse = Schema.Struct({
 })
 export type GetAnEstimateResponse = typeof GetAnEstimateResponse.Type
 
-export const DeleteAnEstimateResponse = Schema.Struct({
+export const DeleteAnEstimateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnEstimateResponse = typeof DeleteAnEstimateResponse.Type
 
-export const UpdateAnEstimateCustomfieldResponse = Schema.Struct({
+export const UpdateAnEstimateCustomfieldResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateAnEstimateCustomfieldResponse = typeof UpdateAnEstimateCustomfieldResponse.Type
 
-export const MarkAnEstimateAsSentResponse = Schema.Struct({
+export const MarkAnEstimateAsSentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnEstimateAsSentResponse = typeof MarkAnEstimateAsSentResponse.Type
 
-export const MarkAnEstimateAsAcceptedResponse = Schema.Struct({
+export const MarkAnEstimateAsAcceptedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnEstimateAsAcceptedResponse = typeof MarkAnEstimateAsAcceptedResponse.Type
 
-export const MarkAnEstimateAsDeclinedResponse = Schema.Struct({
+export const MarkAnEstimateAsDeclinedResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type MarkAnEstimateAsDeclinedResponse = typeof MarkAnEstimateAsDeclinedResponse.Type
 
-export const SubmitAnEstimateForApprovalResponse = Schema.Struct({
+export const SubmitAnEstimateForApprovalResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SubmitAnEstimateForApprovalResponse = typeof SubmitAnEstimateForApprovalResponse.Type
 
-export const ApproveAnEstimateResponse = Schema.Struct({
+export const ApproveAnEstimateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ApproveAnEstimateResponse = typeof ApproveAnEstimateResponse.Type
 
 export const ErrorList = W.Arr(W.Str)
@@ -388,40 +388,28 @@ export const GetEstimateEmailContentResponse = Schema.Struct({
 })
 export type GetEstimateEmailContentResponse = typeof GetEstimateEmailContentResponse.Type
 
-export const EmailAnEstimateResponse = Schema.Struct({
+export const EmailAnEstimateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailAnEstimateResponse = typeof EmailAnEstimateResponse.Type
 
-export const EmailMultipleEstimatesResponse = Schema.Struct({
+export const EmailMultipleEstimatesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailMultipleEstimatesResponse = typeof EmailMultipleEstimatesResponse.Type
 
-export const BulkExportEstimatesResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type BulkExportEstimatesResponse = typeof BulkExportEstimatesResponse.Type
-
-export const BulkPrintEstimatesResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
-export type BulkPrintEstimatesResponse = typeof BulkPrintEstimatesResponse.Type
-
-export const UpdateBillingAddressResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
-export const UpdateShippingAddressResponse = Schema.Struct({
+export const UpdateShippingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateShippingAddressResponse = typeof UpdateShippingAddressResponse.Type
 
 export const ListEstimateTemplateResponse = Schema.Struct({
@@ -435,10 +423,10 @@ export const ListEstimateTemplateResponse = Schema.Struct({
 })
 export type ListEstimateTemplateResponse = typeof ListEstimateTemplateResponse.Type
 
-export const UpdateEstimateTemplateResponse = Schema.Struct({
+export const UpdateEstimateTemplateResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateEstimateTemplateResponse = typeof UpdateEstimateTemplateResponse.Type
 
 export const ListEstimateCommentsAndHistoryResponse = Schema.Struct({
@@ -461,10 +449,10 @@ export const ListEstimateCommentsAndHistoryResponse = Schema.Struct({
 })
 export type ListEstimateCommentsAndHistoryResponse = typeof ListEstimateCommentsAndHistoryResponse.Type
 
-export const AddCommentsResponse = Schema.Struct({
+export const AddCommentsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddCommentsResponse = typeof AddCommentsResponse.Type
 
 export const UpdateCommentResponse = Schema.Struct({
@@ -484,10 +472,10 @@ export const UpdateCommentResponse = Schema.Struct({
 })
 export type UpdateCommentResponse = typeof UpdateCommentResponse.Type
 
-export const DeleteACommentResponse = Schema.Struct({
+export const DeleteACommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export interface CommunicationPreferenceInput {
@@ -1081,7 +1069,7 @@ export const deleteEstimate = /*#__PURE__*/ operation<DeleteEstimateInput, typeo
 export interface UpdateCustomFieldsInEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
-  readonly body?: UpdateAnEstimateCustomfieldRequest
+  readonly body: UpdateAnEstimateCustomfieldRequest
 }
 
 /** Update custom field in existing estimates. `PUT /estimate/{estimate_id}/customfields` */
@@ -1097,6 +1085,8 @@ export const updateCustomFieldsInEstimate = /*#__PURE__*/ operation<UpdateCustom
 export interface MarkEstimateSentInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an estimate as sent. `POST /estimates/{estimate_id}/status/sent` */
@@ -1104,6 +1094,7 @@ export const markEstimateSent = /*#__PURE__*/ operation<MarkEstimateSentInput, t
   id: "mark_estimate_sent",
   method: "POST",
   path: "/estimates/{estimate_id}/status/sent",
+  body: "json",
   response: MarkAnEstimateAsSentResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1111,6 +1102,8 @@ export const markEstimateSent = /*#__PURE__*/ operation<MarkEstimateSentInput, t
 export interface MarkEstimateAcceptedInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an estimate as accepted. `POST /estimates/{estimate_id}/status/accepted` */
@@ -1118,6 +1111,7 @@ export const markEstimateAccepted = /*#__PURE__*/ operation<MarkEstimateAccepted
   id: "mark_estimate_accepted",
   method: "POST",
   path: "/estimates/{estimate_id}/status/accepted",
+  body: "json",
   response: MarkAnEstimateAsAcceptedResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1125,6 +1119,8 @@ export const markEstimateAccepted = /*#__PURE__*/ operation<MarkEstimateAccepted
 export interface MarkEstimateDeclinedInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark an estimate as declined. `POST /estimates/{estimate_id}/status/declined` */
@@ -1132,6 +1128,7 @@ export const markEstimateDeclined = /*#__PURE__*/ operation<MarkEstimateDeclined
   id: "mark_estimate_declined",
   method: "POST",
   path: "/estimates/{estimate_id}/status/declined",
+  body: "json",
   response: MarkAnEstimateAsDeclinedResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1139,6 +1136,8 @@ export const markEstimateDeclined = /*#__PURE__*/ operation<MarkEstimateDeclined
 export interface SubmitEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Submit an estimate for approval. `POST /estimates/{estimate_id}/submit` */
@@ -1146,6 +1145,7 @@ export const submitEstimate = /*#__PURE__*/ operation<SubmitEstimateInput, typeo
   id: "submit_estimate",
   method: "POST",
   path: "/estimates/{estimate_id}/submit",
+  body: "json",
   response: SubmitAnEstimateForApprovalResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1153,6 +1153,8 @@ export const submitEstimate = /*#__PURE__*/ operation<SubmitEstimateInput, typeo
 export interface ApproveEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Approve an estimate.. `POST /estimates/{estimate_id}/approve` */
@@ -1160,6 +1162,7 @@ export const approveEstimate = /*#__PURE__*/ operation<ApproveEstimateInput, typ
   id: "approve_estimate",
   method: "POST",
   path: "/estimates/{estimate_id}/approve",
+  body: "json",
   response: ApproveAnEstimateResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1184,7 +1187,7 @@ export interface EmailEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Files to be attached to the email */
-  readonly attachments?: string
+  readonly attachments?: ZohoFile
   readonly body: EmailAnEstimateRequest
 }
 
@@ -1193,6 +1196,7 @@ export const emailEstimate = /*#__PURE__*/ operation<EmailEstimateInput, typeof 
   id: "email_estimate",
   method: "POST",
   path: "/estimates/{estimate_id}/email",
+  files: ["attachments"],
   body: "json",
   response: EmailAnEstimateResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
@@ -1201,6 +1205,8 @@ export const emailEstimate = /*#__PURE__*/ operation<EmailEstimateInput, typeof 
 export interface EmailMultipleEstimatesInput {
   /** Comma separated estimate ids which are to be emailed. Note: This value is a set of numeric characters separated by comma. */
   readonly estimate_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Email multiple estimates. `POST /estimates/email` */
@@ -1208,6 +1214,7 @@ export const emailMultipleEstimates = /*#__PURE__*/ operation<EmailMultipleEstim
   id: "email_multiple_estimates",
   method: "POST",
   path: "/estimates/email",
+  body: "json",
   response: EmailMultipleEstimatesResponse,
   scopes: ["ZohoBooks.estimates.CREATE"],
 })
@@ -1218,11 +1225,11 @@ export interface BulkExportEstimatesAsPdfInput {
 }
 
 /** Bulk export estimates. `GET /estimates/pdf` */
-export const bulkExportEstimatesAsPdf = /*#__PURE__*/ operation<BulkExportEstimatesAsPdfInput, typeof BulkExportEstimatesResponse>({
+export const bulkExportEstimatesAsPdf = /*#__PURE__*/ operation<BulkExportEstimatesAsPdfInput, undefined>({
   id: "bulk_export_estimates_as_pdf",
   method: "GET",
   path: "/estimates/pdf",
-  response: BulkExportEstimatesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.estimates.READ"],
 })
 
@@ -1232,18 +1239,18 @@ export interface BulkPrintEstimatesInput {
 }
 
 /** Bulk print estimates. `GET /estimates/print` */
-export const bulkPrintEstimates = /*#__PURE__*/ operation<BulkPrintEstimatesInput, typeof BulkPrintEstimatesResponse>({
+export const bulkPrintEstimates = /*#__PURE__*/ operation<BulkPrintEstimatesInput, undefined>({
   id: "bulk_print_estimates",
   method: "GET",
   path: "/estimates/print",
-  response: BulkPrintEstimatesResponse,
+  response: undefined,
   scopes: ["ZohoBooks.estimates.READ"],
 })
 
 export interface UpdateEstimateBillingAddressInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
-  readonly body?: UpdateBillingAddressRequest
+  readonly body: UpdateBillingAddressRequest
 }
 
 /** Update billing address. `PUT /estimates/{estimate_id}/address/billing` */
@@ -1259,7 +1266,7 @@ export const updateEstimateBillingAddress = /*#__PURE__*/ operation<UpdateEstima
 export interface UpdateEstimateShippingAddressInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
-  readonly body?: UpdateShippingAddressRequest
+  readonly body: UpdateShippingAddressRequest
 }
 
 /** Update shipping address. `PUT /estimates/{estimate_id}/address/shipping` */
@@ -1288,6 +1295,8 @@ export interface UpdateEstimateTemplateInput {
   readonly estimate_id: string
   /** Unique identifier of the estimate template. Note: This value is a set of numeric characters. */
   readonly template_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update estimate template. `PUT /estimates/{estimate_id}/templates/{template_id}` */
@@ -1295,6 +1304,7 @@ export const updateEstimateTemplate = /*#__PURE__*/ operation<UpdateEstimateTemp
   id: "update_estimate_template",
   method: "PUT",
   path: "/estimates/{estimate_id}/templates/{template_id}",
+  body: "json",
   response: UpdateEstimateTemplateResponse,
   scopes: ["ZohoBooks.estimates.UPDATE"],
 })
@@ -1316,7 +1326,7 @@ export const listEstimateComments = /*#__PURE__*/ operation<ListEstimateComments
 export interface CreateEstimateCommentInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
-  readonly body?: AddCommentsRequest
+  readonly body: AddCommentsRequest
 }
 
 /** Add Comments. `POST /estimates/{estimate_id}/comments` */
@@ -1334,7 +1344,7 @@ export interface UpdateEstimateCommentInput {
   readonly estimate_id: string
   /** Unique identifier of the comment. Note: This value is a set of numeric characters. */
   readonly comment_id: string
-  readonly body?: UpdateCommentRequest
+  readonly body: UpdateCommentRequest
 }
 
 /** Update comment. `PUT /estimates/{estimate_id}/comments/{comment_id}` */
@@ -1362,3 +1372,24 @@ export const deleteEstimateComment = /*#__PURE__*/ operation<DeleteEstimateComme
   response: DeleteACommentResponse,
   scopes: ["ZohoBooks.estimates.DELETE"],
 })
+
+export type CreateEstimateResponse = CreateAnEstimateResponse
+export type UpdateEstimateUsingCustomFieldResponse = UpdateAnEstimateResponse
+export type GetEstimateResponse = GetAnEstimateResponse
+export type UpdateEstimateResponse = UpdateAnEstimateResponse
+export type DeleteEstimateResponse = DeleteAnEstimateResponse
+export type UpdateCustomFieldsInEstimateResponse = UpdateAnEstimateCustomfieldResponse
+export type MarkEstimateSentResponse = MarkAnEstimateAsSentResponse
+export type MarkEstimateAcceptedResponse = MarkAnEstimateAsAcceptedResponse
+export type MarkEstimateDeclinedResponse = MarkAnEstimateAsDeclinedResponse
+export type SubmitEstimateResponse = SubmitAnEstimateForApprovalResponse
+export type ApproveEstimateResponse = ApproveAnEstimateResponse
+export type GetEstimateEmailResponse = GetEstimateEmailContentResponse
+export type EmailEstimateResponse = EmailAnEstimateResponse
+export type UpdateEstimateBillingAddressResponse = UpdateBillingAddressResponse
+export type UpdateEstimateShippingAddressResponse = UpdateShippingAddressResponse
+export type ListEstimateTemplatesResponse = ListEstimateTemplateResponse
+export type ListEstimateCommentsResponse = ListEstimateCommentsAndHistoryResponse
+export type CreateEstimateCommentResponse = AddCommentsResponse
+export type UpdateEstimateCommentResponse = UpdateCommentResponse
+export type DeleteEstimateCommentResponse = DeleteACommentResponse

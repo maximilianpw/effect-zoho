@@ -5,7 +5,9 @@ import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import * as Stream from 'effect/Stream'
 import { ZohoAccessToken, ZohoTransportError } from '../src/index.ts'
-import { Contacts, DeliveryChallans, Invoices, paginate, ReportingTags, ZohoBooksClient } from '../src/books/index.ts'
+import {
+  BankAccounts, Bills, Contacts, DeliveryChallans, Expenses, Invoices, Organizations, paginate, Projects, ReportingTags, ZohoBooksClient,
+} from '../src/books/index.ts'
 import { fakeZoho, json, type Reply } from './fake-zoho.ts'
 
 function books(...replies: ReadonlyArray<Reply>) {
@@ -233,6 +235,56 @@ it.effect('uploads a multipart body', () => {
     })
     const file = (zoho.requests[0]!.body as FormData).get('attachment') as File
     expect(file).toMatchObject({ name: 'packing-list.pdf', size: 3, type: 'application/pdf' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('sends a file with its record as multipart, the record as JSON text', () => {
+  const zoho = books(json({ code: 0, message: 'The expense has been recorded.', expense: {} }))
+  return Effect.gen(function* () {
+    yield* Expenses.createExpense({
+      receipt: { bytes: new Uint8Array([1, 2]), fileName: 'fuel.pdf' },
+      body: { account_id: '982000000561057', amount: 112.5, date: '2026-11-15', paid_through_account_id: '982000000567250' },
+    })
+
+    const form = zoho.requests[0]!.body as FormData
+    expect((form.get('receipt') as File).name).toBe('fuel.pdf')
+    expect(JSON.parse(form.get('JSONString') as string)).toMatchObject({ account_id: '982000000561057', amount: 112.5 })
+    expect(zoho.requests[0]?.url.searchParams.has('receipt')).toBe(false)
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('returns the file from a download Zoho documents with only a result code', () => {
+  const zoho = books(new Response(new Uint8Array([7, 8]), { headers: { 'content-type': 'image/jpeg' } }))
+  return Effect.gen(function* () {
+    expect(yield* Bills.getBillAttachment({ bill_id: '9' })).toEqual({ bytes: new Uint8Array([7, 8]), contentType: 'image/jpeg' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('keeps the payload of a response Zoho documents with only a result code', () => {
+  const zoho = books(json({ code: 0, message: 'success', reconciliations: [{ reconciliation_id: '5' }] }))
+  return Effect.gen(function* () {
+    const response = yield* BankAccounts.listBankReconciliations({ account_id: '4' })
+    expect(response).toEqual({ code: 0, message: 'success', reconciliations: [{ reconciliation_id: '5' }] })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('leaves the organisation out of the calls that list organisations', () => {
+  const zoho = books(json({ code: 0, organizations: [{ organization_id: 10234695 }] }), json({ code: 0, organization: {} }))
+  return Effect.gen(function* () {
+    const { organizations } = yield* Organizations.listOrganizations()
+    yield* Organizations.getOrganization({ organization_id: '10234695' })
+
+    expect(organizations?.[0]?.organization_id).toBe('10234695')
+    expect(zoho.requests.map((request) => request.url.searchParams.has('organization_id'))).toEqual([false, false])
+    expect(zoho.requests[1]?.url.pathname).toBe('/books/v3/organizations/10234695')
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reads a duration Zoho documents as a number but sends as text', () => {
+  const zoho = books(json({ code: 0, tasks: [{ task_id: '1', log_time: '13:06' }] }))
+  return Effect.gen(function* () {
+    const response = yield* Projects.listProjectTasks({ project_id: '2' })
+    expect(response.tasks?.[0]?.log_time).toBe('13:06')
   }).pipe(Effect.provide(zoho.layer))
 })
 

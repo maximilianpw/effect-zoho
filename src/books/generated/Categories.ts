@@ -135,10 +135,10 @@ export const UpdateACategoryResponse = Schema.Struct({
 })
 export type UpdateACategoryResponse = typeof UpdateACategoryResponse.Type
 
-export const DeleteACategoryResponse = Schema.Struct({
+export const DeleteACategoryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteACategoryResponse = typeof DeleteACategoryResponse.Type
 
 export interface CategoryTaxPreferenceInput {
@@ -180,9 +180,9 @@ export interface CreateACategoryRequest {
 
 export interface UpdateACategoryRequest {
   /** Name of the category. Max-length [100]. */
-  readonly name: string
+  readonly name?: string
   /** URL slug for the category. Max-length [100]. */
-  readonly url: string
+  readonly url?: string
   /** Description of the category. Max-length [12000]. */
   readonly description?: string
   /** Display order of the category among its siblings. */
@@ -308,3 +308,8 @@ export const deleteCategory = /*#__PURE__*/ operation<DeleteCategoryInput, typeo
   response: DeleteACategoryResponse,
   scopes: ["ZohoBooks.categories.DELETE","ZohoBooks.items.DELETE"],
 })
+
+export type CreateCategoryResponse = CreateACategoryResponse
+export type GetCategoryResponse = GetACategoryResponse
+export type UpdateCategoryResponse = UpdateACategoryResponse
+export type DeleteCategoryResponse = DeleteACategoryResponse

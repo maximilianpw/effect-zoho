@@ -2,7 +2,7 @@
 
 import * as Schema from 'effect/Schema'
 import * as W from '../../internal/wire.ts'
-import { operation } from '../Operation.ts'
+import { operation, type ZohoFile } from '../Operation.ts'
 
 export const ListViewOfAccountsResponse = Schema.Struct({
   code: W.num,
@@ -81,28 +81,28 @@ export const UpdateBankAccountResponse = Schema.Struct({
 })
 export type UpdateBankAccountResponse = typeof UpdateBankAccountResponse.Type
 
-export const DeleteAnAccountResponse = Schema.Struct({
+export const DeleteAnAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAnAccountResponse = typeof DeleteAnAccountResponse.Type
 
-export const DeactivateAccountResponse = Schema.Struct({
+export const DeactivateAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeactivateAccountResponse = typeof DeactivateAccountResponse.Type
 
-export const ActivateAccountResponse = Schema.Struct({
+export const ActivateAccountResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ActivateAccountResponse = typeof ActivateAccountResponse.Type
 
-export const ImportABankcreditCardStatementResponse = Schema.Struct({
+export const ImportABankcreditCardStatementResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ImportABankcreditCardStatementResponse = typeof ImportABankcreditCardStatementResponse.Type
 
 export const Transactions = W.Arr(Schema.Struct({
@@ -131,148 +131,142 @@ export const GetLastImportedStatementResponse = Schema.Struct({
 })
 export type GetLastImportedStatementResponse = typeof GetLastImportedStatementResponse.Type
 
-export const DeleteLastImportedStatementResponse = Schema.Struct({
+export const DeleteLastImportedStatementResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteLastImportedStatementResponse = typeof DeleteLastImportedStatementResponse.Type
 
-export const ListBankReconciliationsResponse = Schema.Struct({
+export const ListBankReconciliationsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankReconciliationsResponse = typeof ListBankReconciliationsResponse.Type
 
-export const CreateBankReconciliationResponse = Schema.Struct({
+export const CreateBankReconciliationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CreateBankReconciliationResponse = typeof CreateBankReconciliationResponse.Type
 
-export const GetBankReconciliationResponse = Schema.Struct({
+export const GetBankReconciliationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankReconciliationResponse = typeof GetBankReconciliationResponse.Type
 
-export const UpdateBankReconciliationResponse = Schema.Struct({
+export const UpdateBankReconciliationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBankReconciliationResponse = typeof UpdateBankReconciliationResponse.Type
 
-export const DeleteBankReconciliationResponse = Schema.Struct({
+export const DeleteBankReconciliationResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteBankReconciliationResponse = typeof DeleteBankReconciliationResponse.Type
 
-export const SaveBankReconciliationDraftResponse = Schema.Struct({
+export const SaveBankReconciliationDraftResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SaveBankReconciliationDraftResponse = typeof SaveBankReconciliationDraftResponse.Type
 
-export const AddBankReconciliationAttachmentResponse = Schema.Struct({
+export const AddBankReconciliationAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddBankReconciliationAttachmentResponse = typeof AddBankReconciliationAttachmentResponse.Type
 
-export const GetBankReconciliationDocumentResponse = Schema.Struct({
+export const DeleteBankReconciliationDocumentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
-export type GetBankReconciliationDocumentResponse = typeof GetBankReconciliationDocumentResponse.Type
-
-export const DeleteBankReconciliationDocumentResponse = Schema.Struct({
-  code: W.num,
-  message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteBankReconciliationDocumentResponse = typeof DeleteBankReconciliationDocumentResponse.Type
 
-export const ListBankAccountBalancesResponse = Schema.Struct({
+export const ListBankAccountBalancesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankAccountBalancesResponse = typeof ListBankAccountBalancesResponse.Type
 
-export const GetBankAccountsOverviewResponse = Schema.Struct({
+export const GetBankAccountsOverviewResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountsOverviewResponse = typeof GetBankAccountsOverviewResponse.Type
 
-export const GetBankAccountBalanceResponse = Schema.Struct({
+export const GetBankAccountBalanceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountBalanceResponse = typeof GetBankAccountBalanceResponse.Type
 
-export const GetBankAccountBalancesResponse = Schema.Struct({
+export const GetBankAccountBalancesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountBalancesResponse = typeof GetBankAccountBalancesResponse.Type
 
-export const GetBankAccountInsightsResponse = Schema.Struct({
+export const GetBankAccountInsightsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountInsightsResponse = typeof GetBankAccountInsightsResponse.Type
 
-export const GetBankAccountOverviewResponse = Schema.Struct({
+export const GetBankAccountOverviewResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountOverviewResponse = typeof GetBankAccountOverviewResponse.Type
 
-export const GetBankAccountStatementSummaryResponse = Schema.Struct({
+export const GetBankAccountStatementSummaryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountStatementSummaryResponse = typeof GetBankAccountStatementSummaryResponse.Type
 
-export const ListBankAccountSubaccountsResponse = Schema.Struct({
+export const ListBankAccountSubaccountsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankAccountSubaccountsResponse = typeof ListBankAccountSubaccountsResponse.Type
 
-export const ListBankAccountStatementsResponse = Schema.Struct({
+export const ListBankAccountStatementsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankAccountStatementsResponse = typeof ListBankAccountStatementsResponse.Type
 
-export const ListUnreviewedBankStatementsResponse = Schema.Struct({
+export const ListUnreviewedBankStatementsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListUnreviewedBankStatementsResponse = typeof ListUnreviewedBankStatementsResponse.Type
 
-export const ListBankAccountTransactionsResponse = Schema.Struct({
+export const ListBankAccountTransactionsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListBankAccountTransactionsResponse = typeof ListBankAccountTransactionsResponse.Type
 
-export const GetBankAccountPreferencesResponse = Schema.Struct({
+export const GetBankAccountPreferencesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankAccountPreferencesResponse = typeof GetBankAccountPreferencesResponse.Type
 
-export const UpdateBankAccountPreferencesResponse = Schema.Struct({
+export const UpdateBankAccountPreferencesResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBankAccountPreferencesResponse = typeof UpdateBankAccountPreferencesResponse.Type
 
-export const GetBankStatementImportEncryptionKeyResponse = Schema.Struct({
+export const GetBankStatementImportEncryptionKeyResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type GetBankStatementImportEncryptionKeyResponse = typeof GetBankStatementImportEncryptionKeyResponse.Type
 
 export interface CreateABankAccountRequest {
@@ -456,6 +450,8 @@ export const deleteBankAccount = /*#__PURE__*/ operation<DeleteBankAccountInput,
 export interface MarkBankAccountInactiveInput {
   /** Unique identifier of the bank account. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Deactivate account.. `POST /bankaccounts/{account_id}/inactive` */
@@ -463,6 +459,7 @@ export const markBankAccountInactive = /*#__PURE__*/ operation<MarkBankAccountIn
   id: "mark_bank_account_inactive",
   method: "POST",
   path: "/bankaccounts/{account_id}/inactive",
+  body: "json",
   response: DeactivateAccountResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -470,6 +467,8 @@ export const markBankAccountInactive = /*#__PURE__*/ operation<MarkBankAccountIn
 export interface MarkBankAccountActiveInput {
   /** Unique identifier of the bank account. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Activate account. `POST /bankaccounts/{account_id}/active` */
@@ -477,6 +476,7 @@ export const markBankAccountActive = /*#__PURE__*/ operation<MarkBankAccountActi
   id: "mark_bank_account_active",
   method: "POST",
   path: "/bankaccounts/{account_id}/active",
+  body: "json",
   response: ActivateAccountResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -542,7 +542,7 @@ export const listBankReconciliations = /*#__PURE__*/ operation<ListBankReconcili
 export interface CreateBankReconciliationInput {
   /** Unique identifier of the bank account. Note: This value is a set of numeric characters. */
   readonly account_id: string
-  readonly body?: CreateBankReconciliationRequest
+  readonly body: CreateBankReconciliationRequest
 }
 
 /** Create a bank reconciliation. `POST /bankaccounts/{account_id}/reconciliations` */
@@ -576,7 +576,7 @@ export interface UpdateBankReconciliationInput {
   readonly account_id: string
   /** Unique identifier of the reconciliation. Note: This value is a set of numeric characters. */
   readonly reconciliation_id: string
-  readonly body?: CreateBankReconciliationRequest
+  readonly body: CreateBankReconciliationRequest
 }
 
 /** Update a bank reconciliation. `PUT /bankaccounts/{account_id}/reconciliations/{reconciliation_id}` */
@@ -610,7 +610,7 @@ export interface SaveBankReconciliationDraftInput {
   readonly account_id: string
   /** Unique identifier of the reconciliation. Note: This value is a set of numeric characters. */
   readonly reconciliation_id: string
-  readonly body?: CreateBankReconciliationRequest
+  readonly body: CreateBankReconciliationRequest
 }
 
 /** Save a bank reconciliation as draft. `PUT /bankaccounts/{account_id}/reconciliations/{reconciliation_id}/draft` */
@@ -628,6 +628,9 @@ export interface AddBankReconciliationAttachmentInput {
   readonly account_id: string
   /** Unique identifier of the reconciliation. Note: This value is a set of numeric characters. */
   readonly reconciliation_id: string
+  readonly attachment?: ZohoFile
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Add a reconciliation attachment. `POST /bankaccounts/{account_id}/reconciliations/{reconciliation_id}/attachment` */
@@ -635,6 +638,8 @@ export const addBankReconciliationAttachment = /*#__PURE__*/ operation<AddBankRe
   id: "add_bank_reconciliation_attachment",
   method: "POST",
   path: "/bankaccounts/{account_id}/reconciliations/{reconciliation_id}/attachment",
+  files: ["attachment"],
+  body: "json",
   response: AddBankReconciliationAttachmentResponse,
   scopes: ["ZohoBooks.banking.CREATE"],
 })
@@ -649,11 +654,11 @@ export interface GetBankReconciliationDocumentInput {
 }
 
 /** Get a reconciliation document. `GET /bankaccounts/{account_id}/reconciliations/{reconciliation_id}/documents/{document_id}` */
-export const getBankReconciliationDocument = /*#__PURE__*/ operation<GetBankReconciliationDocumentInput, typeof GetBankReconciliationDocumentResponse>({
+export const getBankReconciliationDocument = /*#__PURE__*/ operation<GetBankReconciliationDocumentInput, undefined>({
   id: "get_bank_reconciliation_document",
   method: "GET",
   path: "/bankaccounts/{account_id}/reconciliations/{reconciliation_id}/documents/{document_id}",
-  response: GetBankReconciliationDocumentResponse,
+  response: undefined,
   scopes: ["ZohoBooks.banking.READ"],
 })
 
@@ -840,6 +845,8 @@ export const getBankAccountPreferences = /*#__PURE__*/ operation<GetBankAccountP
 export interface UpdateBankAccountPreferencesInput {
   /** Unique identifier of the bank account. Note: This value is a set of numeric characters. */
   readonly account_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Update bank account preferences. `PUT /bankaccounts/{account_id}/preferences` */
@@ -847,6 +854,7 @@ export const updateBankAccountPreferences = /*#__PURE__*/ operation<UpdateBankAc
   id: "update_bank_account_preferences",
   method: "PUT",
   path: "/bankaccounts/{account_id}/preferences",
+  body: "json",
   response: UpdateBankAccountPreferencesResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -861,3 +869,13 @@ export const getBankStatementImportEncryptionKey = /*#__PURE__*/ operation<GetBa
   response: GetBankStatementImportEncryptionKeyResponse,
   scopes: ["ZohoBooks.banking.READ"],
 })
+
+export type ListBankAccountsResponse = ListViewOfAccountsResponse
+export type CreateBankAccountResponse = CreateABankAccountResponse
+export type GetBankAccountResponse = GetAccountDetailsResponse
+export type DeleteBankAccountResponse = DeleteAnAccountResponse
+export type MarkBankAccountInactiveResponse = DeactivateAccountResponse
+export type MarkBankAccountActiveResponse = ActivateAccountResponse
+export type ImportBankStatementsResponse = ImportABankcreditCardStatementResponse
+export type GetLastImportedBankStatementResponse = GetLastImportedStatementResponse
+export type DeleteLastImportedBankStatementResponse = DeleteLastImportedStatementResponse

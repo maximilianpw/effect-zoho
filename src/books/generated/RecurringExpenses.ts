@@ -293,22 +293,22 @@ export const GetARecurringExpenseResponse = Schema.Struct({
 })
 export type GetARecurringExpenseResponse = typeof GetARecurringExpenseResponse.Type
 
-export const DeleteARecurringExpenseResponse = Schema.Struct({
+export const DeleteARecurringExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARecurringExpenseResponse = typeof DeleteARecurringExpenseResponse.Type
 
-export const StopARecurringExpenseResponse = Schema.Struct({
+export const StopARecurringExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type StopARecurringExpenseResponse = typeof StopARecurringExpenseResponse.Type
 
-export const ResumeARecurringExpenseResponse = Schema.Struct({
+export const ResumeARecurringExpenseResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ResumeARecurringExpenseResponse = typeof ResumeARecurringExpenseResponse.Type
 
 export const ListChildExpensesCreatedResponse = Schema.Struct({
@@ -688,6 +688,8 @@ export const deleteRecurringExpense = /*#__PURE__*/ operation<DeleteRecurringExp
 export interface StopRecurringExpenseInput {
   /** Unique identifier of the recurring expense. */
   readonly recurring_expense_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Stop a recurring expense. `POST /recurringexpenses/{recurring_expense_id}/status/stop` */
@@ -695,6 +697,7 @@ export const stopRecurringExpense = /*#__PURE__*/ operation<StopRecurringExpense
   id: "stop_recurring_expense",
   method: "POST",
   path: "/recurringexpenses/{recurring_expense_id}/status/stop",
+  body: "json",
   response: StopARecurringExpenseResponse,
   scopes: ["ZohoBooks.expenses.CREATE"],
 })
@@ -702,6 +705,8 @@ export const stopRecurringExpense = /*#__PURE__*/ operation<StopRecurringExpense
 export interface ResumeRecurringExpenseInput {
   /** Unique identifier of the recurring expense. */
   readonly recurring_expense_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resume a recurring Expense. `POST /recurringexpenses/{recurring_expense_id}/status/resume` */
@@ -709,6 +714,7 @@ export const resumeRecurringExpense = /*#__PURE__*/ operation<ResumeRecurringExp
   id: "resume_recurring_expense",
   method: "POST",
   path: "/recurringexpenses/{recurring_expense_id}/status/resume",
+  body: "json",
   response: ResumeARecurringExpenseResponse,
   scopes: ["ZohoBooks.expenses.CREATE"],
 })
@@ -746,3 +752,12 @@ export const listRecurringExpenseHistory = /*#__PURE__*/ operation<ListRecurring
   response: ListRecurringExpenseHistoryResponse,
   scopes: ["ZohoBooks.expenses.READ"],
 })
+
+export type CreateRecurringExpenseResponse = CreateARecurringExpenseResponse
+export type UpdateRecurringExpenseUsingCustomFieldResponse = UpdateARecurringExpenseResponse
+export type GetRecurringExpenseResponse = GetARecurringExpenseResponse
+export type UpdateRecurringExpenseResponse = UpdateARecurringExpenseResponse
+export type DeleteRecurringExpenseResponse = DeleteARecurringExpenseResponse
+export type StopRecurringExpenseResponse = StopARecurringExpenseResponse
+export type ResumeRecurringExpenseResponse = ResumeARecurringExpenseResponse
+export type ListChildExpensesOfRecurringExpenseResponse = ListChildExpensesCreatedResponse

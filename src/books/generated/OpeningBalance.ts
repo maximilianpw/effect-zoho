@@ -48,10 +48,10 @@ export const UpdateOpeningBalanceResponse = Schema.Struct({
 })
 export type UpdateOpeningBalanceResponse = typeof UpdateOpeningBalanceResponse.Type
 
-export const DeleteOpeningBalanceResponse = Schema.Struct({
+export const DeleteOpeningBalanceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteOpeningBalanceResponse = typeof DeleteOpeningBalanceResponse.Type
 
 export const ListOpeningBalanceDetailsResponse = Schema.Struct({
@@ -74,16 +74,16 @@ export const ListOpeningBalanceTransactionsResponse = Schema.Struct({
 })
 export type ListOpeningBalanceTransactionsResponse = typeof ListOpeningBalanceTransactionsResponse.Type
 
-export const WriteoffOpeningBalanceResponse = Schema.Struct({
+export const WriteoffOpeningBalanceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type WriteoffOpeningBalanceResponse = typeof WriteoffOpeningBalanceResponse.Type
 
-export const CancelWriteoffOpeningBalanceResponse = Schema.Struct({
+export const CancelWriteoffOpeningBalanceResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type CancelWriteoffOpeningBalanceResponse = typeof CancelWriteoffOpeningBalanceResponse.Type
 
 export interface CreateOpeningBalanceRequest {
@@ -223,6 +223,8 @@ export interface WriteoffOpeningBalanceInput {
   readonly writeoff_date?: string
   /** Reason for writing off. Max-length [300]. */
   readonly reason?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Write off an opening balance. `POST /openingbalances/{opening_balance_id}/writeoff` */
@@ -230,6 +232,7 @@ export const writeoffOpeningBalance = /*#__PURE__*/ operation<WriteoffOpeningBal
   id: "writeoff_opening_balance",
   method: "POST",
   path: "/openingbalances/{opening_balance_id}/writeoff",
+  body: "json",
   response: WriteoffOpeningBalanceResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
@@ -237,6 +240,8 @@ export const writeoffOpeningBalance = /*#__PURE__*/ operation<WriteoffOpeningBal
 export interface CancelWriteoffOpeningBalanceInput {
   /** Unique identifier of the opening balance. */
   readonly opening_balance_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel a write-off. `POST /openingbalances/{opening_balance_id}/writeoff/cancel` */
@@ -244,6 +249,9 @@ export const cancelWriteoffOpeningBalance = /*#__PURE__*/ operation<CancelWriteo
   id: "cancel_writeoff_opening_balance",
   method: "POST",
   path: "/openingbalances/{opening_balance_id}/writeoff/cancel",
+  body: "json",
   response: CancelWriteoffOpeningBalanceResponse,
   scopes: ["ZohoBooks.settings.UPDATE"],
 })
+
+

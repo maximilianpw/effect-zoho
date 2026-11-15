@@ -160,10 +160,10 @@ export const CreateARecurringBillResponse = Schema.Struct({
 })
 export type CreateARecurringBillResponse = typeof CreateARecurringBillResponse.Type
 
-export const UpdateARecurringBillResponse = Schema.Struct({
+export const UpdateARecurringBillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateARecurringBillResponse = typeof UpdateARecurringBillResponse.Type
 
 export const GetARecurringBillResponse = Schema.Struct({
@@ -173,28 +173,28 @@ export const GetARecurringBillResponse = Schema.Struct({
 })
 export type GetARecurringBillResponse = typeof GetARecurringBillResponse.Type
 
-export const DeleteARecurringBillResponse = Schema.Struct({
+export const DeleteARecurringBillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteARecurringBillResponse = typeof DeleteARecurringBillResponse.Type
 
-export const StopARecurringBillResponse = Schema.Struct({
+export const StopARecurringBillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type StopARecurringBillResponse = typeof StopARecurringBillResponse.Type
 
-export const ResumeARecurringBillResponse = Schema.Struct({
+export const ResumeARecurringBillResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ResumeARecurringBillResponse = typeof ResumeARecurringBillResponse.Type
 
-export const ListRecurringBillHistoryResponse = Schema.Struct({
+export const ListRecurringBillHistoryResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ListRecurringBillHistoryResponse = typeof ListRecurringBillHistoryResponse.Type
 
 export interface CreateARecurringBillRequest {
@@ -675,6 +675,8 @@ export const deleteRecurringBill = /*#__PURE__*/ operation<DeleteRecurringBillIn
 export interface StopRecurringBillInput {
   /** Unique identifier of the recurring bill. */
   readonly recurring_bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Stop a recurring bill. `POST /recurringbills/{recurring_bill_id}/status/stop` */
@@ -682,6 +684,7 @@ export const stopRecurringBill = /*#__PURE__*/ operation<StopRecurringBillInput,
   id: "stop_recurring_bill",
   method: "POST",
   path: "/recurringbills/{recurring_bill_id}/status/stop",
+  body: "json",
   response: StopARecurringBillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -689,6 +692,8 @@ export const stopRecurringBill = /*#__PURE__*/ operation<StopRecurringBillInput,
 export interface ResumeRecurringBillInput {
   /** Unique identifier of the recurring bill. */
   readonly recurring_bill_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Resume a recurring Bill. `POST /recurringbills/{recurring_bill_id}/status/resume` */
@@ -696,6 +701,7 @@ export const resumeRecurringBill = /*#__PURE__*/ operation<ResumeRecurringBillIn
   id: "resume_recurring_bill",
   method: "POST",
   path: "/recurringbills/{recurring_bill_id}/status/resume",
+  body: "json",
   response: ResumeARecurringBillResponse,
   scopes: ["ZohoBooks.bills.CREATE"],
 })
@@ -713,3 +719,11 @@ export const listRecurringBillHistory = /*#__PURE__*/ operation<ListRecurringBil
   response: ListRecurringBillHistoryResponse,
   scopes: ["ZohoBooks.bills.READ"],
 })
+
+export type CreateRecurringBillResponse = CreateARecurringBillResponse
+export type UpdateRecurringBillUsingCustomFieldResponse = UpdateARecurringBillResponse
+export type UpdateRecurringBillResponse = UpdateARecurringBillResponse
+export type GetRecurringBillResponse = GetARecurringBillResponse
+export type DeleteRecurringBillResponse = DeleteARecurringBillResponse
+export type StopRecurringBillResponse = StopARecurringBillResponse
+export type ResumeRecurringBillResponse = ResumeARecurringBillResponse

@@ -55,10 +55,10 @@ export const GetABaseCurrencyAdjustmentResponse = Schema.Struct({
 })
 export type GetABaseCurrencyAdjustmentResponse = typeof GetABaseCurrencyAdjustmentResponse.Type
 
-export const DeleteABaseCurrencyAdjustmentResponse = Schema.Struct({
+export const DeleteABaseCurrencyAdjustmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteABaseCurrencyAdjustmentResponse = typeof DeleteABaseCurrencyAdjustmentResponse.Type
 
 export const ReevaluateBaseCurrencyAdjustmentResponse = Schema.Struct({
@@ -190,6 +190,8 @@ export const bulkDeleteBaseCurrencyAdjustments = /*#__PURE__*/ operation<BulkDel
 export interface ReevaluateBaseCurrencyAdjustmentInput {
   /** Unique identifier of the base currency adjustment. */
   readonly base_currency_adjustment_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reevaluate a base currency adjustment. `POST /basecurrencyadjustment/{base_currency_adjustment_id}/reevaluate` */
@@ -197,6 +199,7 @@ export const reevaluateBaseCurrencyAdjustment = /*#__PURE__*/ operation<Reevalua
   id: "reevaluate_base_currency_adjustment",
   method: "POST",
   path: "/basecurrencyadjustment/{base_currency_adjustment_id}/reevaluate",
+  body: "json",
   response: ReevaluateBaseCurrencyAdjustmentResponse,
   scopes: ["ZohoBooks.accountants.CREATE"],
 })
@@ -240,3 +243,10 @@ export const listBaseCurrencyAdjustmentContacts = /*#__PURE__*/ operation<ListBa
   response: ListBaseCurrencyAdjustmentContactsResponse,
   scopes: ["ZohoBooks.accountants.READ"],
 })
+
+export type ListBaseCurrencyAdjustmentsResponse = ListBaseCurrencyAdjustmentResponse
+export type CreateBaseCurrencyAdjustmentResponse = CreateABaseCurrencyAdjustmentResponse
+export type GetBaseCurrencyAdjustmentResponse = GetABaseCurrencyAdjustmentResponse
+export type DeleteBaseCurrencyAdjustmentResponse = DeleteABaseCurrencyAdjustmentResponse
+export type BulkDeleteBaseCurrencyAdjustmentsResponse = DeleteABaseCurrencyAdjustmentResponse
+export type ListBaseCurrencyAdjustmentAccountsResponse = ListAccountDetailsForBaseCurrencyAdjustmentResponse

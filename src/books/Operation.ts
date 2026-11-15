@@ -13,7 +13,11 @@ export interface OperationDefinition<Response extends Schema.Top | undefined> {
   readonly path: string
   /** Input keys sent as request headers; every other key except `body` and the path parameters is a query parameter. */
   readonly headers?: ReadonlyArray<string>
+  /** Input keys that carry a file. When one is given the request is multipart, with a JSON `body` in its `JSONString` field. */
+  readonly files?: ReadonlyArray<string>
   readonly body?: 'json' | 'multipart'
+  /** `false` for the organisation endpoints, which take no `organization_id`. */
+  readonly organization?: false
   /** The documented JSON response, or `undefined` when the operation only returns a file. */
   readonly response: Response
   /** OAuth scopes Zoho documents for the operation. */
@@ -53,15 +57,17 @@ const queryValue = (value: unknown): string =>
 const isNamedBytes = (value: unknown): value is Extract<ZohoFile, { readonly bytes: Uint8Array }> =>
   typeof value === 'object' && value !== null && (value as { readonly bytes?: unknown }).bytes instanceof Uint8Array
 
-const formData = (fields: Readonly<Record<string, unknown>>): FormData => {
-  const form = new FormData()
-  for (const [name, value] of Object.entries(fields)) {
-    if (value === undefined || value === null) continue
+const formData = (fields: Readonly<Record<string, unknown>>, form = new FormData()): FormData => {
+  const append = (name: string, value: unknown): void => {
+    if (value === undefined || value === null) return
     if (value instanceof Blob) form.append(name, value)
     else if (isNamedBytes(value)) {
       form.append(name, new Blob([new Uint8Array(value.bytes)], value.contentType === undefined ? {} : { type: value.contentType }), value.fileName)
+    } else if (Array.isArray(value) && value.some((item) => item instanceof Blob || isNamedBytes(item))) {
+      for (const item of value) append(name, item)
     } else form.append(name, queryValue(value))
   }
+  for (const [name, value] of Object.entries(fields)) append(name, value)
   return form
 }
 
@@ -86,16 +92,25 @@ function toRequest(
     used.add(name)
     if (input[name] !== undefined) headers[name] = String(input[name])
   }
+  const files: Record<string, unknown> = {}
+  for (const name of definition.files ?? []) {
+    used.add(name)
+    if (input[name] !== undefined && input[name] !== null) files[name] = input[name]
+  }
   const query: Record<string, string> = {}
   for (const [name, value] of Object.entries(input)) {
     if (!used.has(name) && value !== undefined && value !== null) query[name] = queryValue(value)
   }
+  const given = definition.body === undefined ? undefined : input['body']
   const body: ZohoBooksBody | undefined =
-    definition.body === undefined || input['body'] === undefined
-      ? undefined
-      : definition.body === 'json'
-        ? { _tag: 'Json', value: input['body'] }
-        : { _tag: 'Multipart', value: formData(input['body'] as Readonly<Record<string, unknown>>) }
+    Object.keys(files).length > 0
+      // Zoho takes a file together with the record as multipart, the record as JSON text in `JSONString`.
+      ? { _tag: 'Multipart', value: formData(given === undefined ? files : { ...files, JSONString: JSON.stringify(given) }) }
+      : given === undefined
+        ? undefined
+        : definition.body === 'json'
+          ? { _tag: 'Json', value: given }
+          : { _tag: 'Multipart', value: formData(given as Readonly<Record<string, unknown>>) }
   return {
     operation: definition.id,
     method: definition.method,
@@ -103,6 +118,7 @@ function toRequest(
     query,
     headers,
     ...(body === undefined ? {} : { body }),
+    ...(definition.organization === false ? { organization: false as const } : {}),
   }
 }
 

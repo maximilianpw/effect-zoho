@@ -110,10 +110,10 @@ export const UpdateAFixedAssetResponse = Schema.Struct({
 })
 export type UpdateAFixedAssetResponse = typeof UpdateAFixedAssetResponse.Type
 
-export const DeleteAFixedAssetResponse = Schema.Struct({
+export const DeleteAFixedAssetResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAFixedAssetResponse = typeof DeleteAFixedAssetResponse.Type
 
 export const AssetHistory = W.Arr(Schema.Struct({
@@ -158,22 +158,22 @@ export const GetFixedAssetForecastResponse = Schema.Struct({
 })
 export type GetFixedAssetForecastResponse = typeof GetFixedAssetForecastResponse.Type
 
-export const UpdateFixedAssetStatus = Schema.Struct({
+export const UpdateFixedAssetStatus = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateFixedAssetStatus = typeof UpdateFixedAssetStatus.Type
 
-export const WriteOffFixedAssetResponse = Schema.Struct({
+export const WriteOffFixedAssetResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type WriteOffFixedAssetResponse = typeof WriteOffFixedAssetResponse.Type
 
-export const SellFixedAssetResponse = Schema.Struct({
+export const SellFixedAssetResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type SellFixedAssetResponse = typeof SellFixedAssetResponse.Type
 
 export const AddCommentResponse = Schema.Struct({
@@ -193,10 +193,10 @@ export const AddCommentResponse = Schema.Struct({
 })
 export type AddCommentResponse = typeof AddCommentResponse.Type
 
-export const DeleteCommentResponse = Schema.Struct({
+export const DeleteCommentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteCommentResponse = typeof DeleteCommentResponse.Type
 
 export const FixedAssetType = Schema.Struct({
@@ -235,10 +235,10 @@ export const UpdateAFixedAssetTypeResponse = Schema.Struct({
 })
 export type UpdateAFixedAssetTypeResponse = typeof UpdateAFixedAssetTypeResponse.Type
 
-export const DeleteAFixedAssetTypeResponse = Schema.Struct({
+export const DeleteAFixedAssetTypeResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAFixedAssetTypeResponse = typeof DeleteAFixedAssetTypeResponse.Type
 
 export interface CreateAFixedAssetRequest {
@@ -529,6 +529,8 @@ export const getFixedAssetForecast = /*#__PURE__*/ operation<GetFixedAssetForeca
 export interface MarkFixedAssetActiveInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark fixed asset as active. `POST /fixedassets/{fixed_asset_id}/status/active` */
@@ -536,6 +538,7 @@ export const markFixedAssetActive = /*#__PURE__*/ operation<MarkFixedAssetActive
   id: "mark_fixed_asset_active",
   method: "POST",
   path: "/fixedassets/{fixed_asset_id}/status/active",
+  body: "json",
   response: UpdateFixedAssetStatus,
   scopes: ["ZohoBooks.fixedasset.CREATE"],
 })
@@ -543,6 +546,8 @@ export const markFixedAssetActive = /*#__PURE__*/ operation<MarkFixedAssetActive
 export interface MarkFixedAssetCancelInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Cancel fixed asset. `POST /fixedassets/{fixed_asset_id}/status/cancel` */
@@ -550,6 +555,7 @@ export const markFixedAssetCancel = /*#__PURE__*/ operation<MarkFixedAssetCancel
   id: "mark_fixed_asset_cancel",
   method: "POST",
   path: "/fixedassets/{fixed_asset_id}/status/cancel",
+  body: "json",
   response: UpdateFixedAssetStatus,
   scopes: ["ZohoBooks.fixedasset.CREATE"],
 })
@@ -557,6 +563,8 @@ export const markFixedAssetCancel = /*#__PURE__*/ operation<MarkFixedAssetCancel
 export interface MarkFixedAssetDraftInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Mark fixed asset as draft. `POST /fixedassets/{fixed_asset_id}/status/draft` */
@@ -564,6 +572,7 @@ export const markFixedAssetDraft = /*#__PURE__*/ operation<MarkFixedAssetDraftIn
   id: "mark_fixed_asset_draft",
   method: "POST",
   path: "/fixedassets/{fixed_asset_id}/status/draft",
+  body: "json",
   response: UpdateFixedAssetStatus,
   scopes: ["ZohoBooks.fixedasset.CREATE"],
 })
@@ -603,7 +612,7 @@ export const sellFixedAsset = /*#__PURE__*/ operation<SellFixedAssetInput, typeo
 export interface CreateFixedAssetCommentInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
-  readonly body?: AddCommentRequest
+  readonly body: AddCommentRequest
 }
 
 /** Add a comment. `POST /fixedassets/{fixed_asset_id}/comments` */
@@ -691,3 +700,16 @@ export const deleteFixedAssetType = /*#__PURE__*/ operation<DeleteFixedAssetType
   response: DeleteAFixedAssetTypeResponse,
   scopes: ["ZohoBooks.fixedasset.DELETE"],
 })
+
+export type ListFixedAssetsResponse = GetFixedAssetListResponse
+export type CreateFixedAssetResponse = CreateAFixedAssetResponse
+export type UpdateFixedAssetResponse = UpdateAFixedAssetResponse
+export type DeleteFixedAssetResponse = DeleteAFixedAssetResponse
+export type MarkFixedAssetActiveResponse = UpdateFixedAssetStatus
+export type MarkFixedAssetCancelResponse = UpdateFixedAssetStatus
+export type MarkFixedAssetDraftResponse = UpdateFixedAssetStatus
+export type CreateFixedAssetCommentResponse = AddCommentResponse
+export type DeleteFixedAssetCommentResponse = DeleteCommentResponse
+export type CreateFixedAssetTypeResponse = CreateAFixedAssetTypeResponse
+export type UpdateFixedAssetTypeResponse = UpdateAFixedAssetTypeResponse
+export type DeleteFixedAssetTypeResponse = DeleteAFixedAssetTypeResponse

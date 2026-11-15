@@ -194,76 +194,76 @@ export const UpdatePurchaseReturnResponse = Schema.Struct({
 })
 export type UpdatePurchaseReturnResponse = typeof UpdatePurchaseReturnResponse.Type
 
-export const DeletePurchaseReturnResponse = Schema.Struct({
+export const DeletePurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeletePurchaseReturnResponse = typeof DeletePurchaseReturnResponse.Type
 
-export const ConfirmPurchaseReturnResponse = Schema.Struct({
+export const ConfirmPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ConfirmPurchaseReturnResponse = typeof ConfirmPurchaseReturnResponse.Type
 
-export const VoidPurchaseReturnResponse = Schema.Struct({
+export const VoidPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type VoidPurchaseReturnResponse = typeof VoidPurchaseReturnResponse.Type
 
-export const FulfillPurchaseReturnResponse = Schema.Struct({
+export const FulfillPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type FulfillPurchaseReturnResponse = typeof FulfillPurchaseReturnResponse.Type
 
-export const UnfulfillPurchaseReturnResponse = Schema.Struct({
+export const UnfulfillPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UnfulfillPurchaseReturnResponse = typeof UnfulfillPurchaseReturnResponse.Type
 
-export const EmailPurchaseReturnResponse = Schema.Struct({
+export const EmailPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type EmailPurchaseReturnResponse = typeof EmailPurchaseReturnResponse.Type
 
-export const AddAttachmentResponse = Schema.Struct({
+export const AddAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type AddAttachmentResponse = typeof AddAttachmentResponse.Type
 
-export const ClosePurchaseReturnResponse = Schema.Struct({
+export const ClosePurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ClosePurchaseReturnResponse = typeof ClosePurchaseReturnResponse.Type
 
-export const ReopenPurchaseReturnResponse = Schema.Struct({
+export const ReopenPurchaseReturnResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type ReopenPurchaseReturnResponse = typeof ReopenPurchaseReturnResponse.Type
 
-export const UpdateShippingAddressResponse = Schema.Struct({
+export const UpdateShippingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateShippingAddressResponse = typeof UpdateShippingAddressResponse.Type
 
-export const UpdateBillingAddressResponse = Schema.Struct({
+export const UpdateBillingAddressResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type UpdateBillingAddressResponse = typeof UpdateBillingAddressResponse.Type
 
-export const DeleteAttachmentResponse = Schema.Struct({
+export const DeleteAttachmentResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type DeleteAttachmentResponse = typeof DeleteAttachmentResponse.Type
 
 export interface PurchaseReturnLineItemRequest {
@@ -552,7 +552,7 @@ export const getPurchaseReturn = /*#__PURE__*/ operation<GetPurchaseReturnInput,
 export interface UpdatePurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: UpdatePurchaseReturnRequest
+  readonly body: UpdatePurchaseReturnRequest
 }
 
 /** Update a purchase return. `PUT /purchasereturns/{purchase_return_id}` */
@@ -582,6 +582,8 @@ export const deletePurchaseReturn = /*#__PURE__*/ operation<DeletePurchaseReturn
 export interface ConfirmPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Confirm a purchase return. `POST /purchasereturns/{purchase_return_id}/status/open` */
@@ -589,6 +591,7 @@ export const confirmPurchaseReturn = /*#__PURE__*/ operation<ConfirmPurchaseRetu
   id: "confirm_purchase_return",
   method: "POST",
   path: "/purchasereturns/{purchase_return_id}/status/open",
+  body: "json",
   response: ConfirmPurchaseReturnResponse,
   scopes: ["ZohoBooks.purchasereturns.CREATE"],
 })
@@ -598,6 +601,8 @@ export interface VoidPurchaseReturnInput {
   readonly purchase_return_id: string
   /** Reason for voiding the purchase return. Max-length [500]. */
   readonly reason?: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Void a purchase return. `POST /purchasereturns/{purchase_return_id}/status/void` */
@@ -605,6 +610,7 @@ export const voidPurchaseReturn = /*#__PURE__*/ operation<VoidPurchaseReturnInpu
   id: "void_purchase_return",
   method: "POST",
   path: "/purchasereturns/{purchase_return_id}/status/void",
+  body: "json",
   response: VoidPurchaseReturnResponse,
   scopes: ["ZohoBooks.purchasereturns.CREATE"],
 })
@@ -612,7 +618,7 @@ export const voidPurchaseReturn = /*#__PURE__*/ operation<VoidPurchaseReturnInpu
 export interface FulfillPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: FulfillPurchaseReturnRequest
+  readonly body: FulfillPurchaseReturnRequest
 }
 
 /** Fulfill a purchase return. `POST /purchasereturns/{purchase_return_id}/status/fulfilled` */
@@ -628,7 +634,7 @@ export const fulfillPurchaseReturn = /*#__PURE__*/ operation<FulfillPurchaseRetu
 export interface UnfulfillPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: UnfulfillPurchaseReturnRequest
+  readonly body: UnfulfillPurchaseReturnRequest
 }
 
 /** Unfulfill a purchase return. `POST /purchasereturns/{purchase_return_id}/status/unfulfilled` */
@@ -650,7 +656,7 @@ export interface EmailPurchaseReturnInput {
   readonly attach_pdf?: boolean
   /** Custom file name for the PDF attachment. Max-length [100]. */
   readonly file_name?: string
-  readonly body?: EmailPurchaseReturnRequest
+  readonly body: EmailPurchaseReturnRequest
 }
 
 /** Email a purchase return. `POST /purchasereturns/{purchase_return_id}/email` */
@@ -666,7 +672,7 @@ export const emailPurchaseReturn = /*#__PURE__*/ operation<EmailPurchaseReturnIn
 export interface AddAttachmentToPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: {
+  readonly body: {
     /** File to attach to the purchase return. */
     readonly attachment?: ZohoFile
     /** Set to true to allow the attachment to be sent via email. */
@@ -687,7 +693,7 @@ export const addAttachmentToPurchaseReturn = /*#__PURE__*/ operation<AddAttachme
 export interface ClosePurchaseReturnInput {
   /** Comma-separated list of purchase return IDs to close. Maximum 200 IDs. */
   readonly purchasereturn_ids: string
-  readonly body?: ClosePurchaseReturnRequest
+  readonly body: ClosePurchaseReturnRequest
 }
 
 /** Close a purchase return. `PUT /purchasereturns/status/closed` */
@@ -703,6 +709,8 @@ export const closePurchaseReturn = /*#__PURE__*/ operation<ClosePurchaseReturnIn
 export interface ReopenPurchaseReturnInput {
   /** Comma-separated list of purchase return IDs to reopen. Maximum 200 IDs. */
   readonly purchasereturn_ids: string
+  /** Zoho documents no body for this operation. */
+  readonly body?: Readonly<Record<string, unknown>>
 }
 
 /** Reopen a purchase return. `PUT /purchasereturns/status/reopen` */
@@ -710,6 +718,7 @@ export const reopenPurchaseReturn = /*#__PURE__*/ operation<ReopenPurchaseReturn
   id: "reopen_purchase_return",
   method: "PUT",
   path: "/purchasereturns/status/reopen",
+  body: "json",
   response: ReopenPurchaseReturnResponse,
   scopes: ["ZohoBooks.purchasereturns.UPDATE"],
 })
@@ -717,7 +726,7 @@ export const reopenPurchaseReturn = /*#__PURE__*/ operation<ReopenPurchaseReturn
 export interface UpdatePurchaseReturnShippingAddressInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: UpdateAddressRequest
+  readonly body: UpdateAddressRequest
 }
 
 /** Update shipping address. `PUT /purchasereturns/{purchase_return_id}/address/shipping` */
@@ -733,7 +742,7 @@ export const updatePurchaseReturnShippingAddress = /*#__PURE__*/ operation<Updat
 export interface UpdatePurchaseReturnBillingAddressInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
-  readonly body?: UpdateAddressRequest
+  readonly body: UpdateAddressRequest
 }
 
 /** Update billing address. `PUT /purchasereturns/{purchase_return_id}/address/billing` */
@@ -761,3 +770,8 @@ export const deletePurchaseReturnAttachment = /*#__PURE__*/ operation<DeletePurc
   response: DeleteAttachmentResponse,
   scopes: ["ZohoBooks.purchasereturns.DELETE"],
 })
+
+export type AddAttachmentToPurchaseReturnResponse = AddAttachmentResponse
+export type UpdatePurchaseReturnShippingAddressResponse = UpdateShippingAddressResponse
+export type UpdatePurchaseReturnBillingAddressResponse = UpdateBillingAddressResponse
+export type DeletePurchaseReturnAttachmentResponse = DeleteAttachmentResponse

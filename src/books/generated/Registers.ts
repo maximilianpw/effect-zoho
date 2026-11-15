@@ -140,16 +140,16 @@ export const GetRegisterBudgetVsActualsResponse = Schema.Struct({
 })
 export type GetRegisterBudgetVsActualsResponse = typeof GetRegisterBudgetVsActualsResponse.Type
 
-export const BulkUpdateRegisterTransactionsResponse = Schema.Struct({
+export const BulkUpdateRegisterTransactionsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkUpdateRegisterTransactionsResponse = typeof BulkUpdateRegisterTransactionsResponse.Type
 
-export const BulkDeleteRegisterTransactionsResponse = Schema.Struct({
+export const BulkDeleteRegisterTransactionsResponse = Schema.StructWithRest(Schema.Struct({
   code: W.num,
   message: W.str,
-})
+}), [Schema.Record(Schema.String, Schema.Unknown)])
 export type BulkDeleteRegisterTransactionsResponse = typeof BulkDeleteRegisterTransactionsResponse.Type
 
 export interface BulkUpdateRegisterEntityInput {
@@ -316,7 +316,7 @@ export interface BulkUpdateRegisterTransactionsInput {
   readonly account_id: string
   /** When true, indicates the update is initiated from another account context. */
   readonly from_account_id?: boolean
-  readonly body?: BulkUpdateRegisterTransactionsRequest
+  readonly body: BulkUpdateRegisterTransactionsRequest
 }
 
 /** Bulk update register transactions. `PUT /registers/{account_id}/transactions/bulkupdate` */
@@ -332,7 +332,7 @@ export const bulkUpdateRegisterTransactions = /*#__PURE__*/ operation<BulkUpdate
 export interface BulkDeleteRegisterTransactionsInput {
   /** Unique identifier of the chart of accounts register (general ledger account). */
   readonly account_id: string
-  readonly body?: BulkDeleteRegisterTransactionsRequest
+  readonly body: BulkDeleteRegisterTransactionsRequest
 }
 
 /** Bulk delete register transactions. `PUT /registers/{account_id}/transactions/bulkdelete` */
@@ -344,3 +344,5 @@ export const bulkDeleteRegisterTransactions = /*#__PURE__*/ operation<BulkDelete
   response: BulkDeleteRegisterTransactionsResponse,
   scopes: ["ZohoBooks.accountants.UPDATE"],
 })
+
+
