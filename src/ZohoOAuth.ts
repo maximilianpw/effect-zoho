@@ -1,0 +1,112 @@
+import * as Effect from 'effect/Effect'
+import * as Redacted from 'effect/Redacted'
+import * as Schema from 'effect/Schema'
+import * as HttpClient from 'effect/unstable/http/HttpClient'
+import * as HttpClientRequest from 'effect/unstable/http/HttpClientRequest'
+import { zohoDataCenters, type ZohoDataCenter } from './ZohoDataCenter.ts'
+import { ZohoOAuthError, ZohoResponseError, ZohoTransportError } from './ZohoError.ts'
+
+export interface ZohoOAuthClient {
+  readonly clientId: string
+  readonly clientSecret: Redacted.Redacted<string>
+  readonly dataCenter: ZohoDataCenter
+}
+
+export interface ZohoAuthorizationUrlOptions {
+  readonly clientId: string
+  readonly dataCenter: ZohoDataCenter
+  readonly redirectUri: string
+  readonly scopes: ReadonlyArray<string>
+  /** Opaque value Zoho returns to the redirect URI; verify it there to stop request forgery. */
+  readonly state: string
+  /** `offline` asks for a refresh token. Zoho issues one only on the first consent unless `prompt` is `consent`. */
+  readonly accessType?: 'offline' | 'online'
+  readonly prompt?: 'consent'
+}
+
+export function authorizationUrl(options: ZohoAuthorizationUrlOptions): string {
+  const url = new URL('/oauth/v2/auth', zohoDataCenters[options.dataCenter].accounts)
+  url.searchParams.set('response_type', 'code')
+  url.searchParams.set('client_id', options.clientId)
+  url.searchParams.set('redirect_uri', options.redirectUri)
+  url.searchParams.set('scope', options.scopes.join(','))
+  url.searchParams.set('state', options.state)
+  url.searchParams.set('access_type', options.accessType ?? 'offline')
+  if (options.prompt !== undefined) url.searchParams.set('prompt', options.prompt)
+  return url.toString()
+}
+
+export const ZohoTokenGrant = Schema.Struct({
+  access_token: Schema.RedactedFromValue(Schema.String),
+  /** Present only when the grant issued a new refresh token. */
+  refresh_token: Schema.optionalKey(Schema.RedactedFromValue(Schema.String)),
+  /** The API host of the account's data centre, such as `https://www.zohoapis.eu`. */
+  api_domain: Schema.optionalKey(Schema.String),
+  token_type: Schema.optionalKey(Schema.String),
+  /** Lifetime of the access token in seconds. */
+  expires_in: Schema.Number,
+  scope: Schema.optionalKey(Schema.String),
+})
+export type ZohoTokenGrant = typeof ZohoTokenGrant.Type
+
+// Zoho answers a refused grant with HTTP 200 and an `error` field.
+const TokenRefusal = Schema.Struct({ error: Schema.String })
+
+const decodeGrant = Schema.decodeUnknownEffect(ZohoTokenGrant)
+const decodeRefusal = Schema.decodeUnknownOption(TokenRefusal)
+
+const tokenRequest = Effect.fnUntraced(function* (
+  operation: string,
+  client: ZohoOAuthClient,
+  fields: Readonly<Record<string, string>>,
+) {
+  const http = yield* HttpClient.HttpClient
+  const request = HttpClientRequest.post(`${zohoDataCenters[client.dataCenter].accounts}/oauth/v2/token`).pipe(
+    HttpClientRequest.acceptJson,
+    HttpClientRequest.bodyUrlParams({
+      ...fields,
+      client_id: client.clientId,
+      client_secret: Redacted.value(client.clientSecret),
+    }),
+  )
+  const body = yield* http.execute(request).pipe(
+    Effect.flatMap((response) => response.json),
+    Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
+  )
+  const refusal = decodeRefusal(body)
+  if (refusal._tag === 'Some') return yield* new ZohoOAuthError({ operation, error: refusal.value.error })
+  return yield* decodeGrant(body).pipe(
+    // The issue is not reported: it could quote a token from the body.
+    Effect.mapError(() => new ZohoResponseError({ operation, detail: 'the token response had an unexpected shape' })),
+  )
+})
+
+/** Exchanges the `code` Zoho sent to the redirect URI for an access token, and a refresh token when offline access was granted. */
+export const exchangeCode = (options: ZohoOAuthClient & { readonly code: string; readonly redirectUri: string }) =>
+  tokenRequest('oauth.exchangeCode', options, {
+    code: options.code,
+    grant_type: 'authorization_code',
+    redirect_uri: options.redirectUri,
+  })
+
+export const refreshAccessToken = (options: ZohoOAuthClient & { readonly refreshToken: Redacted.Redacted<string> }) =>
+  tokenRequest('oauth.refreshAccessToken', options, {
+    grant_type: 'refresh_token',
+    refresh_token: Redacted.value(options.refreshToken),
+  })
+
+/** Revokes a refresh token, and with it every access token issued from it. */
+export const revokeRefreshToken = Effect.fnUntraced(function* (options: {
+  readonly dataCenter: ZohoDataCenter
+  readonly refreshToken: Redacted.Redacted<string>
+}) {
+  const operation = 'oauth.revokeRefreshToken'
+  const http = yield* HttpClient.HttpClient
+  const request = HttpClientRequest.post(`${zohoDataCenters[options.dataCenter].accounts}/oauth/v2/token/revoke`).pipe(
+    HttpClientRequest.bodyUrlParams({ token: Redacted.value(options.refreshToken) }),
+  )
+  const response = yield* http.execute(request).pipe(
+    Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
+  )
+  if (response.status >= 400) return yield* new ZohoOAuthError({ operation, error: `HTTP ${response.status}` })
+})

@@ -1,0 +1,59 @@
+{
+  "name": "effect-zoho",
+  "version": "0.0.0",
+  "description": "Typed Effect client for Zoho Books, generated from Zoho's official OpenAPI documents.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maximilianpw/effect-zoho.git"
+  },
+  "keywords": [
+    "effect",
+    "zoho",
+    "zoho-books",
+    "sdk",
+    "openapi"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./books": {
+      "types": "./dist/books/index.d.ts",
+      "default": "./dist/books/index.js"
+    },
+    "./books/*": {
+      "types": "./dist/books/generated/*.d.ts",
+      "default": "./dist/books/generated/*.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "generate": "bun scripts/generate.ts",
+    "generate:check": "bun scripts/generate.ts --check",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint .",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build"
+  },
+  "peerDependencies": {
+    "effect": "4.0.0-rc.112"
+  },
+  "devDependencies": {
+    "@effect/vitest": "4.0.0-rc.112",
+    "@types/bun": "1.3.13",
+    "effect": "4.0.0-rc.112",
+    "oxlint": "1.80.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11",
+    "yaml": "^2.8.0"
+  }
+}
