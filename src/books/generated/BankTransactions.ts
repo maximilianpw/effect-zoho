@@ -266,553 +266,553 @@ export type CategorizeAsVendorPaymentRefundResponse = typeof CategorizeAsVendorP
 
 export interface CreateATransactionForAnAccountRequest {
   /** The account ID from which money will be transferred(Mandatory for specific type of transactions). These accounts differ with respect to transaction_type. Ex: To a bank account, from-account can be: bank , card, income, refund. To a card account, from account can be: bank, card, refund. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** ID of the account to which the money gets transferred(Mandatory for specific type of transactions). Ex: From a bank account, to-account can be: bank, card, drawings, expense,credit notes. From a card account, to-account can be: card, bank, expense. */
-  readonly to_account_id?: string
+  readonly to_account_id?: string | undefined
   /** Type of the transaction. Allowed transaction types : deposit, refund(*Supported only in Credit Card accounts), transfer_fund, card_payment, sales_without_invoices, expense_refund, owner_contribution, interest_income, other_income, owner_drawings, sales_return Note: You will not be able to create the following module-specific transaction types under Bank Transaction endpoints : Expense, Vendor Advance/Vendor Payment/Bill Payment, Vendor Credit Refund, Vendor Payment Refund, Customer Advance/Customer Payment, Credit Note Refund, Payment Refund. Hence, refer them in their repective modules. */
   readonly transaction_type: string
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Mode of payment for the transaction. (not applicable for transfer_fund, card_payment, owner_drawings). Ex:cash, cheque, etc., */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** ID of the customer or vendor. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The currency ID involved in the transaction. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** ID of the tax or tax group applied */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Check if transaction is tax Inclusive */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly from_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly to_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of files to be attached to a particular transaction. */
   readonly documents?: ReadonlyArray<{
     /** Name of the attached file. */
-    readonly file_name?: string
+    readonly file_name?: string | undefined
     /** Unique ID of the attached file. */
-    readonly document_id?: string
-  }>
+    readonly document_id?: string | undefined
+  }> | undefined
   /** Bank Charges applied to the transaction */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** ID of the User involved in the Transaction */
-  readonly user_id?: string
+  readonly user_id?: string | undefined
   /** ID of the Tax Authority */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the Tax Exemption */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Label of the Custom Field */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateATransactionRequest {
   /** The account ID from which money will be transferred(Mandatory for specific type of transactions). These accounts differ with respect to transaction_type. Ex: To a bank account, from-account can be: bank , card, income, refund. To a card account, from account can be: bank, card, refund. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** ID of the account to which the money gets transferred(Mandatory for specific type of transactions). Ex: From a bank account, to-account can be: bank, card, drawings, expense,credit notes. From a card account, to-account can be: card, bank, expense. */
-  readonly to_account_id?: string
+  readonly to_account_id?: string | undefined
   /** Type of the transaction. Allowed transaction types : deposit, refund(*Supported only in Credit Card accounts), transfer_fund, card_payment, sales_without_invoices, expense_refund, owner_contribution, interest_income, other_income, owner_drawings, sales_return Note: You will not be able to create the following module-specific transaction types under Bank Transaction endpoints : Expense, Vendor Advance/Vendor Payment/Bill Payment, Vendor Credit Refund, Vendor Payment Refund, Customer Advance/Customer Payment, Credit Note Refund, Payment Refund. Hence, refer them in their repective modules. */
   readonly transaction_type: string
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Mode of payment for the transaction. (not applicable for transfer_fund, card_payment, owner_drawings). Ex:cash, cheque, etc., */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** ID of the customer or vendor. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The currency ID involved in the transaction. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** ID of the tax or tax group applied */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Check if transaction is tax Inclusive */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly from_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly to_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of files to be attached to a particular transaction. */
   readonly documents?: ReadonlyArray<{
     /** Name of the attached file. */
-    readonly file_name?: string
+    readonly file_name?: string | undefined
     /** Unique ID of the attached file. */
-    readonly document_id?: string
-  }>
+    readonly document_id?: string | undefined
+  }> | undefined
   /** Bank Charges applied to the transaction */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** ID of the User involved in the Transaction */
-  readonly user_id?: string
+  readonly user_id?: string | undefined
   /** ID of the Tax Authority */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the Tax Exemption */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Label of the Custom Field */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of expense line items associated with the transaction. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the Line in Bank Transactions */
-    readonly line_id?: string
+    readonly line_id?: string | undefined
     /** Mandatory Account id for which transactions are to be listed. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name of the Account */
-    readonly account_name?: string
+    readonly account_name?: string | undefined
     /** A brief description about the transaction. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Amount of Tax */
-    readonly tax_amount?: number
+    readonly tax_amount?: number | undefined
     /** ID of the tax or tax group applied */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Name of the Tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** Type of tax applied to the line item. */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** Percentage of the Tax */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Total of the Item */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Total of the Item inclusive of Tax */
-    readonly item_total_inclusive_of_tax?: number
+    readonly item_total_inclusive_of_tax?: number | undefined
     /** Order of the Item */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
-  }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
+  }> | undefined
 }
 
 export interface MatchATransactionRequest {
   /** List of transactions to be matched with the uncategorized transaction. */
   readonly transactions_to_be_matched?: ReadonlyArray<{
     /** ID of the Transaction */
-    readonly transaction_id?: string
+    readonly transaction_id?: string | undefined
     /** Type of the transaction. Allowed transaction types : deposit, refund(*Supported only in Credit Card accounts), transfer_fund, card_payment, sales_without_invoices, expense_refund, owner_contribution, interest_income, other_income, owner_drawings, sales_return Note: You will not be able to create the following module-specific transaction types under Bank Transaction endpoints : Expense, Vendor Advance/Vendor Payment/Bill Payment, Vendor Credit Refund, Vendor Payment Refund, Customer Advance/Customer Payment, Credit Note Refund, Payment Refund. Hence, refer them in their repective modules. */
-    readonly transaction_type?: string
-  }>
+    readonly transaction_type?: string | undefined
+  }> | undefined
 }
 
 export interface CategorizeAnUncategorizedTransactionRequest {
   /** The account ID from which money will be transferred(Mandatory for specific type of transactions). These accounts differ with respect to transaction_type. Ex: To a bank account, from-account can be: bank , card, income, refund. To a card account, from account can be: bank, card, refund. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** ID of the account to which the money gets transferred(Mandatory for specific type of transactions). Ex: From a bank account, to-account can be: bank, card, drawings, expense,credit notes. From a card account, to-account can be: card, bank, expense. */
-  readonly to_account_id?: string
+  readonly to_account_id?: string | undefined
   /** Type of the transaction. Allowed transaction types : deposit, refund(*Supported only in Credit Card accounts), transfer_fund, card_payment, sales_without_invoices, expense_refund, owner_contribution, interest_income, other_income, owner_drawings, sales_return Note: You will not be able to create the following module-specific transaction types under Bank Transaction endpoints : Expense, Vendor Advance/Vendor Payment/Bill Payment, Vendor Credit Refund, Vendor Payment Refund, Customer Advance/Customer Payment, Credit Note Refund, Payment Refund. Hence, refer them in their repective modules. */
   readonly transaction_type: string
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Mode of payment for the transaction. (not applicable for transfer_fund, card_payment, owner_drawings). Ex:cash, cheque, etc., */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the customer or vendor. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of files to be attached to a particular transaction. */
   readonly documents?: ReadonlyArray<{
     /** Name of the attached file. */
-    readonly file_name?: string
+    readonly file_name?: string | undefined
     /** Unique ID of the attached file. */
-    readonly document_id?: string
-  }>
+    readonly document_id?: string | undefined
+  }> | undefined
   /** The currency ID involved in the transaction. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** ID of the tax or tax group applied */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly to_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly from_account_tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Check if transaction is tax Inclusive */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Bank Charges applied to the transaction */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** ID of the User involved in the Transaction */
-  readonly user_id?: string
+  readonly user_id?: string | undefined
   /** ID of the Tax Authority */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the Tax Exemption */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Label of the Custom Field */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of expense line items associated with the transaction. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the Line in Bank Transactions */
-    readonly line_id?: string
+    readonly line_id?: string | undefined
     /** Mandatory Account id for which transactions are to be listed. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name of the Account */
-    readonly account_name?: string
+    readonly account_name?: string | undefined
     /** A brief description about the transaction. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Amount of Tax */
-    readonly tax_amount?: number
+    readonly tax_amount?: number | undefined
     /** ID of the tax or tax group applied */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Name of the Tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** Type of tax applied to the line item. */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** Percentage of the Tax */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Total of the Item */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Total of the Item inclusive of Tax */
-    readonly item_total_inclusive_of_tax?: number
+    readonly item_total_inclusive_of_tax?: number | undefined
     /** Order of the Item */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
-  }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
+  }> | undefined
 }
 
 export interface CategorizeAsExpenseRequest {
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the credit/ bank account the payment is made. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** ID of the tax or tax group applied */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** ID of the project associated with the expense. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Code of the Tax Exemption */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** ID of the Tax Exemption */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Check if transaction is tax Inclusive */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** A boolean value to specify if the expense is billable. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the customer or vendor. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** ID of the Project */
-  readonly zp_project_id?: string
+  readonly zp_project_id?: string | undefined
   /** Name of the Project */
-  readonly zp_project_name?: string
+  readonly zp_project_name?: string | undefined
   /** ID of client */
-  readonly zp_client_id?: string
+  readonly zp_client_id?: string | undefined
   /** ID of the Vendor */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** ID of the Vehicle */
-  readonly vehicle_id?: string
+  readonly vehicle_id?: string | undefined
   /** Unit of Mileage */
-  readonly mileage_unit?: string
+  readonly mileage_unit?: string | undefined
   /** Mileage Rate to be Applied */
-  readonly mileage_rate?: number
+  readonly mileage_rate?: number | undefined
   /** Check if VAT can be reclaimed on mileage */
-  readonly can_reclaim_vat_on_mileage?: boolean
+  readonly can_reclaim_vat_on_mileage?: boolean | undefined
   /** Type of Fuel Used. Allowed Values : petrol, lpg, diesel */
-  readonly fuel_type?: string
+  readonly fuel_type?: string | undefined
   /** Type of Fuel Used. Allowed Values : less_than_1400cc, between_1401cc_and_1600cc, between_1601cc_and_2000cc and more_than_2000cc */
-  readonly engine_capacity_range?: string
+  readonly engine_capacity_range?: string | undefined
   /** ID of the Employee */
-  readonly employee_id?: string
+  readonly employee_id?: string | undefined
   /** Type of Mileage. Allowed Values : gmaps,imaps,gps,odometer,wmaps,manual,non_mileage and per_diem */
-  readonly mileage_type?: string
+  readonly mileage_type?: string | undefined
   /** Type of Expense */
-  readonly expense_type?: string
+  readonly expense_type?: string | undefined
   /** Distance Covered */
-  readonly distance?: number
+  readonly distance?: number | undefined
   /** Start Reading of the Odometer */
-  readonly start_reading?: string
+  readonly start_reading?: string | undefined
   /** End Reading of the Odometer */
-  readonly end_reading?: string
+  readonly end_reading?: string | undefined
   /** The currency ID involved in the transaction. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of files to be attached to a particular transaction. */
   readonly documents?: ReadonlyArray<{
     /** Name of the attached file. */
-    readonly file_name?: string
+    readonly file_name?: string | undefined
     /** Unique ID of the attached file. */
-    readonly document_id?: string
-  }>
+    readonly document_id?: string | undefined
+  }> | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** ID of the Recurring Expense */
-  readonly recurring_expense_id?: string
+  readonly recurring_expense_id?: string | undefined
   /** VAT treatment for the bank transaction. VAT treatment denotes the location of the customer or vendor. If the customer or vendor resides in the UK then the VAT treatment is uk. If the customer or vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing/selling Goods then his VAT treatment is eu_vat_registered. And, if he resides outside the UK then his VAT treatment is overseas. */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the bank transaction.Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase or expense and acquisition VAT needs to be reported. */
-  readonly acquisition_vat_id?: string
+  readonly acquisition_vat_id?: string | undefined
   /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase or expense and reverse charge VAT needs to be reported. */
-  readonly reverse_charge_vat_id?: string
+  readonly reverse_charge_vat_id?: string | undefined
   /** Check if Customer should be updated */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Type of the transaction. This denotes whether the transaction line item is to be treated as goods or as a service. Allowed Values: For UK and Europe: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** List of taxes applied to the transaction. */
   readonly taxes?: ReadonlyArray<{
     /** Name of the Tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** Amount of Tax */
-    readonly tax_amount?: number
+    readonly tax_amount?: number | undefined
     /** ID of the tax or tax group applied */
-    readonly tax_id?: string
-  }>
+    readonly tax_id?: string | undefined
+  }> | undefined
   /** Reason */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** List of expense line items associated with the transaction. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the Line Item */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Mandatory Account id for which transactions are to be listed. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** A brief description about the transaction. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Amount of the transaction */
-    readonly amount?: number
+    readonly amount?: number | undefined
     /** ID of the tax or tax group applied */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Order of the Item */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Type of the transaction. This denotes whether the transaction line item is to be treated as goods or as a service. Allowed Values: For UK and Europe: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase or expense and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase or expense and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Code of the Tax Exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** ID of the Tax Exemption */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
-  }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
+  }> | undefined
   /** ID of the CRM potential associated with the transaction. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
 }
 
 export interface CategorizeAVendorPaymentRequest {
   /** ID of the Vendor */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** List of bills associated with the vendor payment. */
   readonly bills?: ReadonlyArray<{
     /** ID of the Bill Payment */
-    readonly bill_payment_id?: string
+    readonly bill_payment_id?: string | undefined
     /** ID of the Bill */
-    readonly bill_id?: string
+    readonly bill_id?: string | undefined
     /** Amount applied to the Entity */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Amount of tax withheld for the transaction. */
-    readonly tax_amount_withheld?: number
-  }>
+    readonly tax_amount_withheld?: number | undefined
+  }> | undefined
   /** Mode of payment for the transaction. (not applicable for transfer_fund, card_payment, owner_drawings). Ex:cash, cheque, etc., */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** ID of the credit/ bank account the payment is made. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Is the entity paid via print check */
-  readonly is_paid_via_print_check?: boolean
+  readonly is_paid_via_print_check?: boolean | undefined
   /** List of check details associated with the payment. */
   readonly check_details?: ReadonlyArray<{
     /** Memo or note associated with the check. */
-    readonly memo?: string
+    readonly memo?: string | undefined
     /** Number of the Check Created */
-    readonly check_number?: string
-  }>
+    readonly check_number?: string | undefined
+  }> | undefined
 }
 
 export interface CategorizeAsCustomerPaymentRequest {
   /** ID of the customer or vendor. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** ID of the Retainer Invoice */
-  readonly retainerinvoice_id?: string
+  readonly retainerinvoice_id?: string | undefined
   /** List of invoices associated with the customer payment. */
   readonly invoices?: ReadonlyArray<{
     /** ID of the Invoice Payment */
-    readonly invoice_payment_id?: string
+    readonly invoice_payment_id?: string | undefined
     /** ID of the Invoice */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Amount applied to the Entity */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Amount of tax withheld for the transaction. */
-    readonly tax_amount_withheld?: number
+    readonly tax_amount_withheld?: number | undefined
     /** Amount of discount in the Invoice */
-    readonly discount_amount?: number
-  }>
+    readonly discount_amount?: number | undefined
+  }> | undefined
   /** Mode of payment for the transaction. (not applicable for transfer_fund, card_payment, owner_drawings). Ex:cash, cheque, etc., */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Bank Charges applied to the transaction */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** List of custom fields associated with the transaction. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of files to be attached to a particular transaction. */
   readonly documents?: ReadonlyArray<{
     /** Name of the attached file. */
-    readonly file_name?: string
+    readonly file_name?: string | undefined
     /** Unique ID of the attached file. */
-    readonly document_id?: string
-  }>
+    readonly document_id?: string | undefined
+  }> | undefined
   /** Transaction date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** ID of the template */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Array of contact person(s) for whom invoice has to be sent. */
-  readonly contact_persons?: ReadonlyArray<string>
+  readonly contact_persons?: ReadonlyArray<string> | undefined
 }
 
 export interface CategorizeAsCreditNoteRefundsRequest {
@@ -821,17 +821,17 @@ export interface CategorizeAsCreditNoteRefundsRequest {
   /** Transaction date. */
   readonly date: string
   /** Mode of refund. Ex - Cash, Cheque etc., */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** The account ID from which money will be transferred(Mandatory for specific type of transactions). These accounts differ with respect to transaction_type. Ex: To a bank account, from-account can be: bank , card, income, refund. To a card account, from account can be: bank, card, refund. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface CategorizeAsVendorCreditRefundsRequest {
@@ -840,80 +840,80 @@ export interface CategorizeAsVendorCreditRefundsRequest {
   /** Transaction date. */
   readonly date: string
   /** Mode of refund. Ex - Cash, Cheque etc., */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount of the transaction */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface CategorizeAsCustomerPaymentRefundRequest {
   /** Transaction date. */
   readonly date: string
   /** Mode of refund. Ex - Cash, Cheque etc., */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount of the transaction */
   readonly amount: number
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** The account ID from which money will be transferred(Mandatory for specific type of transactions). These accounts differ with respect to transaction_type. Ex: To a bank account, from-account can be: bank , card, income, refund. To a card account, from account can be: bank, card, refund. */
   readonly from_account_id: string
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface CategorizeAsVendorPaymentRefundRequest {
   /** Vendor Payment to which you want to record the refund. */
-  readonly vendorpayment_id?: string
+  readonly vendorpayment_id?: string | undefined
   /** Transaction date. */
   readonly date: string
   /** Mode of refund. Ex - Cash, Cheque etc., */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount of the transaction */
   readonly amount: number
   /** The foreign currency exchange rate value. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** ID of the account to which the money gets transferred(Mandatory for specific type of transactions). Ex: From a bank account, to-account can be: bank, card, drawings, expense,credit notes. From a card account, to-account can be: card, bank, expense. */
   readonly to_account_id: string
   /** A brief description about the transaction. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface ListBankTransactionsInput {
   /** ID of the bank account to filter transactions. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Type of the bank transaction. Allowed Values: sales_without_invoices, expense_refund, owner_drawings, owner_contribution, interest_income, other_income, expense, deposit */
-  readonly transaction_type?: string
+  readonly transaction_type?: string | undefined
   /** Start and end date, to provide a range within which the transaction date exist. Variants: date_start and date_end */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Start and end amount, to provide a range within which the transaction amount exist. Variants: amount_start and amount_end */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Transaction status wise list view - All, uncategorized, manually_added, matched, excluded, categorized */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search using Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Filters the transactions based on the allowed types. Allowed Values: Status.All, Status.Uncategorized, Status.Categorized, Status.ManuallyAdded, Status.Excluded and Status.Matched. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sorts the transactions based on the allowed sort types. Allowed Values: date. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Transaction status wise list view - All, uncategorized, manually_added, matched, excluded, categorized */
-  readonly transaction_status?: string
+  readonly transaction_status?: string | undefined
   /** Search Transactions by contact name or description */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get transactions list. `GET /banktransactions` */
@@ -987,25 +987,25 @@ export interface GetMatchingBankTransactionsInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Type of the transaction. Allowed transaction types : deposit, refund(*Supported only in Credit Card accounts), transfer_fund, card_payment, sales_without_invoices, expense_refund, owner_contribution, interest_income, other_income, owner_drawings, sales_return Note: You will not be able to create the following module-specific transaction types under Bank Transaction endpoints : Expense, Vendor Advance/Vendor Payment/Bill Payment, Vendor Credit Refund, Vendor Payment Refund, Customer Advance/Customer Payment, Credit Note Refund, Payment Refund. Hence, refer them in their repective modules. */
-  readonly transaction_type?: string
+  readonly transaction_type?: string | undefined
   /** Date after which Transactions are to be filtered */
-  readonly date_after?: string
+  readonly date_after?: string | undefined
   /** Date before which Transactions are to be filtered */
-  readonly date_before?: string
+  readonly date_before?: string | undefined
   /** Starting amout with which transactions are to be filtered */
-  readonly amount_start?: number
+  readonly amount_start?: number | undefined
   /** Starting amout with which transactions are to be filtered */
-  readonly amount_end?: number
+  readonly amount_end?: number | undefined
   /** Contact person name, involved in the transaction. */
-  readonly contact?: string
+  readonly contact?: string | undefined
   /** Reference Number of the transaction */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Check if all transactions must be shown */
-  readonly show_all_transactions?: boolean
+  readonly show_all_transactions?: boolean | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get matching transactions. `GET /banktransactions/uncategorized/{transaction_id}/match` */
@@ -1021,7 +1021,7 @@ export interface MatchBankTransactionInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   readonly body: MatchATransactionRequest
 }
 
@@ -1039,9 +1039,9 @@ export interface UnmatchBankTransactionInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Unmatch a matched transaction. `POST /banktransactions/{transaction_id}/unmatch` */
@@ -1058,9 +1058,9 @@ export interface ExcludeBankTransactionInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Exclude a transaction. `POST /banktransactions/uncategorized/{transaction_id}/exclude` */
@@ -1077,9 +1077,9 @@ export interface RestoreBankTransactionInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Restore a transaction. `POST /banktransactions/uncategorized/{transaction_id}/restore` */
@@ -1112,11 +1112,11 @@ export interface CategorizeBankTransactionAsExpenseInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Document that is to be attached */
-  readonly doc?: string
+  readonly doc?: string | undefined
   /** Total number of files. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** Comma-separated list of document IDs to be attached to the transaction. */
-  readonly document_ids?: string
+  readonly document_ids?: string | undefined
   readonly body: CategorizeAsExpenseRequest
 }
 
@@ -1134,9 +1134,9 @@ export interface UncategorizeBankTransactionInput {
   /** Unique identifier of the bank transaction. */
   readonly transaction_id: string
   /** Mandatory Account id for which transactions are to be listed. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Uncategorize a categorized transaction. `POST /banktransactions/{transaction_id}/uncategorize` */

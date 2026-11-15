@@ -119,9 +119,9 @@ export interface CreateAUserRequest {
   /** email address of the user */
   readonly email: string
   /** Unique identifier of the role assigned to the user. Note: This value is a set of numeric characters. */
-  readonly role_id?: string
+  readonly role_id?: string | undefined
   /** Hourly cost rate */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface UpdateAUserRequest {
@@ -130,20 +130,20 @@ export interface UpdateAUserRequest {
   /** email address of the user */
   readonly email: string
   /** Unique identifier of the role assigned to the user. Note: This value is a set of numeric characters. */
-  readonly role_id?: string
+  readonly role_id?: string | undefined
   /** Hourly cost rate */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface ListUsersInput {
   /** Allowed Values: Status.All, Status.Active, Status.Inactive, Status.Invited and Status.Deleted */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort users. Allowed Values: name, email, user_role and status */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Users. `GET /users` */
@@ -228,7 +228,7 @@ export interface InviteUserInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Invite a user. `POST /users/{user_id}/invite` */
@@ -245,7 +245,7 @@ export interface MarkUserActiveInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark user as active. `POST /users/{user_id}/active` */
@@ -262,7 +262,7 @@ export interface MarkUserInactiveInput {
   /** Unique identifier of the user. Note: This value is a set of numeric characters. */
   readonly user_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark user as inactive. `POST /users/{user_id}/inactive` */

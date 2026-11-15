@@ -201,135 +201,135 @@ export interface CreateARecurringBillRequest {
   /** ID of the vendor the bill has to be created. */
   readonly vendor_id: string
   /** ID of the Currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Name of the Recurring Bill. Max-length [100] */
   readonly recurrence_name: string
   /** Start date of the recurring bill. Bills will not be generated for dates prior to the current date. Format [yyyy-mm-dd]. */
   readonly start_date: string
   /** Date on which recurring bill has to expire. Can be left as empty to run forever. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** VAT treatment for the bill. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Optional) VAT treatment for the bill. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** For UK Edition: VAT Registration number of a contact with length should be between 2 and 12 characters. For Avalara: If you are doing sales in the European Union (EU) then provide VAT Registration Number of your customers here. This is used to calculate VAT for B2B sales, from Avalara. */
-  readonly vat_reg_no?: string
+  readonly vat_reg_no?: string | undefined
   /** Whether the ABN is quoted for the recurring bill. */
-  readonly is_abn_quoted?: string
+  readonly is_abn_quoted?: string | undefined
   /** Australian Business Number (ABN) of the vendor. */
-  readonly abn?: string
+  readonly abn?: string | undefined
   /** Applicable for transactions where you pay reverse charge */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Enter ID of the price book. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a recurrence bill. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the Line Item */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** ID of the Item */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name of the line item. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** ID of the account associated with the line item. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Reverse charge tax ID */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Quantity of the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** ID of the tax or tax group applied to the line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS ID of the tax group applied to the line item */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** ID of the Tax Exemption Applied */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of the Tax Exemption Applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Order of the line item. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Type of the bill. This denotes whether the bill line item is to be treated as a goods or service purchase. This only need to be specified in case purchase order is not enabled. Allowed Values: digital_service, goods and service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Unit of the Item */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Check if entity is Billable */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** ID of the Project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** ID of the Customer */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Unique ID of the custom field. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Index of the custom field */
-      readonly index?: number
+      readonly index?: number | undefined
       /** Value of the Custom Field */
-      readonly value?: string
+      readonly value?: string | undefined
       /** Label of the Custom Field */
-      readonly label?: string
-    }>
+      readonly label?: string | undefined
+    }> | undefined
     /** List of serial numbers for the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
-  }>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
+  }> | undefined
   /** Check if TDS is applied */
-  readonly is_tds_applied?: boolean
+  readonly is_tds_applied?: boolean | undefined
   /** Notes for the Bill */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and Conditions for the Bill */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Number Referring to Payment Terms */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label of the Payment Terms */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** List of custom fields for the recurring bill. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Discount applied to the recurring bill, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** ID of the account associated with the discount account. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** To specify discount applied in before /after tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Description for repeat_every */
   readonly repeat_every: string
   /** Description for recurrence_frequency */
@@ -337,151 +337,151 @@ export interface CreateARecurringBillRequest {
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateARecurringBillRequest {
   /** Unique ID of the recurring bill. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** ID of the vendor the bill has to be created. */
   readonly vendor_id: string
   /** ID of the Currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Status of the Recurring Bill */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Name of the Recurring Bill. Max-length [100] */
   readonly recurrence_name: string
   /** Start date of the recurring bill. Bills will not be generated for dates prior to the current date. Format [yyyy-mm-dd]. */
   readonly start_date: string
   /** Date on which recurring bill has to expire. Can be left as empty to run forever. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** VAT treatment for the bill. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Optional) VAT treatment for the bill. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** For UK Edition: VAT Registration number of a contact with length should be between 2 and 12 characters. For Avalara: If you are doing sales in the European Union (EU) then provide VAT Registration Number of your customers here. This is used to calculate VAT for B2B sales, from Avalara. */
-  readonly vat_reg_no?: string
+  readonly vat_reg_no?: string | undefined
   /** Whether the ABN is quoted for the recurring bill. */
-  readonly is_abn_quoted?: string
+  readonly is_abn_quoted?: string | undefined
   /** Australian Business Number (ABN) of the vendor. */
-  readonly abn?: string
+  readonly abn?: string | undefined
   /** Applicable for transactions where you pay reverse charge */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Enter ID of the price book. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Name of the price book */
-  readonly pricebook_name?: string
+  readonly pricebook_name?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a recurrence bill. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the Line Item */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** ID of the Item */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name of the line item. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** ID of the account associated with the line item. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Reverse charge tax ID */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Quantity of the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** ID of the tax or tax group applied to the line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS ID of the tax group applied to the line item */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** ID of the Tax Exemption Applied */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of the Tax Exemption Applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Order of the line item. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Type of the bill. This denotes whether the bill line item is to be treated as a goods or service purchase. This only need to be specified in case purchase order is not enabled. Allowed Values: digital_service, goods and service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Unit of the Item */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Check if entity is Billable */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** ID of the Project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** ID of the Customer */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Unique ID of the custom field. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Index of the custom field */
-      readonly index?: number
+      readonly index?: number | undefined
       /** Value of the Custom Field */
-      readonly value?: string
+      readonly value?: string | undefined
       /** Label of the Custom Field */
-      readonly label?: string
-    }>
+      readonly label?: string | undefined
+    }> | undefined
     /** List of serial numbers for the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
-  }>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
+  }> | undefined
   /** Check if TDS is applied */
-  readonly is_tds_applied?: boolean
+  readonly is_tds_applied?: boolean | undefined
   /** Notes for the Bill */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and Conditions for the Bill */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Number Referring to Payment Terms */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label of the Payment Terms */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** List of custom fields for the recurring bill. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Discount applied to the recurring bill, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** ID of the account associated with the discount account. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** To specify discount applied in before /after tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Description for repeat_every */
   readonly repeat_every: string
   /** Description for recurrence_frequency */
@@ -489,99 +489,99 @@ export interface UpdateARecurringBillRequest {
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface ListRecurringBillsInput {
   /** Unique identifier of the recurring bill. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** Search recurring bills by Vendor ID */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Search recurring bills by vendor name. Variants: vendor_name_startswith and vendor_name_contains */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Search recurring bills by recurring bill status. Allowed Values: active, stopped, expired */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search recurring bills by recurrence number. Variants: recurrence_name_startswith and recurrence_name_contains */
-  readonly recurrence_name?: string
+  readonly recurrence_name?: string | undefined
   /** ID of the Currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Code of the Currency */
-  readonly currency_code?: string
+  readonly currency_code?: string | undefined
   /** Symbol of the Currency */
-  readonly currency_symbol?: string
+  readonly currency_symbol?: string | undefined
   /** Search recurring bills by recurring bill start date. Variants: start_date_start, start_date_end, start_date_before and start_date_after */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** Date on which recurring bill has to expire. Can be left as empty to run forever. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** VAT treatment for the bill. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Optional) VAT treatment for the bill. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** For UK Edition: VAT Registration number of a contact with length should be between 2 and 12 characters. For Avalara: If you are doing sales in the European Union (EU) then provide VAT Registration Number of your customers here. This is used to calculate VAT for B2B sales, from Avalara. */
-  readonly vat_reg_no?: string
+  readonly vat_reg_no?: string | undefined
   /** Whether the ABN is quoted for the recurring bill. */
-  readonly is_abn_quoted?: string
+  readonly is_abn_quoted?: string | undefined
   /** Australian Business Number (ABN) of the vendor. */
-  readonly abn?: string
+  readonly abn?: string | undefined
   /** Applicable for transactions where you pay reverse charge */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Enter ID of the price book. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Name of the price book */
-  readonly pricebook_name?: string
+  readonly pricebook_name?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Line items of a recurrence bill. */
-  readonly line_items?: ReadonlyArray<unknown>
+  readonly line_items?: ReadonlyArray<unknown> | undefined
   /** Check if TDS is applied */
-  readonly is_tds_applied?: boolean
+  readonly is_tds_applied?: boolean | undefined
   /** Notes for the Bill */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and Conditions for the Bill */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Number Referring to Payment Terms */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label of the Payment Terms */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** List of custom fields for the recurring bill. */
-  readonly custom_fields?: ReadonlyArray<unknown>
+  readonly custom_fields?: ReadonlyArray<unknown> | undefined
   /** Summary of the VAT Acquistion */
-  readonly acquisition_vat_summary?: ReadonlyArray<unknown>
+  readonly acquisition_vat_summary?: ReadonlyArray<unknown> | undefined
   /** Summary of the Reverse Charge */
-  readonly reverse_charge_vat_summary?: ReadonlyArray<unknown>
+  readonly reverse_charge_vat_summary?: ReadonlyArray<unknown> | undefined
   /** Total of the VAT Acquistion */
-  readonly acquisition_vat_total?: number
+  readonly acquisition_vat_total?: number | undefined
   /** Total of the Reverse Charge */
-  readonly reverse_charge_vat_total?: number
+  readonly reverse_charge_vat_total?: number | undefined
   /** Created time of the bill */
-  readonly created_time?: string
+  readonly created_time?: string | undefined
   /** Name of User who created the Bill */
-  readonly created_by_id?: string
+  readonly created_by_id?: string | undefined
   /** Last Modified Time of the Bill */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Discount applied to the recurring bill, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** ID of the account associated with the discount account. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** To specify discount applied in before /after tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List recurring bills. `GET /recurringbills` */
@@ -613,7 +613,7 @@ export interface UpdateRecurringBillUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateARecurringBillRequest
 }
 
@@ -676,7 +676,7 @@ export interface StopRecurringBillInput {
   /** Unique identifier of the recurring bill. */
   readonly recurring_bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Stop a recurring bill. `POST /recurringbills/{recurring_bill_id}/status/stop` */
@@ -693,7 +693,7 @@ export interface ResumeRecurringBillInput {
   /** Unique identifier of the recurring bill. */
   readonly recurring_bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resume a recurring Bill. `POST /recurringbills/{recurring_bill_id}/status/resume` */

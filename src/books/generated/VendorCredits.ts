@@ -622,242 +622,242 @@ export interface CreateAVendorCreditRequest {
   /** Unique identifier for the vendor contact. Retrieve vendor IDs from the Get Contacts API endpoint in the contacts section. This ID links the vendor credit to the specific vendor record. */
   readonly vendor_id: string
   /** Unique identifier for the currency used in the vendor credit. Can differ from vendor currency if multi-currency is enabled. Retrieve currency IDs from the List Currencies API endpoint in the currency section. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** VAT treatment for the vendor credits. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registeredand if he resides outside the EU then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Mandatory if auto number generation is disabled. */
-  readonly vendor_credit_number?: string
+  readonly vendor_credit_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the vendor credit. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier for the pricebook used for pricing items in the vendor credit. Retrieve pricebook IDs from the pricebooks API endpoint. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Set to true to update customer information when creating the vendor credit. This will modify the associated customer record with new details from the vendor credit. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** The date on which the vendor credit is created. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Exchange rate for converting the vendor credit currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Set to true if line item rates include tax amounts. When true, tax is already included in the item rates. When false, tax will be calculated and added to the rates. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique identifier for the business location. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a vendor credit. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier for the item in the line item. Retrieve item IDs from the List Items API endpoint in the items section. Links the line item to a specific product or service. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier for the line item within the vendor credit. System-generated ID used for identifying and referencing specific line items in the vendor credit. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name or title of the line item. Describes the product or service being credited. This name is displayed on the vendor credit document. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** HSN Code */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** ID of the reverse charge tax */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unique identifier for the business location. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the vendor credit document. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Sequential order number for the line item. Determines the display order of line items on the vendor credit document. Lower numbers appear first. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Number of units being credited for this line item. Must be a positive number. Used to calculate the total amount for the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the line item quantity. Examples: kgs, Nos, hours, pieces. Used to specify how the quantity is measured. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Unit price or rate for the line item. The amount per unit before taxes and discounts. Used with quantity to calculate the line total. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS Tax ID of the Tax associated with the Vendor Credit */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Custom fields associated with the specific line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the Custom Field */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Label of the Custom Field */
-      readonly label?: string
+      readonly label?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
+      readonly value?: string | undefined
       /** Index of the Custom Field */
-      readonly index?: number
-    }>
+      readonly index?: number | undefined
+    }> | undefined
     /** Serial numbers associated with the inventory item in the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
     /** ID of the project */
-    readonly project_id?: string
-  }>
+    readonly project_id?: string | undefined
+  }> | undefined
   /** Additional notes or comments for the vendor credit. Displayed on the vendor credit document for vendor reference. Max-length [5000] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** List of documents attached to the vendor credit. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the file */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Custom fields associated with the vendor credit. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Label of the Custom Field */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Index of the Custom Field */
-    readonly index?: number
-  }>
+    readonly index?: number | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateVendorCreditRequest {
   /** Unique identifier for the vendor contact. Retrieve vendor IDs from the Get Contacts API endpoint in the contacts section. This ID links the vendor credit to the specific vendor record. */
   readonly vendor_id: string
   /** Unique identifier for the currency used in the vendor credit. Can differ from vendor currency if multi-currency is enabled. Retrieve currency IDs from the List Currencies API endpoint in the currency section. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** VAT treatment for the vendor credits. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registeredand if he resides outside the EU then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Mandatory if auto number generation is disabled. */
-  readonly vendor_credit_number?: string
+  readonly vendor_credit_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the vendor credit. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier for the pricebook used for pricing items in the vendor credit. Retrieve pricebook IDs from the pricebooks API endpoint. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Set to true to update customer information when creating the vendor credit. This will modify the associated customer record with new details from the vendor credit. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** The date on which the vendor credit is created. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Exchange rate for converting the vendor credit currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Set to true if line item rates include tax amounts. When true, tax is already included in the item rates. When false, tax will be calculated and added to the rates. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique identifier for the business location. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a vendor credit. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier for the item in the line item. Retrieve item IDs from the List Items API endpoint in the items section. Links the line item to a specific product or service. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier for the line item within the vendor credit. System-generated ID used for identifying and referencing specific line items in the vendor credit. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name or title of the line item. Describes the product or service being credited. This name is displayed on the vendor credit document. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** HSN Code */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** ID of the reverse charge tax */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unique identifier for the business location. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the vendor credit document. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Sequential order number for the line item. Determines the display order of line items on the vendor credit document. Lower numbers appear first. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Number of units being credited for this line item. Must be a positive number. Used to calculate the total amount for the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the line item quantity. Examples: kgs, Nos, hours, pieces. Used to specify how the quantity is measured. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Unit price or rate for the line item. The amount per unit before taxes and discounts. Used with quantity to calculate the line total. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS Tax ID of the Tax associated with the Vendor Credit */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Custom fields associated with the specific line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the Custom Field */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Label of the Custom Field */
-      readonly label?: string
+      readonly label?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
+      readonly value?: string | undefined
       /** Index of the Custom Field */
-      readonly index?: number
-    }>
+      readonly index?: number | undefined
+    }> | undefined
     /** Serial numbers associated with the inventory item in the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
     /** ID of the project */
-    readonly project_id?: string
-  }>
+    readonly project_id?: string | undefined
+  }> | undefined
   /** Additional notes or comments for the vendor credit. Displayed on the vendor credit document for vendor reference. Max-length [5000] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** List of documents attached to the vendor credit. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the file */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Custom fields associated with the vendor credit. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Label of the Custom Field */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Index of the Custom Field */
-    readonly index?: number
-  }>
+    readonly index?: number | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface ApplyCreditsToABillRequest {
@@ -874,34 +874,34 @@ export interface RefundAVendorCreditRequest {
   /** Date of Vendor Credit Refund */
   readonly date: string
   /** Mode of Refund */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount to be refunded from the vendor credit. */
   readonly amount: number
   /** Exchange rate for converting the vendor credit currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
   readonly account_id: string
   /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the vendor credit document. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateVendorCreditRefundRequest {
   /** The date on which the vendor credit is created. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
   readonly date: string
   /** Mode of Refund */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount to be refunded from the vendor credit. */
   readonly amount: number
   /** Exchange rate for converting the vendor credit currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
   readonly account_id: string
   /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the vendor credit document. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface AddACommentRequest {
@@ -911,47 +911,47 @@ export interface AddACommentRequest {
 
 export interface ListVendorCreditsInput {
   /** Filter vendor credits by specific vendor credit number. Supports variants vendor_credit_number_startswith and vendor_credit_number_contains for partial matching. */
-  readonly vendor_credit_number?: string
+  readonly vendor_credit_number?: string | undefined
   /** Filter vendor credits by creation date. Use yyyy-mm-dd format. Supports variants: date_start, date_end, date_before and date_after for range-based filtering. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Filter vendor credits by their current status. Allowed values: open, closed, void, or draft. */
-  readonly status?: "open" | "draft" | "void" | "closed" | "pending_approval" | "approval_overdue" | "rejected" | "approved"
+  readonly status?: "open" | "draft" | "void" | "closed" | "pending_approval" | "approval_overdue" | "rejected" | "approved" | undefined
   /** Search vendor credits by total amount. Filters vendor credits based on the final vendor credit amount including taxes, discounts, and adjustments. Useful for finding vendor credits within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Search vendor credits by reference number. Filters vendor credits based on external reference identifiers like purchase order numbers, contract numbers, or project codes. Useful for finding vendor credits associated with specific projects or business transactions. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search vendor credits by customer name. Filters vendor credits based on the business or individual name associated with the vendor credit. Maximum length is 100 characters. Useful for finding all vendor credits for a specific contact or generating contact reports. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search vendor credits by item name. Filters vendor credits based on product or service names in vendor credit line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding vendor credits with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search vendor credits by item description. Filters vendor credits based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding vendor credits with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Filter vendor credits by notes content. Supports variants: notes_startswith and notes_contains for partial matching. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Filter vendor credits by custom field values. Supports variants: custom_field_startswith and custom_field_contains for partial matching. */
-  readonly custom_field?: string
+  readonly custom_field?: string | undefined
   /** Search vendor credits modified after a specific time. Filters vendor credits based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated vendor credits or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search vendor credits by customer ID. Filters vendor credits based on the unique identifier of the customer for whom the vendor credit was created. Use the customer ID returned by the Contacts API to find all vendor credits for a specific customer. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter vendor credits by line item ID. Use this parameter to search for vendor credits containing a specific line item within the vendor credit. */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Filter vendor credits by item ID. Use this parameter to search for vendor credits containing a specific item. Retrieve item IDs from the items API. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Filter vendor credits by tax ID. Use this parameter to search for vendor credits with a specific tax applied. Retrieve tax IDs from the taxes API. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Filter vendor credits by status using predefined status values. Allowed values: Status.All, Status.Open, Status.Draft, Status.Closed, and Status.Void. */
-  readonly filter_by?: "Status.All" | "Status.Open" | "Status.Closed" | "Status.Void" | "Status.Draft" | "Status.Pending" | "Status.ApprovalOverdue" | "Status.MyApprovals" | "Status.EInvoicedDebitnotes" | "Status.EInvoicePendingDebitnotes" | "Status.BBPSYetToBePushed" | "Status.BBPSPushed" | "Status.BBPSPushFailed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "ExceptionList" | "MissingAdvancedTrackingDetails"
+  readonly filter_by?: "Status.All" | "Status.Open" | "Status.Closed" | "Status.Void" | "Status.Draft" | "Status.Pending" | "Status.ApprovalOverdue" | "Status.MyApprovals" | "Status.EInvoicedDebitnotes" | "Status.EInvoicePendingDebitnotes" | "Status.BBPSYetToBePushed" | "Status.BBPSPushed" | "Status.BBPSPushFailed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "ExceptionList" | "MissingAdvancedTrackingDetails" | undefined
   /** Search vendor credits using text search across multiple fields. Searches vendor credit number, vendor name, and reference number. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort vendor credits by specified column. Allowed values: vendor_name, vendor_credit_number, balance, total, date, created_time, last_modified_time, and reference_number. */
-  readonly sort_column?: "vendor_name" | "vendor_credit_number" | "balance" | "total" | "date" | "created_time" | "last_modified_time" | "reference_number" | "txn_posting_date"
+  readonly sort_column?: "vendor_name" | "vendor_credit_number" | "balance" | "total" | "date" | "created_time" | "last_modified_time" | "reference_number" | "txn_posting_date" | undefined
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many vendor credits are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** List of location IDs to filter vendor credits by their associated locations. Use this parameter to retrieve vendor credits linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
 }
 
 /** List vendor credits. `GET /vendorcredits` */
@@ -965,9 +965,9 @@ export const listVendorCredits = /*#__PURE__*/ operation<ListVendorCreditsInput,
 
 export interface CreateVendorCreditInput {
   /** Ignore auto number generation for this vendor credit only. On enabling this option vendor credit number is mandatory. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Bill Associated with the Vendor Credit */
-  readonly bill_id?: string
+  readonly bill_id?: string | undefined
   readonly body: CreateAVendorCreditRequest
 }
 
@@ -985,9 +985,9 @@ export interface GetVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Export vendor credit pdf with default print option. Allowed Values: true, false, on and off. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** You can get vendor credit details as json/pdf/html. Default format is html. Allowed Values: json, xml, csv, xls, pdf, html and jhtml. */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get vendor credit. `GET /vendorcredits/{vendor_credit_id}` */
@@ -1033,7 +1033,7 @@ export interface MarkVendorCreditOpenInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Convert to open. `POST /vendorcredits/{vendor_credit_id}/status/open` */
@@ -1050,7 +1050,7 @@ export interface MarkVendorCreditVoidInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void vendor credit. `POST /vendorcredits/{vendor_credit_id}/status/void` */
@@ -1067,7 +1067,7 @@ export interface SubmitVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a Vendor credit for approval. `POST /vendorcredits/{vendor_credit_id}/submit` */
@@ -1084,7 +1084,7 @@ export interface ApproveVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a Vendor credit. `POST /vendorcredits/{vendor_credit_id}/approve` */
@@ -1147,9 +1147,9 @@ export interface ListVendorCreditRefundsOfAVendorCreditInput {
   /** Unique identifier of the vendor credit. */
   readonly vendor_credit_id: string
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many vendor credits are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List refunds of a vendor credit. `GET /vendorcredits/{vendor_credit_id}/refunds` */
@@ -1229,15 +1229,15 @@ export const deleteVendorCreditRefund = /*#__PURE__*/ operation<DeleteVendorCred
 
 export interface ListVendorCreditRefundsOfAllVendorCreditsInput {
   /** Search vendor credits by vendor credit customer ID */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search vendor credits by vendor credit last modfified time */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Sort vendor credits by following columns vendor_name, vendorcredit_number, balance, total, date and created_time. Allowed Values: vendor_name, vendor_credit_number, balance, total, date, created_time, last_modified_time and reference_number. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many vendor credits are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List vendor credit refunds. `GET /vendorcredits/refunds` */

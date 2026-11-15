@@ -480,425 +480,425 @@ export type ConvertPoToBillResponse = typeof ConvertPoToBillResponse.Type
 
 export interface RegistrationDetailsInput {
   /** Company registration number (Commercial Registration number). Maximum length: 200 characters. */
-  readonly company_registration_no?: string
+  readonly company_registration_no?: string | undefined
   /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Maximum length: 200 characters. */
-  readonly einvoice_identifier_label?: string
+  readonly einvoice_identifier_label?: string | undefined
   /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Maximum length: 200 characters. */
-  readonly einvoice_identifier_value?: string
+  readonly einvoice_identifier_value?: string | undefined
   /** Authority or scheme that issued the buyer identifier (Buyer ID authority, for example Department of Economy and Tourism). Maximum length: 200 characters. */
-  readonly additionalfield1?: string
+  readonly additionalfield1?: string | undefined
   /** Legal registered name of the vendor. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Electronic address (Peppol ID or similar) of the vendor used for E-Invoicing routing. Maximum length: 200 characters. */
-  readonly electronic_address_value?: string
+  readonly electronic_address_value?: string | undefined
 }
 
 export interface CreateABillRequest {
   /** Unique identifier for the vendor who supplied the goods/services. Can be fetched from the Get Contacts API. */
   readonly vendor_id: string
   /** Unique identifier for the currency used in the bill transaction. Can be fetched from the Currencies API if multi-currency is enabled. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** (Optional) VAT treatment for the bill. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Flag to determine if customer information should be updated when creating the bill. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Array of purchase order identifiers linked to this bill for tracking purposes. */
-  readonly purchaseorder_ids?: ReadonlyArray<string>
+  readonly purchaseorder_ids?: ReadonlyArray<string> | undefined
   /** Unique sequential identifier for the bill. Used for tracking and reference purposes. Format varies by organization settings. Can be auto-generated or manually entered. Must be unique within the organization. */
   readonly bill_number: string
   /** Type of the bill entity. Allowed values: bill, self_billed_invoice. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
   /** List of documents attached to the bill. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the file */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** State code where goods/services originate. Used for GST calculations in India. Defaults to vendor contact location if not specified. Supports 2-letter state codes (e.g., AP for Andhra Pradesh, TN for Tamil Nadu). */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** State code where goods/services are delivered. Used for GST calculations in India. Defaults to organization home state if not specified. Supports 2-letter state codes (e.g., AP for Andhra Pradesh, TN for Tamil Nadu). */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** The permit number for the bill. */
-  readonly permit_number?: string
+  readonly permit_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the bill. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Applicable for transactions where you pay reverse charge */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Tax Registration Number (TRN) of the vendor. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Registration details of the vendor. Includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Identifier for the price book containing item rates and pricing rules. Used to apply standardized pricing across bills. If not specified, default pricing from items will be used. Helps maintain consistent pricing across multiple transactions. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** External reference number from vendor invoice or purchase order. Used for cross-referencing with vendor documents. Helps in reconciliation and tracking payments. Can include invoice numbers, PO references, or any vendor-specific identifiers. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date when the bill was issued by the vendor. Format: yyyy-mm-dd. Used for payment terms and aging calculations. This date determines when payment terms begin and affects aging reports, late payment calculations, and financial reporting. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Date when payment is due for the bill. Used for payment tracking, aging reports, and overdue calculations. Calculated based on bill date and payment terms. Bills become overdue after this date, affecting vendor relationships and cash flow planning. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Numeric identifier for payment terms configuration. Defines when payment is due relative to bill date. 0 = Due on Receipt, positive numbers = days after bill date, negative numbers = days before bill date. Common values: 0 (Due on Receipt), 15 (Net 15), 30 (Net 30), 45 (Net 45). Affects due date calculation and aging reports. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label of the Payment Terms */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Unique identifier of the bank account for expected payment. Used for UAE E-Invoicing. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Identifier linking this bill to a recurring bill template. Used for bills that are automatically generated on a schedule (weekly, monthly, quarterly, etc.). Enables automated bill generation, consistent billing cycles, and reduces manual data entry. Can be modified to change recurring schedule. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** Exchange rate from bill currency to organization base currency. Used for multi-currency transactions. 1.0 indicates same as base currency. Required when currency differs from organization default. Affects financial reporting, profit/loss calculations, and tax computations. Can be manually set or auto-fetched from currency exchange services. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Flag indicating whether taxes are calculated at individual line item level rather than bill total. Enables different tax rates for different items. Provides more accurate tax calculations for mixed tax scenarios. When enabled, each line item can have different tax rates based on item type, location, or tax rules. Improves tax compliance and reporting accuracy. */
-  readonly is_item_level_tax_calc?: boolean
+  readonly is_item_level_tax_calc?: boolean | undefined
   /** Flag indicating whether line item rates include tax amounts. When true, tax is calculated on top of displayed rates. When false, tax is added separately. Affects total calculations and tax reporting. Common in countries where tax-inclusive pricing is standard. Impacts customer-facing documents and tax return preparation. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Additional amount added to or subtracted from bill total. Positive values increase total, negative values decrease total. Used for discounts, surcharges, rounding adjustments, or other modifications. Affects final bill amount, tax calculations, and payment processing. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for bill adjustment. Examples: "Early payment discount", "Volume discount", "Rounding adjustment", "Handling fee". Helps in audit trails and reporting. Required when adjustment amount is non-zero. Used in financial reports, tax returns, and vendor communications. Should be clear and specific for compliance purposes. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** Unique identifier for the business location where the bill transaction occurs. Used for multi-location organizations to track expenses by location. Affects reporting and tax calculations based on location-specific rules. Can be fetched from the Locations API. Required for organizations with multiple locations. Influences tax rates, reporting structures, and approval workflows based on location-specific configurations. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of custom fields for the bill. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Line items of a bill. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier linking this line item to a specific item in the purchase order. Used for tracking PO-to-bill conversions and maintaining audit trails. Required when converting purchase orders to bills. */
-    readonly purchaseorder_item_id?: string
+    readonly purchaseorder_item_id?: string | undefined
     /** Unique identifier for this specific line item within the bill. Auto-generated when line item is created. Used for updating, deleting, or referencing specific line items in API operations. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier for the product or service item. Can be fetched from the Items API. When specified, automatically populates item details like name, description, and default rates. Required for inventory tracking and item-based reporting. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name or description of the line item. Can be manually entered or auto-populated from item details. Should clearly describe the product, service, or expense for vendor and accounting purposes. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Unique identifier for the chart of accounts entry. Can be fetched from the Chart of Accounts API. Determines how this expense is categorized in financial reports and general ledger. Required for proper expense classification and accounting compliance. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Detailed description of the line item. Provides additional context about the product, service, or expense. Used for vendor communication, internal documentation, and expense justification. Can include specifications, requirements, or special instructions. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit price or rate for the line item. Can be manually entered or auto-populated from item details or price books. Used to calculate line item totals. Supports decimal precision based on currency settings. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Unit code for the goods or services.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing. Maximum length: 200 characters. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Reverse charge tax ID */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unique identifier for the business location where the bill transaction occurs. Used for multi-location organizations to track expenses by location. Affects reporting and tax calculations based on location-specific rules. Can be fetched from the Locations API. Required for organizations with multiple locations. Influences tax rates, reporting structures, and approval workflows based on location-specific configurations. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Number of units for the line item. Used to calculate line item totals (quantity x rate). Supports decimal quantities for items sold by weight, length, or other non-whole units. Required for accurate billing and inventory tracking. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unique identifier for the tax or tax group applied to this line item. Can be fetched from the Taxes API. Determines tax rate and calculations for the line item. Required when tax calculations are enabled. Affects final line item total and tax reporting. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS ID of the tax or tax group applied to the line item */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** ID of the Tax Exemption Applied */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of the Tax Exemption Applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Order of the line item in the bill. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Type of the bill. This denotes whether the bill line item is to be treated as a goods or service purchase. This only need to be specified in case purchase order is not enabled. Allowed Values: digital_service, goods and service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Unit of measurement for the item quantity. Examples: pieces, kgs, liters, hours, days. Used for accurate billing and inventory tracking. Auto-populated when item_id is specified. Important for vendor communication and expense categorization. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Boolean flag indicating whether the line item or entity can be billed to customers or clients. Determines if costs are recoverable through customer billing, affects project profitability calculations, and controls expense allocation for client projects and service delivery. */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** ID of the Project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** ID of the Customer */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the custom field. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** List of serial numbers associated with the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
-  }>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
+  }> | undefined
   /** List of taxes applied to the bill. */
   readonly taxes?: ReadonlyArray<{
     /** Unique identifier for the tax or tax group applied to this line item. Can be fetched from the Taxes API. Determines tax rate and calculations for the line item. Required when tax calculations are enabled. Affects final line item total and tax reporting. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Name of the Tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** Amount of Tax in the Bill */
-    readonly tax_amount?: string
-  }>
+    readonly tax_amount?: string | undefined
+  }> | undefined
   /** Additional information or comments about the bill. Used for internal communication, vendor instructions, or special handling requirements. Visible to vendors and included in bill communications. Useful for tracking special arrangements or payment instructions. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions that apply to the bill transaction. Includes payment terms, delivery conditions, warranty information, or other contractual obligations. Displayed on bill documents and vendor communications. Important for legal compliance and vendor relationship management. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** List of approvers for the bill. */
   readonly approvers?: ReadonlyArray<{
     /** ID of the Approver */
-    readonly approver_id?: string
+    readonly approver_id?: string | undefined
     /** Order of the Approver */
-    readonly order?: number
-  }>
+    readonly order?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateABillRequest {
   /** Unique identifier for the vendor who supplied the goods/services. Can be fetched from the Get Contacts API. */
   readonly vendor_id: string
   /** Unique identifier for the currency used in the bill transaction. Can be fetched from the Currencies API if multi-currency is enabled. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** (Optional) VAT treatment for the bill. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Flag to determine if customer information should be updated when creating the bill. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Array of purchase order identifiers linked to this bill for tracking purposes. */
-  readonly purchaseorder_ids?: ReadonlyArray<string>
+  readonly purchaseorder_ids?: ReadonlyArray<string> | undefined
   /** Unique sequential identifier for the bill. Used for tracking and reference purposes. Format varies by organization settings. Can be auto-generated or manually entered. Must be unique within the organization. */
   readonly bill_number: string
   /** Type of the bill entity. Allowed values: bill, self_billed_invoice. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
   /** List of documents attached to the bill. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the file */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** State code where goods/services originate. Used for GST calculations in India. Defaults to vendor contact location if not specified. Supports 2-letter state codes (e.g., AP for Andhra Pradesh, TN for Tamil Nadu). */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** State code where goods/services are delivered. Used for GST calculations in India. Defaults to organization home state if not specified. Supports 2-letter state codes (e.g., AP for Andhra Pradesh, TN for Tamil Nadu). */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** The permit number for the bill. */
-  readonly permit_number?: string
+  readonly permit_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the bill. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Applicable for transactions where you pay reverse charge */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Tax Registration Number (TRN) of the vendor. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Registration details of the vendor. Includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Identifier for the price book containing item rates and pricing rules. Used to apply standardized pricing across bills. If not specified, default pricing from items will be used. Helps maintain consistent pricing across multiple transactions. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** External reference number from vendor invoice or purchase order. Used for cross-referencing with vendor documents. Helps in reconciliation and tracking payments. Can include invoice numbers, PO references, or any vendor-specific identifiers. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date when the bill was issued by the vendor. Format: yyyy-mm-dd. Used for payment terms and aging calculations. This date determines when payment terms begin and affects aging reports, late payment calculations, and financial reporting. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Date when payment is due for the bill. Used for payment tracking, aging reports, and overdue calculations. Calculated based on bill date and payment terms. Bills become overdue after this date, affecting vendor relationships and cash flow planning. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Numeric identifier for payment terms configuration. Defines when payment is due relative to bill date. 0 = Due on Receipt, positive numbers = days after bill date, negative numbers = days before bill date. Common values: 0 (Due on Receipt), 15 (Net 15), 30 (Net 30), 45 (Net 45). Affects due date calculation and aging reports. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label of the Payment Terms */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Unique identifier of the bank account for expected payment. Used for UAE E-Invoicing. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Identifier linking this bill to a recurring bill template. Used for bills that are automatically generated on a schedule (weekly, monthly, quarterly, etc.). Enables automated bill generation, consistent billing cycles, and reduces manual data entry. Can be modified to change recurring schedule. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** Exchange rate from bill currency to organization base currency. Used for multi-currency transactions. 1.0 indicates same as base currency. Required when currency differs from organization default. Affects financial reporting, profit/loss calculations, and tax computations. Can be manually set or auto-fetched from currency exchange services. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Flag indicating whether taxes are calculated at individual line item level rather than bill total. Enables different tax rates for different items. Provides more accurate tax calculations for mixed tax scenarios. When enabled, each line item can have different tax rates based on item type, location, or tax rules. Improves tax compliance and reporting accuracy. */
-  readonly is_item_level_tax_calc?: boolean
+  readonly is_item_level_tax_calc?: boolean | undefined
   /** Flag indicating whether line item rates include tax amounts. When true, tax is calculated on top of displayed rates. When false, tax is added separately. Affects total calculations and tax reporting. Common in countries where tax-inclusive pricing is standard. Impacts customer-facing documents and tax return preparation. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Additional amount added to or subtracted from bill total. Positive values increase total, negative values decrease total. Used for discounts, surcharges, rounding adjustments, or other modifications. Affects final bill amount, tax calculations, and payment processing. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for bill adjustment. Examples: "Early payment discount", "Volume discount", "Rounding adjustment", "Handling fee". Helps in audit trails and reporting. Required when adjustment amount is non-zero. Used in financial reports, tax returns, and vendor communications. Should be clear and specific for compliance purposes. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** List of custom fields for the bill. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Line items of a bill. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier linking this line item to a specific item in the purchase order. Used for tracking PO-to-bill conversions and maintaining audit trails. Required when converting purchase orders to bills. */
-    readonly purchaseorder_item_id?: string
+    readonly purchaseorder_item_id?: string | undefined
     /** Unique identifier for this specific line item within the bill. Auto-generated when line item is created. Used for updating, deleting, or referencing specific line items in API operations. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier for the product or service item. Can be fetched from the Items API. When specified, automatically populates item details like name, description, and default rates. Required for inventory tracking and item-based reporting. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name or description of the line item. Can be manually entered or auto-populated from item details. Should clearly describe the product, service, or expense for vendor and accounting purposes. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Unique identifier for the chart of accounts entry. Can be fetched from the Chart of Accounts API. Determines how this expense is categorized in financial reports and general ledger. Required for proper expense classification and accounting compliance. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Detailed description of the line item. Provides additional context about the product, service, or expense. Used for vendor communication, internal documentation, and expense justification. Can include specifications, requirements, or special instructions. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit price or rate for the line item. Can be manually entered or auto-populated from item details or price books. Used to calculate line item totals. Supports decimal precision based on currency settings. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Unit code for the goods or services.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing. Maximum length: 200 characters. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Reverse charge tax ID */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unique identifier for the business location where the bill transaction occurs. Used for multi-location organizations to track expenses by location. Affects reporting and tax calculations based on location-specific rules. Can be fetched from the Locations API. Required for organizations with multiple locations. Influences tax rates, reporting structures, and approval workflows based on location-specific configurations. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Number of units for the line item. Used to calculate line item totals (quantity x rate). Supports decimal quantities for items sold by weight, length, or other non-whole units. Required for accurate billing and inventory tracking. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unique identifier for the tax or tax group applied to this line item. Can be fetched from the Taxes API. Determines tax rate and calculations for the line item. Required when tax calculations are enabled. Affects final line item total and tax reporting. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** TDS ID of the tax or tax group applied to the line item */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** ID of the Tax Exemption Applied */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of the Tax Exemption Applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Order of the line item in the bill. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Type of the bill. This denotes whether the bill line item is to be treated as a goods or service purchase. This only need to be specified in case purchase order is not enabled. Allowed Values: digital_service, goods and service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods purchase and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service purchase and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Unit of measurement for the item quantity. Examples: pieces, kgs, liters, hours, days. Used for accurate billing and inventory tracking. Auto-populated when item_id is specified. Important for vendor communication and expense categorization. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Boolean flag indicating whether the line item or entity can be billed to customers or clients. Determines if costs are recoverable through customer billing, affects project profitability calculations, and controls expense allocation for client projects and service delivery. */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** ID of the Project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** ID of the Customer */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the custom field. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** List of serial numbers associated with the line item. */
-    readonly serial_numbers?: ReadonlyArray<string>
-  }>
+    readonly serial_numbers?: ReadonlyArray<string> | undefined
+  }> | undefined
   /** Unique identifier for the business location where the bill transaction occurs. Used for multi-location organizations to track expenses by location. Affects reporting and tax calculations based on location-specific rules. Can be fetched from the Locations API. Required for organizations with multiple locations. Influences tax rates, reporting structures, and approval workflows based on location-specific configurations. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of taxes applied to the bill. */
   readonly taxes?: ReadonlyArray<{
     /** Unique identifier for the tax or tax group applied to this line item. Can be fetched from the Taxes API. Determines tax rate and calculations for the line item. Required when tax calculations are enabled. Affects final line item total and tax reporting. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Name of the Tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** Amount of Tax in the Bill */
-    readonly tax_amount?: string
-  }>
+    readonly tax_amount?: string | undefined
+  }> | undefined
   /** Additional information or comments about the bill. Used for internal communication, vendor instructions, or special handling requirements. Visible to vendors and included in bill communications. Useful for tracking special arrangements or payment instructions. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions that apply to the bill transaction. Includes payment terms, delivery conditions, warranty information, or other contractual obligations. Displayed on bill documents and vendor communications. Important for legal compliance and vendor relationship management. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** List of approvers for the bill. */
   readonly approvers?: ReadonlyArray<{
     /** ID of the Approver */
-    readonly approver_id?: string
+    readonly approver_id?: string | undefined
     /** Order of the Approver */
-    readonly order?: number
-  }>
+    readonly order?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateABillCustomfieldRequest {
   /** List of custom fields for the bill. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateBillingAddressRequest {
   /** Address involved in the Bill */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City in the Address */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State involved in the Address */
-  readonly state?: string
+  readonly state?: string | undefined
   /** ZIP Code involved in the Address */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country Involved in the Address */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax of the Vendor */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Attention field for the billing address. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Flag to determine if customer information should be updated when creating the bill. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
 }
 
 export interface ApplyCreditsRequest {
   /** List of payments applied to the bill. */
   readonly bill_payments?: ReadonlyArray<{
     /** ID of the Payment */
-    readonly payment_id?: string
+    readonly payment_id?: string | undefined
     /** Amount applied to the bill. */
-    readonly amount_applied?: number
-  }>
+    readonly amount_applied?: number | undefined
+  }> | undefined
   /** List of vendor credits applied to the bill. */
   readonly apply_vendor_credits?: ReadonlyArray<{
     /** ID of the Vendor Credit */
-    readonly vendor_credit_id?: string
+    readonly vendor_credit_id?: string | undefined
     /** Amount applied to the bill. */
-    readonly amount_applied?: number
-  }>
+    readonly amount_applied?: number | undefined
+  }> | undefined
 }
 
 export interface AddCommentRequest {
@@ -908,55 +908,55 @@ export interface AddCommentRequest {
 
 export interface ListBillsInput {
   /** Filter bills by bill number. Accepts exact matches or use bill_number_startswith for prefix matching and bill_number_contains for substring matching. Useful for finding bills by unique identifier or partial patterns. */
-  readonly bill_number?: string
+  readonly bill_number?: string | undefined
   /** Filter bills by reference number. Accepts exact matches or use reference_number_startswith for prefix matching and reference_number_contains for substring matching. Useful for finding bills by external references or vendor invoice numbers. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Filter bills by bill date in YYYY-MM-DD format. Use date_start/date_end for ranges, date_before/date_after for relative dates. Useful for billing periods and due date management. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search bills by due date. Filters bills based on the payment due date. Use yyyy-mm-dd format. Supports variants: due_date_start, due_date_end, due_date_before and due_date_after. Useful for finding overdue bills or bills due within specific periods. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Search bills by creation date. Filters bills based on the date they were created. Use yyyy-mm-dd format. Supports variants: created_date_start and created_date_end. Useful for finding bills created within specific time periods or date ranges. */
-  readonly created_date?: string
+  readonly created_date?: string | undefined
   /** Filter bills by status: paid, open, overdue, void, or partially_paid. Useful for payment status filtering, accounts payable management, and status-specific reporting. */
-  readonly status?: "paid" | "open" | "overdue" | "void" | "partially_paid" | "unpaid" | "draft" | "pending_approval" | "approval_overdue" | "my_approvals" | "rejected" | "approved"
+  readonly status?: "paid" | "open" | "overdue" | "void" | "partially_paid" | "unpaid" | "draft" | "pending_approval" | "approval_overdue" | "my_approvals" | "rejected" | "approved" | undefined
   /** Filter bills by description text. Accepts exact matches or use description_startswith for prefix matching and description_contains for substring matching. Useful for finding bills by line item descriptions or vendor notes. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Filter bills by vendor name. Use vendor_name_startswith for prefix matching or vendor_name_contains for substring matching. Useful for finding bills from specific suppliers. */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Search bills by total amount. Filters bills based on the final bill amount including taxes, discounts, and adjustments. Useful for finding bills within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Filter bills by specific vendor ID. Accepts the unique identifier for a vendor to retrieve all bills associated with that particular supplier or vendor account. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Filter bills by specific project ID. Accepts the unique identifier for a project to retrieve all bills associated with that particular project. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Search bills by item name. Filters bills based on product or service names in bill line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding bills with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search bills by item description. Filters bills based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding bills with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Filter bills by specific item ID. Retrieves all bills containing a particular product or service item based on its unique identifier. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Filter bills by recurring bill ID. Retrieves all bills generated from a specific recurring bill template or schedule. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** Filter bills by purchase order ID. Retrieves all bills associated with a specific purchase order for tracking procurement workflows. */
-  readonly purchaseorder_id?: string
+  readonly purchaseorder_id?: string | undefined
   /** Search bills modified after a specific time. Filters bills based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated bills or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search bills by customer ID. Filters bills based on the unique identifier of the customer associated with the bill. Use the customer ID returned by the Contacts API to find bills for a specific customer. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter bills by status using predefined status constants. Options include Status.All, Status.PartiallyPaid, Status.Paid, Status.Overdue, Status.Void, and Status.Open. */
-  readonly filter_by?: "Status.All" | "Status.Paid" | "Status.Open" | "Status.Overdue" | "Status.Void" | "Status.PartiallyPaid" | "Status.Unpaid" | "Status.Draft" | "Status.Pending" | "Status.ApprovalOverdue" | "Status.CreditNotes" | "Status.MyApprovals" | "Status.Network" | "Status.NetworkPending" | "Status.EInvoicedBills" | "Status.EInvoicePendingBills" | "Status.MSMEDueBills" | "Status.TDSInvoices" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "Status.PMSAppliedBills" | "Status.ViolatedBills" | "YetToBeReceived" | "Received" | "ExceptionList" | "WithAttachment" | "WithoutAttachment" | "Source.TallyConnector" | "MissingAdvancedTrackingDetails" | "TDSCalculationExceptionList" | "Type.All" | "Type.Bills" | "Type.SelfBilled" | "Type.MyRecentBills"
+  readonly filter_by?: "Status.All" | "Status.Paid" | "Status.Open" | "Status.Overdue" | "Status.Void" | "Status.PartiallyPaid" | "Status.Unpaid" | "Status.Draft" | "Status.Pending" | "Status.ApprovalOverdue" | "Status.CreditNotes" | "Status.MyApprovals" | "Status.Network" | "Status.NetworkPending" | "Status.EInvoicedBills" | "Status.EInvoicePendingBills" | "Status.MSMEDueBills" | "Status.TDSInvoices" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "Status.PMSAppliedBills" | "Status.ViolatedBills" | "YetToBeReceived" | "Received" | "ExceptionList" | "WithAttachment" | "WithoutAttachment" | "Source.TallyConnector" | "MissingAdvancedTrackingDetails" | "TDSCalculationExceptionList" | "Type.All" | "Type.Bills" | "Type.SelfBilled" | "Type.MyRecentBills" | undefined
   /** Filter bills using general search text. Searches across bill number, reference number, and vendor name fields to find matching bills. Useful for quick searches when you know part of the bill information. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Specify the page number for pagination. Use this parameter to navigate through multiple pages of bills when the total number of bills exceeds the per_page limit. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Specify the number of bills to retrieve per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** List of location IDs to filter bills by their associated locations. Use this parameter to retrieve bills linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Specify the column to sort bills by. Available options include vendor_name, bill_number, date, due_date, total, balance, and created_time. */
-  readonly sort_column?: "vendor_name" | "bill_number" | "date" | "due_date" | "total" | "balance" | "created_time" | "last_modified_time" | "txn_value_date" | "total_retention_amount"
+  readonly sort_column?: "vendor_name" | "bill_number" | "date" | "due_date" | "total" | "balance" | "created_time" | "last_modified_time" | "txn_value_date" | "total_retention_amount" | undefined
   /** Specify the sorting order for bills. Use A for ascending order (A-Z, 0-9, earliest to latest) or D for descending order (Z-A, 9-0, latest to earliest). */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
 }
 
 /** List bills. `GET /bills` */
@@ -970,7 +970,7 @@ export const listBills = /*#__PURE__*/ operation<ListBillsInput, typeof ListBill
 
 export interface CreateBillInput {
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   readonly body: CreateABillRequest
 }
 
@@ -991,7 +991,7 @@ export interface UpdateBillUsingCustomFieldInput {
   /** Provide the unique value from the custom field that identifies the specific bill to update. This value will be used to locate the existing bill record in the system. */
   readonly "X-Unique-Identifier-Value": string
   /** When set to true, this header enables upsert functionality. If no bill is found with the specified custom field value, a new bill will be created using the provided payload data. */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateABillRequest
 }
 
@@ -1024,7 +1024,7 @@ export interface UpdateBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   readonly body: UpdateABillRequest
 }
 
@@ -1073,7 +1073,7 @@ export interface MarkBillVoidInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void a bill. `POST /bills/{bill_id}/status/void` */
@@ -1090,7 +1090,7 @@ export interface MarkBillOpenInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a bill as open. `POST /bills/{bill_id}/status/open` */
@@ -1107,7 +1107,7 @@ export interface SubmitBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a bill for approval. `POST /bills/{bill_id}/submit` */
@@ -1124,7 +1124,7 @@ export interface ApproveBillInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a bill. `POST /bills/{bill_id}/approve` */
@@ -1203,7 +1203,7 @@ export interface GetBillAttachmentInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** Get the thumbnail of the attachment. */
-  readonly preview?: boolean
+  readonly preview?: boolean | undefined
 }
 
 /** Get a bill attachment. `GET /bills/{bill_id}/attachment` */
@@ -1219,9 +1219,9 @@ export interface AddBillAttachmentInput {
   /** Unique identifier of the bill. */
   readonly bill_id: string
   /** File to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to a bill. `POST /bills/{bill_id}/attachment` */

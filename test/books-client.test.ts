@@ -1,10 +1,15 @@
 import { expect, it } from '@effect/vitest'
+import * as Config from 'effect/Config'
+import * as ConfigProvider from 'effect/ConfigProvider'
 import * as Effect from 'effect/Effect'
+import { flow } from 'effect/Function'
+import * as HttpClient from 'effect/http/HttpClient'
 import * as Layer from 'effect/Layer'
 import * as Option from 'effect/Option'
+import * as RateLimiter from 'effect/persistence/RateLimiter'
 import * as Redacted from 'effect/Redacted'
 import * as Stream from 'effect/Stream'
-import { ZohoAccessToken, ZohoTransportError } from '../src/index.ts'
+import { ZohoAccessToken, ZohoDataCenter, ZohoError, ZohoTransportError } from '../src/index.ts'
 import {
   BankAccounts, Bills, Contacts, DeliveryChallans, Expenses, Invoices, Organizations, paginate, Projects, ReportingTags, ZohoBooksClient,
 } from '../src/books/index.ts'
@@ -109,9 +114,9 @@ it.effect('reports an error status, a non-zero result code, and a rate limit as 
     const invalid = yield* Effect.flip(Invoices.listInvoices({ customer_id: 'x' }))
     const limited = yield* Effect.flip(Invoices.listInvoices())
 
-    expect(missing).toMatchObject({ _tag: 'ZohoApiError', operation: 'get_invoice', status: 404, code: 1002, detail: 'Invoice does not exist.' })
-    expect(invalid).toMatchObject({ _tag: 'ZohoApiError', status: 200, code: 4 })
-    expect(limited).toMatchObject({ _tag: 'ZohoRateLimitError', code: 45, retryAfterSeconds: 30 })
+    expect(missing).toMatchObject({ operation: 'get_invoice', reason: { _tag: 'ZohoApiError', status: 404, code: 1002, detail: 'Invoice does not exist.' } })
+    expect(invalid).toMatchObject({ reason: { _tag: 'ZohoApiError', status: 200, code: 4 } })
+    expect(limited).toMatchObject({ reason: { _tag: 'ZohoRateLimitError', code: 45, retryAfterSeconds: 30 } })
   }).pipe(Effect.provide(zoho.layer))
 })
 
@@ -119,7 +124,7 @@ it.effect('fails with the operation and the offending field when a response brea
   const zoho = books(json({ code: 0, invoice: { line_items: 'not a list' } }))
   return Effect.gen(function* () {
     const error = yield* Effect.flip(Invoices.getInvoice({ invoice_id: '1' }))
-    expect(error).toMatchObject({ _tag: 'ZohoResponseError', operation: 'get_invoice' })
+    expect(error).toMatchObject({ operation: 'get_invoice', reason: { _tag: 'ZohoResponseError' } })
     expect(error.message).toContain('line_items')
   }).pipe(Effect.provide(zoho.layer))
 })
@@ -129,7 +134,7 @@ it.effect('refuses an empty or dot path value before anything is sent', () => {
   return Effect.gen(function* () {
     for (const invoice_id of ['', '.', '..']) {
       expect(yield* Effect.flip(Invoices.deleteInvoice({ invoice_id }))).toMatchObject({
-        _tag: 'ZohoInvalidRequestError', operation: 'delete_invoice',
+        operation: 'delete_invoice', reason: { _tag: 'ZohoInvalidRequestError' },
       })
     }
     expect(zoho.requests).toHaveLength(0)
@@ -155,13 +160,13 @@ it.effect('sends documented header parameters as headers and list filters as com
 it.effect('reports a successful response that is not JSON as a response failure, not a transport one', () => {
   const zoho = books(new Response('<html>Maintenance</html>', { headers: { 'content-type': 'text/html' } }))
   return Effect.gen(function* () {
-    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ _tag: 'ZohoResponseError', detail: 'expected JSON but received text/html' })
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoResponseError', detail: 'expected JSON but received text/html' } })
   }).pipe(Effect.provide(zoho.layer))
 })
 
 it.effect('passes on why no access token could be obtained instead of calling it unauthorised', () => {
   const zoho = fakeZoho()
-  const outage = new ZohoTransportError({ operation: 'oauth.refreshAccessToken', cause: 'ECONNRESET' })
+  const outage = new ZohoError({ operation: 'oauth.refreshAccessToken', reason: new ZohoTransportError({ cause: 'ECONNRESET' }) })
   const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({ get: Effect.fail(outage), replace: () => Effect.succeed(Option.none()) }))
   return Effect.gen(function* () {
     expect(yield* Effect.flip(Invoices.listInvoices())).toBe(outage)
@@ -172,7 +177,7 @@ it.effect('passes on why no access token could be obtained instead of calling it
 it.effect('does not retry a 401 when the token service has no replacement to offer', () => {
   const zoho = books(json({ code: 57, message: 'You are not authorized to perform this operation' }, { status: 401 }))
   return Effect.gen(function* () {
-    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ _tag: 'ZohoUnauthorizedError', code: 57 })
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoUnauthorizedError', code: 57 } })
     expect(zoho.requests).toHaveLength(1)
   }).pipe(Effect.provide(zoho.layer))
 })
@@ -200,7 +205,7 @@ it.effect('retries once with a replacement token after a 401, and gives up after
       'Zoho-oauthtoken stale', 'Zoho-oauthtoken fresh', 'Zoho-oauthtoken stale', 'Zoho-oauthtoken fresh',
     ])
     expect(replaced).toEqual(['stale', 'stale'])
-    expect(error).toMatchObject({ _tag: 'ZohoUnauthorizedError', detail: 'Invalid value passed for authtoken.' })
+    expect(error).toMatchObject({ reason: { _tag: 'ZohoUnauthorizedError', detail: 'Invalid value passed for authtoken.' } })
   }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
 })
 
@@ -219,7 +224,7 @@ it.effect('returns a file as bytes, a JSON file included, and a JSON error answe
 
     expect(file).toEqual({ bytes: pdf, contentType: 'application/pdf' })
     expect(zoho.requests[0]?.url.searchParams.get('accept')).toBe('pdf')
-    expect(refused).toMatchObject({ _tag: 'ZohoApiError', code: 1002 })
+    expect(refused).toMatchObject({ reason: { _tag: 'ZohoApiError', code: 1002 } })
     expect(attachment.contentType).toBe('image/png')
     const jsonFile = yield* DeliveryChallans.getDeliveryChallanAttachment({ deliverychallan_id: '3', document_id: '5' })
     expect(JSON.parse(new TextDecoder().decode(jsonFile.bytes))).toEqual({ exported: [1, 2] })
@@ -299,4 +304,70 @@ it.effect('streams every page of a list until Zoho reports no more', () => {
     expect(zoho.requests.map((request) => request.url.searchParams.get('page'))).toEqual(['1', '2', '3'])
     expect(zoho.requests.every((request) => request.url.searchParams.get('status') === 'unpaid')).toBe(true)
   }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('lets a caller recover from one reason and leaves the rest as the same error', () => {
+  const zoho = books(
+    json({ code: 44, message: 'Too many requests' }, { status: 429 }),
+    json({ code: 1002, message: 'Invoice does not exist.' }, { status: 404 }),
+  )
+  const invoice = Invoices.getInvoice({ invoice_id: '1' }).pipe(
+    Effect.catchReason('ZohoError', 'ZohoRateLimitError', (reason) => Effect.succeed(`limited by code ${reason.code}`)),
+  )
+  return Effect.gen(function* () {
+    expect(yield* invoice).toBe('limited by code 44')
+    const missing = yield* Effect.flip(invoice)
+    expect(missing).toBeInstanceOf(ZohoError)
+    expect(missing.message).toBe('Zoho request get_invoice failed: HTTP 404 (code 1002): Invoice does not exist.')
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reads the organisation and data centre from Config, and refuses a data centre Zoho does not have', () => {
+  const zoho = fakeZoho(json({ code: 0, invoices: [] }))
+  const layer = (dataCenter: string) => ZohoBooksClient.layerConfig({
+    organizationId: Config.String('ZOHO_ORGANIZATION_ID'),
+    dataCenter: Config.schema(ZohoDataCenter, 'ZOHO_DATA_CENTER'),
+  }).pipe(
+    Layer.provide([zoho.layer, ZohoAccessToken.layerStatic(Redacted.make('token-1'))]),
+    Layer.provide(ConfigProvider.layer(ConfigProvider.fromUnknown({ ZOHO_ORGANIZATION_ID: '20100000', ZOHO_DATA_CENTER: dataCenter }))),
+  )
+  return Effect.gen(function* () {
+    yield* Invoices.listInvoices().pipe(Effect.provide(layer('au')))
+    expect(zoho.requests[0]?.url.href).toBe('https://www.zohoapis.com.au/books/v3/invoices?organization_id=20100000')
+
+    const refused = yield* Effect.flip(Invoices.listInvoices().pipe(Effect.provide(layer('mars'))))
+    expect(refused._tag).toBe('ConfigError')
+  })
+})
+
+it.effect('sends requests through transformClient, which can retry a 503 or a 429 and still reports the last answer by its reason', () => {
+  const zoho = fakeZoho(
+    new Response('upstream unavailable', { status: 503 }),
+    json({ code: 0, invoices: [] }),
+    json({ code: 44, message: 'Too many requests' }, { status: 429 }),
+    json({ code: 44, message: 'Too many requests' }, { status: 429 }),
+    json({ code: 44, message: 'Too many requests' }, { status: 429 }),
+  )
+  const layer = Layer.unwrap(Effect.gen(function* () {
+    const limiter = yield* RateLimiter.RateLimiter
+    return ZohoBooksClient.layer({
+      organizationId: '20100000',
+      dataCenter: 'eu',
+      transformClient: flow(
+        HttpClient.withRateLimiter({ limiter, key: 'zoho-books', limit: 100, window: '1 minute', times: 0 }),
+        HttpClient.retryTransient({ times: 2 }),
+      ),
+    })
+  })).pipe(
+    Layer.provide([zoho.layer, ZohoAccessToken.layerStatic(Redacted.make('token-1'))]),
+    Layer.provide(RateLimiter.layer.pipe(Layer.provide(RateLimiter.layerStoreMemory))),
+  )
+  return Effect.gen(function* () {
+    yield* Invoices.listInvoices()
+    expect(zoho.requests).toHaveLength(2)
+
+    const limited = yield* Effect.flip(Invoices.listInvoices())
+    expect(limited.reason._tag).toBe('ZohoRateLimitError')
+    expect(zoho.requests).toHaveLength(5)
+  }).pipe(Effect.provide(layer))
 })

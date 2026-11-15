@@ -1,11 +1,13 @@
 import { expect, it } from '@effect/vitest'
+import * as Config from 'effect/Config'
+import * as ConfigProvider from 'effect/ConfigProvider'
 import * as Effect from 'effect/Effect'
 import * as Fiber from 'effect/Fiber'
 import * as Layer from 'effect/Layer'
 import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import { TestClock } from 'effect/testing'
-import { ZohoAccessToken, ZohoOAuth } from '../src/index.ts'
+import { ZohoAccessToken, ZohoDataCenter, ZohoOAuth } from '../src/index.ts'
 import { fakeZoho, json, type Reply } from './fake-zoho.ts'
 
 const client = { clientId: 'client-1', clientSecret: Redacted.make('secret-1'), dataCenter: 'eu' } as const
@@ -79,13 +81,13 @@ it.effect('reports a refused grant by Zoho’s error code, shares it between a b
   const zoho = tokens(json({ error: 'invalid_code' }), json({ access_token: 'token-1' }))
   return Effect.gen(function* () {
     const refusals = yield* Effect.all([Effect.flip(current), Effect.flip(current), Effect.flip(current)], { concurrency: 'unbounded' })
-    expect(refusals.map((error) => error._tag)).toEqual(['ZohoOAuthError', 'ZohoOAuthError', 'ZohoOAuthError'])
-    expect(refusals[0]).toMatchObject({ error: 'invalid_code' })
+    expect(refusals.map((error) => error.reason._tag)).toEqual(['ZohoOAuthError', 'ZohoOAuthError', 'ZohoOAuthError'])
+    expect(refusals[0]).toMatchObject({ operation: 'oauth.refreshAccessToken', reason: { error: 'invalid_code' } })
     expect(zoho.requests).toHaveLength(1)
 
     yield* TestClock.adjust('10 seconds')
     const malformed = yield* Effect.flip(current)
-    expect(malformed._tag).toBe('ZohoResponseError')
+    expect(malformed.reason._tag).toBe('ZohoResponseError')
     expect(malformed.message).not.toContain('token-1')
   }).pipe(Effect.provide(zoho.layer))
 })
@@ -110,8 +112,8 @@ it.effect('reports an HTML error page from the accounts server as a refusal, and
   )
   return Effect.gen(function* () {
     const refreshToken = Redacted.make('refresh-1')
-    expect(yield* Effect.flip(ZohoOAuth.refreshAccessToken({ ...client, refreshToken }))).toMatchObject({ _tag: 'ZohoOAuthError', error: 'HTTP 400' })
-    expect((yield* Effect.flip(ZohoOAuth.revokeRefreshToken({ dataCenter: 'eu', refreshToken })))._tag).toBe('ZohoOAuthError')
+    expect(yield* Effect.flip(ZohoOAuth.refreshAccessToken({ ...client, refreshToken }))).toMatchObject({ reason: { _tag: 'ZohoOAuthError', error: 'HTTP 400' } })
+    expect((yield* Effect.flip(ZohoOAuth.revokeRefreshToken({ dataCenter: 'eu', refreshToken }))).reason._tag).toBe('ZohoOAuthError')
     yield* ZohoOAuth.revokeRefreshToken({ dataCenter: 'eu', refreshToken })
     expect(zoho.requests[2]?.body).toEqual({ token: 'refresh-1' })
   }).pipe(Effect.provide(zoho.layer))
@@ -137,4 +139,24 @@ it('builds the consent URL for the account’s data centre', () => {
     scope: 'ZohoBooks.invoices.READ,ZohoBooks.contacts.READ',
     state: 'state-1',
   })
+})
+
+it.effect('reads the client credentials and refresh token from Config and keeps them redacted', () => {
+  const zoho = fakeZoho(grant('token-1'))
+  const layer = ZohoAccessToken.layerRefreshTokenConfig({
+    clientId: Config.String('ZOHO_CLIENT_ID'),
+    clientSecret: Config.Redacted('ZOHO_CLIENT_SECRET'),
+    refreshToken: Config.Redacted('ZOHO_REFRESH_TOKEN'),
+    dataCenter: Config.schema(ZohoDataCenter, 'ZOHO_DATA_CENTER'),
+  }).pipe(
+    Layer.provide(zoho.layer),
+    Layer.provide(ConfigProvider.layer(ConfigProvider.fromUnknown({
+      ZOHO_CLIENT_ID: 'client-1', ZOHO_CLIENT_SECRET: 'secret-1', ZOHO_REFRESH_TOKEN: 'refresh-1', ZOHO_DATA_CENTER: 'in',
+    }))),
+  )
+  return Effect.gen(function* () {
+    expect(yield* current).toBe('token-1')
+    expect(zoho.requests[0]?.url.href).toBe('https://accounts.zoho.in/oauth/v2/token')
+    expect(zoho.requests[0]?.body).toMatchObject({ client_id: 'client-1', client_secret: 'secret-1', refresh_token: 'refresh-1' })
+  }).pipe(Effect.provide(layer))
 })

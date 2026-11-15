@@ -107,29 +107,29 @@ export type MarkAsPrimaryResponse = typeof MarkAsPrimaryResponse.Type
 
 export interface AddressInput {
   /** City Name of the location. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State Name of the location. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Country Name of the location. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Attention of the location. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** State code of the location. */
-  readonly state_code?: string
+  readonly state_code?: string | undefined
   /** Street Name of the location. */
-  readonly street_address1?: string
+  readonly street_address1?: string | undefined
   /** Street Name of the location. */
-  readonly street_address2?: string
+  readonly street_address2?: string | undefined
 }
 
 export interface CreateALocationRequest {
   /** Type of the location */
-  readonly type?: string
+  readonly type?: string | undefined
   /** Email id for the location */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Mobile number for location */
-  readonly phone?: string
-  readonly address?: AddressInput
+  readonly phone?: string | undefined
+  readonly address?: AddressInput | undefined
   /** Name of the location */
   readonly location_name: string
   /** Country Name of the location. */
@@ -137,25 +137,25 @@ export interface CreateALocationRequest {
   /** Tax Settings ID */
   readonly tax_settings_id: string
   /** Parent Location ID */
-  readonly parent_location_id?: string
+  readonly parent_location_id?: string | undefined
   /** List of series IDs associated with the location. */
-  readonly associated_series_ids?: ReadonlyArray<string>
+  readonly associated_series_ids?: ReadonlyArray<string> | undefined
   /** Autonumber generation group ID */
-  readonly auto_number_generation_id?: string
+  readonly auto_number_generation_id?: string | undefined
   /** Whether all users are selected or not */
-  readonly is_all_users_selected?: boolean
+  readonly is_all_users_selected?: boolean | undefined
   /** Comma separated user ids. */
-  readonly user_ids?: string
+  readonly user_ids?: string | undefined
 }
 
 export interface UpdateLocationRequest {
   /** Type of the location */
-  readonly type?: string
+  readonly type?: string | undefined
   /** Email id for the location */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Mobile number for location */
-  readonly phone?: string
-  readonly address?: AddressInput
+  readonly phone?: string | undefined
+  readonly address?: AddressInput | undefined
   /** Name of the location */
   readonly location_name: string
   /** Country Name of the location. */
@@ -163,20 +163,20 @@ export interface UpdateLocationRequest {
   /** Tax Settings ID */
   readonly tax_settings_id: string
   /** Parent Location ID */
-  readonly parent_location_id?: string
+  readonly parent_location_id?: string | undefined
   /** List of series IDs associated with the location. */
-  readonly associated_series_ids?: ReadonlyArray<string>
+  readonly associated_series_ids?: ReadonlyArray<string> | undefined
   /** Autonumber generation group ID */
-  readonly auto_number_generation_id?: string
+  readonly auto_number_generation_id?: string | undefined
   /** Whether all users are selected or not */
-  readonly is_all_users_selected?: boolean
+  readonly is_all_users_selected?: boolean | undefined
   /** Comma separated user ids. */
-  readonly user_ids?: string
+  readonly user_ids?: string | undefined
 }
 
 export interface EnableLocationsInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Enable Locations. `POST /settings/locations/enable` */
@@ -248,7 +248,7 @@ export interface MarkLocationActiveInput {
   /** Unique identifier of the location. */
   readonly location_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as Active. `POST /locations/{location_id}/active` */
@@ -265,7 +265,7 @@ export interface MarkLocationInactiveInput {
   /** Unique identifier of the location. */
   readonly location_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as Inactive. `POST /locations/{location_id}/inactive` */
@@ -282,7 +282,7 @@ export interface MarkLocationPrimaryInput {
   /** Unique identifier of the location. */
   readonly location_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as Primary. `POST /locations/{location_id}/markasprimary` */

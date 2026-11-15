@@ -187,46 +187,46 @@ export interface CreateARuleRequest {
   /** Specifies the scope of accounts to which the rule applies. Use selected_accounts to specific accounts and provide the corresponding account_ids. Use all_accounts to apply the rule across all accounts in the organization, all_banks for all bank accounts, or all_credit_cards for all credit card accounts. Allowed Values: selected_accounts, all_accounts, all_banks, all_credit_cards. */
   readonly rule_category: string
   /** Comma-separated list of account IDs to which the rule applies. Applicable only when rule_category is selected_accounts. Do not send this parameter when rule_category is all_accounts, all_banks, or all_credit_cards. */
-  readonly account_ids?: string
+  readonly account_ids?: string | undefined
   /** Specifies whether the rule applies to deposits or withdrawals. This applies to both bank accounts and credit card accounts. Allowed Values: deposits, withdrawals. */
   readonly apply_to: string
   /** Specifies whether all the criteria have to be satisfied or not. Allowed Values : and and or */
   readonly criteria_type: string
   /** Specifies the auto-categorization behavior when the rule criteria are matched. recognize: Matching bank statements are recognized by the rule and can be categorized manually. autocategorize: Matching bank statements are automatically categorized in Zoho Books based on the rule. Allowed Values: autocategorize and recognize. */
-  readonly auto_categorize?: string
+  readonly auto_categorize?: string | undefined
   /** List of criteria used to define conditions for applying the bank rule. */
   readonly criterion: ReadonlyArray<{
     /** Field involved in the Criteria */
-    readonly field?: string
+    readonly field?: string | undefined
     /** Comparator used in Criteria */
-    readonly comparator?: string
+    readonly comparator?: string | undefined
     /** Value to be compared with */
-    readonly value?: string
+    readonly value?: string | undefined
   }>
   /** Record the transaction based on the value specified in the apply_to node. For bank accounts: If apply_to is deposits: sales_without_invoices, transfer_fund, interest_income, other_income, expense_refund, deposit. If apply_to is withdrawals: expense, transfer_fund, card_payment, owner_drawings. For credit card accounts: If apply_to is deposits: card_payment, transfer_fund, expense_refund, refund. If apply_to is withdrawals: expense, transfer_fund. Allowed Values: expense, deposit, refund, transfer_fund, card_payment, sales_without_invoices, expense_refund, interest_income, other_income, owner_drawings. */
   readonly record_as: string
   /** Account which is involved in the rule with the target account. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the customer.(Applicable for sales_without_invoices,deposit, expense) */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Tax ID involved in the transaction. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Specifies if Reference number is manual or generated from the statement. Allowed Values: manual and from_statement */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** (Optional) VAT treatment for the bank rules. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling/purchasing Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the bank transaction.Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Product Type associated with the Rule. Allowed values: For UK and Europe: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods. */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** ID of the Tax Authority Associated with the Rule */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the Tax Exemption Associated with the Rule */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Unique identifier of the business location to associate with the rule. Use the location_id returned by the Locations API for the same organization. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
 }
 
 export interface UpdateARuleRequest {
@@ -235,57 +235,57 @@ export interface UpdateARuleRequest {
   /** Specifies the scope of accounts to which the rule applies. Use selected_accounts to specific accounts and provide the corresponding account_ids. Use all_accounts to apply the rule across all accounts in the organization, all_banks for all bank accounts, or all_credit_cards for all credit card accounts. Allowed Values: selected_accounts, all_accounts, all_banks, all_credit_cards. */
   readonly rule_category: string
   /** Comma-separated list of account IDs to which the rule applies. Applicable only when rule_category is selected_accounts. Do not send this parameter when rule_category is all_accounts, all_banks, or all_credit_cards. */
-  readonly account_ids?: string
+  readonly account_ids?: string | undefined
   /** Specifies whether the rule applies to deposits or withdrawals. This applies to both bank accounts and credit card accounts. Allowed Values: deposits, withdrawals. */
   readonly apply_to: string
   /** Specifies whether all the criteria have to be satisfied or not. Allowed Values : and and or */
   readonly criteria_type: string
   /** Specifies the auto-categorization behavior when the rule criteria are matched. recognize: Matching bank statements are recognized by the rule and can be categorized manually. autocategorize: Matching bank statements are automatically categorized in Zoho Books based on the rule. Allowed Values: autocategorize and recognize. */
-  readonly auto_categorize?: string
+  readonly auto_categorize?: string | undefined
   /** List of criteria based on which the rule will be applied. */
   readonly criterion: ReadonlyArray<{
     /** ID of the Criteria */
-    readonly criteria_id?: string
+    readonly criteria_id?: string | undefined
     /** Field involved in the Criteria */
-    readonly field?: string
+    readonly field?: string | undefined
     /** Comparator used in Criteria */
-    readonly comparator?: string
+    readonly comparator?: string | undefined
     /** Value to be compared with */
-    readonly value?: string
+    readonly value?: string | undefined
   }>
   /** Record the transaction based on the value specified in the apply_to node. For bank accounts: If apply_to is deposits: sales_without_invoices, transfer_fund, interest_income, other_income, expense_refund, deposit. If apply_to is withdrawals: expense, transfer_fund, card_payment, owner_drawings. For credit card accounts: If apply_to is deposits: card_payment, transfer_fund, expense_refund, refund. If apply_to is withdrawals: expense, transfer_fund. Allowed Values: expense, deposit, refund, transfer_fund, card_payment, sales_without_invoices, expense_refund, interest_income, other_income, owner_drawings. */
   readonly record_as: string
   /** Account which is involved in the rule with the target account. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the customer.(Applicable for sales_without_invoices,deposit, expense) */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Tax ID involved in the transaction. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Specifies if Reference number is manual or generated from the statement. Allowed Values: manual and from_statement */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** (Optional) VAT treatment for the bank rules. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling/purchasing Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the bank transaction.Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Product Type associated with the Rule. Allowed values: For UK and Europe: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods. */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** ID of the Tax Authority Associated with the Rule */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the Tax Exemption Associated with the Rule */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Unique identifier of the business location to associate with the rule. Use the location_id returned by the Locations API for the same organization. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
 }
 
 export interface BankAccountMatchFilterRequest {
   /** Name of the match filter rule. */
-  readonly rule_name?: string
+  readonly rule_name?: string | undefined
   /** Order in which the match filter is evaluated. */
-  readonly rule_order?: number
+  readonly rule_order?: number | undefined
   /** Transaction type the match filter applies to. */
-  readonly apply_to?: string
+  readonly apply_to?: string | undefined
 }
 
 export interface ListBankAccountRulesInput {}
@@ -315,7 +315,7 @@ export const createBankAccountRule = /*#__PURE__*/ operation<CreateBankAccountRu
 
 export interface BulkUpdateBankAccountRulesInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk update rules. `PUT /bankaccounts/rules` */
@@ -388,7 +388,7 @@ export const deleteBankAccountRule = /*#__PURE__*/ operation<DeleteBankAccountRu
 
 export interface ReorderBankAccountRulesInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reorder rules. `POST /bankaccounts/rules/order` */
@@ -403,7 +403,7 @@ export const reorderBankAccountRules = /*#__PURE__*/ operation<ReorderBankAccoun
 
 export interface SkipSuggestedBankAccountRuleInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Skip a suggested rule. `POST /bankaccounts/rules/skipsuggest` */

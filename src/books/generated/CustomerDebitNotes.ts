@@ -103,66 +103,66 @@ export interface CreateACustomerDebitNoteRequest {
   /** Type of the document. For customer debit notes, this should be debit_note */
   readonly type: "debit_note"
   /** Unique identifier for the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** List of contact person IDs */
-  readonly contact_persons?: ReadonlyArray<string>
+  readonly contact_persons?: ReadonlyArray<string> | undefined
   /** Debit note number */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Debit note date */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Payment terms in days */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Payment terms label */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Due date */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Exchange rate */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of custom fields for the debit note. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Invoice ID */
   readonly reference_invoice_id: string
   /** Invoice type description */
-  readonly reference_invoice_type?: string
+  readonly reference_invoice_type?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of line items in the debit note. */
   readonly line_items: ReadonlyArray<{
     /** Item ID */
     readonly item_id: string
     /** HSN or SAC code */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Description */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Rate */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Tax ID */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
   }>
 }
 
@@ -170,114 +170,114 @@ export interface UpdateACustomerDebitNoteRequest {
   /** Unique identifier for the customer */
   readonly customer_id: string
   /** Type of the document. For customer debit notes, this should be debit_note */
-  readonly type?: "debit_note"
+  readonly type?: "debit_note" | undefined
   /** Unique identifier for the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Debit note number */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Template ID */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Debit note date */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Payment terms in days */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Payment terms label */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Due date */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Discount applied to the debit note, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Exchange rate */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of custom fields for the debit note. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of line items in the debit note. */
   readonly line_items: ReadonlyArray<{
     /** Item ID */
     readonly item_id: string
     /** Product type */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** HSN or SAC code */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Description */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Rate */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Tax ID */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Item total */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
   }>
 }
 
 export interface ListCustomerDebitNotesInput {
   /** Search debit notes by item name. Filters debit notes based on product or service names in debit note line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding debit notes with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search debit notes by item ID. Filters debit notes based on the unique identifier of specific products or services in line items. Use the GET `/items` API to find available item IDs. Useful for finding all debit notes containing a specific product or service. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Search debit notes by item description. Filters debit notes based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding debit notes with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Search debit notes by customer name. Filters debit notes based on the business or individual name associated with the debit note. Maximum length is 100 characters. Useful for finding all debit notes for a specific customer or generating customer reports. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search debit notes by customer email address. Filters debit notes based on the email address of the customer or contact person. Maximum length is 100 characters. Useful for finding debit notes for specific customers or generating customer segment reports. */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Search debit notes by total amount. Filters debit notes based on the final debit note amount including taxes, discounts, and adjustments. Useful for finding debit notes within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Search debit notes by outstanding balance. Filters debit notes based on the remaining unpaid amount owed by the customer. Useful for finding overdue debit notes, tracking receivables, or generating aging reports. */
-  readonly balance?: string
+  readonly balance?: string | undefined
   /** Search debit notes by custom fields.Variants: custom_field_startswith and custom_field_contains */
-  readonly custom_field?: string
+  readonly custom_field?: string | undefined
   /** Search debit notes by debit note date. Filters debit notes based on the date they were created. Use yyyy-mm-dd format. Supports variants: date_start, date_end, date_before and date_after. Useful for finding debit notes within date ranges or specific time periods. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search debit notes by due date. Filters debit notes based on the payment due date. Use yyyy-mm-dd format. Supports variants: due_date_start, due_date_end, due_date_before and due_date_after. Useful for finding overdue debit notes or debit notes due within specific periods. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Search debit notes by creation date. Filters debit notes based on the date they were created. Use yyyy-mm-dd format. Supports variants: created_date_start, created_date_end, created_date_before and created_date_after. Useful for finding debit notes created within specific time periods or date ranges. */
-  readonly created_date?: string
+  readonly created_date?: string | undefined
   /** Search debit notes modified after a specific time. Filters debit notes based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated debit notes or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search debit notes by status. Filters debit notes based on their current state in the billing workflow. Allowed values: sent, draft, overdue, paid, void, unpaid, partially_paid and viewed. Useful for finding debit notes in specific stages of the billing process. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search debit notes by customer ID. Filters debit notes based on the unique identifier of the customer for whom the debit note was created. Use the customer ID returned by the Contacts API to find all debit notes for a specific customer. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter needs to be Type.DebitNote. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search debit notes by debit note number, purchase order, or customer name. This parameter performs a general search across multiple debit note fields. Maximum length is 100 characters. Useful for quick searches when you know part of the debit note information but are unsure which specific field to search. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort debit notes by specific column. Allowed values: customer_name, debit_note_number, date, due_date, total, balance and created_time. Use this parameter to organize debit note results in a specific order for better data analysis and reporting. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched from the paginated results. Default value is 1. Use this parameter along with per_page to navigate through large sets of debit note data. Useful for implementing pagination in your application. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Use this parameter to control the size of each page of results. Maximum value is 200. Useful for optimizing data transfer and improving application performance. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List customer debit notes. `GET /invoices` */
@@ -291,9 +291,9 @@ export const listCustomerDebitNotes = /*#__PURE__*/ operation<ListCustomerDebitN
 
 export interface CreateCustomerDebitNoteInput {
   /** Send the debit note to the contact person(s) associated with the debit note. Allowed values true and false. */
-  readonly send?: boolean
+  readonly send?: boolean | undefined
   /** Ignore auto debit note number generation for this debit note. This mandates the debit note number. Allowed values true and false */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateACustomerDebitNoteRequest
 }
 
@@ -311,9 +311,9 @@ export interface GetCustomerDebitNoteInput {
   /** Unique identifier for the debit note */
   readonly debit_note_id: string
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Get the details of a particular debit note in formats such as json/ pdf/ html. Default format is json. Allowed values json pdf and html */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get a customer debit note. `GET /invoices/{debit_note_id}` */
@@ -329,7 +329,7 @@ export interface UpdateCustomerDebitNoteInput {
   /** Unique identifier for the debit note */
   readonly debit_note_id: string
   /** Ignore auto debit note number generation for this debit note. This mandates the debit note number. Allowed values true and false */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: UpdateACustomerDebitNoteRequest
 }
 

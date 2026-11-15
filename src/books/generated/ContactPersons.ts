@@ -121,65 +121,65 @@ export type MarkAsPrimaryContactPersonResponse = typeof MarkAsPrimaryContactPers
 
 export interface CommunicationPreferenceInput {
   /** Used to check if SMS communication preference is enabled for the contact person. */
-  readonly is_sms_enabled?: boolean
+  readonly is_sms_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface CreateAContactPersonRequest {
   /** Contact id of the contact */
-  readonly contact_id?: string
+  readonly contact_id?: string | undefined
   /** Salutation for the contact. Max-length [25] */
-  readonly salutation?: string
+  readonly salutation?: string | undefined
   /** First name of the contact person. Max-length [100] */
   readonly first_name: string
   /** Last name of the contact person. Max-length [100] */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Email address of the contact person. Max-length [100] */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Max-length [50] */
-  readonly mobile?: string
+  readonly mobile?: string | undefined
   /** skype address. Max-length [50] */
-  readonly skype?: string
+  readonly skype?: string | undefined
   /** designation of a person. Max-length [50] */
-  readonly designation?: string
+  readonly designation?: string | undefined
   /** department on which a person belongs. Max-length [50] */
-  readonly department?: string
+  readonly department?: string | undefined
   /** option to enable the portal access. allowed values true,false */
-  readonly enable_portal?: boolean
+  readonly enable_portal?: boolean | undefined
   /** Preferred modes of communication for the contact person. */
-  readonly communication_preference?: CommunicationPreferenceInput
+  readonly communication_preference?: CommunicationPreferenceInput | undefined
 }
 
 export interface UpdateAContactPersonRequest {
   /** Contact id of the contact */
   readonly contact_id: string
   /** Salutation for the contact. Max-length [25] */
-  readonly salutation?: string
+  readonly salutation?: string | undefined
   /** First name of the contact person. Max-length [100] */
   readonly first_name: string
   /** Last name of the contact person. Max-length [100] */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Email address of the contact person. Max-length [100] */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Max-length [50] */
-  readonly mobile?: string
+  readonly mobile?: string | undefined
   /** skype address. Max-length [50] */
-  readonly skype?: string
+  readonly skype?: string | undefined
   /** designation of a person. Max-length [50] */
-  readonly designation?: string
+  readonly designation?: string | undefined
   /** department on which a person belongs. Max-length [50] */
-  readonly department?: string
+  readonly department?: string | undefined
   /** option to enable the portal access. allowed values true,false */
-  readonly enable_portal?: boolean
+  readonly enable_portal?: boolean | undefined
   /** To mark contact person as primary for contact */
-  readonly is_primary_contact?: boolean
+  readonly is_primary_contact?: boolean | undefined
   /** Preferred modes of communication for the contact person. */
-  readonly communication_preference?: CommunicationPreferenceInput
+  readonly communication_preference?: CommunicationPreferenceInput | undefined
 }
 
 export interface CreateContactPersonInput {
@@ -230,9 +230,9 @@ export interface ListContactPersonsInput {
   /** Unique identifier of the contact. */
   readonly contact_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List contact persons. `GET /contacts/{contact_id}/contactpersons` */
@@ -264,7 +264,7 @@ export interface MarkContactPersonPrimaryInput {
   /** Unique identifier of the contact person. */
   readonly contact_person_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as primary contact person. `POST /contacts/contactpersons/{contact_person_id}/primary` */

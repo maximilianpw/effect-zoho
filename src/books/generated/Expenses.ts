@@ -418,131 +418,131 @@ export interface CreateAnExpenseRequest {
   /** Amount of the Expense. */
   readonly amount: number
   /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Add HSN/SAC code for your goods/services */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** ID of the reverse charge tax. Note: This value is a set of numeric characters. */
-  readonly reverse_charge_tax_id?: string
+  readonly reverse_charge_tax_id?: string | undefined
   /** Location ID. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items for the expense. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier of the line item. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** ID of the expense account. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the expense. Max-length [100] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Amount of the Expense. */
-    readonly amount?: number
+    readonly amount?: number | undefined
     /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Order of the line item in the expense. */
-    readonly item_order?: string
+    readonly item_order?: string | undefined
     /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. Note: This value is a set of numeric characters. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** ID of the reverse charge tax. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Enter tax exemption code */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Enter tax exemption ID. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag's Name */
-      readonly tag_name?: string
+      readonly tag_name?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
+      readonly tag_option_id?: string | undefined
       /** Tag Option's Name */
-      readonly tag_option_name?: string
+      readonly tag_option_name?: string | undefined
       /** Used to check if the tag is mandatory */
-      readonly is_tag_mandatory?: boolean
-    }>
-  }>
+      readonly is_tag_mandatory?: boolean | undefined
+    }> | undefined
+  }> | undefined
   /** Taxes applicable for the expense. */
   readonly taxes?: ReadonlyArray<{
     /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Tax amount for the expense. */
-    readonly tax_amount?: number
-  }>
+    readonly tax_amount?: number | undefined
+  }> | undefined
   /** To specify whether the tax is inclusive in the amount or not. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** To specify whether the expense is billable to the customer or not. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Reference number of the expense. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Description of the expense. Max-length [100] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the expense account. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Unique identifier of the currency. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange rate of the currency with respect to the base currency of the organization. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** ID of the project associated with the customer. Note: This value is a set of numeric characters. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Type of the mileage. */
-  readonly mileage_type?: string
+  readonly mileage_type?: string | undefined
   /** VAT treatment for the expense. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the expense .Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. Note: This value is a set of numeric characters. */
-  readonly acquisition_vat_id?: string
+  readonly acquisition_vat_id?: string | undefined
   /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. Note: This value is a set of numeric characters. */
-  readonly reverse_charge_vat_id?: string
+  readonly reverse_charge_vat_id?: string | undefined
   /** Start reading of odometer when creating a mileage expense where mileage_type is odometer. */
-  readonly start_reading?: number
+  readonly start_reading?: number | undefined
   /** End reading of odometer when creating a mileage expense where mileage_type is odometer. */
-  readonly end_reading?: number
+  readonly end_reading?: number | undefined
   /** Distance travelled for a particular mileage expense where mileage_type is manual */
-  readonly distance?: string
+  readonly distance?: string | undefined
   /** Unit of the distance travelled. Allowed Values: km and mile */
-  readonly mileage_unit?: string
+  readonly mileage_unit?: string | undefined
   /** Mileage rate for a particular mileage expense. */
-  readonly mileage_rate?: number
+  readonly mileage_rate?: number | undefined
   /** ID of the employee who has submitted this mileage expense. Note: This value is a set of numeric characters. */
-  readonly employee_id?: string
+  readonly employee_id?: string | undefined
   /** Vehicle type for a particular mileage expense. Allowed Values: car, van, motorcycle and bike */
-  readonly vehicle_type?: string
+  readonly vehicle_type?: string | undefined
   /** To specify if tax can be reclaimed for this mileage expense. */
-  readonly can_reclaim_vat_on_mileage?: string
+  readonly can_reclaim_vat_on_mileage?: string | undefined
   /** Fuel type for a particular mileage expense. Allowed Values: petrol, lpg and diesel */
-  readonly fuel_type?: string
+  readonly fuel_type?: string | undefined
   /** Engine capacity range for a particular mileage expense. Allowed Values: less_than_1400cc, between_1400cc_and_1600cc, between_1600cc_and_2000cc and more_than_2000cc */
-  readonly engine_capacity_range?: string
+  readonly engine_capacity_range?: string | undefined
   /** Search expenses by paid through account id. Note: This value is a set of numeric characters. */
   readonly paid_through_account_id: string
   /** ID of the vendor the expense is made. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Custom fields for an expense. */
-  readonly custom_fields?: ReadonlyArray<string>
+  readonly custom_fields?: ReadonlyArray<string> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnExpenseRequest {
@@ -553,131 +553,131 @@ export interface UpdateAnExpenseRequest {
   /** Amount of the Expense. */
   readonly amount: number
   /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Add HSN/SAC code for your goods/services */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** ID of the reverse charge tax. Note: This value is a set of numeric characters. */
-  readonly reverse_charge_tax_id?: string
+  readonly reverse_charge_tax_id?: string | undefined
   /** Line items for the expense. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier of the line item. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** ID of the expense account. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the expense. Max-length [100] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Amount of the Expense. */
-    readonly amount?: number
+    readonly amount?: number | undefined
     /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Order of the line item in the expense. */
-    readonly item_order?: string
+    readonly item_order?: string | undefined
     /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. Note: This value is a set of numeric characters. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** ID of the reverse charge tax. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Enter tax exemption code */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Enter tax exemption ID. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag's Name */
-      readonly tag_name?: string
+      readonly tag_name?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
+      readonly tag_option_id?: string | undefined
       /** Tag Option's Name */
-      readonly tag_option_name?: string
+      readonly tag_option_name?: string | undefined
       /** Used to check if the tag is mandatory */
-      readonly is_tag_mandatory?: boolean
-    }>
-  }>
+      readonly is_tag_mandatory?: boolean | undefined
+    }> | undefined
+  }> | undefined
   /** Location ID. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Taxes applicable for the expense. */
   readonly taxes?: ReadonlyArray<{
     /** Unique identifier of the tax. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Tax amount for the expense. */
-    readonly tax_amount?: number
-  }>
+    readonly tax_amount?: number | undefined
+  }> | undefined
   /** To specify whether the tax is inclusive in the amount or not. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** To specify whether the expense is billable to the customer or not. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Reference number of the expense. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Description of the expense. Max-length [100] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the expense account. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Unique identifier of the currency. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange rate of the currency with respect to the base currency of the organization. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** ID of the project associated with the customer. Note: This value is a set of numeric characters. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Type of the mileage. */
-  readonly mileage_type?: string
+  readonly mileage_type?: string | undefined
   /** VAT treatment for the expense. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the expense .Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK: digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. Note: This value is a set of numeric characters. */
-  readonly acquisition_vat_id?: string
+  readonly acquisition_vat_id?: string | undefined
   /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. Note: This value is a set of numeric characters. */
-  readonly reverse_charge_vat_id?: string
+  readonly reverse_charge_vat_id?: string | undefined
   /** Start reading of odometer when creating a mileage expense where mileage_type is odometer. */
-  readonly start_reading?: number
+  readonly start_reading?: number | undefined
   /** End reading of odometer when creating a mileage expense where mileage_type is odometer. */
-  readonly end_reading?: number
+  readonly end_reading?: number | undefined
   /** Distance travelled for a particular mileage expense where mileage_type is manual */
-  readonly distance?: string
+  readonly distance?: string | undefined
   /** Unit of the distance travelled. Allowed Values: km and mile */
-  readonly mileage_unit?: string
+  readonly mileage_unit?: string | undefined
   /** Mileage rate for a particular mileage expense. */
-  readonly mileage_rate?: number
+  readonly mileage_rate?: number | undefined
   /** ID of the employee who has submitted this mileage expense. Note: This value is a set of numeric characters. */
-  readonly employee_id?: string
+  readonly employee_id?: string | undefined
   /** Vehicle type for a particular mileage expense. Allowed Values: car, van, motorcycle and bike */
-  readonly vehicle_type?: string
+  readonly vehicle_type?: string | undefined
   /** To specify if tax can be reclaimed for this mileage expense. */
-  readonly can_reclaim_vat_on_mileage?: string
+  readonly can_reclaim_vat_on_mileage?: string | undefined
   /** Fuel type for a particular mileage expense. Allowed Values: petrol, lpg and diesel */
-  readonly fuel_type?: string
+  readonly fuel_type?: string | undefined
   /** Engine capacity range for a particular mileage expense. Allowed Values: less_than_1400cc, between_1400cc_and_1600cc, between_1600cc_and_2000cc and more_than_2000cc */
-  readonly engine_capacity_range?: string
+  readonly engine_capacity_range?: string | undefined
   /** Search expenses by paid through account id. Note: This value is a set of numeric characters. */
   readonly paid_through_account_id: string
   /** ID of the vendor the expense is made. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Custom fields for an expense. */
-  readonly custom_fields?: ReadonlyArray<string>
+  readonly custom_fields?: ReadonlyArray<string> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface CreateAnEmployeeRequest {
@@ -691,48 +691,48 @@ export interface AddAttachmentToAnExpenseRequest {
   /** Expense attachment file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc, docx, txt and csv */
   readonly attachment: ZohoFile
   /** Total number of files being uploaded. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** Array of document IDs for batch processing. Note: This value is a set of numeric characters separated by comma. */
-  readonly document_ids?: ReadonlyArray<string>
+  readonly document_ids?: ReadonlyArray<string> | undefined
 }
 
 export interface ListExpensesInput {
   /** Search expenses by description.Variants description_startswith and description_contains. Max-length [100] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Search expenses by reference number. Variants reference_number_startswith and reference_number_contains. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search expenses by expense date. Variants date_start, date_end, date_before and date_after. Format [yyyy-mm-dd] */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search expenses by expense status. Allowed Values unbilled, invoiced, reimbursed, non-billable and billable */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search expenses by amount. Variants: amount_less_than, amount_less_equals, amount_greater_than and amount_greater_than */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Search expenses by expense account name. Variants account_name_startswith and account_name_contains. Max-length [100] */
-  readonly account_name?: string
+  readonly account_name?: string | undefined
   /** Search expenses by customer name. Variants: customer_name_startswith and customer_name_contains. Max-length [100] */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search expenses by vendor name. Variants: vendor_name_startswith and vendor_name_contains. */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** ID of the expense account. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** ID of the vendor the expense is made. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Search expenses by recurring expense id. Note: This value is a set of numeric characters. */
-  readonly recurring_expense_id?: string
+  readonly recurring_expense_id?: string | undefined
   /** Search expenses by paid through account id. Note: This value is a set of numeric characters. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Search expenses by specific project ID. Accepts the unique identifier for a project to retrieve all expenses associated with that particular project. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Search expenses by account name or description or customer name or vendor name. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort expenses.Allowed Values date, account_name, total, bcy_total, reference_number, customer_name and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter expenses by expense status. Allowed Values Status.All, Status.Billable, Status.Nonbillable, Status.Reimbursed, Status.Invoicedand Status.Unbilled */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Expenses. `GET /expenses` */
@@ -746,7 +746,7 @@ export const listExpenses = /*#__PURE__*/ operation<ListExpensesInput, typeof Li
 
 export interface CreateExpenseInput {
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: ZohoFile
+  readonly receipt?: ZohoFile | undefined
   readonly body: CreateAnExpenseRequest
 }
 
@@ -767,7 +767,7 @@ export interface UpdateExpenseUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAnExpenseRequest
 }
 
@@ -800,9 +800,9 @@ export interface UpdateExpenseInput {
   /** Unique identifier of the expense. Note: This value is a set of numeric characters. */
   readonly expense_id: string
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: ZohoFile
+  readonly receipt?: ZohoFile | undefined
   /** Delete the existing receipt. If this parameter is set to true, the existing receipt will be deleted and the receipt provided in the request will be attached to the expense. If this parameter is not sent in the request, then the existing receipt will be retained and the new receipt provided in the request will be ignored. */
-  readonly delete_receipt?: boolean
+  readonly delete_receipt?: boolean | undefined
   readonly body: UpdateAnExpenseRequest
 }
 
@@ -847,9 +847,9 @@ export const listExpenseComments = /*#__PURE__*/ operation<ListExpenseCommentsIn
 
 export interface ListEmployeesInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List employees. `GET /employees` */
@@ -907,7 +907,7 @@ export interface GetExpenseReceiptInput {
   /** Unique identifier of the expense. Note: This value is a set of numeric characters. */
   readonly expense_id: string
   /** Get the thumbnail of the receipt. */
-  readonly preview?: boolean
+  readonly preview?: boolean | undefined
 }
 
 /** Get an expense receipt. `GET /expenses/{expense_id}/receipt` */
@@ -923,9 +923,9 @@ export interface CreateExpenseReceiptInput {
   /** Unique identifier of the expense. Note: This value is a set of numeric characters. */
   readonly expense_id: string
   /** Expense receipt file to attach. Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly receipt?: ZohoFile
+  readonly receipt?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add receipt to an expense.. `POST /expenses/{expense_id}/receipt` */

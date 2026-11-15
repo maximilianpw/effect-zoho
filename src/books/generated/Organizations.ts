@@ -208,119 +208,119 @@ export type MarkOrganizationInactiveResponse = typeof MarkOrganizationInactiveRe
 
 export interface AddressInput {
   /** Street name of the Billing address of the Organisation */
-  readonly street_address1?: string
+  readonly street_address1?: string | undefined
   /** Continyed billing address of the organisation */
-  readonly street_address2?: string
+  readonly street_address2?: string | undefined
   /** City of the organisation */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State where the organisation is located */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Country of the Organisation */
-  readonly country?: string
+  readonly country?: string | undefined
   /** ZIP/Postal code of the organisation's location */
-  readonly zip?: string
+  readonly zip?: string | undefined
 }
 
 export interface CreateAnOrganizationRequest {
   /** Name of the project. */
   readonly name: string
   /** Fiscal or financial starting year of your business. Allowed Values: january, february, march, april, may, june, july, august, september, october, november and december */
-  readonly fiscal_year_start_month?: string
+  readonly fiscal_year_start_month?: string | undefined
   /** Standard code for currency. */
   readonly currency_code: string
   /** Time zone in with the organization is located geographically. */
   readonly time_zone: string
   /** Format for representing the date. */
-  readonly date_format?: string
+  readonly date_format?: string | undefined
   /** Field separator for components in date. */
-  readonly field_separator?: string
+  readonly field_separator?: string | undefined
   /** language code for organization.For instance en represents english. */
-  readonly language_code?: string
+  readonly language_code?: string | undefined
   /** Business type */
-  readonly industry_type?: string
+  readonly industry_type?: string | undefined
   /** The size of the industry. The possibe values could be "small scale", "medium scale", "large scale" */
-  readonly industry_size?: string
+  readonly industry_size?: string | undefined
   /** Poratal name for the organisation. Length of the portal name should be greater than 4 and less than 31. Allowed chars [a-z][A-Z][0-9] */
   readonly portal_name: string
   /** Billing address of the organisation */
-  readonly org_address?: string
+  readonly org_address?: string | undefined
   /** Shipping address of the organisation */
-  readonly remit_to_address?: string
+  readonly remit_to_address?: string | undefined
   /** Billing address of the organisation */
-  readonly address?: AddressInput
+  readonly address?: AddressInput | undefined
 }
 
 export interface UpdateAnOrganizationRequest {
   /** Name of the project. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Fiscal or financial starting year of your business. Allowed Values: january, february, march, april, may, june, july, august, september, october, november and december */
-  readonly fiscal_year_start_month?: string
+  readonly fiscal_year_start_month?: string | undefined
   /** To determine whether logo is uploaded. */
-  readonly is_logo_uploaded?: boolean
+  readonly is_logo_uploaded?: boolean | undefined
   /** Time zone in with the organization is located geographically. */
-  readonly time_zone?: string
+  readonly time_zone?: string | undefined
   /** Format for representing the date. */
-  readonly date_format?: string
+  readonly date_format?: string | undefined
   /** Field separator for components in date. */
-  readonly field_separator?: string
+  readonly field_separator?: string | undefined
   /** language code for organization.For instance en represents english. */
-  readonly language_code?: string
+  readonly language_code?: string | undefined
   /** Billing address of the organisation */
-  readonly org_address?: string
+  readonly org_address?: string | undefined
   /** Shipping address of the organisation */
-  readonly remit_to_address?: string
+  readonly remit_to_address?: string | undefined
   /** Billing address of the organisation */
-  readonly address?: AddressInput
+  readonly address?: AddressInput | undefined
   /** Name of the contact person of the organisation */
-  readonly contact_name?: string
+  readonly contact_name?: string | undefined
   /** Contact number of the organisation */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** FAX number of the organisation */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Organisation's website */
-  readonly website?: string
+  readonly website?: string | undefined
   /** email ID of the contact person of the organisation */
-  readonly email?: string
+  readonly email?: string | undefined
   /** ID of the organisation curreency. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Label " Company ID " */
-  readonly companyid_label?: string
+  readonly companyid_label?: string | undefined
   /** value in field "company ID" */
-  readonly companyid_value?: string
+  readonly companyid_value?: string | undefined
   /** Label "tax ID" */
-  readonly taxid_label?: string
+  readonly taxid_label?: string | undefined
   /** Value in "tax ID" */
-  readonly taxid_value?: string
+  readonly taxid_value?: string | undefined
   /** Additional fields to describe an organisation */
   readonly custom_fields?: ReadonlyArray<{
     /** Index used to list */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the list */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Label of each column */
-    readonly label?: string
-  }>
+    readonly label?: string | undefined
+  }> | undefined
 }
 
 export interface OrganizationAddressRequest {
   /** Name of the person to whose attention the address is directed. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** First line of the organization address. */
-  readonly address1?: string
+  readonly address1?: string | undefined
   /** Second line of the organization address. */
-  readonly address2?: string
+  readonly address2?: string | undefined
   /** City of the organization address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the organization address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** State code of the organization address. */
-  readonly state_code?: string
+  readonly state_code?: string | undefined
   /** Country of the organization address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** ZIP or postal code of the organization address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Phone number associated with the organization address. */
-  readonly phone?: string
+  readonly phone?: string | undefined
 }
 
 export interface ListOrganizationsInput {}
@@ -384,17 +384,17 @@ export const updateOrganization = /*#__PURE__*/ operation<UpdateOrganizationInpu
 
 export interface ListOrganizationsForUserInput {
   /** Email address of the user whose organizations are listed. */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Whether to list only organizations that use the same currency. */
-  readonly show_same_currency_orgs_only?: boolean
+  readonly show_same_currency_orgs_only?: boolean | undefined
   /** Whether to list only organizations where the user is an admin. */
-  readonly show_admin_orgs_only?: boolean
+  readonly show_admin_orgs_only?: boolean | undefined
   /** Whether the request is part of starting a trial. */
-  readonly startTrial?: boolean
+  readonly startTrial?: boolean | undefined
   /** Whether to list only active organizations. */
-  readonly show_active_orgs_only?: boolean
+  readonly show_active_orgs_only?: boolean | undefined
   /** Name of the app for which the organizations are listed. */
-  readonly app_name?: string
+  readonly app_name?: string | undefined
 }
 
 /** List organizations for a user. `GET /organizations/user` */
@@ -472,7 +472,7 @@ export interface CopyOrganizationSettingsInput {
   /** The settings to copy to the organization. */
   readonly settings_to_copy: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Copy settings to an organization. `POST /organizations/{organization_id}/copysettings` */
@@ -490,7 +490,7 @@ export interface DowngradeOrganizationToInvoiceInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Downgrade an organization to Zoho Invoice. `POST /organizations/{organization_id}/downgradetoinvoice` */
@@ -508,7 +508,7 @@ export interface UpgradeOrganizationToBooksInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Upgrade an organization to Zoho Books. `POST /organizations/{organization_id}/upgradetobooks` */
@@ -526,7 +526,7 @@ export interface MarkOrganizationInactiveInput {
   /** Unique identifier of the organization. Note: This value is a set of numeric characters. */
   readonly organization_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an organization as inactive. `POST /organizations/{organization_id}/inactive` */

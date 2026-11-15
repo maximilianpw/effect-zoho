@@ -292,7 +292,7 @@ class Module {
     const fields = Object.entries(shape.properties ?? {})
       .filter(([, property]) => this.resolve(property).readOnly !== true && property.readOnly !== true)
       .map(([name, property]) =>
-        `${comment(this.resolve(property).description ?? property.description, `${indent}  `)}${indent}  readonly ${key(name)}${required.has(name) ? '' : '?'}: ${this.inputType(property, `${indent}  `)}`)
+        `${comment(this.resolve(property).description ?? property.description, `${indent}  `)}${indent}  readonly ${key(name)}${required.has(name) ? `: ${this.inputType(property, `${indent}  `)}` : `?: ${this.inputType(property, `${indent}  `)} | undefined`}`)
     return fields.length === 0 ? 'Readonly<Record<string, unknown>>' : `{\n${fields.join('\n')}\n${indent}}`
   }
 
@@ -373,7 +373,7 @@ class Module {
 
     const fields = [...declared.values()].map((parameter) => {
       const required = parameter.in === 'path' || parameter.required === true
-      return `${comment(parameter.description, '  ')}  readonly ${key(parameter.name)}${required ? '' : '?'}: ${this.parameterType(parameter)}`
+      return `${comment(parameter.description, '  ')}  readonly ${key(parameter.name)}${required ? `: ${this.parameterType(parameter)}` : `?: ${this.parameterType(parameter)} | undefined`}`
     })
 
     const content = node.requestBody?.content ?? {}
@@ -389,7 +389,7 @@ class Module {
     } else if (method === 'post' || method === 'put') {
       // Many actions that take a body are documented without one.
       bodyKind = 'json'
-      fields.push('  /** Zoho documents no body for this operation. */\n  readonly body?: Readonly<Record<string, unknown>>')
+      fields.push('  /** Zoho documents no body for this operation. */\n  readonly body?: Readonly<Record<string, unknown>> | undefined')
     }
     const fileParameters = [...declared.values()].filter((parameter) => parameter.schema !== undefined && this.isFile(parameter.schema)).map((parameter) => parameter.name)
 

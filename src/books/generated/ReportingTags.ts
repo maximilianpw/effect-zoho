@@ -176,29 +176,29 @@ export type ReorderTagsResponse = typeof ReorderTagsResponse.Type
 
 export interface MultiPreferenceEntitiesInput {
   /** Preference type. Currently, only 'transaction' and 'line_item' is supported for this node */
-  readonly preference?: string
+  readonly preference?: string | undefined
   /** Entities that can only be enabled or disabled */
   readonly entities?: ReadonlyArray<{
     /** Entity Name. Possible Values: Sales - sales, Purchases - purchases, Journal - journals, Inventory Adjustment - inventory_adjustment */
-    readonly entity_name?: "sales" | "purchases" | "journals" | "inventory_adjustment"
+    readonly entity_name?: "sales" | "purchases" | "journals" | "inventory_adjustment" | undefined
     /** Is Enabled */
-    readonly is_enabled?: boolean
-  }>
+    readonly is_enabled?: boolean | undefined
+  }> | undefined
 }
 
 export interface UpdateReportingTagRequest {
   /** Tag Name */
   readonly tag_name: string
   /** Description */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Is Mandatory */
-  readonly is_mandatory?: boolean
+  readonly is_mandatory?: boolean | undefined
   /** Entities that can only be enabled or disabled which can also be called as mono-preference entities. Note:If you have Payroll joined then journal will be sent in this list instead of multiple_preference_entities */
   readonly entities: ReadonlyArray<{
     /** Entity NamePossible Values: Customer - customers, Vendor - vendors, Item - items, Banking - banking Fixed Asset - fixed_asset */
-    readonly entity_name?: "customers" | "vendors" | "items" | "banking" | "fixed_asset"
+    readonly entity_name?: "customers" | "vendors" | "items" | "banking" | "fixed_asset" | undefined
     /** Is Enabled */
-    readonly is_enabled?: boolean
+    readonly is_enabled?: boolean | undefined
   }>
   readonly multi_preference_entities: MultiPreferenceEntitiesInput
 }
@@ -207,24 +207,24 @@ export interface UpdateOptionsRequest {
   /** List of options for the reporting tag. */
   readonly options: ReadonlyArray<{
     /** Option Name */
-    readonly option_name?: string
+    readonly option_name?: string | undefined
     /** Option ID */
-    readonly option_id?: string
+    readonly option_id?: string | undefined
     /** Is the option active for the tag */
-    readonly is_active?: boolean
+    readonly is_active?: boolean | undefined
     /** Is the option default for the tag */
-    readonly is_default?: boolean
+    readonly is_default?: boolean | undefined
     /** Child options of an option */
     readonly children?: ReadonlyArray<{
       /** Option ID */
-      readonly option_id?: string
+      readonly option_id?: string | undefined
       /** Option Name */
-      readonly option_name?: string
+      readonly option_name?: string | undefined
       /** Is the option active for the tag */
-      readonly is_active?: boolean
+      readonly is_active?: boolean | undefined
       /** Is the option default for the tag */
-      readonly is_default?: boolean
-    }>
+      readonly is_default?: boolean | undefined
+    }> | undefined
   }>
 }
 
@@ -232,23 +232,23 @@ export interface UpdateCriteriaRequest {
   /** Filter tags and location */
   readonly criteria_tags: ReadonlyArray<{
     /** Filter tag ID. If the filter 'type' is location, null should be passed */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Type of filter entity. Allowed values: Tag tag and Location location. */
-    readonly type?: string
+    readonly type?: string | undefined
   }>
   /** Options for criteria */
   readonly options: ReadonlyArray<{
     /** Option ID */
-    readonly option_id?: string
+    readonly option_id?: string | undefined
     /** List containing filter tags and location */
     readonly criteria_options?: ReadonlyArray<{
       /** Filter tag ID. If the filter 'type' is location, null should be passed */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Type of filter entity. Allowed values: Tag tag and Location location. */
-      readonly type?: string
+      readonly type?: string | undefined
       /** Options selected for the criteria */
-      readonly options?: ReadonlyArray<string>
-    }>
+      readonly options?: ReadonlyArray<string> | undefined
+    }> | undefined
   }>
 }
 
@@ -283,7 +283,7 @@ export interface MarkDefaultOptionInput {
   /** ID of the option to be marked as default. If this parameter is not sent or sent empty, the current default option of the tag will be removed. */
   readonly default_option_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an option as default for a reporting tag. `POST /reportingtags/{tag_id}` */
@@ -362,7 +362,7 @@ export interface ActiveTagInput {
   /** ID of the reporting tag */
   readonly tag_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark Reporting Tag as active. `POST /reportingtags/{tag_id}/active` */
@@ -379,7 +379,7 @@ export interface InactiveTagInput {
   /** ID of the reporting tag */
   readonly tag_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark Reporting Tag as inactive. `POST /reportingtags/{tag_id}/inactive` */
@@ -398,7 +398,7 @@ export interface ActiveTagOptionInput {
   /** ID of a reporting tag's option */
   readonly option_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an option as active. `POST /reportingtags/{tag_id}/option/{option_id}/active` */
@@ -417,7 +417,7 @@ export interface InactiveTagOptionInput {
   /** ID of a reporting tag's option */
   readonly option_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an option as inactive. `POST /reportingtags/{tag_id}/option/{option_id}/inactive` */
@@ -447,7 +447,7 @@ export const getAllTagOptions = /*#__PURE__*/ operation<GetAllTagOptionsInput, t
 export interface AllTagOptionsInput {
   readonly tag_id: string
   /** 'untagged' will be included in the response if this parameter is set to true. */
-  readonly show_untagged?: boolean
+  readonly show_untagged?: boolean | undefined
 }
 
 /** Get all Options. `GET /reportingtags/{tag_id}/options/all` */
@@ -462,7 +462,7 @@ export const allTagOptions = /*#__PURE__*/ operation<AllTagOptionsInput, typeof 
 export interface ReorderTagsInput {
   readonly body: {
     /** List of reporting tag IDs in the desired order */
-    readonly tags?: ReadonlyArray<string>
+    readonly tags?: ReadonlyArray<string> | undefined
   }
 }
 

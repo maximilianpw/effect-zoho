@@ -254,127 +254,127 @@ export type DeleteATaxExemptionUsEditionOnlyResponse = typeof DeleteATaxExemptio
 
 export interface CreateATaxRequest {
   /** Name of the Tax */
-  readonly tax_name?: string
+  readonly tax_name?: string | undefined
   /** Number of Percentage Taxable. */
-  readonly tax_percentage?: number
+  readonly tax_percentage?: number | undefined
   /** Type to determine whether it is a simple or compound tax. Allowed Values: tax and compound_tax */
-  readonly tax_type?: string
+  readonly tax_type?: string | undefined
   /** Type of Tax Factor. Allowed values: rate, share */
-  readonly tax_factor?: string
+  readonly tax_factor?: string | undefined
   /** Type of Tax For Indian Edition. Allowed Values : igst ,cgst ,sgst ,nil, cess .Type of Tax for Mexico Edition. Allowed Values : isr, iva, ieps.Type of Tax for South Africa Edition. Allowed Values : soa_less_than_28d - Supply of accommodation not exceeding 28 days, soa_more_than_28d - Supply of accommodation exceeding than 28 days, ciu_prev_tax_supply - Change in use (Taxable supplies), ciu_prev_nontax_supply - Change in use (Non-Taxable supplies), export_of_shg - Export of second hand goods. */
-  readonly tax_specific_type?: string
+  readonly tax_specific_type?: string | undefined
   /** Name of the Tax Authority */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Two letter country code for the EU country to which the tax belongs. */
-  readonly country_code?: string
+  readonly country_code?: string | undefined
   /** Account ID in which Purchase Tax will be Computed. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_expense_account_id?: string
+  readonly purchase_tax_expense_account_id?: string | undefined
   /** Check if Tax is Value Added */
-  readonly is_value_added?: boolean
+  readonly is_value_added?: boolean | undefined
   /** Check if recurring invoice should be updated */
-  readonly update_recurring_invoice?: boolean
+  readonly update_recurring_invoice?: boolean | undefined
   /** Check if recurring expenses should be updated */
-  readonly update_recurring_expense?: boolean
+  readonly update_recurring_expense?: boolean | undefined
   /** Check if Draft Invoices should be updated */
-  readonly update_draft_invoice?: boolean
+  readonly update_draft_invoice?: boolean | undefined
   /** Check if Recurring Bills should be updated */
-  readonly update_recurring_bills?: boolean
+  readonly update_recurring_bills?: boolean | undefined
   /** Check if Draft Sales Orders should be updated */
-  readonly update_draft_so?: boolean
+  readonly update_draft_so?: boolean | undefined
   /** Check if Subscriptions should be updated */
-  readonly update_subscription?: boolean
+  readonly update_subscription?: boolean | undefined
   /** Check if Projects should be updated */
-  readonly update_project?: boolean
+  readonly update_project?: boolean | undefined
   /** Check if tax is editable */
-  readonly is_editable?: boolean
+  readonly is_editable?: boolean | undefined
 }
 
 export interface UpdateATaxRequest {
   /** ID of the Tax. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Name of the Tax */
-  readonly tax_name?: string
+  readonly tax_name?: string | undefined
   /** Number of Percentage Taxable. */
-  readonly tax_percentage?: number
+  readonly tax_percentage?: number | undefined
   /** Type to determine whether it is a simple or compound tax. Allowed Values: tax and compound_tax */
-  readonly tax_type?: string
+  readonly tax_type?: string | undefined
   /** Type of Tax Factor. Allowed values: rate, share */
-  readonly tax_factor?: string
+  readonly tax_factor?: string | undefined
   /** Type of Tax For Indian Edition. Allowed Values : igst ,cgst ,sgst ,nil, cess .Type of Tax for Mexico Edition. Allowed Values : isr, iva, ieps.Type of Tax for South Africa Edition. Allowed Values : soa_less_than_28d - Supply of accommodation not exceeding 28 days, soa_more_than_28d - Supply of accommodation exceeding than 28 days, ciu_prev_tax_supply - Change in use (Taxable supplies), ciu_prev_nontax_supply - Change in use (Non-Taxable supplies), export_of_shg - Export of second hand goods. */
-  readonly tax_specific_type?: string
+  readonly tax_specific_type?: string | undefined
   /** Name of the Tax Authority */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Two letter country code for the EU country to which the tax belongs. */
-  readonly country_code?: string
+  readonly country_code?: string | undefined
   /** Account ID in which Purchase Tax will be Computed. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_expense_account_id?: string
+  readonly purchase_tax_expense_account_id?: string | undefined
   /** Check if Tax is Value Added */
-  readonly is_value_added?: boolean
+  readonly is_value_added?: boolean | undefined
   /** Check if recurring invoice should be updated */
-  readonly update_recurring_invoice?: boolean
+  readonly update_recurring_invoice?: boolean | undefined
   /** Check if recurring expenses should be updated */
-  readonly update_recurring_expense?: boolean
+  readonly update_recurring_expense?: boolean | undefined
   /** Check if Draft Invoices should be updated */
-  readonly update_draft_invoice?: boolean
+  readonly update_draft_invoice?: boolean | undefined
   /** Check if Recurring Bills should be updated */
-  readonly update_recurring_bills?: boolean
+  readonly update_recurring_bills?: boolean | undefined
   /** Check if Draft Sales Orders should be updated */
-  readonly update_draft_so?: boolean
+  readonly update_draft_so?: boolean | undefined
   /** Check if Subscriptions should be updated */
-  readonly update_subscription?: boolean
+  readonly update_subscription?: boolean | undefined
   /** Check if Projects should be updated */
-  readonly update_project?: boolean
+  readonly update_project?: boolean | undefined
   /** Check if tax is editable */
-  readonly is_editable?: boolean
+  readonly is_editable?: boolean | undefined
   /** Input Tax ID. The amount of money charged to you as Tax on your purchases. Note: This value is a set of numeric characters. */
-  readonly tds_payable_account_id?: string
+  readonly tds_payable_account_id?: string | undefined
 }
 
 export interface UpdateATaxGroupRequest {
   /** Name of the tax group to be created. */
-  readonly tax_group_name?: string
+  readonly tax_group_name?: string | undefined
   /** Comma Seperated list of tax IDs that are to be associated to the tax group. */
-  readonly taxes?: string
+  readonly taxes?: string | undefined
 }
 
 export interface CreateATaxGroupRequest {
   /** Name of the tax group to be created. */
-  readonly tax_group_name?: string
+  readonly tax_group_name?: string | undefined
   /** Comma Seperated list of tax IDs that are to be associated to the tax group. */
-  readonly taxes?: string
+  readonly taxes?: string | undefined
 }
 
 export interface CreateATaxAuthorityUsAndCaEditionOnlyRequest {
   /** Name of the Tax Authority */
   readonly tax_authority_name: string
   /** Description. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Registration Number of the Tax Authority */
-  readonly registration_number?: string
+  readonly registration_number?: string | undefined
   /** Label used to identify the tax authority registration number. */
-  readonly registration_number_label?: string
+  readonly registration_number_label?: string | undefined
 }
 
 export interface UpdateATaxAuthorityUsAndCaEditionOnlyRequest {
   /** Name of the Tax Authority */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** Description. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Registration Number of the Tax Authority */
-  readonly registration_number?: string
+  readonly registration_number?: string | undefined
   /** Label used to identify the tax authority registration number. */
-  readonly registration_number_label?: string
+  readonly registration_number_label?: string | undefined
 }
 
 export interface CreateATaxExemptionUsEditionOnlyRequest {
   /** Code of the Tax Exemption */
   readonly tax_exemption_code: string
   /** Description */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Type of the tax exemption, can be customer or item. */
   readonly type: string
 }
@@ -383,16 +383,16 @@ export interface UpdateATaxExemptionUsEditionOnlyRequest {
   /** Code of the Tax Exemption */
   readonly tax_exemption_code: string
   /** Description */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Type of the tax exemption, can be customer or item. */
   readonly type: string
 }
 
 export interface ListTaxesInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List taxes. `GET /settings/taxes` */

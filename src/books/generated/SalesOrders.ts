@@ -556,532 +556,532 @@ export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface CreateASalesOrderRequest {
   /** Unique identifier for the customer receiving the sales order. This ID links the order to a specific customer account and determines billing information, payment terms, pricing rules, and tax calculations based on customer settings. Can be fetched from the Get Contacts API or retrieved from existing customer records in your organization. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** Unique identifier for the currency used in the sales order transaction. Determines pricing display, exchange rate calculations, and affects financial reporting. If not specified, the organization default currency will be used automatically. Can be fetched from the Get Currencies API or retrieved from your organization currency settings. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Date when the sales order was created in YYYY-MM-DD format. This date affects order processing timelines, delivery schedules, payment terms calculation, and appears on customer-facing documents and internal reports. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Expected or actual date when goods will be shipped to the customer in YYYY-MM-DD format. Used for delivery planning, customer communication, inventory management, and tracking order fulfillment timelines. */
-  readonly shipment_date?: string
+  readonly shipment_date?: string | undefined
   /** Custom fields for a sales order. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier for the salesperson responsible for this sales order. Links the order to a specific sales representative customer relationship management, and sales reporting purposes. Note: This value is a set of numeric characters. */
-  readonly salesperson_id?: string
+  readonly salesperson_id?: string | undefined
   /** ID of the merchant. Note: This value is a set of numeric characters. */
-  readonly merchant_id?: string
+  readonly merchant_id?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique identifier for the business location entity. Specifies the organizational location where the sales order transaction is processed, affecting tax jurisdiction calculations, inventory allocation, reporting segmentation, and location-specific business rules enforcement. Can be retrieved from the Locations API. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a sales order. */
   readonly line_items?: ReadonlyArray<{
     /** Order of the line item in the sales order. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** ID of the item. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Name of the line item. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Description of the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Quantity of the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Enter goods or services .For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Add SAT Unit Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Unique identifier for the business location entity. Specifies the organizational location where the sales order transaction is processed, affecting tax jurisdiction calculations, inventory allocation, reporting segmentation, and location-specific business rules enforcement. Can be retrieved from the Locations API. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Discount applied to the sales order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: string
+    readonly discount?: string | undefined
     /** ID of the tax or tax group applied. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax or TDS tax group applied. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Unit of the line item e.g. kgs, Nos. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Custom fields for a sales order items. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the Custom Field. Note: This value is a set of numeric characters. */
-      readonly customfield_id?: string
+      readonly customfield_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** ID of the tax exemption applied. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of Tax Exemption that is applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Exemption certificate number of the customer. */
-    readonly avatax_exempt_no?: string
+    readonly avatax_exempt_no?: string | undefined
     /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. */
-    readonly avatax_use_code?: string
+    readonly avatax_use_code?: string | undefined
     /** ID of the project. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Free-form text field containing additional information, instructions, or comments related to the sales order. This field supports internal documentation, customer-specific requirements, special handling instructions, and inter-departmental communication for order processing workflows. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Contractual terms and conditions governing the sales order transaction. Defines payment obligations, delivery specifications, warranty provisions, liability limitations, and other legal stipulations that establish the binding agreement between the organization and customer for this specific transaction. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Unique identifier referencing the customer billing address entity. Determines the address used for invoice generation, payment processing, tax jurisdiction calculations, and financial record-keeping. Must correspond to a valid address record associated with the specified customer account. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier referencing the customer shipping address entity. Specifies the delivery destination for goods fulfillment, logistics planning, shipping cost calculations, and delivery confirmation processes. Must correspond to a valid address record within the customer address registry. Note: This value is a set of numeric characters. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Unique identifier for the CRM owner associated with the sales order. Note: This value is a set of numeric characters. */
-  readonly crm_owner_id?: string
+  readonly crm_owner_id?: string | undefined
   /** Custom reference identifier for CRM integration purposes. Note: This value is a set of numeric characters. */
-  readonly crm_custom_reference_id?: string
+  readonly crm_custom_reference_id?: string | undefined
   /** (Optional) VAT treatment for the sales order. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the sales order.Allowed Values: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique alphanumeric identifier for the sales order entity. Required when automatic numbering is disabled in organization settings. Must be unique within the organization and follows the configured numbering sequence pattern for sales order identification and tracking. */
-  readonly salesorder_number?: string
+  readonly salesorder_number?: string | undefined
   /** External reference identifier for cross-referencing with customer purchase orders, internal tracking systems, or third-party applications. Used for order reconciliation, customer communication, and integration with external business systems and workflows. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Boolean flag indicating whether customer billing address information should be synchronized with the sales order data. When enabled, updates the customer master record with address modifications, ensuring data consistency across customer relationship management systems. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Discount applied to the sales order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Currency conversion rate from the transaction currency to the organization base currency. Required for multi-currency transactions to ensure accurate financial reporting, profit calculations, and tax computations in the base currency denomination. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Full name of the sales representative assigned to this sales order. Automatically populated when salesperson_id is specified. */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Default Notes for the Sales Order */
-  readonly notes_default?: string
+  readonly notes_default?: string | undefined
   /** Default Terms of the Sales Order */
-  readonly terms_default?: string
+  readonly terms_default?: string | undefined
   /** Tax ID for the Sales Order. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the tax exemption applied. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Tax Authority's name. */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** Code of Tax Exemption that is applied */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Additional cost associated with product delivery and logistics services. Applied to the sales order total and affects final pricing calculations, profit margins, and customer billing. Supports decimal precision for accurate cost allocation. */
-  readonly shipping_charge?: number
+  readonly shipping_charge?: number | undefined
   /** Manual modification amount applied to the sales order total for rounding corrections, special pricing arrangements, or other business-specific adjustments. Supports positive and negative values for additions or deductions from the order total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Specification of the transportation and delivery mechanism for order fulfillment. Determines shipping costs, delivery timelines, carrier selection, and customer communication regarding order status and tracking information. */
-  readonly delivery_method?: string
+  readonly delivery_method?: string | undefined
   /** ID of the estimate associated with the Sales Order. Note: This value is a set of numeric characters. */
-  readonly estimate_id?: string
+  readonly estimate_id?: string | undefined
   /** Boolean flag determining the sequence of discount application in tax calculations. When true, discount is applied before tax computation; when false, discount is applied after tax calculation. Affects final pricing accuracy and tax compliance reporting. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Classification of discount application scope within the sales order. entity_level applies discount to the entire order total, while item_level applies discount to individual line items. Determines discount calculation methodology and affects pricing structure. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Textual explanation for the adjustment amount applied to the sales order. Provides audit trail documentation, justification for pricing modifications, and contextual information for financial reporting and compliance verification purposes. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Unique identifier for the pricing structure applied to the sales order. Determines item rates, discount rules, and pricing policies based on customer segments, volume tiers, or promotional campaigns. Can be retrieved from the Pricebooks API. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Unique identifier for the PDF document template used for sales order presentation. Determines document layout, branding elements, formatting specifications, and visual presentation standards for customer-facing documents and printed materials. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Documents attached to the sales order. */
-  readonly documents?: ReadonlyArray<string>
+  readonly documents?: ReadonlyArray<string> | undefined
   /** Unique identifier linking the sales order to a Zoho CRM potential record. Note: This value is a set of numeric characters. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
   /** Descriptive name of the Zoho CRM potential record associated with this sales order. */
-  readonly zcrm_potential_name?: string
+  readonly zcrm_potential_name?: string | undefined
 }
 
 export interface UpdateASalesOrderRequest {
   /** Unique identifier for the customer receiving the sales order. This ID links the order to a specific customer account and determines billing information, payment terms, pricing rules, and tax calculations based on customer settings. Can be fetched from the Get Contacts API or retrieved from existing customer records in your organization. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** Unique identifier for the currency used in the sales order transaction. Determines pricing display, exchange rate calculations, and affects financial reporting. If not specified, the organization default currency will be used automatically. Can be fetched from the Get Currencies API or retrieved from your organization currency settings. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Date when the sales order was created in YYYY-MM-DD format. This date affects order processing timelines, delivery schedules, payment terms calculation, and appears on customer-facing documents and internal reports. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Expected or actual date when goods will be shipped to the customer in YYYY-MM-DD format. Used for delivery planning, customer communication, inventory management, and tracking order fulfillment timelines. */
-  readonly shipment_date?: string
+  readonly shipment_date?: string | undefined
   /** Custom fields for a sales order. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier for the salesperson responsible for this sales order. Links the order to a specific sales representative customer relationship management, and sales reporting purposes. Note: This value is a set of numeric characters. */
-  readonly salesperson_id?: string
+  readonly salesperson_id?: string | undefined
   /** ID of the merchant. Note: This value is a set of numeric characters. */
-  readonly merchant_id?: string
+  readonly merchant_id?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique identifier for the business location entity. Specifies the organizational location where the sales order transaction is processed, affecting tax jurisdiction calculations, inventory allocation, reporting segmentation, and location-specific business rules enforcement. Can be retrieved from the Locations API. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of a sales order. */
   readonly line_items?: ReadonlyArray<{
     /** Order of the line item in the sales order. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** ID of the line item. Mandatory if the existing line item has to be updated. If empty, a new line item will be created. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** ID of the item. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Name of the line item. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Description of the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Quantity of the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Discount applied to the sales order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: string
+    readonly discount?: string | undefined
     /** Tax ID for the Sales Order. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax or TDS tax group applied. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Unit of the line item e.g. kgs, Nos. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Custom fields for a sales order items. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** ID of the Custom Field. Note: This value is a set of numeric characters. */
-      readonly customfield_id?: string
+      readonly customfield_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** ID of the tax exemption applied. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Code of Tax Exemption that is applied */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Exemption certificate number of the customer. */
-    readonly avatax_exempt_no?: string
+    readonly avatax_exempt_no?: string | undefined
     /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. */
-    readonly avatax_use_code?: string
+    readonly avatax_use_code?: string | undefined
     /** ID of the project. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Unique identifier for the business location entity. Specifies the organizational location where the sales order transaction is processed, affecting tax jurisdiction calculations, inventory allocation, reporting segmentation, and location-specific business rules enforcement. Can be retrieved from the Locations API. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Free-form text field containing additional information, instructions, or comments related to the sales order. This field supports internal documentation, customer-specific requirements, special handling instructions, and inter-departmental communication for order processing workflows. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Contractual terms and conditions governing the sales order transaction. Defines payment obligations, delivery specifications, warranty provisions, liability limitations, and other legal stipulations that establish the binding agreement between the organization and customer for this specific transaction. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Unique identifier referencing the customer billing address entity. Determines the address used for invoice generation, payment processing, tax jurisdiction calculations, and financial record-keeping. Must correspond to a valid address record associated with the specified customer account. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier referencing the customer shipping address entity. Specifies the delivery destination for goods fulfillment, logistics planning, shipping cost calculations, and delivery confirmation processes. Must correspond to a valid address record within the customer address registry. Note: This value is a set of numeric characters. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Unique identifier for the CRM owner associated with the sales order. Note: This value is a set of numeric characters. */
-  readonly crm_owner_id?: string
+  readonly crm_owner_id?: string | undefined
   /** Custom reference identifier for CRM integration purposes. Note: This value is a set of numeric characters. */
-  readonly crm_custom_reference_id?: string
+  readonly crm_custom_reference_id?: string | undefined
   /** (Optional) VAT treatment for the sales order. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the sales order.Allowed Values: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique alphanumeric identifier for the sales order entity. Required when automatic numbering is disabled in organization settings. Must be unique within the organization and follows the configured numbering sequence pattern for sales order identification and tracking. */
-  readonly salesorder_number?: string
+  readonly salesorder_number?: string | undefined
   /** External reference identifier for cross-referencing with customer purchase orders, internal tracking systems, or third-party applications. Used for order reconciliation, customer communication, and integration with external business systems and workflows. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Boolean flag indicating whether customer billing address information should be synchronized with the sales order data. When enabled, updates the customer master record with address modifications, ensuring data consistency across customer relationship management systems. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Discount applied to the sales order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Currency conversion rate from the transaction currency to the organization base currency. Required for multi-currency transactions to ensure accurate financial reporting, profit calculations, and tax computations in the base currency denomination. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Full name of the sales representative assigned to this sales order. Automatically populated when salesperson_id is specified. */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Default Notes for the Sales Order */
-  readonly notes_default?: string
+  readonly notes_default?: string | undefined
   /** Default Terms of the Sales Order */
-  readonly terms_default?: string
+  readonly terms_default?: string | undefined
   /** Tax ID for the Sales Order. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the tax exemption applied. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Tax Authority's name. */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** Code of Tax Exemption that is applied */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Additional cost associated with product delivery and logistics services. Applied to the sales order total and affects final pricing calculations, profit margins, and customer billing. Supports decimal precision for accurate cost allocation. */
-  readonly shipping_charge?: number
+  readonly shipping_charge?: number | undefined
   /** Manual modification amount applied to the sales order total for rounding corrections, special pricing arrangements, or other business-specific adjustments. Supports positive and negative values for additions or deductions from the order total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Specification of the transportation and delivery mechanism for order fulfillment. Determines shipping costs, delivery timelines, carrier selection, and customer communication regarding order status and tracking information. */
-  readonly delivery_method?: string
+  readonly delivery_method?: string | undefined
   /** Boolean flag determining the sequence of discount application in tax calculations. When true, discount is applied before tax computation; when false, discount is applied after tax calculation. Affects final pricing accuracy and tax compliance reporting. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Classification of discount application scope within the sales order. entity_level applies discount to the entire order total, while item_level applies discount to individual line items. Determines discount calculation methodology and affects pricing structure. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Textual explanation for the adjustment amount applied to the sales order. Provides audit trail documentation, justification for pricing modifications, and contextual information for financial reporting and compliance verification purposes. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Unique identifier for the pricing structure applied to the sales order. Determines item rates, discount rules, and pricing policies based on customer segments, volume tiers, or promotional campaigns. Can be retrieved from the Pricebooks API. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Unique identifier for the PDF document template used for sales order presentation. Determines document layout, branding elements, formatting specifications, and visual presentation standards for customer-facing documents and printed materials. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Documents attached to the sales order. */
-  readonly documents?: ReadonlyArray<string>
+  readonly documents?: ReadonlyArray<string> | undefined
   /** Unique identifier linking the sales order to a Zoho CRM potential record. Note: This value is a set of numeric characters. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
   /** Descriptive name of the Zoho CRM potential record associated with this sales order. */
-  readonly zcrm_potential_name?: string
+  readonly zcrm_potential_name?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateASalesorderCustomfieldRequest {
   /** Custom fields for a sales order. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Position index of the custom field in the sales order. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the Custom Field */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Display label of the custom field. */
-    readonly label?: string
-  }>
+    readonly label?: string | undefined
+  }> | undefined
 }
 
 export interface MarkASalesOrderAsVoidRequest {
   /** Reason to convert sales order as void . Maximum Length: 500 */
-  readonly reason?: string
+  readonly reason?: string | undefined
 }
 
 export interface EmailASalesOrderRequest {
   /** From Address of the Email Address */
-  readonly from_address_id?: string
+  readonly from_address_id?: string | undefined
   /** Boolean to trigger the email from the organization's email address. */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be CC ed. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Array of email address of the recipients to be BCC ed. */
-  readonly bcc_mail_ids?: ReadonlyArray<string>
+  readonly bcc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of the mail. */
   readonly subject: string
   /** Documents of the Sales Order */
-  readonly documents?: ZohoFile
+  readonly documents?: ZohoFile | undefined
   /** ID of the invoice. Note: This value is a set of numeric characters. */
-  readonly invoice_id?: string
+  readonly invoice_id?: string | undefined
   /** Body of the mail. */
   readonly body: string
 }
 
 export interface UpdateBillingAddressRequest {
   /** Address */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the address */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the Address */
-  readonly state?: string
+  readonly state?: string | undefined
   /** ZIP Code of the Address */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the Address */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Phone Number of the Contact Person. */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Fax Number */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Attention name or department for the shipping address. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Indicates whether the address is a one-time address not saved to the customer record. */
-  readonly is_one_off_address?: boolean
+  readonly is_one_off_address?: boolean | undefined
   /** Boolean flag indicating whether customer billing address information should be synchronized with the sales order data. When enabled, updates the customer master record with address modifications, ensuring data consistency across customer relationship management systems. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Check if the Address is verified */
-  readonly is_verified?: boolean
+  readonly is_verified?: boolean | undefined
 }
 
 export interface UpdateShippingAddressRequest {
   /** Address */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the address */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the Address */
-  readonly state?: string
+  readonly state?: string | undefined
   /** ZIP Code of the Address */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the Address */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax Number */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Attention name or department for the shipping address. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Indicates whether the address is a one-time address not saved to the customer record. */
-  readonly is_one_off_address?: boolean
+  readonly is_one_off_address?: boolean | undefined
   /** Boolean flag indicating whether customer billing address information should be synchronized with the sales order data. When enabled, updates the customer master record with address modifications, ensuring data consistency across customer relationship management systems. */
-  readonly is_update_customer?: boolean
+  readonly is_update_customer?: boolean | undefined
   /** Check if the Address is verified */
-  readonly is_verified?: boolean
+  readonly is_verified?: boolean | undefined
 }
 
 export interface AddCommentRequest {
   /** The description of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateCommentRequest {
   /** The description of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface ListSalesOrdersInput {
   /** Specify the column field for sorting sales order results. Available options include customer_name, salesorder_number, shipment_date, last_modified_time, reference_number, total, date, and created_time. */
-  readonly sort_column?: "customer_name" | "salesorder_number" | "reference_number" | "shipment_date" | "total" | "date" | "created_time" | "last_modified_time" | "subscription_number" | "first_name" | "company_name" | "cf_(\\w+)"
+  readonly sort_column?: "customer_name" | "salesorder_number" | "reference_number" | "shipment_date" | "total" | "date" | "created_time" | "last_modified_time" | "subscription_number" | "first_name" | "company_name" | "cf_(\\w+)" | undefined
   /** General search parameter for cross-field text matching across sales order number, reference number, and customer name fields. Enables unified search functionality for quick order identification and customer order lookup operations. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Filter sales order by status. Allowed Values: Status.All, Status.Open, Status.Draft, Status.OverDue, Status.PartiallyInvoiced, Status.Invoiced, Status.Void and Status.Closed */
-  readonly filter_by?: "Status.All" | "Status.Draft" | "Status.Open" | "Status.Invoiced" | "Status.InvoicedNotShipped" | "Status.Confirmed" | "Status.UnFulfilled" | "Status.MarketPlaceSalesOrder" | "Status.ThisCycle" | "Status.PreviousCycle" | "Status.PartiallyInvoiced" | "Status.Void" | "Status.Closed" | "Status.Pending" | "Status.Approved" | "Status.OverDue" | "Status.Shipped" | "Status.ShippedNotInvoiced" | "Status.ToBeShipped" | "Status.ToBeInvoiced" | "Status.Fulfilled" | "Status.ManuallyFulfilled" | "Status.BackOrdered" | "Status.OnHold" | "Status.DropShipped" | "Status.ToBePacked" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.Network" | "Status.NetworkPending" | "Status.MyApprovals" | "Status.Unconfirmed" | "Status.Portal" | "Status.Cancelled" | "Status.NotConfirmed" | "Status.PendingOrders" | "Status.ShippedNotCancelledOrFailed" | "Status.Delivered" | "Status.CancelledOrFailed" | "Status.Viewed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "WithAttachment" | "WithoutAttachment" | "ExceptionList"
+  readonly filter_by?: "Status.All" | "Status.Draft" | "Status.Open" | "Status.Invoiced" | "Status.InvoicedNotShipped" | "Status.Confirmed" | "Status.UnFulfilled" | "Status.MarketPlaceSalesOrder" | "Status.ThisCycle" | "Status.PreviousCycle" | "Status.PartiallyInvoiced" | "Status.Void" | "Status.Closed" | "Status.Pending" | "Status.Approved" | "Status.OverDue" | "Status.Shipped" | "Status.ShippedNotInvoiced" | "Status.ToBeShipped" | "Status.ToBeInvoiced" | "Status.Fulfilled" | "Status.ManuallyFulfilled" | "Status.BackOrdered" | "Status.OnHold" | "Status.DropShipped" | "Status.ToBePacked" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.Network" | "Status.NetworkPending" | "Status.MyApprovals" | "Status.Unconfirmed" | "Status.Portal" | "Status.Cancelled" | "Status.NotConfirmed" | "Status.PendingOrders" | "Status.ShippedNotCancelledOrFailed" | "Status.Delivered" | "Status.CancelledOrFailed" | "Status.Viewed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "WithAttachment" | "WithoutAttachment" | "ExceptionList" | undefined
   /** Filter sales orders by sales order number using various matching operators. Available variants include salesorder_number_startswith, salesorder_number_not_in, salesorder_number_in, and salesorder_number_contains. Maximum search length: 100 characters. */
-  readonly salesorder_number?: string
+  readonly salesorder_number?: string | undefined
   /** Search sales orders by item name. Filters sales orders based on product or service names in sales order line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding sales orders with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Filter sales orders by specific line item identifier. Retrieves all sales orders containing a particular product or service item based on its unique identifier for inventory tracking and item-based reporting purposes. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Search sales orders by item description. Filters sales orders based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding sales orders with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Filter sales orders by external reference number using various matching operators. Available variants include reference_number_startswith, reference_number_not_in, reference_number_in, and reference_number_contains. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Filter sales orders by customer name using various matching operators. Available variants include customer_name_startswith, customer_name_not_in, customer_name_in, and customer_name_contains. Maximum search length: 100 characters. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search sales orders by customer email address. Filters sales orders based on the email address of the customer or contact person. Maximum length is 100 characters. Useful for finding sales orders for specific customers or generating customer segment reports. */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Search sales orders by total amount. Filters sales orders based on the final sales order amount including taxes, discounts, and adjustments. Useful for finding sales orders within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Search sales orders by sales order date. Filters sales orders based on the date they were created. Use yyyy-mm-dd format. Supports variants: date_start, date_end, date_before and date_after. Useful for finding sales orders within date ranges or specific time periods. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search sales orders by creation date. Filters sales orders based on the date they were created. Use yyyy-mm-dd format. Supports variants: created_date_start, created_date_end. Useful for finding sales orders created within specific time periods or date ranges. */
-  readonly created_date?: string
+  readonly created_date?: string | undefined
   /** Search sales order by sales order shipment date. Variants: shipment_date_start, shipment_date_end, shipment_date_before and shipment_date_after. Default date format : yyyy-mm-dd */
-  readonly shipment_date?: string
+  readonly shipment_date?: string | undefined
   /** Filter sales orders by sales order shipment date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly expiry_date_start?: string
+  readonly expiry_date_start?: string | undefined
   /** Filter sales orders by sales order shipment date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly expiry_date_end?: string
+  readonly expiry_date_end?: string | undefined
   /** Filter sales orders by sales order shipment date strictly before the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly expiry_date_before?: string
+  readonly expiry_date_before?: string | undefined
   /** Filter sales orders by sales order shipment date strictly after the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly expiry_date_after?: string
+  readonly expiry_date_after?: string | undefined
   /** Search sales order by sales order status. Allowed Values: draft, open, invoiced, partially_invoiced, void and overdue. */
-  readonly status?: "draft" | "pending_approval" | "approved" | "open" | "invoiced" | "invoiced_not_shipped" | "shipped_not_invoiced" | "partially_invoiced" | "not_invoiced" | "to_be_invoiced" | "paid" | "partially_paid" | "unpaid" | "cancelled" | "void" | "pending" | "overdue" | "closed" | "confirmed" | "onhold" | "network_pending_approval" | "rejected"
+  readonly status?: "draft" | "pending_approval" | "approved" | "open" | "invoiced" | "invoiced_not_shipped" | "shipped_not_invoiced" | "partially_invoiced" | "not_invoiced" | "to_be_invoiced" | "paid" | "partially_paid" | "unpaid" | "cancelled" | "void" | "pending" | "overdue" | "closed" | "confirmed" | "onhold" | "network_pending_approval" | "rejected" | undefined
   /** Filter sales orders by specific customer identifier. Retrieves all sales orders associated with a particular customer account for customer relationship management, order history tracking, and customer-specific reporting and analysis purposes. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter sales orders by specific sales representative identifier. Retrieves all sales orders assigned to a particular salesperson for performance tracking, commission calculations, sales territory management, and individual sales reporting purposes. Note: This value is a set of numeric characters. */
-  readonly salesperson_id?: string
+  readonly salesperson_id?: string | undefined
   /** ID's of the salesorder [Comma seperated values] . Maximum Length : 200. Note: This value is a set of numeric characters separated by comma. */
-  readonly salesorder_ids?: string
+  readonly salesorder_ids?: string | undefined
   /** Unique identifier of the potential in CRM. Note: This value is a set of numeric characters. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
   /** Last Modified time of the Sales Order */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Get the details of a particular sales order in formats such as json/ pdf/ html. Default format is json. Allowed Values: json, csv , xml, xls, xlsx, pdf, jhtml and html. */
-  readonly accept?: string
+  readonly accept?: string | undefined
   /** Print the exported pdf. It will be used when accept = pdf and atleast one value in salesorder_ids */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** ID of the customview. Note: This value is a set of numeric characters. */
-  readonly customview_id?: string
+  readonly customview_id?: string | undefined
   /** List of location IDs to filter sales orders by their associated locations. Use this parameter to retrieve sales orders linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Specify the page number for paginated results retrieval. Controls which subset of sales order records to return, enabling efficient data handling for large result sets. Default value is 1 for the first page. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Specify the maximum number of sales order records to return per page. Controls result set size for optimal performance, memory usage, and user experience. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List sales orders. `GET /salesorders` */
@@ -1095,13 +1095,13 @@ export const listSalesOrders = /*#__PURE__*/ operation<ListSalesOrdersInput, typ
 
 export interface CreateSalesOrderInput {
   /** Ignore auto sales order number generation for this sales order. This mandates the sales order number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Can the file be sent in mail. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** Total number of files. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** Document that is to be attached */
-  readonly doc?: ZohoFile
+  readonly doc?: ZohoFile | undefined
   readonly body: CreateASalesOrderRequest
 }
 
@@ -1122,7 +1122,7 @@ export interface UpdateSalesOrderUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateASalesOrderRequest
 }
 
@@ -1141,9 +1141,9 @@ export interface GetSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Get the details of a particular sales order in formats such as json/ pdf/ html. Default format is json. Allowed Values: json, csv , xml, xls, xlsx, pdf, jhtml and html. */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get a sales order. `GET /salesorders/{salesorder_id}` */
@@ -1159,13 +1159,13 @@ export interface UpdateSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Ignore auto sales order number generation for this sales order. This mandates the sales order number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Can the file be sent in mail. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** Total number of files. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** Document that is to be attached */
-  readonly doc?: ZohoFile
+  readonly doc?: ZohoFile | undefined
   readonly body: UpdateASalesOrderRequest
 }
 
@@ -1214,7 +1214,7 @@ export interface MarkSalesOrderAsOpenInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a sales order as open. `POST /salesorders/{salesorder_id}/status/open` */
@@ -1249,7 +1249,7 @@ export interface UpdateSalesOrderSubStatusInput {
   /** Unique code of the status of a sales order. */
   readonly status_code: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a sales order sub status. `POST /salesorders/{salesorder_id}/substatus/{status_code}` */
@@ -1266,7 +1266,7 @@ export interface GetSalesOrderEmailInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Get the email content based on a specific email template. If this param is not inputted, then the content will be based on the email template associated with the customer. If no template is associated with the customer, then default template will be used. Note: This value is a set of numeric characters. */
-  readonly email_template_id?: string
+  readonly email_template_id?: string | undefined
 }
 
 /** Get sales order email content. `GET /salesorders/{salesorder_id}/email` */
@@ -1282,11 +1282,11 @@ export interface EmailSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Attachments of the Sales Order */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   /** Send the sales order attachment a with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Name of the file. */
-  readonly file_name?: string
+  readonly file_name?: string | undefined
   readonly body: EmailASalesOrderRequest
 }
 
@@ -1305,7 +1305,7 @@ export interface SubmitSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a sales order for approval. `POST /salesorders/{salesorder_id}/submit` */
@@ -1322,7 +1322,7 @@ export interface ApproveSalesOrderInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a sales order.. `POST /salesorders/{salesorder_id}/approve` */
@@ -1406,7 +1406,7 @@ export interface UpdateSalesOrderTemplateInput {
   /** Unique identifier of the sales order template. Note: This value is a set of numeric characters. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update sales order template. `PUT /salesorders/{salesorder_id}/templates/{template_id}` */
@@ -1423,9 +1423,9 @@ export interface GetSalesOrderAttachmentInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Check if preview of the Sales Order is required */
-  readonly preview?: boolean
+  readonly preview?: boolean | undefined
   /** Check if inline response is required */
-  readonly inline?: boolean
+  readonly inline?: boolean | undefined
 }
 
 /** Get a sales order attachment. `GET /salesorders/{salesorder_id}/attachment` */
@@ -1441,17 +1441,17 @@ export interface AddSalesOrderAttachmentInput {
   /** Unique identifier of the sales order. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** The file that is to be added as an Attachment in the Sales Order */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Can the file be sent in mail. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** Document that is to be attached */
-  readonly doc?: ZohoFile
+  readonly doc?: ZohoFile | undefined
   /** Total number of files. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** ID's of the document. Note: This value is a set of numeric characters characters separated by comma. */
-  readonly document_ids?: string
+  readonly document_ids?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to a sales order. `POST /salesorders/{salesorder_id}/attachment` */
@@ -1471,7 +1471,7 @@ export interface UpdateSalesOrderAttachmentPreferenceInput {
   /** Can the file be sent in mail. */
   readonly can_send_in_mail: boolean
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update attachment preference. `PUT /salesorders/{salesorder_id}/attachment` */

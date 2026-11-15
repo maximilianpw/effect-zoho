@@ -229,246 +229,246 @@ export interface CreateAJournalRequest {
   /** Date on which the journal to be recorded. */
   readonly journal_date: string
   /** Reference number for the journal. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Notes for the journal. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Type of the Journal. Allowed values: Cash and Both . */
-  readonly journal_type?: string
+  readonly journal_type?: string | undefined
   /** (Optional) VAT treatment for the journals. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Check if Journal should be included in VAT Return */
-  readonly include_in_vat_return?: boolean
+  readonly include_in_vat_return?: boolean | undefined
   /** Type of the journal. This denotes whether the journal is to be treated as goods or service. Allowed Values: digital_service, goods and service. */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Check if Journal is created for BAS Adjustment */
-  readonly is_bas_adjustment?: boolean
+  readonly is_bas_adjustment?: boolean | undefined
   /** ID of the Currency Associated with the Journal */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange Rate between the Currencies */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items for the journal. */
   readonly line_items?: ReadonlyArray<{
     /** ID of account for which journals to be recorded. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** ID of the Customer/Vendor */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** ID of the Line */
-    readonly line_id?: string
+    readonly line_id?: string | undefined
     /** Description that can be given at the line item level. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** ID of the Tax Exemption */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** ID of the Tax Authority */
-    readonly tax_authority_id?: string
+    readonly tax_authority_id?: string | undefined
     /** Type of the Tax Exemption. Allowed Values : customer and item */
-    readonly tax_exemption_type?: string
+    readonly tax_exemption_type?: string | undefined
     /** Code of the Tax Exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Name of the Tax Authority */
-    readonly tax_authority_name?: string
+    readonly tax_authority_name?: string | undefined
     /** ID of the tax. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Amount to be recorded for the journal. */
     readonly amount: number
     /** Whether the accounts needs to be debited or credited. Allowed Values: debit and credit. */
     readonly debit_or_credit: string
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods journal and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service journal and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** ID of the Project */
-    readonly project_id?: string
-  }>
+    readonly project_id?: string | undefined
+  }> | undefined
   /** Code of the Tax Exemption */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Type of the Tax Exemption. Allowed Values : customer and item */
-  readonly tax_exemption_type?: string
+  readonly tax_exemption_type?: string | undefined
   /** Search Journal by journal status. Allowed Values: draft and published. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Custom fields for the journal. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAJournalRequest {
   /** Date on which the journal to be recorded. */
   readonly journal_date: string
   /** Reference number for the journal. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Notes for the journal. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Type of the Journal. Allowed values: Cash and Both . */
-  readonly journal_type?: string
+  readonly journal_type?: string | undefined
   /** (Optional) VAT treatment for the journals. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Check if Journal should be included in VAT Return */
-  readonly include_in_vat_return?: boolean
+  readonly include_in_vat_return?: boolean | undefined
   /** Type of the journal. This denotes whether the journal is to be treated as goods or service. Allowed Values: digital_service, goods and service. */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Check if Journal is created for BAS Adjustment */
-  readonly is_bas_adjustment?: boolean
+  readonly is_bas_adjustment?: boolean | undefined
   /** ID of the Currency Associated with the Journal */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange Rate between the Currencies */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items for the journal. */
   readonly line_items?: ReadonlyArray<{
     /** ID of account for which journals to be recorded. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** ID of the Customer/Vendor */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** ID of the Line */
-    readonly line_id?: string
+    readonly line_id?: string | undefined
     /** Description that can be given at the line item level. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** ID of the Tax Exemption */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** ID of the Tax Authority */
-    readonly tax_authority_id?: string
+    readonly tax_authority_id?: string | undefined
     /** Type of the Tax Exemption. Allowed Values : customer and item */
-    readonly tax_exemption_type?: string
+    readonly tax_exemption_type?: string | undefined
     /** Code of the Tax Exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Name of the Tax Authority */
-    readonly tax_authority_name?: string
+    readonly tax_authority_name?: string | undefined
     /** ID of the tax. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Amount to be recorded for the journal. */
     readonly amount: number
     /** Whether the accounts needs to be debited or credited. Allowed Values: debit and credit. */
     readonly debit_or_credit: string
     /** (Optional) This is the ID of the tax applied in case this is an EU - goods journal and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** (Optional) This is the ID of the tax applied in case this is a non UK - service journal and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** ID of the Project */
-    readonly project_id?: string
-  }>
+    readonly project_id?: string | undefined
+  }> | undefined
   /** Code of the Tax Exemption */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Type of the Tax Exemption. Allowed Values : customer and item */
-  readonly tax_exemption_type?: string
+  readonly tax_exemption_type?: string | undefined
   /** Custom fields for the journal. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface AddCommentRequest {
   /** Description of a comment */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface ApplyCreditsRequest {
   /** List of invoices to which the journal credits are applied. */
   readonly invoices?: ReadonlyArray<{
     /** ID of the invoice. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Amount to be applied. */
-    readonly amount_applied?: number
-  }>
+    readonly amount_applied?: number | undefined
+  }> | undefined
 }
 
 export interface ListJournalsInput {
   /** Search journals by journal entry number. Variants: entry_number_startswith and entry_number_contains */
-  readonly entry_number?: string
+  readonly entry_number?: string | undefined
   /** Search journals by journal reference number. Variants: reference_number_startswith and reference_number_contains */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search journals by journal date. Variants: date_start, date_end, date_before and date_after */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search journals by journal notes. Variants: notes_startswith and notes_contains */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Search the journals using Last Modified Time */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search journals by journal total. Variants: total_less_than, total_less_equals, total_greater_than and total_greater_equals */
-  readonly total?: number
+  readonly total?: number | undefined
   /** Search Journals using Customer ID */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search the journals using Vendor ID */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Filter journals by journal date. Allowed Values: JournalDate.All, JournalDate.Today, JournalDate.ThisWeek, JournalDate.ThisMonth, JournalDate.ThisQuarter and JournalDate.ThisYear */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort journal list. Allowed Values: journal_date, entry_number, reference_number, total and last_modified_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter journals by status. Allowed Values: draft, published, approved, submitted and rejected. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Filter journals by journal type. */
-  readonly journal_type?: string
+  readonly journal_type?: string | undefined
   /** Filter journals by account ID. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Search journals by account code. */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** ID of the custom view. */
-  readonly customview_id?: string
+  readonly customview_id?: string | undefined
   /** Comma separated journal IDs. Maximum of 200. */
-  readonly journal_ids?: string
+  readonly journal_ids?: string | undefined
   /** Filter by currency ID. */
-  readonly currency?: string
+  readonly currency?: string | undefined
   /** Filter by tax ID. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Filter by tax exemption ID. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Filter by tax authority ID. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Search journals by text. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Comma separated branch IDs. Maximum of 200. */
-  readonly branch_ids?: string
+  readonly branch_ids?: string | undefined
   /** Comma separated location IDs. Maximum of 200. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Filter by project ID. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Filter by journal entity type. Allowed Values: journal, period_end_journal, consolidation_journal, consolidation_adjustment_journal, elimination_journal and intercompany_journal. */
-  readonly journal_entity_type?: string
+  readonly journal_entity_type?: string | undefined
   /** Filter by period closure ID. */
-  readonly period_closure_id?: string
+  readonly period_closure_id?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get journal list. `GET /journals` */
@@ -542,7 +542,7 @@ export interface MarkJournalPublishedInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a journal as published. `POST /journals/{journal_id}/status/publish` */
@@ -559,15 +559,15 @@ export interface AddJournalAttachmentInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** The file that is to be added as an Attachment in the Journal */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Document that is to be attached */
-  readonly doc?: ZohoFile
+  readonly doc?: ZohoFile | undefined
   /** Total number of files. */
-  readonly totalFiles?: number
+  readonly totalFiles?: number | undefined
   /** ID's of the document */
-  readonly document_ids?: string
+  readonly document_ids?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to a journal. `POST /journals/{journal_id}/attachment` */
@@ -621,7 +621,7 @@ export interface ReverseJournalInput {
   /** Whether the reversal is scheduled. */
   readonly is_reversal_scheduled: boolean
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reverse a journal. `POST /journals/{journal_id}/reverse` */
@@ -638,7 +638,7 @@ export interface SubmitJournalForApprovalInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a journal for approval. `POST /journals/{journal_id}/submit` */
@@ -655,7 +655,7 @@ export interface ApproveJournalInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a journal. `POST /journals/{journal_id}/approve` */
@@ -672,9 +672,9 @@ export interface RejectJournalInput {
   /** Unique identifier of the journal. */
   readonly journal_id: string
   /** Reason for rejecting the journal. Max-length [500]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reject a journal. `POST /journals/{journal_id}/reject` */
@@ -773,7 +773,7 @@ export interface BulkSubmitJournalsInput {
   /** Comma separated journal IDs to be submitted. Maximum of 25. */
   readonly journal_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk submit journals for approval. `POST /journals/submit` */
@@ -790,7 +790,7 @@ export interface BulkApproveJournalsInput {
   /** Comma separated journal IDs to be approved. Maximum of 25. */
   readonly journal_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk approve journals. `POST /journals/approve` */
@@ -807,7 +807,7 @@ export interface BulkPublishJournalsInput {
   /** Comma separated journal IDs to be published. Maximum of 10. */
   readonly journal_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk publish journals. `POST /journals/status/publish` */
@@ -836,11 +836,11 @@ export const bulkDeleteJournals = /*#__PURE__*/ operation<BulkDeleteJournalsInpu
 
 export interface ListRecurringJournalsInput {
   /** Filter recurring journals by status. Allowed Values: Status.All, Status.Active, Status.Stopped and Status.Expired. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort recurring journals. Allowed Values: created_time, total and bcy_total. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter by account ID. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
 }
 
 /** List recurring journals. `GET /recurringjournals` */
@@ -914,7 +914,7 @@ export interface ResumeRecurringJournalInput {
   /** Unique identifier of the recurring journal. */
   readonly recurring_journal_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resume a recurring journal. `POST /recurringjournals/{recurring_journal_id}/status/resume` */
@@ -931,7 +931,7 @@ export interface StopRecurringJournalInput {
   /** Unique identifier of the recurring journal. */
   readonly recurring_journal_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Stop a recurring journal. `POST /recurringjournals/{recurring_journal_id}/status/stop` */
@@ -964,7 +964,7 @@ export interface GetTransactionJournalViewInput {
   /** Type of the transaction entity. Allowed Values: journal, invoice, creditnote, expense, bill, vendor_credit, customer_payment, vendor_payment and more. */
   readonly entity_type: string
   /** Basis for the report. Allowed Values: cash and accrual. */
-  readonly report_basis?: string
+  readonly report_basis?: string | undefined
 }
 
 /** Get journal view of a transaction. `GET /transactions/{transaction_id}/journals` */

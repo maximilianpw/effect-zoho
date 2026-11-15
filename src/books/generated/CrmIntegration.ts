@@ -46,7 +46,7 @@ export interface ImportCustomerUsingCrmAccountIdInput {
   /** Unique identifier of the zoho crm account. */
   readonly crm_account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Import a customer using the CRM account ID. `POST /crm/account/{crm_account_id}/import` */
@@ -63,7 +63,7 @@ export interface ImportCustomerUsingCrmContactIdInput {
   /** Unique identifier of the zoho crm contact. */
   readonly crm_contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Import a customer using CRM contact ID. `POST /crm/contact/{crm_contact_id}/import` */
@@ -80,7 +80,7 @@ export interface ImportVendorUsingCrmVendorIdInput {
   /** Unique identifier of the zoho crm vendor. */
   readonly crm_vendor_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Import a vendor using the CRM vendor ID. `POST /crm/vendor/{crm_vendor_id}/import` */
@@ -97,7 +97,7 @@ export interface ImportItemUsingCrmProductIdInput {
   /** Unique identifier of the zoho crm product. */
   readonly crm_product_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Import an item using the CRM product ID. `POST /crm/item/{crm_product_id}/import` */

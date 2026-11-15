@@ -222,74 +222,74 @@ export interface CreateModuleConfigurationRequest {
   /** Plural form of the module name. Max-length [30] */
   readonly plural_name: string
   /** ID of the parent module, if this is a sub-module. */
-  readonly parent_module_id?: string
+  readonly parent_module_id?: string | undefined
   /** Label for the record name field. Max-length [30] */
-  readonly record_name?: string
+  readonly record_name?: string | undefined
   /** Description of the custom module. Max-length [150] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Sharing type for the module. Allowed Values: private, read_only, read_write and public. */
-  readonly shared_type?: string
+  readonly shared_type?: string | undefined
   /** Whether reporting tags are supported for this module. */
-  readonly is_reporting_tags_supported?: boolean
+  readonly is_reporting_tags_supported?: boolean | undefined
   /** Whether records in this module can be edited. */
-  readonly can_edit_module?: boolean
+  readonly can_edit_module?: boolean | undefined
   /** Whether records can be created in this module. */
-  readonly can_create_module?: boolean
+  readonly can_create_module?: boolean | undefined
   /** Whether records can be deleted from this module. */
-  readonly can_delete_module?: boolean
+  readonly can_delete_module?: boolean | undefined
   /** Whether bulk update is supported. */
-  readonly can_bulk_update_module?: boolean
+  readonly can_bulk_update_module?: boolean | undefined
   /** Whether sending mail is supported from this module. */
-  readonly can_send_mail?: boolean
+  readonly can_send_mail?: boolean | undefined
   /** Whether bulk mail sending is supported. */
-  readonly can_bulk_send_mail?: boolean
+  readonly can_bulk_send_mail?: boolean | undefined
   /** Whether document attachment is supported. */
-  readonly can_attach_documents?: boolean
+  readonly can_attach_documents?: boolean | undefined
   /** Whether PDF view is available. */
-  readonly can_show_pdf_view?: boolean
+  readonly can_show_pdf_view?: boolean | undefined
   /** Whether PDF print is allowed. */
-  readonly can_allow_pdf_print?: boolean
+  readonly can_allow_pdf_print?: boolean | undefined
   /** Whether cloning records is allowed. */
-  readonly allow_forclone?: boolean
+  readonly allow_forclone?: boolean | undefined
   /** Whether record locking is supported. */
-  readonly can_lock_record?: boolean
+  readonly can_lock_record?: boolean | undefined
   /** Whether widgets can be used in this module. */
-  readonly can_use_widget_for_custommodule?: boolean
+  readonly can_use_widget_for_custommodule?: boolean | undefined
   /** Whether to show the module in the left-hand side navigation. */
-  readonly can_show_custommodule_lhs?: boolean
+  readonly can_show_custommodule_lhs?: boolean | undefined
   /** Where to show the custom module. Each item has a show_in value. */
   readonly show_custommodule_in?: ReadonlyArray<{
     /** Allowed Values: settings, webui, extension and lhs. */
-    readonly show_in?: string
-  }>
+    readonly show_in?: string | undefined
+  }> | undefined
   /** Role-based permissions for the module. */
   readonly module_permission?: ReadonlyArray<{
     /** ID of the role. */
-    readonly role_id?: string
+    readonly role_id?: string | undefined
     /** Permission to create records. */
-    readonly can_create?: boolean
+    readonly can_create?: boolean | undefined
     /** Permission to edit records. */
-    readonly can_edit?: boolean
+    readonly can_edit?: boolean | undefined
     /** Permission to view records. */
-    readonly can_view?: boolean
+    readonly can_view?: boolean | undefined
     /** Permission to delete records. */
-    readonly can_delete?: boolean
+    readonly can_delete?: boolean | undefined
     /** Permission to approve records. */
-    readonly can_approve?: boolean
+    readonly can_approve?: boolean | undefined
     /** Full access permission. */
-    readonly full_access?: boolean
-  }>
+    readonly full_access?: boolean | undefined
+  }> | undefined
   /** Visibility settings for the module in different contexts. */
   readonly module_visibility?: ReadonlyArray<{
     /** Context type. */
-    readonly type?: string
+    readonly type?: string | undefined
     /** Whether the module is hidden in this context. */
-    readonly is_hidden?: boolean
-  }>
+    readonly is_hidden?: boolean | undefined
+  }> | undefined
   /** List of apps where this module is available. */
-  readonly allowed_apps?: ReadonlyArray<string>
+  readonly allowed_apps?: ReadonlyArray<string> | undefined
   /** API name of the default custom view for this module. */
-  readonly default_customview_api_name?: string
+  readonly default_customview_api_name?: string | undefined
 }
 
 export interface UpdateModuleConfigurationRequest {
@@ -298,82 +298,82 @@ export interface UpdateModuleConfigurationRequest {
   /** Plural form of the module name. Max-length [30] */
   readonly plural_name: string
   /** ID of the parent module, if this is a sub-module. */
-  readonly parent_module_id?: string
+  readonly parent_module_id?: string | undefined
   /** Label for the record name field. Max-length [30] */
-  readonly record_name?: string
+  readonly record_name?: string | undefined
   /** Description of the custom module. Max-length [150] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Sharing type for the module. Allowed Values: private, read_only, read_write and public. */
-  readonly shared_type?: string
+  readonly shared_type?: string | undefined
   /** Whether reporting tags are supported for this module. */
-  readonly is_reporting_tags_supported?: boolean
+  readonly is_reporting_tags_supported?: boolean | undefined
   /** Whether records in this module can be edited. */
-  readonly can_edit_module?: boolean
+  readonly can_edit_module?: boolean | undefined
   /** Whether bulk update is supported. */
-  readonly can_bulk_update_module?: boolean
+  readonly can_bulk_update_module?: boolean | undefined
   /** Whether sending mail is supported from this module. */
-  readonly can_send_mail?: boolean
+  readonly can_send_mail?: boolean | undefined
   /** Whether bulk mail sending is supported. */
-  readonly can_bulk_send_mail?: boolean
+  readonly can_bulk_send_mail?: boolean | undefined
   /** Whether document attachment is supported. */
-  readonly can_attach_documents?: boolean
+  readonly can_attach_documents?: boolean | undefined
   /** Whether PDF view is available. */
-  readonly can_show_pdf_view?: boolean
+  readonly can_show_pdf_view?: boolean | undefined
   /** Whether PDF print is allowed. */
-  readonly can_allow_pdf_print?: boolean
+  readonly can_allow_pdf_print?: boolean | undefined
   /** Whether cloning records is allowed. */
-  readonly allow_forclone?: boolean
+  readonly allow_forclone?: boolean | undefined
   /** Whether record locking is supported. */
-  readonly can_lock_record?: boolean
+  readonly can_lock_record?: boolean | undefined
   /** Whether widgets can be used in this module. */
-  readonly can_use_widget_for_custommodule?: boolean
+  readonly can_use_widget_for_custommodule?: boolean | undefined
   /** Whether to show the module in the left-hand side navigation. */
-  readonly can_show_custommodule_lhs?: boolean
+  readonly can_show_custommodule_lhs?: boolean | undefined
   /** Where to show the custom module. Each item has a show_in value. */
   readonly show_custommodule_in?: ReadonlyArray<{
     /** Allowed Values: settings, webui, extension and lhs. */
-    readonly show_in?: string
-  }>
+    readonly show_in?: string | undefined
+  }> | undefined
   /** Role-based permissions for the module. */
   readonly module_permission?: ReadonlyArray<{
     /** ID of the role. */
-    readonly role_id?: string
+    readonly role_id?: string | undefined
     /** Permission to create records. */
-    readonly can_create?: boolean
+    readonly can_create?: boolean | undefined
     /** Permission to edit records. */
-    readonly can_edit?: boolean
+    readonly can_edit?: boolean | undefined
     /** Permission to view records. */
-    readonly can_view?: boolean
+    readonly can_view?: boolean | undefined
     /** Permission to delete records. */
-    readonly can_delete?: boolean
+    readonly can_delete?: boolean | undefined
     /** Permission to approve records. */
-    readonly can_approve?: boolean
+    readonly can_approve?: boolean | undefined
     /** Full access permission. */
-    readonly full_access?: boolean
-  }>
+    readonly full_access?: boolean | undefined
+  }> | undefined
   /** Visibility settings for the module in different contexts. */
   readonly module_visibility?: ReadonlyArray<{
     /** Context type. */
-    readonly type?: string
+    readonly type?: string | undefined
     /** Whether the module is hidden in this context. */
-    readonly is_hidden?: boolean
-  }>
+    readonly is_hidden?: boolean | undefined
+  }> | undefined
   /** API name of the default custom view for this module. */
-  readonly default_customview_api_name?: string
+  readonly default_customview_api_name?: string | undefined
 }
 
 export interface CreateCustomModulesRequest {
   /** Name of the record */
   readonly record_name: string
   /** Value of the custom Field */
-  readonly cf_debt_amount?: number
+  readonly cf_debt_amount?: number | undefined
 }
 
 export interface BulkUpdateCustomModuleRequest {
   /** Value of the custom Field */
-  readonly cf_debt_amount?: number
+  readonly cf_debt_amount?: number | undefined
   /** Reeccord IDs */
-  readonly module_record_id?: string
+  readonly module_record_id?: string | undefined
   /** Name of the record */
   readonly record_name: string
 }
@@ -382,18 +382,18 @@ export interface UpdateCustomModuleRequest {
   /** Name of the record */
   readonly record_name: string
   /** Value of the custom Field */
-  readonly cf_debt_amount?: number
+  readonly cf_debt_amount?: number | undefined
 }
 
 export interface ListCustomModulesInput {
   /** Filter by portal type. Allowed values: customer, vendor and employee. */
-  readonly portal_type?: string
+  readonly portal_type?: string | undefined
   /** Sort order. Allowed values: ascending and descending. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Page number for pagination. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List custom modules. `GET /settings/modules` */
@@ -453,7 +453,7 @@ export interface DeleteCustomModuleInput {
   /** API name of the custom module (e.g., cm_debtor). */
   readonly module_api_name: string
   /** Force delete even if the module has existing records. */
-  readonly force_delete?: boolean
+  readonly force_delete?: boolean | undefined
 }
 
 /** Delete a custom module. `DELETE /settings/modules/{module_api_name}` */
@@ -469,19 +469,19 @@ export interface ListCustomModuleRecordsInput {
   /** Module Name */
   readonly module_name: string
   /** Filter records based on a custom view. */
-  readonly customview_id?: string
+  readonly customview_id?: string | undefined
   /** Filter records by status. Allowed Values: Status.All, Status.Active, Status.Inactive */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search records by text. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort records by column. Allowed Values: record_name, created_time, last_modified_time or any custom field API name (cf_*). */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed Values: A (Ascending), D (Descending) */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Page number for pagination. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List custom module records. `GET /{module_name}` */
@@ -529,7 +529,7 @@ export interface DeleteCustomModuleRecordsInput {
   /** Module Name */
   readonly module_name: string
   /** Comma-separated list of record IDs to delete. Maximum 200 IDs. */
-  readonly record_ids?: string
+  readonly record_ids?: string | undefined
 }
 
 /** Delete custom module records. `DELETE /{module_name}` */

@@ -275,27 +275,27 @@ export interface CreateABankAccountRequest {
   /** Type of the account */
   readonly account_type: string
   /** Number associated with the Bank Account */
-  readonly account_number?: string
+  readonly account_number?: string | undefined
   /** Code of the Account */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** ID of the Currency associated with the Account */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Code of the currency associated with the Bank Account */
-  readonly currency_code?: string
+  readonly currency_code?: string | undefined
   /** Description of the Account */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Name of the Bank */
-  readonly bank_name?: string
+  readonly bank_name?: string | undefined
   /** Routing Number of the Account */
-  readonly routing_number?: string
+  readonly routing_number?: string | undefined
   /** Check if the Account is Primary Account in Zoho Books */
-  readonly is_primary_account?: boolean
+  readonly is_primary_account?: boolean | undefined
   /** Check if the Account is Paypal Account */
-  readonly is_paypal_account?: boolean
+  readonly is_paypal_account?: boolean | undefined
   /** The type of Payment for the Paypal Account. Allowed Values : standard and adaptive */
-  readonly paypal_type?: string
+  readonly paypal_type?: string | undefined
   /** Email Address of the Paypal account. */
-  readonly paypal_email_address?: string
+  readonly paypal_email_address?: string | undefined
 }
 
 export interface UpdateBankAccountRequest {
@@ -304,40 +304,40 @@ export interface UpdateBankAccountRequest {
   /** Type of the account */
   readonly account_type: string
   /** Number associated with the Bank Account */
-  readonly account_number?: string
+  readonly account_number?: string | undefined
   /** Code of the Account */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** ID of the Currency associated with the Account */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Code of the currency associated with the Bank Account */
-  readonly currency_code?: string
+  readonly currency_code?: string | undefined
   /** Description of the Account */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Name of the Bank */
-  readonly bank_name?: string
+  readonly bank_name?: string | undefined
   /** Routing Number of the Account */
-  readonly routing_number?: string
+  readonly routing_number?: string | undefined
   /** Check if the Account is Primary Account in Zoho Books */
-  readonly is_primary_account?: boolean
+  readonly is_primary_account?: boolean | undefined
   /** Check if the Account is Paypal Account */
-  readonly is_paypal_account?: boolean
+  readonly is_paypal_account?: boolean | undefined
   /** The type of Payment for the Paypal Account. Allowed Values : standard and adaptive */
-  readonly paypal_type?: string
+  readonly paypal_type?: string | undefined
   /** Email Address of the Paypal account. */
-  readonly paypal_email_address?: string
+  readonly paypal_email_address?: string | undefined
 }
 
 export interface ImportABankcreditCardStatementRequest {
   /** ID of the Bank/Credit Card account */
   readonly account_id: string
   /** Least date in the transaction set */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** Greatest date in the transaction set */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** List of bank statement transactions to be imported. */
   readonly transactions: ReadonlyArray<{
     /** Unique ID that is specific to the transaction */
-    readonly transaction_id?: string
+    readonly transaction_id?: string | undefined
     /** Date of the transaction */
     readonly date: string
     /** Indicates if transaction is Debit or Credit */
@@ -345,39 +345,39 @@ export interface ImportABankcreditCardStatementRequest {
     /** Amount involved in the transaction */
     readonly amount: number
     /** Payee involved in the transaction */
-    readonly payee?: string
+    readonly payee?: string | undefined
     /** Transaction description */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Reference Number of the transaction */
-    readonly reference_number?: string
+    readonly reference_number?: string | undefined
   }>
 }
 
 export interface CreateBankReconciliationRequest {
   /** Start date of the statement period. Format [yyyy-mm-dd]. */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** End date of the statement period. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Closing balance as per the bank statement. */
-  readonly closing_balance?: number
+  readonly closing_balance?: number | undefined
   /** Whether to save the reconciliation as a draft or reconcile it. */
-  readonly save_option?: string
+  readonly save_option?: string | undefined
   /** Transactions to mark as reconciled. */
   readonly transactions_to_be_reconciled?: ReadonlyArray<{
     /** Unique identifier of the transaction to reconcile. */
-    readonly transaction_id?: string
-  }>
+    readonly transaction_id?: string | undefined
+  }> | undefined
 }
 
 export interface ListBankAccountsInput {
   /** Filter the account by their status. Allowed Values: Status.All, Status.Active and Status.Inactive. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort the values based on the allowed values. Allowed Values: account_name,account_type and account_code. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List view of accounts. `GET /bankaccounts` */
@@ -451,7 +451,7 @@ export interface MarkBankAccountInactiveInput {
   /** Unique identifier of the bank account. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Deactivate account.. `POST /bankaccounts/{account_id}/inactive` */
@@ -468,7 +468,7 @@ export interface MarkBankAccountActiveInput {
   /** Unique identifier of the bank account. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Activate account. `POST /bankaccounts/{account_id}/active` */
@@ -628,9 +628,9 @@ export interface AddBankReconciliationAttachmentInput {
   readonly account_id: string
   /** Unique identifier of the reconciliation. Note: This value is a set of numeric characters. */
   readonly reconciliation_id: string
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add a reconciliation attachment. `POST /bankaccounts/{account_id}/reconciliations/{reconciliation_id}/attachment` */
@@ -846,7 +846,7 @@ export interface UpdateBankAccountPreferencesInput {
   /** Unique identifier of the bank account. Note: This value is a set of numeric characters. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update bank account preferences. `PUT /bankaccounts/{account_id}/preferences` */

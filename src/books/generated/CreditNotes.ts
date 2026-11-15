@@ -849,380 +849,380 @@ export type CancelEinvoiceCreditNoteResponse = typeof CancelEinvoiceCreditNoteRe
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface RegistrationDetailsInput {
   /** Company registration number (Commercial Registration number). Max-length [200]. */
-  readonly company_registration_no?: string
+  readonly company_registration_no?: string | undefined
   /** Tax Identification Number (TIN) of the contact. Used as the VAT registration number for UAE E-Invoicing. Maximum length: 200 characters. */
-  readonly indirect_tax_no?: string
+  readonly indirect_tax_no?: string | undefined
   /** Location code type identifying the economic zone or region. Used for UAE E-Invoicing compliance (e.g. TL for Territory of Land). Maximum length: 200 characters. */
-  readonly zone_type?: string
+  readonly zone_type?: string | undefined
   /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Maximum length: 200 characters. */
-  readonly einvoice_identifier_label?: string
+  readonly einvoice_identifier_label?: string | undefined
   /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Max-length [200]. */
-  readonly einvoice_identifier_value?: string
+  readonly einvoice_identifier_value?: string | undefined
   /** Authority or scheme that issued the buyer identifier (Buyer ID authority, e.g. Department of Economy and Tourism). Max-length [200]. */
-  readonly additionalfield1?: string
+  readonly additionalfield1?: string | undefined
   /** Type of business classification scheme (e.g. DUNS, GLN). Max-length [200]. */
-  readonly business_classification_type?: string
+  readonly business_classification_type?: string | undefined
   /** Value of the business classification identifier. Max-length [200]. */
-  readonly business_classification_value?: string
+  readonly business_classification_value?: string | undefined
   /** Trade name of the contact. Max-length [500]. */
-  readonly trader_name?: string
+  readonly trader_name?: string | undefined
   /** Legal registered name of the contact. Max-length [500]. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Value of the location identifier used in E-Invoicing. Maximum length: 200 characters. */
-  readonly location_identifier_value?: string
+  readonly location_identifier_value?: string | undefined
   /** Type of the location identifier scheme. Max-length [200]. */
-  readonly location_identifier_type?: string
+  readonly location_identifier_type?: string | undefined
   /** Electronic address (Peppol ID or similar) of the contact used for E-Invoicing routing. Maximum length: 200 characters. */
-  readonly electronic_address_value?: string
+  readonly electronic_address_value?: string | undefined
 }
 
 export interface CreateACreditNoteRequest {
   /** Unique identifier for the customer contact. Retrieve customer IDs from the Get Customers API endpoint in the contacts section. This ID links the credit note to the specific customer record. */
   readonly customer_id: string
   /** Unique identifier for the currency used in the credit note. Can differ from customer currency if multi-currency is enabled. Retrieve currency IDs from the List Currencies API endpoint in the currency section. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** The date on which the credit note is raised. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
   readonly date: string
   /** Set to true to create the credit note in draft status. Draft credit notes are not finalized and can be modified before sending to customers. */
-  readonly is_draft?: boolean
+  readonly is_draft?: boolean | undefined
   /** Exchange rate for converting the credit note currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: string
+  readonly exchange_rate?: string | undefined
   /** Array of line items for the credit note. Each line item represents a product or service being credited to the customer. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier for the item in the line item. Retrieve item IDs from the List Items API endpoint in the items section. Links the line item to a specific product or service. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Invoice ID of the required invoice. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Unique identifier of the invoice line item that this credit note line item references. Use this when creating a credit note for a specific invoice line item. */
-    readonly invoice_item_id?: string
+    readonly invoice_item_id?: string | undefined
     /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the credit note document. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unique code or SKU for the line item. Used for product identification and inventory tracking. Helps distinguish between different variants of the same product. */
-    readonly code?: string
+    readonly code?: string | undefined
     /** Name or title of the line item. Describes the product or service being credited. This name is displayed on the credit note document. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Type of the credit note line item. Numeric value indicating the line item type (e.g., 1 for product, 2 for service). Used for categorization and reporting purposes. */
-    readonly type?: number
+    readonly type?: number | undefined
     /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name of the chart of accounts entry. Displays the account name for reference and reporting purposes. Should match the account_id provided. */
-    readonly account_name?: string
+    readonly account_name?: string | undefined
     /** Number of units being credited for this line item. Must be a positive number. Used to calculate the total amount for the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this specific line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique ID to denote the TDS tax associated to the creditnote */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Tax ID for the reverse charge mechanism applied to the line item. Required for GCC VAT-registered transactions where reverse charge applies. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Type of product or service for the line item. Standard values: goods or services. For South Africa: service, goods, capital_service, and capital_goods. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Discount reason code for the discount applied to the credit note or line item. Used for UAE E-Invoicing to specify the basis of a special discount. Maximum length: 200 characters. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Serial numbers of the items being credited. Used for tracking specific units of inventory or equipment. Important for warranty and return tracking. */
-    readonly serial_numbers?: string
+    readonly serial_numbers?: string | undefined
     /** Unique identifier for the business location associated with the line item. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules for this line item. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Unique identifier for the project associated with the line item. Links the credit to a specific project for project-based accounting and reporting. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
   }>
   /** Unique identifier for the business location associated with the line item. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules for this line item. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Unique credit note number displayed in the interface. Auto-generated with CN prefix unless ignore_auto_number_generation is true. Max-Length [100] */
   readonly creditnote_number: string
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the credit note. Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Tax Registration Number (TRN) of the customer for the credit note. Required for GCC VAT-registered transactions. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Reason for issuing the credit note. For UAE Edition, this field is required. Allowed values: tax_treatment_error, supply_cancellation, change_of_tax_treatment, consideration_adjustment, return_of_goods_or_services, volume_discount, others. Max-length [200]. */
   readonly reason_for_credit_debit_note: string
   /** Registration details of the customer. For UAE Edition, includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Address of the party the goods are shipped to. Use this field to provide a one-time shipping address that is not saved under the customer. When using this field, do not provide shipping_address_id in the same request. */
   readonly shipping_address?: {
     /** Billing address for the invoice */
-    readonly address?: string
+    readonly address?: string | undefined
     /** Second street/address line. */
-    readonly street2?: string
+    readonly street2?: string | undefined
     /** City of the customer's billing address. */
-    readonly city?: string
+    readonly city?: string | undefined
     /** State of the customer's billing address. */
-    readonly state?: string
+    readonly state?: string | undefined
     /** Zip code of the customer's billing address. */
-    readonly zip?: string
+    readonly zip?: string | undefined
     /** Country of the customer's billing address. */
-    readonly country?: string
+    readonly country?: string | undefined
     /** Customer's fax number. */
-    readonly fax?: string
-  }
+    readonly fax?: string | undefined
+  } | undefined
   /** Choose CFDI Usage.Allowed values: acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** Choose CFDI Reference Type.Allowed values: credit_note, debit_note, return_of_merchandise, substitution_previous_cfdi, transfer_of_goods, invoice_generated_from_order, cfdi_for_advance. */
-  readonly cfdi_reference_type?: string
+  readonly cfdi_reference_type?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Set to true to provide a custom credit note number instead of auto-generated CN prefix. When true, you must specify creditnote_number manually. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Additional fields for the Credit-Notes. */
-  readonly custom_fields?: ReadonlyArray<string>
+  readonly custom_fields?: ReadonlyArray<string> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Additional notes or comments for the credit note. Displayed on the credit note document for customer reference. Max-length [5000] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions displayed on the credit note document. Include payment terms, return policies, or other business conditions. Max-length [10000] */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Unique identifier for the credit note PDF template. Retrieve template IDs from the List Credit Note Templates API endpoint. Determines the visual layout and branding of the credit note document. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this specific line item. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique ID of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Refer the [link][2] for more deails. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Discount reason code for the discount applied to the credit note or line item. Used for UAE E-Invoicing to specify the basis of a special discount. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
 }
 
 export interface UpdateACreditNoteRequest {
   /** Unique identifier for the customer contact. Retrieve customer IDs from the Get Customers API endpoint in the contacts section. This ID links the credit note to the specific customer record. */
   readonly customer_id: string
   /** Unique identifier for the currency used in the credit note. Can differ from customer currency if multi-currency is enabled. Retrieve currency IDs from the List Currencies API endpoint in the currency section. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** The date on which the credit note is raised. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
   readonly date: string
   /** Set to true to create the credit note in draft status. Draft credit notes are not finalized and can be modified before sending to customers. */
-  readonly is_draft?: boolean
+  readonly is_draft?: boolean | undefined
   /** Exchange rate for converting the credit note currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: string
+  readonly exchange_rate?: string | undefined
   /** Line items of a credit note. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier for the item in the line item. Retrieve item IDs from the List Items API endpoint in the items section. Links the line item to a specific product or service. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Search credit notes by credit note line item id. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name or title of the line item. Describes the product or service being credited. This name is displayed on the credit note document. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the credit note document. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Enter order of the item */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units being credited for this line item. Must be a positive number. Used to calculate the total amount for the line item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of the line item. E.g: kgs, Nos. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Discount applied to the credit note, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Discount reason code for the discount applied to the credit note or line item. Used for UAE E-Invoicing to specify the basis of a special discount. Maximum length: 200 characters. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this specific line item. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique ID to denote the TDS tax associated to the creditnote */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Unique ID of the tax exemption. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Unique code of the tax exemption. */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Tax ID for the reverse charge mechanism applied to the line item. Required for GCC VAT-registered transactions where reverse charge applies. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-    readonly avatax_use_code?: string
+    readonly avatax_use_code?: string | undefined
     /** A tax code is a unique label used to group Items (products, services, or charges) together. Refer the [link][2] for more deails. Max-length [25] */
-    readonly avatax_tax_code?: string
+    readonly avatax_tax_code?: string | undefined
     /** Type of product or service for the line item. Standard values: goods or services. For South Africa: service, goods, capital_service, and capital_goods. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Enter custom field information */
-    readonly item_custom_fields?: ReadonlyArray<string>
+    readonly item_custom_fields?: ReadonlyArray<string> | undefined
     /** Unique identifier for the business location associated with the line item. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules for this line item. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Name of the location. */
-    readonly location_name?: string
+    readonly location_name?: string | undefined
     /** Serial numbers of the items being credited. Used for tracking specific units of inventory or equipment. Important for warranty and return tracking. */
-    readonly serial_numbers?: string
+    readonly serial_numbers?: string | undefined
     /** Unique identifier for the project associated with the line item. Links the credit to a specific project for project-based accounting and reporting. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag's Name */
-      readonly tag_name?: string
+      readonly tag_name?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
+      readonly tag_option_id?: string | undefined
       /** Tag Option's Name */
-      readonly tag_option_name?: string
+      readonly tag_option_name?: string | undefined
       /** Used to check if the tag is mandatory */
-      readonly is_tag_mandatory?: boolean
-    }>
+      readonly is_tag_mandatory?: boolean | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
   }>
   /** Unique identifier for the business location associated with the line item. Retrieve location IDs from the List Locations API endpoint in the locations section. Determines tax settings and business rules for this line item. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Unique credit note number displayed in the interface. Auto-generated with CN prefix unless ignore_auto_number_generation is true. Max-Length [100] */
   readonly creditnote_number: string
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the credit note. Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Tax Registration Number (TRN) of the customer for the credit note. Required for GCC VAT-registered transactions. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Reason for issuing the credit note. For UAE Edition, this field is required. Allowed values: tax_treatment_error, supply_cancellation, change_of_tax_treatment, consideration_adjustment, return_of_goods_or_services, volume_discount, others. Max-length [200]. */
   readonly reason_for_credit_debit_note: string
   /** Registration details of the customer. For UAE Edition, includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Choose CFDI Usage.Allowed values: acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** Choose CFDI Reference Type.Allowed values: credit_note, debit_note, return_of_merchandise, substitution_previous_cfdi, transfer_of_goods, invoice_generated_from_order, cfdi_for_advance. */
-  readonly cfdi_reference_type?: string
+  readonly cfdi_reference_type?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Set to true to provide a custom credit note number instead of auto-generated CN prefix. When true, you must specify creditnote_number manually. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Additional fields for the Credit-Notes. */
-  readonly custom_fields?: ReadonlyArray<string>
+  readonly custom_fields?: ReadonlyArray<string> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Additional notes or comments for the credit note. Displayed on the credit note document for customer reference. Max-length [5000] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions displayed on the credit note document. Include payment terms, return policies, or other business conditions. Max-length [10000] */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Unique identifier for the credit note PDF template. Retrieve template IDs from the List Credit Note Templates API endpoint. Determines the visual layout and branding of the credit note document. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Unique identifier for the tax applied to the line item. Retrieve tax IDs from the List Taxes API endpoint in the taxes section. Determines tax calculations for this specific line item. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique ID of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique identifier for the item in the line item. Retrieve item IDs from the List Items API endpoint in the items section. Links the line item to a specific product or service. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Unique identifier for the chart of accounts entry. Retrieve account IDs from the List Chart of Accounts API endpoint. Determines which account the line item affects for accounting purposes. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Name or title of the line item. Describes the product or service being credited. This name is displayed on the credit note document. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Refer the [link][2] for more deails. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the credit note document. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Unit of the line item. E.g: kgs, Nos. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Rate of the line item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Number of units being credited for this line item. Must be a positive number. Used to calculate the total amount for the line item. */
-  readonly quantity?: number
+  readonly quantity?: number | undefined
   /** Discount reason code for the discount applied to the credit note or line item. Used for UAE E-Invoicing to specify the basis of a special discount. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
 }
 
 export interface EmailACreditNoteRequest {
   /** The email IDs to which the credit note is to be mailed. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** The email IDs that have to be copied when the credit note is to be mailed. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** The subject of the email. Max-length [1000] */
   readonly subject: string
   /** The body of the email. Max-length [5000] */
@@ -1231,42 +1231,42 @@ export interface EmailACreditNoteRequest {
 
 export interface UpdateBillingAddressRequest {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface UpdateShippingAddressRequest {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface CreditToAnInvoiceRequest {
   /** List of invoices for which the credit note has been raised. Each entry contains invoice_id and amount. */
   readonly invoices?: ReadonlyArray<{
     /** Invoice ID of the required invoice. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** The total amount applied form the credit note on an invoice. */
-    readonly amount_applied?: number
-  }>
+    readonly amount_applied?: number | undefined
+  }> | undefined
   /** Invoice ID of the required invoice. */
   readonly invoice_id: string
   /** The total amount applied form the credit note on an invoice. */
@@ -1275,109 +1275,109 @@ export interface CreditToAnInvoiceRequest {
 
 export interface AddACommentRequest {
   /** A small description about the item. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface RefundCreditNoteRequest {
   /** The date on which the credit note is raised. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The method of refund. */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount paid for the invoice. */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Exchange rate for converting the credit note currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: string
+  readonly exchange_rate?: string | undefined
   /** The account from which credit note is refunded. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the credit note document. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateCreditNoteRefundRequest {
   /** The date on which the credit note is raised. Must be in yyyy-mm-dd format. This date determines the accounting period and affects tax calculations. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The method of refund. */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** Optional reference number for tracking purposes. Can be any custom string or auto-generated. Useful for linking to external systems or internal tracking. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount paid for the invoice. */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Exchange rate for converting the credit note currency to base currency. Required when currency differs from base currency. Retrieve rates from currency exchange rate APIs. */
-  readonly exchange_rate?: string
+  readonly exchange_rate?: string | undefined
   /** The account from which credit note is refunded. */
-  readonly from_account_id?: string
+  readonly from_account_id?: string | undefined
   /** Detailed description of the line item. Provides additional information about the product or service being credited. Displayed on the credit note document. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateCreditNoteCustomFieldsRequest {
   /** Custom fields to update on the credit note. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field, ranging from 1 to 46. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface MarkCreditNoteEinvoicePushedRequest {
   /** Unique identifier of the e-invoice (UUID) on the Invoice Registration Portal. */
-  readonly uuid?: string
+  readonly uuid?: string | undefined
   /** Acknowledgement date returned by the Invoice Registration Portal. Format [yyyy-mm-dd]. */
-  readonly ack_date?: string
+  readonly ack_date?: string | undefined
   /** Acknowledgement number returned by the Invoice Registration Portal. */
-  readonly ack_no?: string
+  readonly ack_no?: string | undefined
   /** Signed QR code returned by the Invoice Registration Portal. */
-  readonly signed_qr_code?: string
+  readonly signed_qr_code?: string | undefined
   /** Additional internal data associated with the e-invoice. */
-  readonly internal_data?: string
+  readonly internal_data?: string | undefined
 }
 
 export interface ListCreditNotesInput {
   /** Filter credit notes by specific credit note number. Use this parameter to search for a particular credit note by its unique number. Max-Length [100] */
-  readonly creditnote_number?: string
+  readonly creditnote_number?: string | undefined
   /** Search credit notes by credit note date. Use yyyy-mm-dd format. Supports variants: date_start, date_end, date_before and date_after. Useful for finding credit notes within date ranges or specific time periods. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Filter credit notes by their current status. Allowed values: open, closed, void, or draft. */
-  readonly status?: "draft" | "pending_approval" | "approved" | "open" | "closed" | "void" | "rejected" | "signed" | "pending_signature" | "unsigned_all" | "unsigned_draft" | "unsigned_sent" | "unsigned_approved"
+  readonly status?: "draft" | "pending_approval" | "approved" | "open" | "closed" | "void" | "rejected" | "signed" | "pending_signature" | "unsigned_all" | "unsigned_draft" | "unsigned_sent" | "unsigned_approved" | undefined
   /** Search credit notes by total amount. Filters credit notes based on the final credit note amount including taxes, discounts, and adjustments. Useful for finding credit notes within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Filter credit notes by their reference number. Use this parameter to search for credit notes with a specific reference number. Max-Length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Filter credit notes by customer name. Use this parameter to search for credit notes associated with a specific customer. Max-Length [100] */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search credit notes by item name. Filters credit notes based on product or service names in credit note line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding credit notes with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Filter credit notes by customer ID. Use this parameter to search for credit notes associated with a specific customer. Retrieve customer IDs from the contacts API. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search credit notes by item description. Filters credit notes based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding credit notes with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Filter credit notes by item ID. Use this parameter to search for credit notes containing a specific item. Retrieve item IDs from the items API. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Filter credit notes by line item ID. Use this parameter to search for credit notes containing a specific line item within the credit note. */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Filter credit notes by tax ID. Use this parameter to search for credit notes with a specific tax applied. Retrieve tax IDs from the taxes API. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Filter credit notes by status using predefined status values. Allowed values: Status.All, Status.Open, Status.Draft, Status.Closed, and Status.Void. */
-  readonly filter_by?: "Status.All" | "Status.Open" | "Status.Closed" | "Status.Void" | "Status.Draft" | "Status.Pending" | "Status.Approved" | "Status.Locked" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.MyApprovals" | "Status.Pushed" | "Status.YetToBePushed" | "Status.Failed" | "Status.CancelInitiated" | "Status.Signed" | "Status.PendingSignature" | "Status.UnsignedAll" | "Status.UnsignedDraft" | "Status.UnsignedApproved" | "Status.UnsignedSent" | "Status.BBPSYetToBePushed" | "Status.BBPSPushed" | "Status.BBPSPushFailed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "Type.CancellationInvoice" | "Type.DirectReturns" | "WithOutInvoiceNumber" | "ExceptionList" | "MissingAdvancedTrackingDetails" | "InconsistentList" | "Type.All" | "Type.Invoice"
+  readonly filter_by?: "Status.All" | "Status.Open" | "Status.Closed" | "Status.Void" | "Status.Draft" | "Status.Pending" | "Status.Approved" | "Status.Locked" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.MyApprovals" | "Status.Pushed" | "Status.YetToBePushed" | "Status.Failed" | "Status.CancelInitiated" | "Status.Signed" | "Status.PendingSignature" | "Status.UnsignedAll" | "Status.UnsignedDraft" | "Status.UnsignedApproved" | "Status.UnsignedSent" | "Status.BBPSYetToBePushed" | "Status.BBPSPushed" | "Status.BBPSPushFailed" | "Status.BBPSPendingApproval" | "Status.BBPSAccepted" | "Status.BBPSAcceptFailed" | "Status.BBPSRejected" | "Status.BBPSRejectFailed" | "Status.BBPSReturned" | "Status.BBPSReturnFailed" | "Type.CancellationInvoice" | "Type.DirectReturns" | "WithOutInvoiceNumber" | "ExceptionList" | "MissingAdvancedTrackingDetails" | "InconsistentList" | "Type.All" | "Type.Invoice" | undefined
   /** Search credit notes using text search across multiple fields. Searches credit note number, customer name, and reference number. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort credit notes by specified column. Allowed values: customer_name, creditnote_number, balance, total, date, and created_time. */
-  readonly sort_column?: "customer_name" | "creditnote_number" | "balance" | "total" | "date" | "txn_posting_date" | "created_time" | "last_modified_time" | "cf_(\\w+)"
+  readonly sort_column?: "customer_name" | "creditnote_number" | "balance" | "total" | "date" | "txn_posting_date" | "created_time" | "last_modified_time" | "cf_(\\w+)" | undefined
   /** Search credit notes modified after a specific time. Filters credit notes based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated credit notes or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** List of location IDs to filter credit notes by their associated locations. Use this parameter to retrieve credit notes linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many credit notes are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List all Credit Notes. `GET /creditnotes` */
@@ -1391,9 +1391,9 @@ export const listCreditNotes = /*#__PURE__*/ operation<ListCreditNotesInput, typ
 
 export interface CreateCreditNoteInput {
   /** Invoice ID of the required invoice. */
-  readonly invoice_id?: string
+  readonly invoice_id?: string | undefined
   /** Set to true if you need to provide your own credit note number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateACreditNoteRequest
 }
 
@@ -1413,7 +1413,7 @@ export interface UpdateCreditNoteUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateACreditNoteRequest
 }
 
@@ -1432,9 +1432,9 @@ export interface GetCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Export credit note pdf with default print option. Allowed Values: true, false, on and off */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** You can get credit note details as json/pdf/html. Default format is html. Allowed Values: json, pdf and html */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get a credit note. `GET /creditnotes/{creditnote_id}` */
@@ -1450,7 +1450,7 @@ export interface UpdateCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Set to true if you need to provide your own credit note number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: UpdateACreditNoteRequest
 }
 
@@ -1482,7 +1482,7 @@ export interface GetCreditNoteEmailInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Get the email content based on a specific email template. If this param is not inputted, then the content will be based on the email template associated with the customer. If no template is associated with the customer, then default template will be used. */
-  readonly email_template_id?: string
+  readonly email_template_id?: string | undefined
 }
 
 /** Get email content. `GET /creditnotes/{creditnote_id}/email` */
@@ -1498,9 +1498,9 @@ export interface EmailCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Customer ID of the customer for whom the credit note is raised. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** The files to be attached with the email. */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   readonly body: EmailACreditNoteRequest
 }
 
@@ -1519,7 +1519,7 @@ export interface MarkCreditNoteVoidInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void a Credit Note. `POST /creditnotes/{creditnote_id}/status/void` */
@@ -1536,7 +1536,7 @@ export interface MarkCreditNoteDraftInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Convert Credit Note to Draft.. `POST /creditnotes/{creditnote_id}/status/draft` */
@@ -1553,7 +1553,7 @@ export interface MarkCreditNoteOpenInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Convert to Open. `POST /creditnotes/{creditnote_id}/status/open` */
@@ -1570,7 +1570,7 @@ export interface SubmitCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a credit note for approval. `POST /creditnotes/{creditnote_id}/submit` */
@@ -1587,7 +1587,7 @@ export interface ApproveCreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a credit note.. `POST /creditnotes/{creditnote_id}/approve` */
@@ -1663,7 +1663,7 @@ export interface UpdateCreditNoteTemplateInput {
   /** Unique identifier of the credit note template. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a credit note template. `PUT /creditnotes/{creditnote_id}/templates/{template_id}` */
@@ -1770,13 +1770,13 @@ export const deleteCreditNoteComment = /*#__PURE__*/ operation<DeleteCreditNoteC
 
 export interface ListCreditNoteRefundsOfAllCreditNotesInput {
   /** Customer ID of the customer for whom the credit note is raised. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Sort refunds list. Allowed Values: refund_mode, reference_number, date, creditnote_number, customer_name, amount_bcy and amount_fcy */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many credit notes are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List credit note refunds. `GET /creditnotes/refunds` */
@@ -1792,9 +1792,9 @@ export interface ListCreditNoteRefundsOfACreditNoteInput {
   /** Unique identifier of the credit note. */
   readonly creditnote_id: string
   /** Page number for pagination. Specify which page of results to retrieve. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many credit notes are returned in each page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List refunds of a credit note. `GET /creditnotes/{creditnote_id}/refunds` */
@@ -1876,7 +1876,7 @@ export interface ApproveCreditNotesInput {
   /** Comma-separated IDs of the credit notes to approve. Note: This value is a set of numeric characters separated by comma. */
   readonly creditnote_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve credit notes. `POST /creditnotes/approve` */
@@ -1893,7 +1893,7 @@ export interface SubmitCreditNotesInput {
   /** Comma-separated IDs of the credit notes to submit for approval. Note: This value is a set of numeric characters separated by comma. */
   readonly creditnote_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit credit notes for approval. `POST /creditnotes/submit` */
@@ -1910,7 +1910,7 @@ export interface FinalizeCreditNoteApprovalInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Finalize approval of a credit note. `POST /creditnotes/{creditnote_id}/approve/final` */
@@ -1927,9 +1927,9 @@ export interface RejectCreditNoteInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Reason for rejecting the credit note. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reject a credit note. `POST /creditnotes/{creditnote_id}/reject` */
@@ -1974,11 +1974,11 @@ export interface AddCreditNoteAttachmentInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** True to send the attachment with the credit note when it is emailed. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** The file to be attached. Allowed extensions: gif, png, jpeg, jpg, bmp and pdf. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to a credit note. `POST /creditnotes/{creditnote_id}/attachment` */
@@ -1998,7 +1998,7 @@ export interface GetCreditNoteDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** Format in which the document is returned. Allowed values: json, pdf. */
-  readonly responseformat?: string
+  readonly responseformat?: string | undefined
 }
 
 /** Retrieve a credit note document. `GET /creditnotes/{creditnote_id}/documents/{document_id}` */
@@ -2016,7 +2016,7 @@ export interface UpdateCreditNoteDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a credit note document. `PUT /creditnotes/{creditnote_id}/documents/{document_id}` */
@@ -2093,7 +2093,7 @@ export interface AddCreditNoteDigitalSignatureInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add a digital signature to a credit note. `POST /creditnotes/{creditnote_id}/dsign` */
@@ -2110,9 +2110,9 @@ export interface UploadCreditNoteDigitalSignatureInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** The signed file to be uploaded. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Upload a signed credit note. `POST /creditnotes/{creditnote_id}/dsign/upload` */
@@ -2146,7 +2146,7 @@ export interface ApplyCreditNoteSubstatusInput {
   /** Identifier of the sub-status to apply or remove. */
   readonly substatus_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Apply a sub-status to a credit note. `POST /creditnotes/{creditnote_id}/substatus/{substatus_id}` */
@@ -2188,7 +2188,7 @@ export const listCreditNotesEinvoice = /*#__PURE__*/ operation<ListCreditNotesEi
 
 export interface PushCreditNotesEinvoiceInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push credit note e-invoices. `POST /creditnotes/einvoice/push` */
@@ -2203,7 +2203,7 @@ export const pushCreditNotesEinvoice = /*#__PURE__*/ operation<PushCreditNotesEi
 
 export interface CancelCreditNotesEinvoiceInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel credit note e-invoices. `POST /creditnotes/einvoice/cancel` */
@@ -2234,7 +2234,7 @@ export interface PushCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/push` */
@@ -2251,7 +2251,7 @@ export interface CancelCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/cancel` */
@@ -2268,7 +2268,7 @@ export interface FetchCreditNoteEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Fetch a credit note e-invoice. `POST /creditnotes/{creditnote_id}/einvoice/fetch` */
@@ -2315,7 +2315,7 @@ export interface MarkCreditNoteEinvoiceCancelledInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a credit note e-invoice as cancelled. `POST /creditnotes/{creditnote_id}/einvoice/status/cancel` */
@@ -2332,7 +2332,7 @@ export interface RecallCreditNoteEinvoiceStatusInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Recall a credit note e-invoice status. `POST /creditnotes/{creditnote_id}/einvoice/status/recall` */
@@ -2349,7 +2349,7 @@ export interface PushCreditNoteRefundEinvoiceInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push a credit note refund e-invoice. `POST /creditnotes/{creditnote_id}/refunds/einvoice/push` */
@@ -2366,7 +2366,7 @@ export interface MarkCreditNoteReadyToPushInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a credit note as ready to push. `POST /creditnotes/{creditnote_id}/status/readytopush` */
@@ -2383,7 +2383,7 @@ export interface UpdateCreditNoteCfdiStatusInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a credit note CFDI status. `POST /creditnotes/{creditnote_id}/cfdi/status` */
@@ -2400,7 +2400,7 @@ export interface CancelEinvoiceCreditNoteInput {
   /** Unique identifier of the credit note. Note: This value is a set of numeric characters. */
   readonly creditnote_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel an e-invoice credit note. `POST /einvoices/creditnotes/{creditnote_id}/cancel` */

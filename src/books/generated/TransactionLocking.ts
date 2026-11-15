@@ -83,44 +83,44 @@ export type UpdatePartialUnlockResponse = typeof UpdatePartialUnlockResponse.Typ
 
 export interface UpdateTransactionLockRequest {
   /** Status of the transaction lock. Allowed Values: disabled, enabled, enabled_with_logging. */
-  readonly transaction_lock_status?: string
+  readonly transaction_lock_status?: string | undefined
   /** Module to which the transaction lock applies. Allowed Values: sales, purchase, accountant, banking, inventory_adjustments. */
-  readonly transaction_lock_module?: string
+  readonly transaction_lock_module?: string | undefined
   /** Date up to which transactions are locked. [yyyy-MM-dd] */
-  readonly transaction_lock_date?: string
+  readonly transaction_lock_date?: string | undefined
   /** ID of the accounting period. */
-  readonly accounting_period_id?: string
+  readonly accounting_period_id?: string | undefined
   /** Reason for the transaction lock action. Max-length [500] */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** List of user IDs to exempt from the lock. */
-  readonly user_ids?: ReadonlyArray<string>
+  readonly user_ids?: ReadonlyArray<string> | undefined
   /** List of account IDs to exempt from the lock. */
-  readonly account_ids?: ReadonlyArray<string>
+  readonly account_ids?: ReadonlyArray<string> | undefined
 }
 
 export interface DeleteTransactionLockRequest {
   /** Reason for the transaction lock action. Max-length [500] */
-  readonly reason?: string
+  readonly reason?: string | undefined
 }
 
 export interface UpdatePartialUnlockRequest {
   /** Whether partial unlock is enabled. */
-  readonly is_enabled?: boolean
+  readonly is_enabled?: boolean | undefined
   /** Module for partial unlock. Allowed Values: all, sales, purchase, accountant, banking. */
-  readonly lock_module?: string
+  readonly lock_module?: string | undefined
   /** Start date of the accounting period. [yyyy-MM-dd] */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** End date of the accounting period. [yyyy-MM-dd] */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Reason for the transaction lock action. Max-length [500] */
-  readonly reason?: string
+  readonly reason?: string | undefined
 }
 
 export interface GetTransactionLockInput {
   /** ID of the accounting period. */
-  readonly accounting_period_id?: string
+  readonly accounting_period_id?: string | undefined
   /** ID of the transaction lock. */
-  readonly transaction_lock_id?: string
+  readonly transaction_lock_id?: string | undefined
 }
 
 /** Get transaction lock details. `GET /transactionlock` */
@@ -164,9 +164,9 @@ export const deleteTransactionLock = /*#__PURE__*/ operation<DeleteTransactionLo
 
 export interface GetAccountingPeriodTransactionLockInput {
   /** ID of the accounting period. */
-  readonly accounting_period_id?: string
+  readonly accounting_period_id?: string | undefined
   /** ID of the transaction lock. */
-  readonly transaction_lock_id?: string
+  readonly transaction_lock_id?: string | undefined
 }
 
 /** Get transaction lock for an accounting period. `GET /accountingperiods/transactionlock` */
@@ -180,13 +180,13 @@ export const getAccountingPeriodTransactionLock = /*#__PURE__*/ operation<GetAcc
 
 export interface ListTransactionLocksInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** ID of the accounting period to filter by. */
-  readonly accounting_period_id?: string
+  readonly accounting_period_id?: string | undefined
   /** Filter by lock scope. Allowed Values: 0, 1, 2, 3, 4, 5. */
-  readonly lock_scope?: number
+  readonly lock_scope?: number | undefined
 }
 
 /** List transaction locks. `GET /transactionlocks` */

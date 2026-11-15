@@ -1,10 +1,10 @@
 import * as Effect from 'effect/Effect'
 import * as Redacted from 'effect/Redacted'
 import * as Schema from 'effect/Schema'
-import * as HttpClient from 'effect/unstable/http/HttpClient'
-import * as HttpClientRequest from 'effect/unstable/http/HttpClientRequest'
+import * as HttpClient from 'effect/http/HttpClient'
+import * as HttpClientRequest from 'effect/http/HttpClientRequest'
 import { zohoDataCenters, type ZohoDataCenter } from './ZohoDataCenter.ts'
-import { ZohoOAuthError, ZohoResponseError, ZohoTransportError } from './ZohoError.ts'
+import { ZohoError, ZohoOAuthError, ZohoResponseError, ZohoTransportError } from './ZohoError.ts'
 
 export interface ZohoOAuthClient {
   readonly clientId: string
@@ -20,8 +20,8 @@ export interface ZohoAuthorizationUrlOptions {
   /** Opaque value Zoho returns to the redirect URI; verify it there to stop request forgery. */
   readonly state: string
   /** `offline` asks for a refresh token. Zoho issues one only on the first consent unless `prompt` is `consent`. */
-  readonly accessType?: 'offline' | 'online'
-  readonly prompt?: 'consent'
+  readonly accessType?: 'offline' | 'online' | undefined
+  readonly prompt?: 'consent' | undefined
 }
 
 export function authorizationUrl(options: ZohoAuthorizationUrlOptions): string {
@@ -61,6 +61,7 @@ const tokenRequest = Effect.fnUntraced(function* (
   fields: Readonly<Record<string, string>>,
 ) {
   const http = yield* HttpClient.HttpClient
+  const failed = (reason: ZohoError['reason']) => new ZohoError({ operation, reason })
   const request = HttpClientRequest.post(`${zohoDataCenters[client.dataCenter].accounts}/oauth/v2/token`).pipe(
     HttpClientRequest.acceptJson,
     HttpClientRequest.bodyUrlParams({
@@ -70,18 +71,18 @@ const tokenRequest = Effect.fnUntraced(function* (
     }),
   )
   const response = yield* http.execute(request).pipe(
-    Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
+    Effect.mapError((cause) => failed(new ZohoTransportError({ cause }))),
   )
   // Zoho's accounts server answers a malformed request with an HTML page.
-  if (response.status >= 400) return yield* new ZohoOAuthError({ operation, error: `HTTP ${response.status}` })
+  if (response.status >= 400) return yield* failed(new ZohoOAuthError({ error: `HTTP ${response.status}` }))
   const body = yield* response.json.pipe(
-    Effect.mapError(() => new ZohoResponseError({ operation, detail: 'the token response was not JSON' })),
+    Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response was not JSON' }))),
   )
   const refusal = decodeRefusal(body)
-  if (refusal._tag === 'Some') return yield* new ZohoOAuthError({ operation, error: refusal.value.error })
+  if (refusal._tag === 'Some') return yield* failed(new ZohoOAuthError({ error: refusal.value.error }))
   return yield* decodeGrant(body).pipe(
     // The issue is not reported: it could quote a token from the body.
-    Effect.mapError(() => new ZohoResponseError({ operation, detail: 'the token response had an unexpected shape' })),
+    Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response had an unexpected shape' }))),
   )
 })
 
@@ -110,11 +111,11 @@ export const revokeRefreshToken = Effect.fnUntraced(function* (options: {
     HttpClientRequest.bodyUrlParams({ token: Redacted.value(options.refreshToken) }),
   )
   const response = yield* http.execute(request).pipe(
-    Effect.mapError((cause) => new ZohoTransportError({ operation, cause })),
+    Effect.mapError((cause) => new ZohoError({ operation, reason: new ZohoTransportError({ cause }) })),
   )
-  if (response.status >= 400) return yield* new ZohoOAuthError({ operation, error: `HTTP ${response.status}` })
+  if (response.status >= 400) return yield* new ZohoError({ operation, reason: new ZohoOAuthError({ error: `HTTP ${response.status}` }) })
   const body = yield* response.json.pipe(Effect.orElseSucceed((): unknown => undefined))
   if ((body as { readonly status?: unknown } | undefined)?.status !== 'success') {
-    return yield* new ZohoOAuthError({ operation, error: 'Zoho did not confirm the revocation' })
+    return yield* new ZohoError({ operation, reason: new ZohoOAuthError({ error: 'Zoho did not confirm the revocation' }) })
   }
 })

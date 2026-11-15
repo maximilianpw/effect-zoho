@@ -90,48 +90,48 @@ export interface CreateOpeningBalanceRequest {
   /** Date on which the opening balance needs to be recorded. [yyyy-MM-dd] */
   readonly date: string
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of accounts with their opening balance details. */
   readonly accounts?: ReadonlyArray<{
     /** ID of account for which you need to record opening balance. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Debit or Credit for which the amount needs to be recorded. Allowed Values: debit and credit. */
     readonly debit_or_credit: string
     /** Exchange rate for the foreign currencies if involved. */
-    readonly exchange_rate?: number
+    readonly exchange_rate?: number | undefined
     /** ID of account currency. */
-    readonly currency_id?: string
+    readonly currency_id?: string | undefined
     /** Amount of the opening balance. */
-    readonly amount?: number
-  }>
+    readonly amount?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateOpeningBalanceRequest {
   /** Date on which the opening balance needs to be recorded. [yyyy-MM-dd] */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of accounts with their opening balance details. */
   readonly accounts?: ReadonlyArray<{
     /** ID of split account that you want to update. */
-    readonly account_split_id?: string
+    readonly account_split_id?: string | undefined
     /** ID of account for which you need to record opening balance. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Name of the account. */
-    readonly account_name?: string
+    readonly account_name?: string | undefined
     /** Debit or Credit for which the amount needs to be recorded. Allowed Values: debit and credit. */
-    readonly debit_or_credit?: string
+    readonly debit_or_credit?: string | undefined
     /** Exchange rate for the foreign currencies if involved. */
-    readonly exchange_rate?: number
+    readonly exchange_rate?: number | undefined
     /** ID of account currency. */
-    readonly currency_id?: string
+    readonly currency_id?: string | undefined
     /** Currency code of the account. */
-    readonly currency_code?: string
+    readonly currency_code?: string | undefined
     /** Amount in Base Currency of the Organisation */
-    readonly bcy_amount?: number
+    readonly bcy_amount?: number | undefined
     /** Amount of the opening balance. */
-    readonly amount?: number
-  }>
+    readonly amount?: number | undefined
+  }> | undefined
   /** ID of opening balance. */
   readonly opening_balance_id: string
 }
@@ -204,7 +204,7 @@ export interface ListOpeningBalanceTransactionsInput {
   /** ID of the account. */
   readonly account_id: string
   /** Date of the opening balance. */
-  readonly opening_balance_date?: string
+  readonly opening_balance_date?: string | undefined
 }
 
 /** List opening balance transactions. `GET /openingbalances/transactions` */
@@ -220,11 +220,11 @@ export interface WriteoffOpeningBalanceInput {
   /** Unique identifier of the opening balance. */
   readonly opening_balance_id: string
   /** Date of the write-off. */
-  readonly writeoff_date?: string
+  readonly writeoff_date?: string | undefined
   /** Reason for writing off. Max-length [300]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Write off an opening balance. `POST /openingbalances/{opening_balance_id}/writeoff` */
@@ -241,7 +241,7 @@ export interface CancelWriteoffOpeningBalanceInput {
   /** Unique identifier of the opening balance. */
   readonly opening_balance_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel a write-off. `POST /openingbalances/{opening_balance_id}/writeoff/cancel` */

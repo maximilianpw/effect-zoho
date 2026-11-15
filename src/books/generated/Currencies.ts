@@ -102,9 +102,9 @@ export interface CreateACurrencyRequest {
   /** A unique standard code for the currency. Max-len [100] */
   readonly currency_code: string
   /** A unique symbol for the currency. Max-len [4] */
-  readonly currency_symbol?: string
+  readonly currency_symbol?: string | undefined
   /** The precision for the price */
-  readonly price_precision?: number
+  readonly price_precision?: number | undefined
   /** The format for the currency to be displayed. Max-len [100] */
   readonly currency_format: string
 }
@@ -113,34 +113,34 @@ export interface UpdateACurrencyRequest {
   /** A unique standard code for the currency. Max-len [100] */
   readonly currency_code: string
   /** A unique symbol for the currency. Max-len [4] */
-  readonly currency_symbol?: string
+  readonly currency_symbol?: string | undefined
   /** The precision for the price */
-  readonly price_precision?: number
+  readonly price_precision?: number | undefined
   /** The format for the currency to be displayed. Max-len [100] */
   readonly currency_format: string
 }
 
 export interface CreateAnExchangeRateRequest {
   /** Date which the exchange rate is applicable for the currency. */
-  readonly effective_date?: string
+  readonly effective_date?: string | undefined
   /** Rate of exchange for the currency with respect to base currency. */
-  readonly rate?: number
+  readonly rate?: number | undefined
 }
 
 export interface UpdateAnExchangeRateRequest {
   /** Date which the exchange rate is applicable for the currency. */
-  readonly effective_date?: string
+  readonly effective_date?: string | undefined
   /** Rate of exchange for the currency with respect to base currency. */
-  readonly rate?: number
+  readonly rate?: number | undefined
 }
 
 export interface ListCurrenciesInput {
   /** Filter currencies excluding base currency. Allowed Values: Currencies.ExcludeBaseCurrency */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Currencies. `GET /settings/currencies` */
@@ -214,11 +214,11 @@ export interface ListExchangeRatesInput {
   /** Unique identifier of the currency. */
   readonly currency_id: string
   /** Returns the exchange rate details from the given date or from previous closest match in the absence of the exchange rate on the given date. */
-  readonly from_date?: string
+  readonly from_date?: string | undefined
   /** To return the exchange rate only if available for current date. */
-  readonly is_current_date?: boolean
+  readonly is_current_date?: boolean | undefined
   /** Sorts the exchange rate according to this column. Allowed Values : effective_date */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
 }
 
 /** List exchange rates. `GET /settings/currencies/{currency_id}/exchangerates` */

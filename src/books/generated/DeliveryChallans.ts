@@ -179,177 +179,177 @@ export type ListTemplatesResponse = typeof ListTemplatesResponse.Type
 
 export interface LineItemRequest {
   /** Unique identifier of the item. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Unique identifier of the line item (for updates). */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Name of the item. Max-length [200] */
-  readonly name?: string
+  readonly name?: string | undefined
   /** SKU of the item. Max-length [200] */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** Description of the line item. Max-length [6000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Display order of the item. */
-  readonly item_order?: number
+  readonly item_order?: number | undefined
   /** Rate of the item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Quantity. */
-  readonly quantity?: number
+  readonly quantity?: number | undefined
   /** Unit of measurement. Max-length [120] */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Discount for this line item. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Unique identifier of the tax. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique identifier of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Tax exemption code. Max-length [50] */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** HSN or SAC code (applicable for India edition). */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unique identifier of the price book. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Unique identifier of the warehouse. */
-  readonly warehouse_id?: string
+  readonly warehouse_id?: string | undefined
   /** Unique identifier of the location. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
 }
 
 export interface AddressDetailInput {
   /** Address line. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Second address line. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Phone number. */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Attention. */
-  readonly attention?: string
+  readonly attention?: string | undefined
 }
 
 export interface CreateDeliveryChallanRequest {
   /** Unique identifier of the customer. */
   readonly customer_id: string
   /** Unique identifier of the currency. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Delivery challan number. Max-length [50] */
-  readonly deliverychallan_number?: string
+  readonly deliverychallan_number?: string | undefined
   /** Reference number. Max-length [50] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Unique identifier of the template. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Date of the delivery challan in YYYY-MM-DD format. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Type of delivery challan. Max-length [200] */
-  readonly challan_type?: string
+  readonly challan_type?: string | undefined
   /** Discount applied at the entity level. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Whether discount is applied before tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Type of discount. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Place of supply state code (applicable for India edition). Max-length [5] */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Exchange rate for the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Whether prices are inclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** GST treatment (applicable for India edition). */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Tax treatment. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** GST number (applicable for India edition). Max-length [15] */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Line items of the delivery challan. */
-  readonly line_items?: ReadonlyArray<LineItemRequest>
+  readonly line_items?: ReadonlyArray<LineItemRequest> | undefined
   /** Customer notes. Max-length [5000] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions. Max-length [10000] */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Adjustment amount. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Adjustment description. Max-length [200] */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Unique identifier of the tax. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique identifier of the tax authority. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique identifier of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Unique identifier of the shipping address. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Address of the party the goods are shipped to. Use this field to provide a one-time shipping address that is not saved under the customer. When using this field, do not provide shipping_address_id in the same request. */
-  readonly shipping_address?: AddressDetailInput
+  readonly shipping_address?: AddressDetailInput | undefined
   /** Unique identifier of the price book. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Unique identifier of the branch. */
-  readonly branch_id?: string
+  readonly branch_id?: string | undefined
   /** Unique identifier of the location. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
 }
 
 export interface ReturnDeliveryChallanRequest {
   /** Line items with return quantities. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier of the line item. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Quantity to return. */
-    readonly qty_returned?: number
-  }>
+    readonly qty_returned?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateShippingAddressRequest {
   /** Address line. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Second address line. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Phone number. */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Attention. */
-  readonly attention?: string
+  readonly attention?: string | undefined
 }
 
 export interface ListDeliveryChallansInput {
   /** Specify the column to sort Delivery challans by. Allowed values customer_name, deliverychallan_number, total, date, created_time, last_modified_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order (A for Ascending, D for Descending). Allowed values A (ascending), D (descending). */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Filter delivery challans by status. Allowed values Status.All, Status.Draft, Status.Open, Status.Returned, Status.Delivered, Status.Invoiced, Status.PartiallyInvoiced. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search delivery challans by challan number or customer name. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Filter by ID of the Customer for whom the delivery challan is created. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search Delivery challans by delivery challan status. Allowed values draft, open, void, fulfilled, invoiced, partially_invoiced. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Page number to be fetched. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List delivery challans. `GET /deliverychallans` */
@@ -363,7 +363,7 @@ export const listDeliveryChallans = /*#__PURE__*/ operation<ListDeliveryChallans
 
 export interface CreateDeliveryChallanInput {
   /** Ignore auto number generation for this delivery challan. Allowed values true and false. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateDeliveryChallanRequest
 }
 
@@ -381,7 +381,7 @@ export interface GetDeliveryChallanInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
   /** Print the delivery challan in PDF format. Allowed values true and false. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
 }
 
 /** Retrieve a delivery challan. `GET /deliverychallans/{deliverychallan_id}` */
@@ -427,7 +427,7 @@ export interface MarkDeliveryChallanAsOpenInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a delivery challan as open. `POST /deliverychallans/{deliverychallan_id}/status/open` */
@@ -444,7 +444,7 @@ export interface MarkDeliveryChallanAsDeliveredInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a delivery challan as delivered. `POST /deliverychallans/{deliverychallan_id}/status/delivered` */
@@ -461,7 +461,7 @@ export interface MarkDeliveryChallanAsReturnedInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a delivery challan as returned. `POST /deliverychallans/{deliverychallan_id}/status/returned` */
@@ -478,7 +478,7 @@ export interface MarkDeliveryChallanAsUndeliveredInput {
   /** Unique identifier of the delivery challan. Note: This value is a set of numeric characters. */
   readonly deliverychallan_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a delivery challan as undelivered. `POST /deliverychallans/{deliverychallan_id}/status/undelivered` */
@@ -511,7 +511,7 @@ export interface UndoReturnDeliveryChallansInput {
   /** Comma-separated IDs of delivery challans to undo return. */
   readonly deliverychallan_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Undo return of delivery challans. `PUT /deliverychallans/undo/return` */
@@ -529,7 +529,7 @@ export interface AddAttachmentToDeliveryChallanInput {
   readonly deliverychallan_id: string
   readonly body: {
     /** File to attach. Max size 10 MB. */
-    readonly attachment?: ZohoFile
+    readonly attachment?: ZohoFile | undefined
   }
 }
 
@@ -592,7 +592,7 @@ export interface UpdateDeliveryChallanTemplateInput {
   /** Unique identifier of the template. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a delivery challan template. `PUT /deliverychallans/{deliverychallan_id}/templates/{template_id}` */

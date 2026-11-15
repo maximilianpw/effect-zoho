@@ -480,492 +480,492 @@ export type DeleteACommentResponse = typeof DeleteACommentResponse.Type
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if SMS communication preference is enabled for the contact person at transaction level. */
-  readonly is_sms_enabled?: boolean
+  readonly is_sms_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface ShippingAddressInput {
   /** Billing address for the estimate */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface CreateAnEstimateRequest {
   /** The ID of the customer (contact) for whom the estimate is created. This must be a valid contact ID from your organization; obtain it using the Contacts API (GET /contacts) or the Create Contact response. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** The ID of the currency in which the estimate will be created. Use this to specify the customer's preferred currency for transactions. Fetch valid currency IDs using the Currency API (GET /currencies). Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the estimate. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** The ID of the template used for generating the estimate PDF. Use this to apply custom branding or formats. Fetch template IDs using the Templates API (GET /estimates/templates). Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** The shipping address */
-  readonly shipping_address?: ShippingAddressInput
+  readonly shipping_address?: ShippingAddressInput | undefined
   /** Search estimates by estimate number.Variantsestimate_number_startswith and estimate_number_contains */
-  readonly estimate_number?: string
+  readonly estimate_number?: string | undefined
   /** Optional external identifier used to associate the estimate with other systems or workflows. Helps improve traceability and integration during estimate creation. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search estimates by estimate date.Variants date_start, date_end, date_before and date_after */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The date of expiration of the estimates */
-  readonly expiry_date?: string
+  readonly expiry_date?: string | undefined
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Discount applied to the estimate, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Used to specify how the discount has to applied. Either before or after the calculation of tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** How the discount is specified. Allowed values are entity_level or item_level.Allowed Values: entity_level and item_level */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Custom body for the email to be sent. */
-  readonly custom_body?: string
+  readonly custom_body?: string | undefined
   /** Custom subject for the email to be sent. */
-  readonly custom_subject?: string
+  readonly custom_subject?: string | undefined
   /** Name of the sales person. */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Custom fields for an estimate. */
   readonly custom_fields?: ReadonlyArray<{
     /** The index of the custom field. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** The value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Line items of an estimate. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier of the item (product or service) being quoted in this line item. Use the `item_id` returned by the Items API for the same organization. This links the line item to a specific product or service in your catalog. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier of the line item within the estimate. Required when updating or referencing a specific line item. If omitted during creation, a new line item will be added. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Name of the product or service for this line item. This is displayed on the estimate document and helps the customer identify what is being quoted. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Detailed description of the product or service in this line item. Use this field to provide specifications, features, or any other relevant information that helps the customer understand about the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Type of product or service for this line item. Allowed values: goods or services. For South Africa Edition, additional values include capital_service and capital_goods. This classification affects tax calculations, reporting, and compliance requirements based on your organization's location and tax regulations. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Add SAT Unit Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Sequential order number for this line item on the estimate. Determines the display order of line items in the estimate document - lower values appear first. Use this field to organize line items in a specific sequence. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Exchange rate between the base currency and the transaction currency for this line item. Used for currency conversion and reporting. */
-    readonly bcy_rate?: number
+    readonly bcy_rate?: number | undefined
     /** Unit price or rate for the product or service in this line item. This value is multiplied by the quantity to determine the line item total before taxes and discounts. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units of the product or service being quoted in this line item. This value is multiplied by the rate to calculate the line item total. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the product or service in this line item (e.g., kgs, Nos., hours). Helps clarify the quantity being quoted. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Discount amount applied to this line item. This value reduces the line item total before tax calculation. */
-    readonly discount_amount?: number
+    readonly discount_amount?: number | undefined
     /** Discount applied to the estimate, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** The name of the tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** The type of the tax */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** The percentage of tax levied */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Total amount for this line item after applying quantity, rate, discounts, and taxes. This value contributes to the overall estimate total. */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Unique identifier of the business location associated with the estimate. Use the `location_id` returned by the Locations API for the same organization. This links the estimate to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
   }>
   /** Unique identifier of the business location associated with the estimate. Use the `location_id` returned by the Locations API for the same organization. This links the estimate to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Additional information or comments to be displayed on the estimate document. This field is typically used for thank you messages, special instructions, or any other information you want to communicate to the customer. The notes appear on the estimate PDF and are visible to customers. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Defines the terms and conditions to be included in the estimate document. This field can be used to specify payment terms, delivery schedules, return policies, or other transactional details. The terms appear on the estimate PDF and helps communicate key conditions related to the estimate. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Additional shipping or delivery charges applied to the estimate. Must be specified as a fixed amount (e.g., "25.00"). This amount is added to the estimate total and is subject to tax calculation. */
-  readonly shipping_charge?: string
+  readonly shipping_charge?: string | undefined
   /** Additional charge or credit amount applied to the estimate total. This can be used for rounding adjustments, handling fees, or any other one-time charges/credits. Positive values add to the total, negative values reduce the total. This amount is applied after tax calculation and affects the final estimate total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for the adjustment amount. This description appears on the estimate document to explain why the adjustment was applied. Common examples include "Rounding adjustment", "Handling fee", "Early payment discount", or "Late payment fee". This helps customers understand the purpose of the adjustment. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** ID of the tax exemption. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** (Optional) VAT treatment for the estimates. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the Estimate. Allowed Values: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique identifier of the item (product or service) being quoted in this line item. Use the `item_id` returned by the Items API for the same organization. This links the line item to a specific product or service in your catalog. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Unique identifier of the line item within the estimate. Required when updating or referencing a specific line item. If omitted during creation, a new line item will be added. Note: This value is a set of numeric characters. */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Name of the product or service for this line item. This is displayed on the estimate document and helps the customer identify what is being quoted. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Detailed description of the product or service in this line item. Use this field to provide specifications, features, or any other relevant information that helps the customer understand about the line item. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Unit price or rate for the product or service in this line item. This value is multiplied by the quantity to determine the line item total before taxes and discounts. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Unit of measurement for the product or service in this line item (e.g., kgs, Nos., hours). Helps clarify the quantity being quoted. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Number of units of the product or service being quoted in this line item. This value is multiplied by the rate to calculate the line item total. */
-  readonly quantity?: number
+  readonly quantity?: number | undefined
   /** Unique identifier of the project associated with this estimate. Use the project_id returned by the Projects API for the same organization. Linking an estimate to a project helps with project-based billing, tracking, and reporting. Note: This value is a set of numeric characters. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Boolean flag indicating whether a retainer invoice should be automatically created if the customer accepts this estimate. When set to true, a retainer invoice is generated upon acceptance, streamlining the process for upfront payments or deposits. Allowed values: true and false. */
-  readonly accept_retainer?: boolean
+  readonly accept_retainer?: boolean | undefined
   /** Percentage of the estimate amount to be collected as a retainer (upfront payment) when the estimate is accepted. Specify a value between 0 and 100. This determines the portion of the total estimate that will be invoiced as a retainer. */
-  readonly retainer_percentage?: number
+  readonly retainer_percentage?: number | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnEstimateRequest {
   /** The ID of the customer (contact) for whom the estimate is created. This must be a valid contact ID from your organization; obtain it using the Contacts API (GET /contacts) or the Create Contact response. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** The ID of the currency in which the estimate will be created. Use this to specify the customer's preferred currency for transactions. Fetch valid currency IDs using the Currency API (GET /currencies). Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the estimate. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** The ID of the template used for generating the estimate PDF. Use this to apply custom branding or formats. Fetch template IDs using the Templates API (GET /estimates/templates). Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Search estimates by estimate number.Variantsestimate_number_startswith and estimate_number_contains */
-  readonly estimate_number?: string
+  readonly estimate_number?: string | undefined
   /** Optional external identifier used to associate the estimate with other systems or workflows. Helps improve traceability and integration during estimate creation. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search estimates by estimate date.Variants date_start, date_end, date_before and date_after */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The date of expiration of the estimates */
-  readonly expiry_date?: string
+  readonly expiry_date?: string | undefined
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Discount applied to the estimate, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Used to specify how the discount has to applied. Either before or after the calculation of tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** How the discount is specified. Allowed values are entity_level or item_level.Allowed Values: entity_level and item_level */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Custom body for the email to be sent. */
-  readonly custom_body?: string
+  readonly custom_body?: string | undefined
   /** Custom subject for the email to be sent. */
-  readonly custom_subject?: string
+  readonly custom_subject?: string | undefined
   /** Name of the sales person. */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Custom fields for an estimate. */
   readonly custom_fields: ReadonlyArray<{
     /** The index of the custom field. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** The value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
   }>
   /** Line items of an estimate. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier of the item (product or service) being quoted in this line item. Use the `item_id` returned by the Items API for the same organization. This links the line item to a specific product or service in your catalog. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier of the line item within the estimate. Required when updating or referencing a specific line item. If omitted during creation, a new line item will be added. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Name of the product or service for this line item. This is displayed on the estimate document and helps the customer identify what is being quoted. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Detailed description of the product or service in this line item. Use this field to provide specifications, features, or any other relevant information that helps the customer understand about the line item. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Type of product or service for this line item. Allowed values: goods or services. For South Africa Edition, additional values include capital_service and capital_goods. This classification affects tax calculations, reporting, and compliance requirements based on your organization's location and tax regulations. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Add SAT Unit Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Sequential order number for this line item on the estimate. Determines the display order of line items in the estimate document - lower values appear first. Use this field to organize line items in a specific sequence. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Exchange rate between the base currency and the transaction currency for this line item. Used for currency conversion and reporting. */
-    readonly bcy_rate?: number
+    readonly bcy_rate?: number | undefined
     /** Unit price or rate for the product or service in this line item. This value is multiplied by the quantity to determine the line item total before taxes and discounts. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units of the product or service being quoted in this line item. This value is multiplied by the rate to calculate the line item total. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the product or service in this line item (e.g., kgs, Nos., hours). Helps clarify the quantity being quoted. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Discount amount applied to this line item. This value reduces the line item total before tax calculation. */
-    readonly discount_amount?: number
+    readonly discount_amount?: number | undefined
     /** Discount applied to the estimate, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** The name of the tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** The type of the tax */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** The percentage of tax levied */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Total amount for this line item after applying quantity, rate, discounts, and taxes. This value contributes to the overall estimate total. */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Unique identifier of the business location associated with the estimate. Use the `location_id` returned by the Locations API for the same organization. This links the estimate to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Unique identifier of the business location associated with the estimate. Use the `location_id` returned by the Locations API for the same organization. This links the estimate to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Additional information or comments to be displayed on the estimate document. This field is typically used for thank you messages, special instructions, or any other information you want to communicate to the customer. The notes appear on the estimate PDF and are visible to customers. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Defines the terms and conditions to be included in the estimate document. This field can be used to specify payment terms, delivery schedules, return policies, or other transactional details. The terms appear on the estimate PDF and helps communicate key conditions related to the estimate. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Additional shipping or delivery charges applied to the estimate. Must be specified as a fixed amount (e.g., "25.00"). This amount is added to the estimate total and is subject to tax calculation. */
-  readonly shipping_charge?: string
+  readonly shipping_charge?: string | undefined
   /** Additional charge or credit amount applied to the estimate total. This can be used for rounding adjustments, handling fees, or any other one-time charges/credits. Positive values add to the total, negative values reduce the total. This amount is applied after tax calculation and affects the final estimate total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for the adjustment amount. This description appears on the estimate document to explain why the adjustment was applied. Common examples include "Rounding adjustment", "Handling fee", "Early payment discount", or "Late payment fee". This helps customers understand the purpose of the adjustment. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** ID of the tax exemption. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** (Optional) VAT treatment for the estimates. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the Estimate. Allowed Values: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique identifier of the item (product or service) being quoted in this line item. Use the `item_id` returned by the Items API for the same organization. This links the line item to a specific product or service in your catalog. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Unique identifier of the line item within the estimate. Required when updating or referencing a specific line item. If omitted during creation, a new line item will be added. Note: This value is a set of numeric characters. */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Name of the product or service for this line item. This is displayed on the estimate document and helps the customer identify what is being quoted. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Detailed description of the product or service in this line item. Use this field to provide specifications, features, or any other relevant information that helps the customer understand about the line item. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Unit price or rate for the product or service in this line item. This value is multiplied by the quantity to determine the line item total before taxes and discounts. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Unit of measurement for the product or service in this line item (e.g., kgs, Nos., hours). Helps clarify the quantity being quoted. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Number of units of the product or service being quoted in this line item. This value is multiplied by the rate to calculate the line item total. */
-  readonly quantity?: number
+  readonly quantity?: number | undefined
   /** Unique identifier of the project associated with this estimate. Use the project_id returned by the Projects API for the same organization. Linking an estimate to a project helps with project-based billing, tracking, and reporting. Note: This value is a set of numeric characters. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Boolean flag indicating whether a retainer invoice should be automatically created if the customer accepts this estimate. When set to true, a retainer invoice is generated upon acceptance, streamlining the process for upfront payments or deposits. Allowed values: true and false. */
-  readonly accept_retainer?: boolean
+  readonly accept_retainer?: boolean | undefined
   /** Percentage of the estimate amount to be collected as a retainer (upfront payment) when the estimate is accepted. Specify a value between 0 and 100. This determines the portion of the total estimate that will be invoiced as a retainer. */
-  readonly retainer_percentage?: number
+  readonly retainer_percentage?: number | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnEstimateCustomfieldRequest {
   /** Custom fields for an invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** The value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface EmailAnEstimateRequest {
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be cced. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of an email has to be sent. */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** Body of an email has to be sent. */
-  readonly body?: string
+  readonly body?: string | undefined
   /** Array of Documents ids, which is attached into email */
-  readonly mail_documents?: ReadonlyArray<string>
+  readonly mail_documents?: ReadonlyArray<string> | undefined
 }
 
 export interface UpdateBillingAddressRequest {
   /** Billing address for the estimate */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface UpdateShippingAddressRequest {
   /** Billing address for the estimate */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface AddCommentsRequest {
   /** The description of the line items */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Boolean to show the comments to contacts in portal. */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface UpdateCommentRequest {
   /** The description of the line items */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Boolean to show the comments to contacts in portal. */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface ListEstimatesInput {
   /** Filter or search estimates by their unique estimate number. Supports variants such as estimate_number_startswith and estimate_number_contains for partial matches. Useful for quickly locating a specific estimate or a group of estimates with similar numbering. */
-  readonly estimate_number?: string
+  readonly estimate_number?: string | undefined
   /** Search estimates by reference number. Filters estimates based on external reference identifiers like purchase order numbers, contract numbers, or project codes. Useful for finding estimates associated with specific projects or business transactions. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search estimates by customer name. Filters estimates based on the business or individual name associated with the estimate. Maximum length is 100 characters. Useful for finding all estimates for a specific customer or generating customer reports. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search estimates by total amount. Filters estimates based on the final estimate amount including taxes, discounts, and adjustments. Useful for finding estimates within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Filter or search estimates by the unique customer ID. Use the customer_id returned by the Contacts API for the same organization. This helps you retrieve all estimates linked to a specific customer. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search estimates by item ID. Filters estimates based on the unique identifier of specific products or services in line items. Use the GET `/items` API to find available item IDs. Useful for finding all estimates containing a specific product or service. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Search estimates by item name. Filters estimates based on product or service names in estimate line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding estimates with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search estimates by item description. Filters estimates based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding estimates with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Search estimates by custom fields.Variants: custom_field_startswith and custom_field_contains */
-  readonly custom_field?: string
+  readonly custom_field?: string | undefined
   /** The date of expiration of the estimates */
-  readonly expiry_date?: string
+  readonly expiry_date?: string | undefined
   /** Filter estimates with an expiry date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly expiry_date_start?: string
+  readonly expiry_date_start?: string | undefined
   /** Filter estimates with an expiry date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly expiry_date_end?: string
+  readonly expiry_date_end?: string | undefined
   /** Filter estimates with an expiry date strictly before the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly expiry_date_before?: string
+  readonly expiry_date_before?: string | undefined
   /** Filter estimates with an expiry date strictly after the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly expiry_date_after?: string
+  readonly expiry_date_after?: string | undefined
   /** Search estimates by estimate date. Filters estimates based on the date they were created. Use yyyy-mm-dd format. Supports variants: date_start, date_end, date_before and date_after. Useful for finding estimates within date ranges or specific time periods. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search estimates modified after a specific time. Filters estimates based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated estimates or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search estimates by status.Allowed Valuesdraft, sent, invoiced , accepted, declined and expired */
-  readonly status?: "draft" | "pending_approval" | "approved" | "sent" | "invoiced" | "accepted" | "declined" | "expired" | "viewed" | "signed" | "rejected" | "partially_invoiced" | "pending_signature"
+  readonly status?: "draft" | "pending_approval" | "approved" | "sent" | "invoiced" | "accepted" | "declined" | "expired" | "viewed" | "signed" | "rejected" | "partially_invoiced" | "pending_signature" | undefined
   /** Filter estimates by status.Allowed Values Status.All, Status.Sent, Status.Draft, Status.Invoiced, Status.Accepted, Status.Declined and Status.Expired */
-  readonly filter_by?: "Status.All" | "Status.Sent" | "Status.Pending" | "Status.Approved" | "Status.Draft" | "Status.Invoiced" | "Status.Accepted" | "Status.Declined" | "Status.Expired" | "Status.Viewed" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.MyApprovals" | "WithAttachment" | "WithoutAttachment" | "ExceptionList" | "EmailScheduled" | "Type.NewSubscription" | "Type.Invoice"
+  readonly filter_by?: "Status.All" | "Status.Sent" | "Status.Pending" | "Status.Approved" | "Status.Draft" | "Status.Invoiced" | "Status.Accepted" | "Status.Declined" | "Status.Expired" | "Status.Viewed" | "Status.AvalaraSyncFailed" | "Status.TaxAutomationFailed" | "Status.MyApprovals" | "WithAttachment" | "WithoutAttachment" | "ExceptionList" | "EmailScheduled" | "Type.NewSubscription" | "Type.Invoice" | undefined
   /** Perform a keyword search across estimate number, reference number, or customer name. Use this parameter to quickly find estimates that match any of these fields, making it easier to locate relevant records with minimal input. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort estimates. Allowed Values customer_name, estimate_number, date, total and created_time */
-  readonly sort_column?: "customer_name" | "estimate_number" | "date" | "total" | "created_time" | "last_modified_time" | "cf_(\\w+)"
+  readonly sort_column?: "customer_name" | "estimate_number" | "date" | "total" | "created_time" | "last_modified_time" | "cf_(\\w+)" | undefined
   /** Potential ID of a Deal in CRM. Note: This value is a set of numeric characters. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
   /** List of location IDs to filter estimates by their associated locations. Use this parameter to retrieve estimates linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Page number to be fetched from the paginated results. Default value is 1. Use this parameter along with per_page to navigate through large sets of estimate data. Useful for implementing pagination in your application. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List estimates. `GET /estimates` */
@@ -979,9 +979,9 @@ export const listEstimates = /*#__PURE__*/ operation<ListEstimatesInput, typeof 
 
 export interface CreateEstimateInput {
   /** Send the estimate to the contact person(s) associated with the estimate.Allowed Values: true and false */
-  readonly send?: boolean
+  readonly send?: boolean | undefined
   /** Ignore auto estimate number generation for this estimate. This mandates the estimate number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateAnEstimateRequest
 }
 
@@ -1001,7 +1001,7 @@ export interface UpdateEstimateUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAnEstimateRequest
 }
 
@@ -1020,9 +1020,9 @@ export interface GetEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Get the details of a particular estimate in formats such as json/ pdf/ html. Default format is json.Allowed Values: json, pdf and html */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get an estimate. `GET /estimates/{estimate_id}` */
@@ -1038,7 +1038,7 @@ export interface UpdateEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Ignore auto estimate number generation for this estimate. This mandates the estimate number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: UpdateAnEstimateRequest
 }
 
@@ -1086,7 +1086,7 @@ export interface MarkEstimateSentInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an estimate as sent. `POST /estimates/{estimate_id}/status/sent` */
@@ -1103,7 +1103,7 @@ export interface MarkEstimateAcceptedInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an estimate as accepted. `POST /estimates/{estimate_id}/status/accepted` */
@@ -1120,7 +1120,7 @@ export interface MarkEstimateDeclinedInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an estimate as declined. `POST /estimates/{estimate_id}/status/declined` */
@@ -1137,7 +1137,7 @@ export interface SubmitEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit an estimate for approval. `POST /estimates/{estimate_id}/submit` */
@@ -1154,7 +1154,7 @@ export interface ApproveEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve an estimate.. `POST /estimates/{estimate_id}/approve` */
@@ -1187,7 +1187,7 @@ export interface EmailEstimateInput {
   /** Unique identifier of the estimate. Note: This value is a set of numeric characters. */
   readonly estimate_id: string
   /** Files to be attached to the email */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   readonly body: EmailAnEstimateRequest
 }
 
@@ -1206,7 +1206,7 @@ export interface EmailMultipleEstimatesInput {
   /** Comma separated estimate ids which are to be emailed. Note: This value is a set of numeric characters separated by comma. */
   readonly estimate_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Email multiple estimates. `POST /estimates/email` */
@@ -1296,7 +1296,7 @@ export interface UpdateEstimateTemplateInput {
   /** Unique identifier of the estimate template. Note: This value is a set of numeric characters. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update estimate template. `PUT /estimates/{estimate_id}/templates/{template_id}` */

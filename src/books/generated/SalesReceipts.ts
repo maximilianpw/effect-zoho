@@ -94,80 +94,80 @@ export interface CreateASalesReceiptRequest {
   /** Unique identifier for the customer */
   readonly customer_id: string
   /** Sales receipt number (required if auto-numbering is disabled) */
-  readonly receipt_number?: string
+  readonly receipt_number?: string | undefined
   /** Date of the sales receipt */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Mode through which payment was received. Allowed values: cash, check, credit_card, bank_transfer, etc. */
   readonly payment_mode: string
   /** Line items for the sales receipt */
   readonly line_items?: ReadonlyArray<{
     /** ID of the item */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Rate of the item */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity of the item */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** ID of the tax to be applied */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Notes for the sales receipt */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateASalesReceiptRequest {
   /** Unique identifier for the customer */
   readonly customer_id: string
   /** Sales receipt number */
-  readonly receipt_number?: string
+  readonly receipt_number?: string | undefined
   /** Date of the sales receipt */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Mode through which payment was received */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Line items for the sales receipt */
   readonly line_items?: ReadonlyArray<{
     /** ID of the item */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Rate of the item */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity of the item */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Notes for the sales receipt */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface EmailASalesReceiptRequest {
@@ -181,23 +181,23 @@ export interface EmailASalesReceiptRequest {
 
 export interface ListSalesReceiptsInput {
   /** Search receipt by receipt number. Filters receipts based on their unique identifier. Supports receipt_number_startswith and receipt_number_contains variants. Maximum length is 100 characters. Useful for finding specific receipts or receipts with similar numbering patterns. */
-  readonly receipt_number?: string
+  readonly receipt_number?: string | undefined
   /** Search receipt by item name. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Specify the column field for sorting sales receipt results. Available options include customer_name, receipt_number, date, total, and created_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter sales receipts by status. Allowed Values: ThisWeek, ThisMonth, ThisQuarter, ThisYear,PreviousDay, PreviousWeek, PreviousMonth, PreviousQuarter, PreviousYear, Status.All, Status.Draft, Status.Sent */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Filter sales receipts by specific customer identifier. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter sales receipts by date. Available variants include date_start, date_end, date_before, and date_after. Default date format: yyyy-mm-dd. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Filter sales receipts by total amount using various range operators. Available variants include total_start, total_end, total_less_than, total_greater_than. */
-  readonly total?: number
+  readonly total?: number | undefined
   /** Specify the page number for paginated results retrieval. Default value is 1 for the first page. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Specify the maximum number of sales receipt records to return per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List sales receipts. `GET /salesreceipts` */
@@ -211,9 +211,9 @@ export const listSalesReceipts = /*#__PURE__*/ operation<ListSalesReceiptsInput,
 
 export interface CreateSalesReceiptInput {
   /** Ignore auto sales receipt number generation for this sales receipt. This mandates the sales receipt number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Send the sales receipt to customer via email. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   readonly body: CreateASalesReceiptRequest
 }
 
@@ -231,7 +231,7 @@ export interface GetSalesReceiptInput {
   /** Unique identifier of the sales receipt. */
   readonly sales_receipt_id: string
   /** Get the details of a particular sales receipt in formats such as json/ pdf/ html. Default format is json. Allowed Values: json, pdf, html. */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get a sales receipt. `GET /salesreceipts/{sales_receipt_id}` */
@@ -275,7 +275,7 @@ export const deleteSalesReceipt = /*#__PURE__*/ operation<DeleteSalesReceiptInpu
 
 export interface EmailSalesReceiptInput {
   /** Send the sales receipt pdf with the email. */
-  readonly attach_pdf?: boolean
+  readonly attach_pdf?: boolean | undefined
   /** ID of the sales receipt to be emailed */
   readonly sales_receipt_id: string
   readonly body: EmailASalesReceiptRequest

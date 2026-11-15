@@ -261,19 +261,19 @@ export interface LogTimeEntriesRequest {
   /** Date on which the user spent on the task. Date-Format [HH:mm] */
   readonly log_date: string
   /** Time the user spent on this task. Either send this attribute or begin and end time attributes. Time-Format [HH:mm] */
-  readonly log_time?: string
+  readonly log_time?: string | undefined
   /** Time the user started working on this task. Time-Format [HH:mm] */
-  readonly begin_time?: string
+  readonly begin_time?: string | undefined
   /** Time the user stopped working on this task. Time-Format [HH:mm] */
-  readonly end_time?: string
+  readonly end_time?: string | undefined
   /** Whether it is billable or not. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Description of the work done. Max-length [500] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Start timer. */
-  readonly start_timer?: string
+  readonly start_timer?: string | undefined
   /** Hourly cost rate */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface UpdateTimeEntryRequest {
@@ -286,38 +286,38 @@ export interface UpdateTimeEntryRequest {
   /** Date on which the user spent on the task. Date-Format [HH:mm] */
   readonly log_date: string
   /** Time the user spent on this task. Either send this attribute or begin and end time attributes. Time-Format [HH:mm] */
-  readonly log_time?: string
+  readonly log_time?: string | undefined
   /** Time the user started working on this task. Time-Format [HH:mm] */
-  readonly begin_time?: string
+  readonly begin_time?: string | undefined
   /** Time the user stopped working on this task. Time-Format [HH:mm] */
-  readonly end_time?: string
+  readonly end_time?: string | undefined
   /** Whether it is billable or not. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Description of the work done. Max-length [500] */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Start timer. */
-  readonly start_timer?: string
+  readonly start_timer?: string | undefined
   /** Hourly cost rate */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface ListTimeEntriesInput {
   /** Date from which the time entries logged to be fetched */
-  readonly from_date?: string
+  readonly from_date?: string | undefined
   /** Date up to which the time entries logged to be fetched */
-  readonly to_date?: string
+  readonly to_date?: string | undefined
   /** Filter time entries by date and status. Allowed Values: Date.All, Date.Today, Date.ThisWeek, Date.ThisMonth, Date.ThisQuarter, Date.ThisYear, Date.PreviousDay, Date.PreviousWeek, Date.PreviousMonth, Date.PreviousQuarter, Date.PreviousYear, Date.CustomDate, Status.Unbilled and Status.Invoiced */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search time entries by project_id. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Search time entries by user_id. */
-  readonly user_id?: string
+  readonly user_id?: string | undefined
   /** Sort time entries. Allowed Values: project_name, task_name, user_name, log_date, timer_started_at and customer_name */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List time entries.. `GET /projects/timeentries` */
@@ -402,7 +402,7 @@ export interface StartEntryTimerInput {
   /** Unique identifier of the time entry. */
   readonly time_entry_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Start timer. `POST /projects/timeentries/{time_entry_id}/timer/start` */
@@ -417,7 +417,7 @@ export const startEntryTimer = /*#__PURE__*/ operation<StartEntryTimerInput, typ
 
 export interface StopEntryTimerInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Stop timer. `POST /projects/timeentries/timer/stop` */

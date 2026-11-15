@@ -4,12 +4,12 @@ A typed [Effect](https://effect.website) client for the Zoho Books API. Every on
 the 885 operations in Zoho's official OpenAPI documents is a function whose input,
 result, failures and requirements are in its type.
 
-It targets Effect 4 (`4.0.0-rc.112` or later). It is not published to npm yet, and it
+It targets Effect 4 (`4.0.0` or later). It is not published to npm yet, and it
 has not been run against a live Zoho account: see [Status](#status).
 
 ```ts
 import { Effect, Layer, Redacted } from 'effect'
-import { FetchHttpClient } from 'effect/unstable/http'
+import { FetchHttpClient } from 'effect/http'
 import { ZohoAccessToken } from 'effect-zoho'
 import { ZohoBooksClient } from 'effect-zoho/books'
 import * as Invoices from 'effect-zoho/books/Invoices'
@@ -52,17 +52,28 @@ yield* Invoices.updateInvoice({
 })
 ```
 
-It fails with one of seven tagged errors, so `Effect.catchTag` can tell them apart:
+It fails with one error, `ZohoError`, which carries the `operation` and a `reason`.
+The reason is one of seven tagged values:
 
-| Error | When |
+| Reason | When |
 | --- | --- |
 | `ZohoApiError` | Zoho answered with an error status or a non-zero result code. Carries `status`, `code`, `detail`. |
 | `ZohoRateLimitError` | HTTP 429. `code` is 44 for the per-minute limit, 45 for the daily limit, 1070 for the concurrency limit. |
 | `ZohoUnauthorizedError` | HTTP 401. Zoho sends it for a bad token and also for a missing scope or role, or the wrong organisation or data centre. |
 | `ZohoOAuthError` | The refresh token or client credentials were refused while getting an access token. |
 | `ZohoResponseError` | A successful response was not JSON or did not match the documented shape. |
-| `ZohoTransportError` | No response was read: DNS, TLS, timeout. Usually worth retrying. |
+| `ZohoTransportError` | No response was read: DNS, TLS, timeout. The request may still have reached Zoho. |
 | `ZohoInvalidRequestError` | The input cannot be sent, such as an empty path parameter. Nothing was sent. |
+
+Handle one reason with `Effect.catchReason`, several with `Effect.catchReasons`, or move
+them into the error channel with `Effect.unwrapReason('ZohoError')`:
+
+```ts
+const invoice = Invoices.getInvoice({ invoice_id }).pipe(
+  Effect.catchReason('ZohoError', 'ZohoApiError', (reason) =>
+    reason.status === 404 ? Effect.succeed(undefined) : Effect.fail(reason)),
+)
+```
 
 Each call runs in a span named `zoho.books.<operationId>`.
 
@@ -139,6 +150,29 @@ the client.
 - For anything else, such as tokens shared between processes through a database,
   provide your own `ZohoAccessToken` service. It has two members, `get` and `replace`.
 
+`ZohoBooksClient.layerConfig` and `ZohoAccessToken.layerRefreshTokenConfig` take the
+same settings as `Config` values, to read them from the environment:
+
+```ts
+import { Config } from 'effect'
+import { ZohoAccessToken, ZohoDataCenter } from 'effect-zoho'
+
+const dataCenter = Config.schema(ZohoDataCenter, 'ZOHO_DATA_CENTER')
+
+const ZohoLive = ZohoBooksClient.layerConfig({
+  organizationId: Config.String('ZOHO_ORGANIZATION_ID'),
+  dataCenter,
+}).pipe(
+  Layer.provide(ZohoAccessToken.layerRefreshTokenConfig({
+    clientId: Config.String('ZOHO_CLIENT_ID'),
+    clientSecret: Config.Redacted('ZOHO_CLIENT_SECRET'),
+    refreshToken: Config.Redacted('ZOHO_REFRESH_TOKEN'),
+    dataCenter,
+  })),
+  Layer.provide(FetchHttpClient.layer),
+)
+```
+
 An application that serves several organisations can build a client for each with
 `ZohoBooksClient.make` and pass it with `Effect.provideService(ZohoBooksClient, client)`.
 `Organizations.listOrganizations` needs no organisation, so it can find the ID.
@@ -200,21 +234,50 @@ The generator corrects the documents where they contradict the API or themselves
 
 Generation fails on anything in the documents it does not handle, rather than guessing.
 
+## Retries and rate limits
+
+The client applies neither by default. `transformClient` wraps the HTTP client that
+sends API requests, so Effect's own combinators apply. Zoho allows 100 requests a
+minute per organisation, a daily total that depends on the plan, and five to ten
+concurrent calls:
+
+```ts
+import { Effect, flow, Layer } from 'effect'
+import { HttpClient } from 'effect/http'
+import { RateLimiter } from 'effect/persistence'
+
+const ZohoBooks = Layer.unwrap(Effect.gen(function* () {
+  const limiter = yield* RateLimiter.RateLimiter
+  return ZohoBooksClient.layer({
+    organizationId: '20100000',
+    dataCenter: 'eu',
+    transformClient: flow(
+      HttpClient.withRateLimiter({ limiter, key: 'zoho-books', limit: 100, window: '1 minute', times: 0 }),
+      HttpClient.retryTransient({ times: 2 }),
+    ),
+  })
+})).pipe(Layer.provide(RateLimiter.layer.pipe(Layer.provide(RateLimiter.layerStoreMemory))))
+```
+
+- `withRateLimiter` holds requests back to stay inside the limit. Without `times` it
+  retries a 429 for ever, which never ends once the daily limit (code 45) is reached.
+- `retryTransient` repeats a request that got no response or a 408, 429, 500, 502, 503 or 504. It
+  does so for every method: a `POST` that Zoho processed before the connection
+  dropped is sent again and can create a second record. Leave it out, or give it a
+  `while` predicate, where that matters.
+- What is left after the retries reaches the caller as the usual `ZohoError`.
+- The token endpoint uses the `HttpClient` you provide, not the transformed one.
+
 ## Not included
 
-- Rate limiting. Zoho allows 100 requests a minute per organisation, a daily total
-  that depends on the plan, and five to ten concurrent calls. A 429 surfaces as
-  `ZohoRateLimitError`; retry policy and request budgets are left to the application.
-- Request timeouts and retries. Wrap a call in `Effect.timeout` or `Effect.retry`, or
-  provide an `HttpClient` that applies them; the token endpoint uses the same client.
 - Zoho CRM, Desk, Inventory and the other products. Only Books is generated.
 
 ## Status
 
 Checked: the generator output typechecks, and the tests drive the client through a
 fake HTTP server for requests, decoding, errors, token refresh, downloads, uploads and
-pagination. The hosts, OAuth endpoints, headers, result codes and limits were checked
-against Zoho's published documentation.
+pagination, on Effect 4.0.0 and 4.1.4. The hosts, OAuth endpoints, headers, result
+codes and limits were checked against Zoho's published documentation.
 
 Not checked: any authenticated call against a live Zoho organisation. The operations
 are only as accurate as Zoho's documents, and the corrections above came from reading

@@ -412,9 +412,9 @@ export type UngroupItemVariantsResponse = typeof UngroupItemVariantsResponse.Typ
 
 export interface ItemCodeInput {
   /** Global Trade Item Number (GTIN/barcode) for the item. For UAE Edition, send this inside item_code on create and update. Maximum length: 100 characters. */
-  readonly gtin?: string
+  readonly gtin?: string | undefined
   /** Nature code for UAE E-Invoicing item classification. For UAE Edition, send this inside item_code on create and update. Allowed values include DL8.48.8.2 (Electronic Devices), DL8.48.8.1 (Gold and Diamonds), DL8.48.3.1 (Crude or refined oil), DL8.48.3.2 (Unprocessed or processed natural gas), and DL8.48.3.3 (Pure hydrocarbons). Maximum length: 100 characters. */
-  readonly nature_code?: string
+  readonly nature_code?: string | undefined
 }
 
 export interface CreateAnItemRequest {
@@ -423,76 +423,76 @@ export interface CreateAnItemRequest {
   /** Price of the item. */
   readonly rate: number
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Locations for the item. */
   readonly locations?: ReadonlyArray<{
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Opening stock of the item. */
-    readonly initial_stock?: string
+    readonly initial_stock?: string | undefined
     /** Unit price of the opening stock. */
-    readonly initial_stock_rate?: string
-  }>
+    readonly initial_stock_rate?: string | undefined
+  }> | undefined
   /** Id of the purchase tax rule. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_rule_id?: string
+  readonly purchase_tax_rule_id?: string | undefined
   /** Id of the sales tax rule. Note: This value is a set of numeric characters. */
-  readonly sales_tax_rule_id?: string
+  readonly sales_tax_rule_id?: string | undefined
   /** Percent of the tax. */
-  readonly tax_percentage?: string
+  readonly tax_percentage?: string | undefined
   /** SKU value of item,should be unique throughout the product */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-  readonly sat_item_key_code?: string
+  readonly sat_item_key_code?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax exemption. Mandatory, if is_taxable is false. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** ID of the purchase tax exemption. Mandatory, if is_taxable is false. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_exemption_id?: string
+  readonly purchase_tax_exemption_id?: string | undefined
   /** ID of the account to which the item has to be associated with. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Type of the item. Allowed values: sales,purchases,sales_and_purchases and inventory. Default value will be sales. */
-  readonly item_type?: string
+  readonly item_type?: string | undefined
   /** Purchase description for the item. */
-  readonly purchase_description?: string
+  readonly purchase_description?: string | undefined
   /** Purchase price of the item. */
-  readonly purchase_rate?: string
+  readonly purchase_rate?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Reorder level of the item. */
-  readonly reorder_level?: string
+  readonly reorder_level?: string | undefined
   /** Tax preferences for the item. */
   readonly item_tax_preferences?: ReadonlyArray<{
     /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Set whether the tax type is intra/interstate */
-    readonly tax_specification?: string
-  }>
+    readonly tax_specification?: string | undefined
+  }> | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnItemRequest {
@@ -501,556 +501,556 @@ export interface UpdateAnItemRequest {
   /** Price of the item. */
   readonly rate: number
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Id of the purchase tax rule. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_rule_id?: string
+  readonly purchase_tax_rule_id?: string | undefined
   /** Id of the sales tax rule. Note: This value is a set of numeric characters. */
-  readonly sales_tax_rule_id?: string
+  readonly sales_tax_rule_id?: string | undefined
   /** Percent of the tax. */
-  readonly tax_percentage?: string
+  readonly tax_percentage?: string | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-  readonly sat_item_key_code?: string
+  readonly sat_item_key_code?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** SKU value of item,should be unique throughout the product */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax exemption. Mandatory, if is_taxable is false. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** ID of the purchase tax exemption. Mandatory, if is_taxable is false. Note: This value is a set of numeric characters. */
-  readonly purchase_tax_exemption_id?: string
+  readonly purchase_tax_exemption_id?: string | undefined
   /** ID of the account to which the item has to be associated with. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Type of the item. Allowed values: sales,purchases,sales_and_purchases and inventory. Default value will be sales. */
-  readonly item_type?: string
+  readonly item_type?: string | undefined
   /** Purchase description for the item. */
-  readonly purchase_description?: string
+  readonly purchase_description?: string | undefined
   /** Purchase price of the item. */
-  readonly purchase_rate?: string
+  readonly purchase_rate?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Reorder level of the item. */
-  readonly reorder_level?: string
+  readonly reorder_level?: string | undefined
   /** Locations for the item. */
   readonly locations?: ReadonlyArray<{
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Opening stock of the item. */
-    readonly initial_stock?: string
+    readonly initial_stock?: string | undefined
     /** Unit price of the opening stock. */
-    readonly initial_stock_rate?: string
-  }>
+    readonly initial_stock_rate?: string | undefined
+  }> | undefined
   /** Tax preferences for the item. */
   readonly item_tax_preferences?: ReadonlyArray<{
     /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Set whether the tax type is intra/interstate */
-    readonly tax_specification?: string
-  }>
+    readonly tax_specification?: string | undefined
+  }> | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnItemCustomfieldRequest {
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface CreateAnItemMasterRequest {
   /** Name of the item. */
   readonly item_master_name: string
   /** Alternate name field accepted by some create payloads. Prefer item_master_name for item APIs. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Brand of the item or variant. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Manufacturer of the item or variant. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** If there is a measurement unit for the items you are adding. */
   readonly unit: string
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** Sales account ID. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Category ID associated with the item. */
-  readonly category_id?: string
+  readonly category_id?: string | undefined
   /** Name of the attribute present in the Item Group. */
-  readonly attribute_name1?: string
+  readonly attribute_name1?: string | undefined
   /** Name of the second attribute. */
-  readonly attribute_name2?: string
+  readonly attribute_name2?: string | undefined
   /** Name of the third attribute. */
-  readonly attribute_name3?: string
+  readonly attribute_name3?: string | undefined
   /** Variants to create under this item. */
   readonly item_variants: ReadonlyArray<{
     /** Unique ID generated by the server for the item variant. This is used as an identifier. */
-    readonly variant_id?: string
+    readonly variant_id?: string | undefined
     /** Name of the item variant. */
     readonly variant_name: string
     /** Price of the item. */
     readonly rate: number
     /** Purchase price of the item. */
-    readonly purchase_rate?: string
+    readonly purchase_rate?: string | undefined
     /** SKU value of item,should be unique throughout the product */
-    readonly sku?: string
+    readonly sku?: string | undefined
     /** The 12 digit Unique Product Code (UPC) of the item. */
-    readonly upc?: number
+    readonly upc?: number | undefined
     /** Unique EAN value for the Item. */
-    readonly ean?: number
+    readonly ean?: number | undefined
     /** Unique ISBN value for the Item. */
-    readonly isbn?: string
+    readonly isbn?: string | undefined
     /** Part Number of the Item. */
-    readonly part_number?: string
+    readonly part_number?: string | undefined
     /** Reorder level of the item. */
-    readonly reorder_level?: string
+    readonly reorder_level?: string | undefined
     /** Name of the attribute's option. */
-    readonly attribute_option_name1?: string
+    readonly attribute_option_name1?: string | undefined
     /** Option name for the second attribute. */
-    readonly attribute_option_name2?: string
+    readonly attribute_option_name2?: string | undefined
     /** Option name for the third attribute. */
-    readonly attribute_option_name3?: string
+    readonly attribute_option_name3?: string | undefined
     /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-    readonly vendor_id?: string
+    readonly vendor_id?: string | undefined
     /** Custom fields for an item. */
     readonly custom_fields?: ReadonlyArray<{
       /** ID of the custom field. Note: This value is a set of numeric characters. */
-      readonly customfield_id?: string
+      readonly customfield_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
   }>
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnItemMasterRequest {
   /** Name of the item. */
-  readonly item_master_name?: string
+  readonly item_master_name?: string | undefined
   /** Alternate name field accepted by some create payloads. Prefer item_master_name for item APIs. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Brand of the item or variant. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Manufacturer of the item or variant. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** If there is a measurement unit for the items you are adding. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** Sales account ID. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Category ID associated with the item. */
-  readonly category_id?: string
+  readonly category_id?: string | undefined
   /** Name of the attribute present in the Item Group. */
-  readonly attribute_name1?: string
+  readonly attribute_name1?: string | undefined
   /** Name of the second attribute. */
-  readonly attribute_name2?: string
+  readonly attribute_name2?: string | undefined
   /** Name of the third attribute. */
-  readonly attribute_name3?: string
+  readonly attribute_name3?: string | undefined
   /** Variants to create under this item. */
   readonly item_variants?: ReadonlyArray<{
     /** Unique ID generated by the server for the item variant. This is used as an identifier. */
-    readonly variant_id?: string
+    readonly variant_id?: string | undefined
     /** Name of the item variant. */
     readonly variant_name: string
     /** Price of the item. */
     readonly rate: number
     /** Purchase price of the item. */
-    readonly purchase_rate?: string
+    readonly purchase_rate?: string | undefined
     /** SKU value of item,should be unique throughout the product */
-    readonly sku?: string
+    readonly sku?: string | undefined
     /** The 12 digit Unique Product Code (UPC) of the item. */
-    readonly upc?: number
+    readonly upc?: number | undefined
     /** Unique EAN value for the Item. */
-    readonly ean?: number
+    readonly ean?: number | undefined
     /** Unique ISBN value for the Item. */
-    readonly isbn?: string
+    readonly isbn?: string | undefined
     /** Part Number of the Item. */
-    readonly part_number?: string
+    readonly part_number?: string | undefined
     /** Reorder level of the item. */
-    readonly reorder_level?: string
+    readonly reorder_level?: string | undefined
     /** Name of the attribute's option. */
-    readonly attribute_option_name1?: string
+    readonly attribute_option_name1?: string | undefined
     /** Option name for the second attribute. */
-    readonly attribute_option_name2?: string
+    readonly attribute_option_name2?: string | undefined
     /** Option name for the third attribute. */
-    readonly attribute_option_name3?: string
+    readonly attribute_option_name3?: string | undefined
     /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-    readonly vendor_id?: string
+    readonly vendor_id?: string | undefined
     /** Custom fields for an item. */
     readonly custom_fields?: ReadonlyArray<{
       /** ID of the custom field. Note: This value is a set of numeric characters. */
-      readonly customfield_id?: string
+      readonly customfield_id?: string | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
-  }>
+      readonly value?: string | undefined
+    }> | undefined
+  }> | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface CreateAnItemVariantRequest {
   /** Unique ID generated by the server for the item variant. This is used as an identifier. */
-  readonly variant_id?: string
+  readonly variant_id?: string | undefined
   /** Name of the item variant. */
   readonly variant_name: string
   /** Price of the item. */
   readonly rate: number
   /** Unique ID generated by the server for the group to which the item belongs, if any. This is used as an identifier. */
-  readonly group_id?: string
+  readonly group_id?: string | undefined
   /** Unique ID generated by the server for the item. This is used as an identifier. */
-  readonly item_master_id?: string
+  readonly item_master_id?: string | undefined
   /** If there is a measurement unit for the items you are adding. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Unique ID of the unit associated with the item. */
-  readonly unit_id?: string
+  readonly unit_id?: string | undefined
   /** Type of the item. Allowed values: sales,purchases,sales_and_purchases and inventory. Default value will be sales. */
-  readonly item_type?: string
+  readonly item_type?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Boolean to indicate whether the item can be sold. */
-  readonly can_be_sold?: boolean
+  readonly can_be_sold?: boolean | undefined
   /** Boolean to indicate whether the item can be purchased. */
-  readonly can_be_purchased?: boolean
+  readonly can_be_purchased?: boolean | undefined
   /** Boolean to indicate whether inventory tracking is enabled for the item. */
-  readonly track_inventory?: boolean
+  readonly track_inventory?: boolean | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Purchase description for the item. */
-  readonly purchase_description?: string
+  readonly purchase_description?: string | undefined
   /** Purchase price of the item. */
-  readonly purchase_rate?: string
+  readonly purchase_rate?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Reorder level of the item. */
-  readonly reorder_level?: string
+  readonly reorder_level?: string | undefined
   /** SKU value of item,should be unique throughout the product */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** The 12 digit Unique Product Code (UPC) of the item. */
-  readonly upc?: number
+  readonly upc?: number | undefined
   /** Unique EAN value for the Item. */
-  readonly ean?: number
+  readonly ean?: number | undefined
   /** Unique ISBN value for the Item. */
-  readonly isbn?: string
+  readonly isbn?: string | undefined
   /** Part Number of the Item. */
-  readonly part_number?: string
+  readonly part_number?: string | undefined
   /** Name of the attribute's option. */
-  readonly attribute_option_name1?: string
+  readonly attribute_option_name1?: string | undefined
   /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Brand of the item or variant. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Manufacturer of the item or variant. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** List of locations. */
   readonly locations?: ReadonlyArray<{
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Opening stock of the item. */
-    readonly initial_stock?: string
+    readonly initial_stock?: string | undefined
     /** Unit price of the opening stock. */
-    readonly initial_stock_rate?: string
-  }>
+    readonly initial_stock_rate?: string | undefined
+  }> | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnItemVariantRequest {
   /** Unique ID generated by the server for the item variant. This is used as an identifier. */
-  readonly variant_id?: string
+  readonly variant_id?: string | undefined
   /** Name of the item variant. */
-  readonly variant_name?: string
+  readonly variant_name?: string | undefined
   /** Price of the item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Unique ID generated by the server for the group to which the item belongs, if any. This is used as an identifier. */
-  readonly group_id?: string
+  readonly group_id?: string | undefined
   /** Unique ID generated by the server for the item. This is used as an identifier. */
-  readonly item_master_id?: string
+  readonly item_master_id?: string | undefined
   /** If there is a measurement unit for the items you are adding. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Unique ID of the unit associated with the item. */
-  readonly unit_id?: string
+  readonly unit_id?: string | undefined
   /** Type of the item. Allowed values: sales,purchases,sales_and_purchases and inventory. Default value will be sales. */
-  readonly item_type?: string
+  readonly item_type?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Boolean to indicate whether the item can be sold. */
-  readonly can_be_sold?: boolean
+  readonly can_be_sold?: boolean | undefined
   /** Boolean to indicate whether the item can be purchased. */
-  readonly can_be_purchased?: boolean
+  readonly can_be_purchased?: boolean | undefined
   /** Boolean to indicate whether inventory tracking is enabled for the item. */
-  readonly track_inventory?: boolean
+  readonly track_inventory?: boolean | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Purchase description for the item. */
-  readonly purchase_description?: string
+  readonly purchase_description?: string | undefined
   /** Purchase price of the item. */
-  readonly purchase_rate?: string
+  readonly purchase_rate?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Reorder level of the item. */
-  readonly reorder_level?: string
+  readonly reorder_level?: string | undefined
   /** SKU value of item,should be unique throughout the product */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** The 12 digit Unique Product Code (UPC) of the item. */
-  readonly upc?: number
+  readonly upc?: number | undefined
   /** Unique EAN value for the Item. */
-  readonly ean?: number
+  readonly ean?: number | undefined
   /** Unique ISBN value for the Item. */
-  readonly isbn?: string
+  readonly isbn?: string | undefined
   /** Part Number of the Item. */
-  readonly part_number?: string
+  readonly part_number?: string | undefined
   /** Name of the attribute's option. */
-  readonly attribute_option_name1?: string
+  readonly attribute_option_name1?: string | undefined
   /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Brand of the item or variant. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Manufacturer of the item or variant. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** List of locations. */
   readonly locations?: ReadonlyArray<{
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Opening stock of the item. */
-    readonly initial_stock?: string
+    readonly initial_stock?: string | undefined
     /** Unit price of the opening stock. */
-    readonly initial_stock_rate?: string
-  }>
+    readonly initial_stock_rate?: string | undefined
+  }> | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface MoveAnItemVariantRequest {
   /** Unique ID generated by the server for the item variant. This is used as an identifier. */
-  readonly variant_id?: string
+  readonly variant_id?: string | undefined
   /** Name of the item variant. */
-  readonly variant_name?: string
+  readonly variant_name?: string | undefined
   /** Price of the item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Unique ID generated by the server for the group to which the item belongs, if any. This is used as an identifier. */
-  readonly group_id?: string
+  readonly group_id?: string | undefined
   /** Unique ID generated by the server for the item. This is used as an identifier. */
-  readonly item_master_id?: string
+  readonly item_master_id?: string | undefined
   /** If there is a measurement unit for the items you are adding. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Unique ID of the unit associated with the item. */
-  readonly unit_id?: string
+  readonly unit_id?: string | undefined
   /** Type of the item. Allowed values: sales,purchases,sales_and_purchases and inventory. Default value will be sales. */
-  readonly item_type?: string
+  readonly item_type?: string | undefined
   /** Specify the type of an item. Allowed values: goods or service or digital_service. For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Boolean to indicate whether the item can be sold. */
-  readonly can_be_sold?: boolean
+  readonly can_be_sold?: boolean | undefined
   /** Boolean to indicate whether the item can be purchased. */
-  readonly can_be_purchased?: boolean
+  readonly can_be_purchased?: boolean | undefined
   /** Boolean to indicate whether inventory tracking is enabled for the item. */
-  readonly track_inventory?: boolean
+  readonly track_inventory?: boolean | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax to be associated to the item. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Description for the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Purchase description for the item. */
-  readonly purchase_description?: string
+  readonly purchase_description?: string | undefined
   /** Purchase price of the item. */
-  readonly purchase_rate?: string
+  readonly purchase_rate?: string | undefined
   /** ID of the COGS account to which the item has to be associated with. Mandatory, if item_type is purchase / sales and purchase / inventory. Note: This value is a set of numeric characters. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** ID of the stock account to which the item has to be associated with. Mandatory, if item_type is inventory. Note: This value is a set of numeric characters. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Reorder level of the item. */
-  readonly reorder_level?: string
+  readonly reorder_level?: string | undefined
   /** SKU value of item,should be unique throughout the product */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** The 12 digit Unique Product Code (UPC) of the item. */
-  readonly upc?: number
+  readonly upc?: number | undefined
   /** Unique EAN value for the Item. */
-  readonly ean?: number
+  readonly ean?: number | undefined
   /** Unique ISBN value for the Item. */
-  readonly isbn?: string
+  readonly isbn?: string | undefined
   /** Part Number of the Item. */
-  readonly part_number?: string
+  readonly part_number?: string | undefined
   /** Name of the attribute's option. */
-  readonly attribute_option_name1?: string
+  readonly attribute_option_name1?: string | undefined
   /** Preferred vendor ID. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Brand of the item or variant. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Manufacturer of the item or variant. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** HSN/SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Maximum length: 10 characters. */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Item identification codes. For UAE Edition, provide GTIN under gtin and nature code under nature_code. */
-  readonly item_code?: ItemCodeInput
+  readonly item_code?: ItemCodeInput | undefined
   /** List of locations. */
   readonly locations?: ReadonlyArray<{
     /** Location ID. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Opening stock of the item. */
-    readonly initial_stock?: string
+    readonly initial_stock?: string | undefined
     /** Unit price of the opening stock. */
-    readonly initial_stock_rate?: string
-  }>
+    readonly initial_stock_rate?: string | undefined
+  }> | undefined
   /** Custom fields for an item. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface ListItemsInput {
   /** Search items by name. Max-length [100]. Variants: name_startswith and name_contains */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Search items whose name starts with the specified value. Maximum length allowed is 100 characters. */
-  readonly name_startswith?: string
+  readonly name_startswith?: string | undefined
   /** Search items whose name contains the specified value. Maximum length allowed is 100 characters. */
-  readonly name_contains?: string
+  readonly name_contains?: string | undefined
   /** Search items by description. Max-length [100]. Variants: description_startswith and description_contains */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Search items whose description starts with the specified value. Maximum length allowed is 100 characters. */
-  readonly description_startswith?: string
+  readonly description_startswith?: string | undefined
   /** Search items whose description contains the specified value. Maximum length allowed is 100 characters. */
-  readonly description_contains?: string
+  readonly description_contains?: string | undefined
   /** Search items by rate. Variants: rate_less_than, rate_less_equals, rate_greater_than and rate_greater_equals */
-  readonly rate?: string
+  readonly rate?: string | undefined
   /** Search items whose rate is less than the specified value. */
-  readonly rate_less_than?: string
+  readonly rate_less_than?: string | undefined
   /** Search items whose rate is less than or equal to the specified value. */
-  readonly rate_less_equals?: string
+  readonly rate_less_equals?: string | undefined
   /** Search items whose rate is greater than the specified value. */
-  readonly rate_greater_than?: string
+  readonly rate_greater_than?: string | undefined
   /** Search items whose rate is greater than or equal to the specified value. */
-  readonly rate_greater_equals?: string
+  readonly rate_greater_equals?: string | undefined
   /** Search items by tax id. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Search items by tax name. Max-length [100] */
-  readonly tax_name?: string
+  readonly tax_name?: string | undefined
   /** Boolean to track the taxability of the item. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** ID of the tax exemption. Mandatory, if is_taxable is false. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** ID of the account to which the item has to be associated with. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Filter items by status. Allowed Values: Status.All, Status.Active and Status.Inactive */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search items by name or description. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort items. Allowed Values: name, rate and tax_name */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** SAT Item key code */
-  readonly sat_item_key_code?: string
+  readonly sat_item_key_code?: string | undefined
   /** SAT Unit code */
-  readonly unitkey_code?: string
+  readonly unitkey_code?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List items. `GET /items` */
@@ -1082,7 +1082,7 @@ export interface UpdateItemUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAnItemRequest
 }
 
@@ -1175,7 +1175,7 @@ export interface MarkItemActiveInput {
   /** Unique identifier of the item. Note: This value is a set of numeric characters. */
   readonly item_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as active. `POST /items/{item_id}/active` */
@@ -1192,7 +1192,7 @@ export interface MarkItemInactiveInput {
   /** Unique identifier of the item. Note: This value is a set of numeric characters. */
   readonly item_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as inactive. `POST /items/{item_id}/inactive` */
@@ -1207,47 +1207,47 @@ export const markItemInactive = /*#__PURE__*/ operation<MarkItemInactiveInput, t
 
 export interface ListItemMastersInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 25. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** Search items by name or other searchable fields. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Filter items by status. Allowed values: Status.All, Status.Active, Status.Inactive, Status.Ungrouped, Status.Grouped. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort by column. Allowed values: group_name, created_time, last_modified_time, item_master_name. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed values: A for ascending and D for descending. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Filter by exact item name. */
-  readonly item_master_name?: string
+  readonly item_master_name?: string | undefined
   /** Filter by item name that starts with the given value. */
-  readonly item_master_name_startswith?: string
+  readonly item_master_name_startswith?: string | undefined
   /** Filter by item name that contains the given value. */
-  readonly item_master_name_contains?: string
+  readonly item_master_name_contains?: string | undefined
   /** Filter by exact description. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Filter by exact selling rate. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Filter by exact purchase rate. */
-  readonly purchase_rate?: number
+  readonly purchase_rate?: number | undefined
   /** Filter by brand. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Filter by manufacturer. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** Filter by category ID. */
-  readonly category_id?: string
+  readonly category_id?: string | undefined
   /** Filter by sales account ID. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Filter by purchase account ID. */
-  readonly purchase_account_id?: string
+  readonly purchase_account_id?: string | undefined
   /** Filter by inventory account ID. */
-  readonly inventory_account_id?: string
+  readonly inventory_account_id?: string | undefined
   /** Filter by tax ID. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** When true, omit nested variant details from the list response. */
-  readonly skip_variant?: boolean
+  readonly skip_variant?: boolean | undefined
   /** Return items modified on or after this UTC datetime. */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
 }
 
 /** List items. `GET /itemmasters` */
@@ -1261,13 +1261,13 @@ export const listItemMasters = /*#__PURE__*/ operation<ListItemMastersInput, typ
 
 export interface CreateItemMasterInput {
   /** Price book ID associated with the create request. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Date in yyyy-mm-dd format used for price computation. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Comma-separated document IDs to associate with the item. */
-  readonly document_ids?: string
+  readonly document_ids?: string | undefined
   /** When true, sync applicable item fields to its variants. */
-  readonly can_sync_to_variant?: boolean
+  readonly can_sync_to_variant?: boolean | undefined
   readonly body: CreateAnItemMasterRequest
 }
 
@@ -1285,9 +1285,9 @@ export interface GetItemMasterInput {
   /** Unique identifier of the item. */
   readonly item_master_id: string
   /** Additional response content. Allowed value: html. */
-  readonly include?: string
+  readonly include?: string | undefined
   /** Print-related flag. Allowed values follow the boolean-all convention. */
-  readonly print?: string
+  readonly print?: string | undefined
 }
 
 /** Retrieve an item. `GET /itemmasters/{item_master_id}` */
@@ -1303,15 +1303,15 @@ export interface UpdateItemMasterInput {
   /** Unique identifier of the item. */
   readonly item_master_id: string
   /** When true, apply rate changes to associated recurring invoices. */
-  readonly update_recurring_invoice?: boolean
+  readonly update_recurring_invoice?: boolean | undefined
   /** Price book ID associated with the update request. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Date in yyyy-mm-dd format used for price computation. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** When true, deletes the existing item image. */
-  readonly delete_image?: boolean
+  readonly delete_image?: boolean | undefined
   /** When true, sync applicable item fields to its variants. */
-  readonly can_sync_to_variant?: boolean
+  readonly can_sync_to_variant?: boolean | undefined
   readonly body: UpdateAnItemMasterRequest
 }
 
@@ -1343,7 +1343,7 @@ export interface BulkMarkItemMastersActiveInput {
   /** Comma-separated list of item IDs. */
   readonly item_master_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark items as active. `POST /itemmasters/active` */
@@ -1360,7 +1360,7 @@ export interface BulkMarkItemMastersInactiveInput {
   /** Comma-separated list of item IDs. */
   readonly item_master_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark items as inactive. `POST /itemmasters/inactive` */
@@ -1377,7 +1377,7 @@ export interface MarkItemMasterAsActiveInput {
   /** Unique identifier of the item. */
   readonly item_master_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an item as active. `POST /itemmasters/{item_master_id}/active` */
@@ -1394,7 +1394,7 @@ export interface MarkItemMasterAsInactiveInput {
   /** Unique identifier of the item. */
   readonly item_master_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an item as inactive. `POST /itemmasters/{item_master_id}/inactive` */
@@ -1409,55 +1409,55 @@ export const markItemMasterAsInactive = /*#__PURE__*/ operation<MarkItemMasterAs
 
 export interface ListItemVariantsInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 200. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** Search variants by name, SKU, or other searchable fields. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Filter variants by status or item type. Allowed values include Status.All, Status.Active, Status.Inactive, Status.Lowstock, Status.Unmapped, Status.Uncategorized, Status.Grouped, and item-type filters from the Items list API. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort by column. Allowed values include name, sku, rate, purchase_rate, created_time, last_modified_time, reorder_level, and stock_on_hand. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed values: A for ascending and D for descending. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Filter by variant status. Allowed values: active, inactive, confirmation_pending. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Filter by exact variant name. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Filter by variant name that starts with the given value. */
-  readonly name_startswith?: string
+  readonly name_startswith?: string | undefined
   /** Filter by variant name that contains the given value. */
-  readonly name_contains?: string
+  readonly name_contains?: string | undefined
   /** Filter by exact SKU. */
-  readonly sku?: string
+  readonly sku?: string | undefined
   /** Filter by SKU that starts with the given value. */
-  readonly sku_startswith?: string
+  readonly sku_startswith?: string | undefined
   /** Filter by SKU that contains the given value. */
-  readonly sku_contains?: string
+  readonly sku_contains?: string | undefined
   /** Filter by exact selling rate. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Filter by exact purchase rate. */
-  readonly purchase_rate?: number
+  readonly purchase_rate?: number | undefined
   /** Filter variants belonging to the given item. */
-  readonly item_master_id?: string
+  readonly item_master_id?: string | undefined
   /** Comma-separated list of variant IDs to fetch. */
-  readonly variant_ids?: string
+  readonly variant_ids?: string | undefined
   /** Filter by brand. */
-  readonly brand?: string
+  readonly brand?: string | undefined
   /** Filter by manufacturer. */
-  readonly manufacturer?: string
+  readonly manufacturer?: string | undefined
   /** Filter by category ID. */
-  readonly category_id?: string
+  readonly category_id?: string | undefined
   /** Filter by warehouse ID. */
-  readonly warehouse_id?: string
+  readonly warehouse_id?: string | undefined
   /** Filter by location ID. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Filter by product type. */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** Filter by whether the variant is a combo product. */
-  readonly is_combo_product?: boolean
+  readonly is_combo_product?: boolean | undefined
   /** Return variants modified on or after this UTC datetime. */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
 }
 
 /** List item variants. `GET /itemvariants` */
@@ -1471,9 +1471,9 @@ export const listItemVariants = /*#__PURE__*/ operation<ListItemVariantsInput, t
 
 export interface CreateItemVariantInput {
   /** Price book ID associated with the create request. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Date in yyyy-mm-dd format used for price computation. */
-  readonly date?: string
+  readonly date?: string | undefined
   readonly body: CreateAnItemVariantRequest
 }
 
@@ -1489,7 +1489,7 @@ export const createItemVariant = /*#__PURE__*/ operation<CreateItemVariantInput,
 
 export interface BulkDeleteItemVariantsInput {
   /** Comma-separated list of variant IDs to delete. */
-  readonly variant_ids?: string
+  readonly variant_ids?: string | undefined
 }
 
 /** Bulk delete item variants. `DELETE /itemvariants` */
@@ -1505,17 +1505,17 @@ export interface GetItemVariantInput {
   /** Unique identifier of the item variant. */
   readonly variant_id: string
   /** Price book ID used to compute the price book rate. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Contact ID used for tax or price computation. */
-  readonly contact_id?: string
+  readonly contact_id?: string | undefined
   /** Location ID for stock and pricing context. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Branch ID for stock and pricing context. */
-  readonly branch_id?: string
+  readonly branch_id?: string | undefined
   /** Transaction date in yyyy-mm-dd format used for price and tax computation. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Additional response content. Allowed value: html. */
-  readonly include?: string
+  readonly include?: string | undefined
 }
 
 /** Retrieve an item variant. `GET /itemvariants/{variant_id}` */
@@ -1531,15 +1531,15 @@ export interface UpdateItemVariantInput {
   /** Unique identifier of the item variant. */
   readonly variant_id: string
   /** When true, apply rate changes to associated recurring invoices. */
-  readonly update_recurring_invoice?: boolean
+  readonly update_recurring_invoice?: boolean | undefined
   /** Price book ID associated with the update request. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Date in yyyy-mm-dd format used for price computation. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** When true, deletes the existing variant image. */
-  readonly delete_image?: boolean
+  readonly delete_image?: boolean | undefined
   /** When true, sync applicable variant fields to the parent item. */
-  readonly can_sync_to_master?: boolean
+  readonly can_sync_to_master?: boolean | undefined
   readonly body: UpdateAnItemVariantRequest
 }
 
@@ -1571,7 +1571,7 @@ export interface BulkMarkItemVariantsActiveInput {
   /** Comma-separated list of variant IDs. */
   readonly variant_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark item variants as active. `POST /itemvariants/active` */
@@ -1588,7 +1588,7 @@ export interface BulkMarkItemVariantsInactiveInput {
   /** Comma-separated list of variant IDs. */
   readonly variant_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark item variants as inactive. `POST /itemvariants/inactive` */
@@ -1605,7 +1605,7 @@ export interface MarkItemVariantAsActiveInput {
   /** Unique identifier of the item variant. */
   readonly variant_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an item variant as active. `POST /itemvariants/{variant_id}/active` */
@@ -1622,7 +1622,7 @@ export interface MarkItemVariantAsInactiveInput {
   /** Unique identifier of the item variant. */
   readonly variant_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an item variant as inactive. `POST /itemvariants/{variant_id}/inactive` */
@@ -1653,11 +1653,11 @@ export const moveItemVariant = /*#__PURE__*/ operation<MoveItemVariantInput, typ
 
 export interface UngroupItemVariantsInput {
   /** Comma-separated list of variant IDs to ungroup. */
-  readonly variant_ids?: string
+  readonly variant_ids?: string | undefined
   /** Comma-separated list of composite item IDs to ungroup. */
-  readonly composite_item_ids?: string
+  readonly composite_item_ids?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark item variants as single items. `POST /itemvariants/ungroup` */

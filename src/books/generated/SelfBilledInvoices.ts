@@ -105,325 +105,325 @@ export interface CreateASelfBilledInvoiceRequest {
   /** Unique identifier of the vendor (supplier on whose behalf the invoice is raised). Note: This value is a set of numeric characters. */
   readonly vendor_id: string
   /** Reference number for the self-billed invoice. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date of the self-billed invoice. Format: yyyy-mm-dd. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Due date for payment. Format: yyyy-mm-dd. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Payment terms notes for the self-billed invoice. Maximum length: 10000 characters. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Adjustment amount applied to the total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Description for the adjustment amount. Maximum length: 100 characters. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Set to true to save the self-billed invoice as a draft. */
-  readonly is_draft?: boolean
+  readonly is_draft?: boolean | undefined
   /** Unique identifier of the price book to apply. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Set to true to calculate tax at the line-item level. */
-  readonly is_item_level_tax_calc?: boolean
+  readonly is_item_level_tax_calc?: boolean | undefined
   /** Set to true if the line-item rates are inclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Entity-level discount applied to the subtotal. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Discount reason code for the entity-level discount. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** Unique identifier of the account to post the discount amount. Note: This value is a set of numeric characters. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** Level at which the discount is applied. Allowed values: entity_level, item_level. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Set to true to apply the discount before tax calculation. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Number of days within which payment is due. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label for the payment terms (e.g., Net 30). */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Mode of payment expected from the buyer. Allowed values: cash, cheque, bank_transfer, sepa_credit_transfer, debit_transfer, card, not_specified, bankers_draft, credit_transfer, direct_debit, sepa_direct_debit, bank_cheque, credit_card, debit_card, online_payment_service. */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Unique identifier of the bank account for the expected payment. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Unique identifier of the expense account for the bill. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Unique identifier of the PDF template for the self-billed invoice. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Must be set to self_billed_invoice. Allowed values: bill, self_billed_invoice. */
   readonly entity_type: string
   /** VAT treatment of the vendor. Allowed values include vat_registered, vat_not_registered, gcc_vat_not_registered, gcc_vat_registered, and non_gcc. For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Place where the goods or services are supplied. Use the supported state, emirate, or country code for the organization edition. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Tax Registration Number (TRN) of the vendor. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Registration details of the vendor. Includes buyer identification, tax registration, and legal information used for E-Invoicing. */
   readonly registration_details?: {
     /** Company registration number (Commercial Registration number). Maximum length: 200 characters. */
-    readonly company_registration_no?: string
+    readonly company_registration_no?: string | undefined
     /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Maximum length: 200 characters. */
-    readonly einvoice_identifier_label?: string
+    readonly einvoice_identifier_label?: string | undefined
     /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Maximum length: 200 characters. */
-    readonly einvoice_identifier_value?: string
+    readonly einvoice_identifier_value?: string | undefined
     /** Authority or scheme that issued the buyer identifier (Buyer ID authority, for example Department of Economy and Tourism). Maximum length: 200 characters. */
-    readonly additionalfield1?: string
+    readonly additionalfield1?: string | undefined
     /** Legal registered name of the vendor. Maximum length: 500 characters. */
-    readonly legal_name?: string
+    readonly legal_name?: string | undefined
     /** Electronic address (Peppol ID or similar) of the vendor used for E-Invoicing routing. Maximum length: 200 characters. */
-    readonly electronic_address_value?: string
-  }
+    readonly electronic_address_value?: string | undefined
+  } | undefined
   /** Customs or import permit number. */
-  readonly permit_number?: string
+  readonly permit_number?: string | undefined
   /** Unique identifier of the billing address for the vendor. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier of the recurring bill profile linked to this invoice. Note: This value is a set of numeric characters. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** List of tags to associate with the self-billed invoice. */
   readonly tags?: ReadonlyArray<{
     /** Unique identifier of the reporting tag. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Unique identifier of the selected tag option. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of custom fields for the self-billed invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the custom field. Note: This value is a set of numeric characters. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of documents attached to the self-billed invoice. */
   readonly documents?: ReadonlyArray<{
     /** Unique identifier of the attached document. Note: This value is a set of numeric characters. */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** File name of the attached document. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** List of line items in the self-billed invoice. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier of the item. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name of the line item. Maximum length: 200 characters. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Unique identifier of the expense account for the line item. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the line item. Maximum length: 6000 characters. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit price of the item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity of the item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Discount percentage or amount applied to the line item. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Unique identifier of the tax applied to the line item. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique identifier of the reverse charge tax for the line item. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unit of measurement for the item (e.g., kg, pcs). */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Display order of the line item. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Set to true if the line item is billable to a customer. */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** Unique identifier of the customer to bill, if the line item is billable. Note: This value is a set of numeric characters. */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** Unique identifier of the project associated with the line item. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** HSN or SAC code for the line item. */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** UN/CEFACT unit code for the line item. Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** The product or service type the line item belongs to. Allowed values: goods or service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Tax treatment reason code for the line item. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** List of tags for the line item. */
     readonly tags?: ReadonlyArray<{
       /** Unique identifier of the reporting tag. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Unique identifier of the selected tag option. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Unique identifier of the custom field. Note: This value is a set of numeric characters. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Value of the custom field. */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
   }>
 }
 
 export interface UpdateASelfBilledInvoiceRequest {
   /** Unique bill number for the self-billed invoice. Maximum length: 50 characters. */
-  readonly bill_number?: string
+  readonly bill_number?: string | undefined
   /** Unique identifier of the vendor (supplier on whose behalf the invoice is raised). Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Reference number for the self-billed invoice. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date of the self-billed invoice. Format: yyyy-mm-dd. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Due date for payment. Format: yyyy-mm-dd. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Payment terms notes for the self-billed invoice. Maximum length: 10000 characters. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Adjustment amount applied to the total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Description for the adjustment amount. Maximum length: 100 characters. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Set to true to save the self-billed invoice as a draft. */
-  readonly is_draft?: boolean
+  readonly is_draft?: boolean | undefined
   /** Unique identifier of the price book to apply. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Set to true to calculate tax at the line-item level. */
-  readonly is_item_level_tax_calc?: boolean
+  readonly is_item_level_tax_calc?: boolean | undefined
   /** Set to true if the line-item rates are inclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Entity-level discount applied to the subtotal. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Discount reason code for the entity-level discount. Maximum length: 200 characters. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** Unique identifier of the account to post the discount amount. Note: This value is a set of numeric characters. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** Level at which the discount is applied. Allowed values: entity_level, item_level. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Set to true to apply the discount before tax calculation. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Number of days within which payment is due. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Label for the payment terms (e.g., Net 30). */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Mode of payment expected from the buyer. Allowed values: cash, cheque, bank_transfer, sepa_credit_transfer, debit_transfer, card, not_specified, bankers_draft, credit_transfer, direct_debit, sepa_direct_debit, bank_cheque, credit_card, debit_card, online_payment_service. */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Unique identifier of the bank account for the expected payment. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Unique identifier of the expense account for the bill. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Unique identifier of the PDF template for the self-billed invoice. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Must be set to self_billed_invoice. Allowed values: bill, self_billed_invoice. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
   /** VAT treatment of the vendor. Allowed values include vat_registered, vat_not_registered, gcc_vat_not_registered, gcc_vat_registered, and non_gcc. For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Place where the goods or services are supplied. Use the supported state, emirate, or country code for the organization edition. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Tax Registration Number (TRN) of the vendor. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Registration details of the vendor. Includes buyer identification, tax registration, and legal information used for E-Invoicing. */
   readonly registration_details?: {
     /** Company registration number (Commercial Registration number). Maximum length: 200 characters. */
-    readonly company_registration_no?: string
+    readonly company_registration_no?: string | undefined
     /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Maximum length: 200 characters. */
-    readonly einvoice_identifier_label?: string
+    readonly einvoice_identifier_label?: string | undefined
     /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Maximum length: 200 characters. */
-    readonly einvoice_identifier_value?: string
+    readonly einvoice_identifier_value?: string | undefined
     /** Authority or scheme that issued the buyer identifier (Buyer ID authority, for example Department of Economy and Tourism). Maximum length: 200 characters. */
-    readonly additionalfield1?: string
+    readonly additionalfield1?: string | undefined
     /** Legal registered name of the vendor. Maximum length: 500 characters. */
-    readonly legal_name?: string
+    readonly legal_name?: string | undefined
     /** Electronic address (Peppol ID or similar) of the vendor used for E-Invoicing routing. Maximum length: 200 characters. */
-    readonly electronic_address_value?: string
-  }
+    readonly electronic_address_value?: string | undefined
+  } | undefined
   /** Customs or import permit number. */
-  readonly permit_number?: string
+  readonly permit_number?: string | undefined
   /** Unique identifier of the billing address for the vendor. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier of the recurring bill profile linked to this invoice. Note: This value is a set of numeric characters. */
-  readonly recurring_bill_id?: string
+  readonly recurring_bill_id?: string | undefined
   /** List of tags to associate with the self-billed invoice. */
   readonly tags?: ReadonlyArray<{
     /** Unique identifier of the reporting tag. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Unique identifier of the selected tag option. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** List of custom fields for the self-billed invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the custom field. Note: This value is a set of numeric characters. */
-    readonly custom_field_id?: string
+    readonly custom_field_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of documents attached to the self-billed invoice. */
   readonly documents?: ReadonlyArray<{
     /** Unique identifier of the attached document. Note: This value is a set of numeric characters. */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** File name of the attached document. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** List of line items in the self-billed invoice. */
   readonly line_items?: ReadonlyArray<{
     /** Unique identifier of the item. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Name of the line item. Maximum length: 200 characters. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Unique identifier of the expense account for the line item. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Description of the line item. Maximum length: 6000 characters. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit price of the item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity of the item. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Discount percentage or amount applied to the line item. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Unique identifier of the tax applied to the line item. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique identifier of the reverse charge tax for the line item. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unit of measurement for the item (e.g., kg, pcs). */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Display order of the line item. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Set to true if the line item is billable to a customer. */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** Unique identifier of the customer to bill, if the line item is billable. Note: This value is a set of numeric characters. */
-    readonly customer_id?: string
+    readonly customer_id?: string | undefined
     /** Unique identifier of the project associated with the line item. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** HSN or SAC code for the line item. */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** UN/CEFACT unit code for the line item. Maximum length: 10 characters. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** The product or service type the line item belongs to. Allowed values: goods or service. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Tax treatment reason code for the line item. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** List of tags for the line item. */
     readonly tags?: ReadonlyArray<{
       /** Unique identifier of the reporting tag. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Unique identifier of the selected tag option. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** List of custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Unique identifier of the custom field. Note: This value is a set of numeric characters. */
-      readonly custom_field_id?: string
+      readonly custom_field_id?: string | undefined
       /** Value of the custom field. */
-      readonly value?: string
-    }>
-  }>
+      readonly value?: string | undefined
+    }> | undefined
+  }> | undefined
 }
 
 export interface ListSelfBilledInvoicesInput {
   /** Filter by entity type. Use self_billed_invoice to list only self-billed invoices. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
   /** Filter by bill number. */
-  readonly bill_number?: string
+  readonly bill_number?: string | undefined
   /** Filter by status. Allowed values: draft, open, paid, overdue, void. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Filter invoices with a bill date on or after this date. Format: yyyy-mm-dd. */
-  readonly date_start?: string
+  readonly date_start?: string | undefined
   /** Filter invoices with a bill date on or before this date. Format: yyyy-mm-dd. */
-  readonly date_end?: string
+  readonly date_end?: string | undefined
   /** Filter by vendor name. */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Column to sort the list by. Allowed values: vendor_name, bill_number, date, due_date, total, balance. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed values: A (ascending), D (descending). */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Page number for pagination. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records per page. Default: 25. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Self-Billed Invoices. `GET /bills` */
@@ -497,7 +497,7 @@ export interface PushSelfBilledInvoiceEinvoiceInput {
   /** Unique identifier of the self-billed invoice. Note: This value is a set of numeric characters. */
   readonly bill_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push a self-billed invoice e-invoice. `POST /selfbilledinvoices/{bill_id}/einvoice/push` */

@@ -268,244 +268,244 @@ export type DeleteAttachmentResponse = typeof DeleteAttachmentResponse.Type
 
 export interface PurchaseReturnLineItemRequest {
   /** Unique ID of the item. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Unique ID of the corresponding purchase order line item. */
-  readonly po_item_id?: string
+  readonly po_item_id?: string | undefined
   /** Name of the item. Max-length [200]. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Description of the line item. Max-length [1000]. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Quantity being returned. */
   readonly quantity: number
   /** Unit of measurement. Max-length [120]. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** Rate (price) per unit of the item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Display order of the line item. */
-  readonly item_order?: number
+  readonly item_order?: number | undefined
   /** Unique ID of the tax to apply to this line item. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique ID of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** HSN or SAC code for the item. */
-  readonly hsn_or_sac?: string
+  readonly hsn_or_sac?: string | undefined
   /** Unique ID of the location. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Discount applied on the line item. */
-  readonly discount?: string
+  readonly discount?: string | undefined
 }
 
 export interface CreatePurchaseReturnRequest {
   /** Unique number for the purchase return. Required when ignore_auto_number_generation is true. Max-length [50]. */
-  readonly purchasereturn_number?: string
+  readonly purchasereturn_number?: string | undefined
   /** Reference number for the purchase return. Max-length [100]. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date of the purchase return. Format [yyyy-mm-dd]. */
   readonly date: string
   /** Reason for creating the purchase return. Max-length [1000]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Unique ID of the vendor. */
   readonly vendor_id: string
   /** Whether the line item rates are inclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Line items in the purchase return. */
   readonly line_items: ReadonlyArray<PurchaseReturnLineItemRequest>
   /** Terms and conditions. Max-length [10000]. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** GST treatment for the vendor. */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Tax treatment for the vendor. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** VAT treatment for the vendor. */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Source state code for GST. Max-length [5]. */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Destination state code for GST. Max-length [5]. */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** Place of supply state code. Max-length [5]. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Discount applied on the purchase return. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Whether the discount is applied before tax calculation. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Type of discount. Possible values: entity_level, item_level. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Shipping charges for the purchase return. */
-  readonly shipping_charge?: number
+  readonly shipping_charge?: number | undefined
   /** Adjustment amount (positive or negative). */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Description for the adjustment. Max-length [100]. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Exchange rate for the currency used. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique ID of the currency. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Unique ID of the billing address. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique ID of the shipping address. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Unique ID of the location. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Custom fields associated with the purchase return. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdatePurchaseReturnRequest {
   /** Unique number for the purchase return. Max-length [50]. */
-  readonly purchasereturn_number?: string
+  readonly purchasereturn_number?: string | undefined
   /** Reference number for the purchase return. Max-length [100]. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Date of the purchase return. Format [yyyy-mm-dd]. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reason for the purchase return. Max-length [1000]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Unique ID of the vendor. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Whether the line item rates are inclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Line items in the purchase return. */
-  readonly line_items?: ReadonlyArray<PurchaseReturnLineItemRequest>
+  readonly line_items?: ReadonlyArray<PurchaseReturnLineItemRequest> | undefined
   /** Terms and conditions. Max-length [10000]. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** GST treatment for the vendor. */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Tax treatment for the vendor. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** VAT treatment for the vendor. */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Source state code for GST. Max-length [5]. */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Destination state code for GST. Max-length [5]. */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** Place of supply state code. Max-length [5]. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Discount applied on the purchase return. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Whether the discount is applied before tax calculation. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Type of discount. Possible values: entity_level, item_level. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Shipping charges for the purchase return. */
-  readonly shipping_charge?: number
+  readonly shipping_charge?: number | undefined
   /** Adjustment amount (positive or negative). */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Description for the adjustment. Max-length [100]. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** Exchange rate for the currency used. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique ID of the currency. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Unique ID of the billing address. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique ID of the shipping address. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Unique ID of the location. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Custom fields associated with the purchase return. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface FulfillPurchaseReturnRequest {
   /** Line items to fulfill. */
   readonly line_items?: ReadonlyArray<{
     /** Unique ID of the purchase return line item. */
-    readonly purchasereturn_item_id?: string
+    readonly purchasereturn_item_id?: string | undefined
     /** Quantity to fulfill. */
-    readonly quantity?: number
-  }>
+    readonly quantity?: number | undefined
+  }> | undefined
 }
 
 export interface UnfulfillPurchaseReturnRequest {
   /** Line items to unfulfill. */
   readonly line_items?: ReadonlyArray<{
     /** Unique ID of the purchase return line item. */
-    readonly purchasereturn_item_id?: string
+    readonly purchasereturn_item_id?: string | undefined
     /** Quantity to unfulfill. */
-    readonly quantity?: number
-  }>
+    readonly quantity?: number | undefined
+  }> | undefined
 }
 
 export interface EmailPurchaseReturnRequest {
   /** Array of recipient email addresses. */
-  readonly to_mail_ids?: ReadonlyArray<string>
+  readonly to_mail_ids?: ReadonlyArray<string> | undefined
   /** Array of CC email addresses. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Array of BCC email addresses. */
-  readonly bcc_mail_ids?: ReadonlyArray<string>
+  readonly bcc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of the email. Max-length [1000]. */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** Body of the email. Max-length [100000]. */
-  readonly body?: string
+  readonly body?: string | undefined
 }
 
 export interface ClosePurchaseReturnRequest {
   /** Line items with quantities to cancel. */
   readonly line_items?: ReadonlyArray<{
     /** Unique ID of the line item. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Quantity to cancel. */
-    readonly qty_cancelled?: number
-  }>
+    readonly qty_cancelled?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateAddressRequest {
   /** Street address. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Additional street address. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State or province. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** ZIP or postal code. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** Phone number. */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Attention person. */
-  readonly attention?: string
+  readonly attention?: string | undefined
 }
 
 export interface ListPurchaseReturnsInput {
   /** Filter purchase returns by status. Allowed values: Status.All, Status.Draft, Status.Confirmed, Status.Void, Status.Closed. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Filter by purchase return status. Allowed values: draft, confirmed, void, closed, shipped, refunded, not_shipped, not_refunded, partially_shipped, partially_refunded, packed, not_packed, partially_packed, picked, not_picked, partially_picked. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search purchase returns by purchase return number, vendor name, or other searchable fields. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Column by which the list should be sorted. Allowed values: purchasereturn_number, vendor_name, purchaseorder_number, date, created_time, last_modified_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Search purchase returns by date. Use YYYY-MM-DD format. Variants: purchasereturn_date_start, purchasereturn_date_end, purchasereturn_date_before, purchasereturn_date_after. */
-  readonly purchasereturn_date?: string
+  readonly purchasereturn_date?: string | undefined
   /** Search purchase returns by vendor name. Variants: vendor_name_startswith, vendor_name_contains. */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Search purchase returns by purchase return number. Variants: purchasereturn_number_startswith, purchasereturn_number_contains. */
-  readonly purchasereturn_number?: string
+  readonly purchasereturn_number?: string | undefined
   /** Search purchase returns by purchase order number. Variants: purchaseorder_number_startswith, purchaseorder_number_contains. */
-  readonly purchaseorder_number?: string
+  readonly purchaseorder_number?: string | undefined
   /** Search purchase returns by item name. Variants: item_name_startswith, item_name_contains. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search purchase returns by item description. Variants: item_description_startswith, item_description_contains. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Filter purchase returns by custom view. */
-  readonly customview_id?: string
+  readonly customview_id?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List purchase returns. `GET /purchasereturns` */
@@ -519,7 +519,7 @@ export const listPurchaseReturns = /*#__PURE__*/ operation<ListPurchaseReturnsIn
 
 export interface CreatePurchaseReturnInput {
   /** Ignore auto purchase return number generation for this purchase return. This mandates the purchase return number. Allowed values are true and false. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreatePurchaseReturnRequest
 }
 
@@ -537,7 +537,7 @@ export interface GetPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
   /** Set to true to get the print-friendly version of the purchase return. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
 }
 
 /** Retrieve a purchase return. `GET /purchasereturns/{purchase_return_id}` */
@@ -583,7 +583,7 @@ export interface ConfirmPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Confirm a purchase return. `POST /purchasereturns/{purchase_return_id}/status/open` */
@@ -600,9 +600,9 @@ export interface VoidPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
   /** Reason for voiding the purchase return. Max-length [500]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void a purchase return. `POST /purchasereturns/{purchase_return_id}/status/void` */
@@ -651,11 +651,11 @@ export interface EmailPurchaseReturnInput {
   /** Unique identifier of the purchase return. */
   readonly purchase_return_id: string
   /** Send the purchase return attachment with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Whether to attach the PDF of the purchase return. */
-  readonly attach_pdf?: boolean
+  readonly attach_pdf?: boolean | undefined
   /** Custom file name for the PDF attachment. Max-length [100]. */
-  readonly file_name?: string
+  readonly file_name?: string | undefined
   readonly body: EmailPurchaseReturnRequest
 }
 
@@ -674,9 +674,9 @@ export interface AddAttachmentToPurchaseReturnInput {
   readonly purchase_return_id: string
   readonly body: {
     /** File to attach to the purchase return. */
-    readonly attachment?: ZohoFile
+    readonly attachment?: ZohoFile | undefined
     /** Set to true to allow the attachment to be sent via email. */
-    readonly can_send_in_mail?: boolean
+    readonly can_send_in_mail?: boolean | undefined
   }
 }
 
@@ -710,7 +710,7 @@ export interface ReopenPurchaseReturnInput {
   /** Comma-separated list of purchase return IDs to reopen. Maximum 200 IDs. */
   readonly purchasereturn_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reopen a purchase return. `PUT /purchasereturns/status/reopen` */

@@ -154,66 +154,66 @@ export type BulkDeleteRegisterTransactionsResponse = typeof BulkDeleteRegisterTr
 
 export interface BulkUpdateRegisterEntityInput {
   /** ID of the entity (transaction source record). */
-  readonly entity_id?: string
+  readonly entity_id?: string | undefined
   /** Type of entity. Examples include invoice, bill, journal, and expense. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
 }
 
 export interface BulkUpdateRegisterTransactionsRequest {
   /** ID of the chart of accounts account. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the branch or location. */
-  readonly branch_id?: string
+  readonly branch_id?: string | undefined
   /** Date and time of the bulk action. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reason for the bulk update. */
-  readonly bulk_update_reason?: string
+  readonly bulk_update_reason?: string | undefined
   /** list of json object with contains entity id and Type of entity. */
-  readonly entities?: ReadonlyArray<BulkUpdateRegisterEntityInput>
+  readonly entities?: ReadonlyArray<BulkUpdateRegisterEntityInput> | undefined
 }
 
 export interface BulkDeleteRegisterTransactionsRequest {
   /** ID of the chart of accounts account. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the branch or location. */
-  readonly branch_id?: string
+  readonly branch_id?: string | undefined
   /** Date and time of the bulk action. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reason for the bulk update. */
-  readonly bulk_update_reason?: string
+  readonly bulk_update_reason?: string | undefined
   /** list of json object with contains entity id and Type of entity. */
-  readonly entities?: ReadonlyArray<BulkUpdateRegisterEntityInput>
+  readonly entities?: ReadonlyArray<BulkUpdateRegisterEntityInput> | undefined
 }
 
 export interface ListRegisterTransactionsInput {
   /** Unique identifier of the chart of accounts register (general ledger account). */
   readonly account_id: string
   /** Filter transactions by date. Allowed Values: TransactionDate.Today, TransactionDate.ThisWeek, TransactionDate.ThisMonth, TransactionDate.ThisQuarter, TransactionDate.ThisYear, TransactionDate.PreviousDay, TransactionDate.PreviousWeek, TransactionDate.PreviousMonth, TransactionDate.PreviousQuarter, TransactionDate.PreviousYear, and TransactionDate.CustomDate. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Start date when using a custom date range. Format yyyy-mm-dd. */
-  readonly from_date?: string
+  readonly from_date?: string | undefined
   /** End date when using a custom date range. Format yyyy-mm-dd. */
-  readonly to_date?: string
+  readonly to_date?: string | undefined
   /** When true, returns cash-based amounts. */
-  readonly cash_based?: boolean
+  readonly cash_based?: boolean | undefined
   /** JSONArray of report select columns for grouping. */
-  readonly group_by?: string
+  readonly group_by?: string | undefined
   /** Sort column. Allowed Values: date, transaction_type, account_type, account_name, and account_code. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Optional columns to include. Allowed Values: account_code, running_balance, and net_amount (comma-separated). */
-  readonly optional_columns?: string
+  readonly optional_columns?: string | undefined
   /** When true, includes foreign currency amounts. */
-  readonly show_fcy?: boolean
+  readonly show_fcy?: boolean | undefined
   /** When true, enables select-column report flow. */
-  readonly is_select_column_enabled?: boolean
+  readonly is_select_column_enabled?: boolean | undefined
   /** When true, uses the new report pipeline. */
-  readonly is_new_flow?: boolean
+  readonly is_new_flow?: boolean | undefined
   /** When true, includes the account code column. */
-  readonly is_account_code_column_enabled?: boolean
+  readonly is_account_code_column_enabled?: boolean | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 10. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List register transactions. `GET /registers/{account_id}/transactions` */
@@ -229,13 +229,13 @@ export interface ListRegisterBulkActionHistoryInput {
   /** Unique identifier of the chart of accounts register (general ledger account). */
   readonly account_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 10. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** Sort column. Allowed Values: created_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed Values: A and D. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
 }
 
 /** List register bulk action history. `GET /registers/{account_id}/bulkhistory` */
@@ -253,13 +253,13 @@ export interface GetRegisterBulkActionHistoryInput {
   /** Unique identifier of the bulk action history comment. */
   readonly comment_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 10. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** Sort column. Allowed Values: created_time. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed Values: A and D. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
 }
 
 /** Get register bulk action history details. `GET /registers/{account_id}/bulkhistory/{comment_id}` */
@@ -289,17 +289,17 @@ export interface GetRegisterBudgetVsActualsInput {
   /** Unique identifier of the chart of accounts register (general ledger account). */
   readonly account_id: string
   /** ID of the budget. When provided, returns detailed budget_vs_actuals for that budget. */
-  readonly budget_id?: string
+  readonly budget_id?: string | undefined
   /** Filter by transaction date. Allowed Values: TransactionDate.Today, TransactionDate.ThisWeek, TransactionDate.ThisMonth, TransactionDate.ThisQuarter, TransactionDate.ThisYear, TransactionDate.PreviousDay, TransactionDate.PreviousWeek, TransactionDate.PreviousMonth, TransactionDate.PreviousQuarter, TransactionDate.PreviousYear, and TransactionDate.CustomDate. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** When true, uses cash-based accounting. */
-  readonly cash_based?: boolean
+  readonly cash_based?: boolean | undefined
   /** Start date for the comparison period. Format yyyy-mm-dd. */
-  readonly from_date?: string
+  readonly from_date?: string | undefined
   /** End date for the comparison period. Format yyyy-mm-dd. */
-  readonly to_date?: string
+  readonly to_date?: string | undefined
   /** Period granularity. Allowed Values: monthly, half-yearly, yearly, and quarterly. Default value is monthly. */
-  readonly period?: string
+  readonly period?: string | undefined
 }
 
 /** Get register budget vs actuals. `GET /registers/{account_id}/budgetvsactuals` */
@@ -315,7 +315,7 @@ export interface BulkUpdateRegisterTransactionsInput {
   /** Unique identifier of the chart of accounts register (general ledger account). */
   readonly account_id: string
   /** When true, indicates the update is initiated from another account context. */
-  readonly from_account_id?: boolean
+  readonly from_account_id?: boolean | undefined
   readonly body: BulkUpdateRegisterTransactionsRequest
 }
 

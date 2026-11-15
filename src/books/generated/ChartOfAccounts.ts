@@ -153,83 +153,83 @@ export type DeleteATransactionResponse = typeof DeleteATransactionResponse.Type
 
 export interface CreateAnAccountRequest {
   /** Name of the account */
-  readonly account_name?: string
+  readonly account_name?: string | undefined
   /** Code Associated with the Account */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** Type of the account. Allowed Values: other_asset, other_current_asset, cash, bank, fixed_asset, other_current_liability, credit_card, long_term_liability, equity, income, other_income, expense, cost_of_goods_sold, other_expense, accounts_receivable, accounts_payable and more. */
-  readonly account_type?: string
+  readonly account_type?: string | undefined
   /** ID of the account currency. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Description of the account */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Whether to show the account balance on the dashboard. */
-  readonly show_on_dashboard?: boolean
+  readonly show_on_dashboard?: boolean | undefined
   /** Whether the account can be shown in Zoho Expense. */
-  readonly can_show_in_ze?: boolean
+  readonly can_show_in_ze?: boolean | undefined
   /** Boolean to include an account in VAT returns. */
-  readonly include_in_vat_return?: boolean
+  readonly include_in_vat_return?: boolean | undefined
   /** List of custom fields for the account. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** ID of the Parent Account */
-  readonly parent_account_id?: string
+  readonly parent_account_id?: string | undefined
 }
 
 export interface UpdateAnAccountRequest {
   /** Name of the account */
-  readonly account_name?: string
+  readonly account_name?: string | undefined
   /** Code Associated with the Account */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** Type of the account. Allowed Values: other_asset, other_current_asset, cash, bank, fixed_asset, other_current_liability, credit_card, long_term_liability, equity, income, other_income, expense, cost_of_goods_sold, other_expense, accounts_receivable, accounts_payable and more. */
-  readonly account_type?: string
+  readonly account_type?: string | undefined
   /** ID of the account currency. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Description of the account */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Whether to show the account balance on the dashboard. */
-  readonly show_on_dashboard?: boolean
+  readonly show_on_dashboard?: boolean | undefined
   /** Whether the account can be shown in Zoho Expense. */
-  readonly can_show_in_ze?: boolean
+  readonly can_show_in_ze?: boolean | undefined
   /** Boolean to include an account in VAT returns. */
-  readonly include_in_vat_return?: boolean
+  readonly include_in_vat_return?: boolean | undefined
   /** List of custom fields for the account. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** ID of the Parent Account */
-  readonly parent_account_id?: string
+  readonly parent_account_id?: string | undefined
 }
 
 export interface ListChartOfAccountsInput {
   /** Boolean to get current balance of accounts. */
-  readonly showbalance?: boolean
+  readonly showbalance?: boolean | undefined
   /** Filter accounts based on its account type and status. Allowed Values: AccountType.All, AccountType.Active, AccountType.Inactive, AccountType.Asset, AccountType.Liability, AccountType.Equity, AccountType.Income and AccountType.Expense. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort accounts. Allowed Values: account_name, account_type and account_code. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** List accounts modified after the given date and time. */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** ID of the custom view. */
-  readonly customview_id?: string
+  readonly customview_id?: string | undefined
   /** Search by account ID. Variants: account_id_equal, account_id_not_equal. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Search by account code. Variants: account_code_contains, account_code_starts_with, account_code_ends_with. */
-  readonly account_code?: string
+  readonly account_code?: string | undefined
   /** Search by account name. Variants: account_name_contains, account_name_starts_with, account_name_ends_with. */
-  readonly account_name?: string
+  readonly account_name?: string | undefined
   /** Search accounts by account name or code. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List chart of accounts. `GET /chartofaccounts` */
@@ -303,7 +303,7 @@ export interface MarkChartOfAccountActiveInput {
   /** Unique identifier of the account. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an account as active. `POST /chartofaccounts/{account_id}/active` */
@@ -320,7 +320,7 @@ export interface MarkChartOfAccountInactiveInput {
   /** Unique identifier of the account. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an account as inactive. `POST /chartofaccounts/{account_id}/inactive` */
@@ -337,7 +337,7 @@ export interface BulkMarkChartOfAccountsActiveInput {
   /** Comma separated account IDs to be marked as active. */
   readonly account_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark accounts as active. `POST /chartofaccounts/active` */
@@ -354,7 +354,7 @@ export interface BulkMarkChartOfAccountsInactiveInput {
   /** Comma separated account IDs to be marked as inactive. */
   readonly account_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk mark accounts as inactive. `POST /chartofaccounts/inactive` */
@@ -385,35 +385,35 @@ export interface ListChartOfAccountTransactionsInput {
   /** ID of the Account */
   readonly account_id: string
   /** Filter account transactions for an exact transaction date. Returns transactions on the specified date. Use yyyy-mm-dd format. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Filter account transactions with a transaction date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly date_start?: string
+  readonly date_start?: string | undefined
   /** Filter account transactions with a transaction date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly date_end?: string
+  readonly date_end?: string | undefined
   /** Filter account transactions with a transaction date strictly before the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly date_before?: string
+  readonly date_before?: string | undefined
   /** Filter account transactions with a transaction date strictly after the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly date_after?: string
+  readonly date_after?: string | undefined
   /** Filter account transactions for an exact amount. */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Filter account transactions with an amount less than the specified value. */
-  readonly amount_less_than?: number
+  readonly amount_less_than?: number | undefined
   /** Filter account transactions with an amount less than or equal to the specified value. */
-  readonly amount_less_equals?: number
+  readonly amount_less_equals?: number | undefined
   /** Filter account transactions with an amount greater than the specified value. */
-  readonly amount_greater_than?: number
+  readonly amount_greater_than?: number | undefined
   /** Filter account transactions with an amount greater than or equal to the specified value. */
-  readonly amount_greater_equals?: number
+  readonly amount_greater_equals?: number | undefined
   /** Filter transactions. Allowed Values: TransactionType.All. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search transactions based on the given transaction type. Allowed Values: invoice, customer_payment, bills, vendor_payment, credit_notes, creditnote_refund, expense, card_payment, purchase_or_charges, journal, deposit, refund, transfer_fund, base_currency_adjustment, opening_balance, sales_without_invoices, expense_refund, tax_refund, receipt_from_initial_debtors, owner_contribution, interest_income, other_income, owner_drawings and payment_to_initial_creditors. */
-  readonly transaction_type?: string
+  readonly transaction_type?: string | undefined
   /** Sort transactions. Allowed Values: transaction_date, payee, glname, transaction_type_formatted, reconcile_status, debit_amount and credit_amount. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List of transactions for an account. `GET /chartofaccounts/accounttransactions` */

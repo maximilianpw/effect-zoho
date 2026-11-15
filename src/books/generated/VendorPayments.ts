@@ -335,188 +335,188 @@ export type EmailAVendorPaymentResponse = typeof EmailAVendorPaymentResponse.Typ
 
 export interface CreateAVendorPaymentRequest {
   /** ID of the vendor associated with the Vendor Payment. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Individual bill payment details as array. */
   readonly bills?: ReadonlyArray<{
     /** ID of the Bill Payment */
-    readonly bill_payment_id?: string
+    readonly bill_payment_id?: string | undefined
     /** ID of the bill the payment is to be applied. */
-    readonly bill_id?: string
+    readonly bill_id?: string | undefined
     /** Amount applied to the bill. */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Tax Amount Withheld during Bill Payment */
-    readonly tax_amount_withheld?: number
-  }>
+    readonly tax_amount_withheld?: number | undefined
+  }> | undefined
   /** Date the payment is made. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Total Amount of Vendor Payment */
   readonly amount: number
   /** ID of the cash/ bank account from which the payment is made. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Mode of Vendor Payment */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Description for the Vendor Payment recorded. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Reference number for the Vendor Payment recorded. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Details of the check when the payment mode is Check. */
-  readonly check_details?: ReadonlyArray<string>
+  readonly check_details?: ReadonlyArray<string> | undefined
   /** Check if the Bill Payment is paid Via Print Check Option */
-  readonly is_paid_via_print_check?: boolean
+  readonly is_paid_via_print_check?: boolean | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Custom fields associated with the vendor payment. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the Custom Field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value for the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAVendorPaymentRequest {
   /** ID of the vendor associated with the Vendor Payment. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Individual bill payment details as array. */
   readonly bills?: ReadonlyArray<{
     /** ID of the Bill Payment */
-    readonly bill_payment_id?: string
+    readonly bill_payment_id?: string | undefined
     /** ID of the bill the payment is to be applied. */
-    readonly bill_id?: string
+    readonly bill_id?: string | undefined
     /** Amount applied to the bill. */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Tax Amount Withheld during Bill Payment */
-    readonly tax_amount_withheld?: number
-  }>
+    readonly tax_amount_withheld?: number | undefined
+  }> | undefined
   /** Date the payment is made. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Total Amount of Vendor Payment */
   readonly amount: number
   /** ID of the cash/ bank account from which the payment is made. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Mode of Vendor Payment */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Description for the Vendor Payment recorded. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Reference number for the Vendor Payment recorded. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Check if the Bill Payment is paid Via Print Check Option */
-  readonly is_paid_via_print_check?: boolean
+  readonly is_paid_via_print_check?: boolean | undefined
   /** Details of the check when the payment mode is Check. */
-  readonly check_details?: ReadonlyArray<string>
+  readonly check_details?: ReadonlyArray<string> | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Custom fields associated with the vendor payment. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the Custom Field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value for the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface RefundAnExcessVendorPaymentRequest {
   /** Date of the Vendor Payment Refund. */
   readonly date: string
   /** Mode in which refund is made. */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the Payment Refund */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Total Amount of Vendor Payment */
   readonly amount: number
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** The account to which payment is refunded. */
   readonly to_account_id: string
   /** Description of the Payment Refund */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateARefundRequest {
   /** Date of the Vendor Payment Refund. */
   readonly date: string
   /** Mode in which refund is made. */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference Number of the Payment Refund */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Total Amount of Vendor Payment */
   readonly amount: number
   /** Exchange rate of the currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** The account to which payment is refunded. */
   readonly to_account_id: string
   /** Description of the Payment Refund */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface EmailAVendorPaymentRequest {
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** From email address id */
-  readonly from_address_id?: string
+  readonly from_address_id?: string | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be CC'd. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of the email */
   readonly subject: string
   /** Body of the email */
   readonly body: string
   /** Get the email content based on a specific email template. If this param is not inputted, then the content will be based on the email template associated with the vendor. If no template is associated with the vendor, then default template will be used. */
-  readonly email_template_id?: string
+  readonly email_template_id?: string | undefined
 }
 
 export interface ListVendorPaymentsInput {
   /** Search payments by vendor name. Variants: vendor_name_startswith and vendor_name_contains. */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Search payments by reference number. Variants: reference_number_startswith and reference_number_contains. In refunds, reference number for the refund recorded. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search with Payment Number. Variant: payment_number_startswith, payment_number_contains */
-  readonly payment_number?: string
+  readonly payment_number?: string | undefined
   /** Date the payment is made. Search payments by payment made date. Variants: date_start, date_end, date_before and date_after. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Payment amount made to the vendor. Search payments by payment amount. Variants: amount_less_than, amount_less_equals, amount_greater_than and amount_greater_equals. In refunds, Amount refunded from the vendor payment. */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Search payments by payment mode. Variants: payment_mode_startswith and payment_mode_contains. */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Search with Payment Notes. Variant: notes_startswith, notes_contains */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** ID of the vendor. Search payments by vendor id. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Search with the Last Modified Time of the Vendor Payment */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search payments by Bill ID. */
-  readonly bill_id?: string
+  readonly bill_id?: string | undefined
   /** Search payments by description. Variants: description_startswith and description_contains. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Filter payments by mode. Allowed Values: PaymentMode.All, PaymentMode.Check, PaymentMode.Cash, PaymentMode.BankTransfer, PaymentMode.Paypal, PaymentMode.CreditCard, PaymentMode.GoogleCheckout, PaymentMode.Credit, PaymentMode.Authorizenet, PaymentMode.BankRemittance, PaymentMode.Payflowpro and PaymentMode.Others. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search payments by reference number or vendor name or payment description. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort the payment list. Allowed Values: vendor_name, date, reference_number, amount and balance. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List vendor payments. `GET /vendorpayments` */
@@ -548,7 +548,7 @@ export interface UpdateVendorPaymentUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAVendorPaymentRequest
 }
 
@@ -583,13 +583,13 @@ export interface GetVendorPaymentInput {
   /** Unique identifier of the payment. */
   readonly payment_id: string
   /** Check if tax information should be fetched */
-  readonly fetchTaxInfo?: boolean
+  readonly fetchTaxInfo?: boolean | undefined
   /** Check is Statement Line Information for Vendor Payment be fetched */
-  readonly fetchstatementlineinfo?: boolean
+  readonly fetchstatementlineinfo?: boolean | undefined
   /** Check if Vendor Payment must be printed. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Check if the ID is Bill Payment or Vendor Payment */
-  readonly is_bill_payment_id?: boolean
+  readonly is_bill_payment_id?: boolean | undefined
 }
 
 /** Get a vendor payment. `GET /vendorpayments/{payment_id}` */
@@ -635,9 +635,9 @@ export interface ListVendorPaymentRefundsInput {
   /** Unique identifier of the payment. */
   readonly payment_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List refunds of a vendor payment. `GET /vendorpayments/{payment_id}/refunds` */
@@ -733,11 +733,11 @@ export interface EmailVendorPaymentInput {
   /** Unique identifier of the payment. */
   readonly payment_id: string
   /** Send the vendor payment attachment with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Files to be attached to the email */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   /** Name of the file to be attached */
-  readonly file_name?: string
+  readonly file_name?: string | undefined
   readonly body: EmailAVendorPaymentRequest
 }
 

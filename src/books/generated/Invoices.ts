@@ -1410,616 +1410,616 @@ export type CancelEinvoiceInvoiceResponse = typeof CancelEinvoiceInvoiceResponse
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if SMS communication preference is enabled for the contact person at transaction level. */
-  readonly is_sms_enabled?: boolean
+  readonly is_sms_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface RegistrationDetailsInput {
   /** Company registration number (Commercial Registration number). Max-length [200]. */
-  readonly company_registration_no?: string
+  readonly company_registration_no?: string | undefined
   /** Tax Identification Number (TIN) of the contact. Used as the VAT registration number for UAE E-Invoicing. Max-length [200]. */
-  readonly indirect_tax_no?: string
+  readonly indirect_tax_no?: string | undefined
   /** Location code type identifying the economic zone or region. Used for UAE E-Invoicing compliance (e.g. TL for Territory of Land). Max-length [200]. */
-  readonly zone_type?: string
+  readonly zone_type?: string | undefined
   /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Max-length [200]. */
-  readonly einvoice_identifier_label?: string
+  readonly einvoice_identifier_label?: string | undefined
   /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Max-length [200]. */
-  readonly einvoice_identifier_value?: string
+  readonly einvoice_identifier_value?: string | undefined
   /** Authority or scheme that issued the buyer identifier (Buyer ID authority, e.g. Department of Economy and Tourism). Max-length [200]. */
-  readonly additionalfield1?: string
+  readonly additionalfield1?: string | undefined
   /** Type of business classification scheme (e.g. DUNS, GLN). Max-length [200]. */
-  readonly business_classification_type?: string
+  readonly business_classification_type?: string | undefined
   /** Value of the business classification identifier. Max-length [200]. */
-  readonly business_classification_value?: string
+  readonly business_classification_value?: string | undefined
   /** Trade name of the contact. Max-length [500]. */
-  readonly trader_name?: string
+  readonly trader_name?: string | undefined
   /** Legal registered name of the contact. Max-length [500]. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Value of the location identifier used in E-Invoicing. Max-length [200]. */
-  readonly location_identifier_value?: string
+  readonly location_identifier_value?: string | undefined
   /** Type of the location identifier scheme. Max-length [200]. */
-  readonly location_identifier_type?: string
+  readonly location_identifier_type?: string | undefined
   /** Electronic address (Peppol ID or similar) of the contact used for E-Invoicing routing. Max-length [200]. */
-  readonly electronic_address_value?: string
+  readonly electronic_address_value?: string | undefined
 }
 
 export interface ProductTaxCategoryInput {
   /** Code of the tax category. Max-length [25]. */
-  readonly tax_category_code?: string
+  readonly tax_category_code?: string | undefined
   /** Name of the tax category. */
-  readonly tax_category_name?: string
+  readonly tax_category_name?: string | undefined
   /** Description of the tax category. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface PaymentOptionsInput {
   /** Online payment gateways through which payment can be made. */
   readonly payment_gateways?: ReadonlyArray<{
     /** Boolean check to see if a payment gateway has been configured */
-    readonly configured?: boolean
+    readonly configured?: boolean | undefined
     /** Paypal payment method. Allowed Values: standard and adaptive */
-    readonly additional_field1?: string
+    readonly additional_field1?: string | undefined
     /** Name of the payment gateway associated with the invoice. E.g. paypal, stripe.Allowed Values: paypal, authorize_net, payflow_pro, stripe, 2checkout and braintree */
-    readonly gateway_name?: string
-  }>
+    readonly gateway_name?: string | undefined
+  }> | undefined
 }
 
 export interface ShippingChargeTaxCategoryInput {
   /** Code of the shipping tax category. Max-length [25]. */
-  readonly tax_category_code?: string
+  readonly tax_category_code?: string | undefined
   /** Name of the shipping tax category. */
-  readonly tax_category_name?: string
+  readonly tax_category_name?: string | undefined
   /** Description of the shipping tax category. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface ShippingAddressInput {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Additional address information such as suite number, apartment number, or floor. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface CreateAnInvoiceRequest {
   /** Unique identifier of the customer in the current organization for whom this invoice is created. Required when creating an invoice. Use the `customer_id` returned by the get Customers API. Must belong to the organization specified by the `organization_id` parameter. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** Unique identifier of the currency in which the invoice will be created for the customer. Use the `currency_id` returned by the Currencies API for the same organization. This sets the currency for all monetary amounts on the invoice; if it differs from the organization's base currency, an appropriate `exchange_rate` may be required. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Array of contact person IDs associated with the specified customer. Provide the IDs of contact persons (from the Contacts/Contact Persons API) who should receive invoice communications (e.g., emails) for this invoice. Each ID must belong to the same customer and organization as the invoice. If omitted, the customer's primary contact may be used. */
-  readonly contact_persons?: ReadonlyArray<string>
+  readonly contact_persons?: ReadonlyArray<string> | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Unique identifier or reference number for the invoice. When creating an invoice, this can be a custom number (requires `ignore_auto_number_generation=true` query parameter) or left empty for auto-generation. When searching invoices, supports variants: invoice_number_startswith and invoice_number_contains. Maximum length is 100 characters. Must be unique within the organization. */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the invoice. Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique identifier of the bank account used for payment. Used for UAE E-Invoicing to specify the expected payment method bank account. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing to specify the basis of a special discount applied to the invoice. Max-length [200]. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** Registration details of the customer. For UAE Edition, includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Tax registration number of the customer or supplier. Used for GCC VAT compliance. Max-length [50]. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Choose CFDI Usage. Allowed values:acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** External reference number or identifier for the invoice, such as a purchase order number, contract number, or any other business reference. When converting from an estimate or sales order, this field can be used to reference the original document number. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Unique identifier of the PDF template linked to the invoice. Obtain this value from the `template_id` field in the response of the GET `/invoices/templates` API for your organization. Determines which template is used for the invoice PDF. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** The date on which the invoice is created. Use the format yyyy-mm-dd (e.g., 2013-11-17). This date appears on the invoice document and is used for accounting purposes. When searching invoices, supports variants: date_start, date_end, date_before and date_after. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Number of days allowed for payment (e.g., 15, 30, 60). This value determines the invoice due date by adding the specified number of days to the invoice date. For example, if invoice date is 2023-11-17 and payment_terms is 15, the due_date will be 2023-12-02. Maximum value is 100 days. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Custom label for payment terms that appears on the invoice document. Used to override the default system-generated label. For example, instead of the default "Net 15 Days", you can set this to "Net 15", "Due in 15 days", or any custom text. This label is displayed to customers on the invoice. Maximum length is 100 characters. */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** The date by which payment is due for the invoice. Use the format yyyy-mm-dd (e.g., 2013-12-03). This date is typically calculated as invoice date + payment_terms days, but can be overridden with a custom date. When searching invoices, supports variants: due_date_start, due_date_end, due_date_before and due_date_after. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Discount applied to the invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Boolean flag that determines when the discount is applied in relation to tax calculation. When true, discount is applied before tax calculation (discount reduces the taxable amount). When false, discount is applied after tax calculation (discount reduces the final total including tax). This affects the final invoice total and tax amounts. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Specifies the scope of discount application. entity_level applies the discount to the entire invoice total. item_level applies the discount to individual line items. This determines how the discount amount is distributed across the invoice items. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Boolean flag that indicates whether line item rates include tax. When true, the specified rates are inclusive of tax (tax is already included in the rate). When false, the rates are exclusive of tax (tax will be added to the rate). This affects how tax calculations are performed on line items. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Exchange rate used to convert amounts from the invoice currency to the organization's base currency. Required when the invoice currency differs from the organization's base currency. For example, if base currency is USD and invoice currency is EUR, set the EUR to USD exchange rate (e.g., 1.18). Default value is 1.0 when invoice currency matches base currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique identifier of the business location associated with the invoice. Use the `location_id` returned by the Locations API for the same organization. This links the invoice to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Unique identifier of the recurring invoice template that generated this invoice. Use this field when creating an invoice from a recurring invoice template. The `recurring_invoice_id` links this invoice back to its source recurring invoice, enabling tracking of which template generated it and maintaining the recurring invoice relationship. Note: This value is a set of numeric characters. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
   /** Unique identifier of the estimate that was converted to create this invoice. Use this field when creating an invoice from an existing estimate. The `invoiced_estimate_id` links this invoice back to its source estimate, enabling tracking of the conversion process and maintaining the relationship between estimates and invoices. Note: This value is a set of numeric characters. */
-  readonly invoiced_estimate_id?: string
+  readonly invoiced_estimate_id?: string | undefined
   /** Name of the salesperson. Max-length [200] */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Custom fields for an invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Send the invoice to the contact person(s) associated with the invoice. Allowed values true and false. */
-  readonly send?: boolean
+  readonly send?: boolean | undefined
   /** List of line items in the invoice. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier of the item (product or service) to be included in the invoice line item. Use the `item_id` returned by the Items API for the same organization. This field is required for each line item and determines the item details, pricing, and tax settings that will be applied to this line item. Note: This value is a set of numeric characters. */
     readonly item_id: string
     /** Unique identifier of the project associated with this line item. Use the `project_id` returned by the Projects API for the same organization. This links the line item to a specific project for project-based billing, time tracking, and cost allocation. Optional field that enables project-specific invoicing and reporting. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Array of time entry IDs to be billed on this line item. This allows you to bill specific time entries against this line item, enabling detailed time-based invoicing and project cost tracking. Note: This value is a set of numeric characters separated by comma. */
-    readonly time_entry_ids?: ReadonlyArray<string>
+    readonly time_entry_ids?: ReadonlyArray<string> | undefined
     /** Type of product or service for this line item. Allowed values: goods or services. For South Africa Edition, additional values include capital_service and capital_goods. This classification affects tax calculations, reporting, and compliance requirements based on your organization's location and tax regulations. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Max-length [10]. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Unique identifier of the business location associated with the invoice. Use the `location_id` returned by the Locations API for the same organization. This links the invoice to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Unique identifier of the billable expense to be converted to an invoice line item. This converts a previously recorded expense into a billable line item on the invoice, enabling expense-to-invoice conversion. Note: This value is a set of numeric characters. */
-    readonly expense_id?: string
+    readonly expense_id?: string | undefined
     /** Unique identifier of the specific bill line item to be converted to an invoice line item. This allows you to convert individual line items from a bill rather than the entire bill, providing granular control over bill-to-invoice conversion. Note: This value is a set of numeric characters. */
-    readonly bill_id?: string
+    readonly bill_id?: string | undefined
     /** Unique identifier of the specific bill line item to be converted to an invoice line item. This allows you to convert individual line items from a bill rather than the entire bill, providing granular control over bill-to-invoice conversion. Note: This value is a set of numeric characters. */
-    readonly bill_item_id?: string
+    readonly bill_item_id?: string | undefined
     /** Name of the receipt image attached to the expense. This is used when converting a billable expense with an attached receipt into an invoice line item. */
-    readonly expense_receipt_name?: string
+    readonly expense_receipt_name?: string | undefined
     /** Name or title of the line item as it appears on the invoice. Maximum length is 100 characters. Can be customized to override the default item name from the item catalog. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Detailed description of the line item providing additional information about the product or service. This description appears on the invoice document and helps customers understand what they are being charged for. Maximum length is 2000 characters. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Sequential order number for this line item on the invoice. Determines the display order of line items on the invoice document. Lower numbers appear first. Used for organizing line items in a specific sequence. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Base currency rate for the line item. This is the rate in the organization's base currency before any currency conversion. Used for multi-currency scenarios where the invoice currency differs from the base currency. */
-    readonly bcy_rate?: number
+    readonly bcy_rate?: number | undefined
     /** Unit rate or price for the line item in the invoice currency. This is the amount charged per unit of the item. The rate is used to calculate the line item total (rate x quantity) and affects the final invoice amount. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units of the item being invoiced. This value is multiplied by the rate to calculate the line item total. Must be a positive number greater than zero. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the line item quantity. Examples include "Nos" (Numbers), "kgs" (Kilograms), "hrs" (Hours), "pcs" (Pieces), etc. This helps clarify what the quantity represents. Maximum length is 100 characters. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Fixed discount amount applied to this specific line item. This is a monetary value that reduces the line item total. The discount is applied after the rate x quantity calculation but before tax calculation. Can be used for line-item specific discounts or promotions. */
-    readonly discount_amount?: number
+    readonly discount_amount?: number | undefined
     /** Discount applied to the invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** The name of the tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** The type of the tax */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** The percentage of tax levied */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Unique identifier of the reverse charge tax applied to the line item. Required when the reverse charge mechanism is applicable for the transaction. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing to specify the basis of a special discount applied to the invoice. Max-length [200]. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Unique identifier of the sales order line item that is being converted to this invoice line item. Use this field when creating an invoice from an existing sales order. The `salesorder_item_id` links this invoice line item back to its source sales order line item, enabling tracking of the conversion process and maintaining the relationship between sales orders and invoices. Note: This value is a set of numeric characters. */
-    readonly salesorder_item_id?: string
+    readonly salesorder_item_id?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Decides whether tax on the invoice is applied manually or by tax automation. Allowed values: manual and automated. Use automated with automatic_tax_enabled as true for US automated sales tax. Use manual when you select taxes yourself. Supported on the invoice and on line items when tax automation is enabled for the organization. */
-    readonly tax_selection_mode?: "manual" | "automated"
+    readonly tax_selection_mode?: "manual" | "automated" | undefined
     /** Boolean flag that enables automated sales tax calculation for the invoice or line item. Set to true together with tax_selection_mode as automated on create or update. For manual tax, omit this field or set tax_selection_mode to manual. When this field and tax_selection_mode are both omitted on API create, the invoice defaults to manual tax mode. */
-    readonly automatic_tax_enabled?: boolean
+    readonly automatic_tax_enabled?: boolean | undefined
     /** Product tax category code for the line item used by automated sales tax (for example, PC040100 for Apparel). Max-length [25] characters. Maps to the line item tax category on create and update. When omitted and automated tax is enabled, the category configured on the item in Zoho Books is applied for lines that include item_id. Send this field to override or ensure a specific category. */
-    readonly tax_category_code?: string
+    readonly tax_category_code?: string | undefined
     /** Tax category of the product or service on the line item. Used by automated sales tax to classify the line. When omitted and automated tax is enabled, the category configured on the item in Zoho Books is inherited when the line includes item_id. You can send flat tax_category_code on the line instead of this object. */
-    readonly product_tax_category?: ProductTaxCategoryInput
+    readonly product_tax_category?: ProductTaxCategoryInput | undefined
   }>
   /** Payment options for the invoice, online payment gateways and bank accounts. Will be displayed in the pdf. */
-  readonly payment_options?: PaymentOptionsInput
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** Boolean flag that determines whether customers can make partial payments against this invoice. When true, customers can pay less than the full invoice amount, and the invoice will remain open with a remaining balance. When false, customers must pay the full amount to complete the invoice. This setting affects payment processing and invoice status tracking. */
-  readonly allow_partial_payments?: boolean
+  readonly allow_partial_payments?: boolean | undefined
   /** The custom body of the email. */
-  readonly custom_body?: string
+  readonly custom_body?: string | undefined
   /** The custom subject of the email. */
-  readonly custom_subject?: string
+  readonly custom_subject?: string | undefined
   /** Additional information or comments to be displayed on the invoice document. This field is typically used for thank you messages, special instructions, or any other information you want to communicate to the customer. The notes appear on the invoice PDF and are visible to customers */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions text to be displayed on the invoice document. This field is used to specify payment terms, delivery conditions, return policies, or any other legal or business terms that apply to this transaction. The terms appear on the invoice PDF and are legally binding. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Additional shipping or delivery charges applied to the invoice. Must be specified as a fixed amount (e.g., "25.00"). This amount is added to the invoice total and is subject to tax calculation. */
-  readonly shipping_charge?: string
+  readonly shipping_charge?: string | undefined
   /** Tax category applied to the shipping charge when automated sales tax is enabled (for example, FR020000). Send when shipping_charge is greater than zero. Omit when there is no shipping charge. */
-  readonly shipping_charge_tax_category?: ShippingChargeTaxCategoryInput
+  readonly shipping_charge_tax_category?: ShippingChargeTaxCategoryInput | undefined
   /** Additional charge or credit amount applied to the invoice total. This can be used for rounding adjustments, handling fees, or any other one-time charges/credits. Positive values add to the total, negative values reduce the total. This amount is applied after tax calculation and affects the final invoice total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for the adjustment amount. This description appears on the invoice document to explain why the adjustment was applied. Common examples include "Rounding adjustment", "Handling fee", "Early payment discount", or "Late payment fee". This helps customers understand the purpose of the adjustment. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** The reason for generating the invoice. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the tax exemption. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Unique identifier of the billing address to be used for this invoice. Use the `billing_address_id` returned by the Addresses API for the same customer and organization. This address appears on the invoice document and is used for billing purposes. If omitted, the customer's default billing address will be used. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier of the shipping address to be used for this invoice. Use the `shipping_address_id` returned by the Addresses API for the same customer and organization. This address appears on the invoice document and is used for delivery purposes. If omitted, the customer's default shipping address will be used. Note: This value is a set of numeric characters. */
-  readonly shipping_address_id?: string
+  readonly shipping_address_id?: string | undefined
   /** Address of the party the goods are shipped to. Use this field to provide a one-time shipping address that is not saved under the customer. When using this field, do not provide shipping_address_id in the same request. */
-  readonly shipping_address?: ShippingAddressInput
+  readonly shipping_address?: ShippingAddressInput | undefined
   /** Boolean flag that enables automated sales tax calculation for the invoice or line item. Set to true together with tax_selection_mode as automated on create or update. For manual tax, omit this field or set tax_selection_mode to manual. When this field and tax_selection_mode are both omitted on API create, the invoice defaults to manual tax mode. */
-  readonly automatic_tax_enabled?: boolean
+  readonly automatic_tax_enabled?: boolean | undefined
   /** Decides whether tax on the invoice is applied manually or by tax automation. Allowed values: manual and automated. Use automated with automatic_tax_enabled as true for US automated sales tax. Use manual when you select taxes yourself. Supported on the invoice and on line items when tax automation is enabled for the organization. */
-  readonly tax_selection_mode?: "manual" | "automated"
+  readonly tax_selection_mode?: "manual" | "automated" | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique identifier of the billable expense to be converted to an invoice line item. This converts a previously recorded expense into a billable line item on the invoice, enabling expense-to-invoice conversion. Note: This value is a set of numeric characters. */
-  readonly expense_id?: string
+  readonly expense_id?: string | undefined
   /** Unique identifier of the sales order line item that is being converted to this invoice line item. Use this field when creating an invoice from an existing sales order. The `salesorder_item_id` links this invoice line item back to its source sales order line item, enabling tracking of the conversion process and maintaining the relationship between sales orders and invoices. Note: This value is a set of numeric characters. */
-  readonly salesorder_item_id?: string
+  readonly salesorder_item_id?: string | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Refer the [link][2] for more deails. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Array of time entry IDs to be billed on this line item. This allows you to bill specific time entries against this line item, enabling detailed time-based invoicing and project cost tracking. Note: This value is a set of numeric characters separated by comma. */
-  readonly time_entry_ids?: ReadonlyArray<string>
+  readonly time_entry_ids?: ReadonlyArray<string> | undefined
   /** Array of batch payment details to be processed with the invoice. Each payment includes payment mode, amount, and account information for automated payment processing. */
   readonly batch_payments?: ReadonlyArray<{
     /** Mode of payment for this batch payment entry. */
-    readonly payment_mode?: string
+    readonly payment_mode?: string | undefined
     /** Payment amount for this batch payment entry. */
-    readonly amount?: string
+    readonly amount?: string | undefined
     /** Account ID where the payment will be recorded. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
-  }>
+    readonly account_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAnInvoiceRequest {
   /** Unique identifier of the customer in the current organization for whom this invoice is created. Required when creating an invoice. Use the `customer_id` returned by the get Customers API. Must belong to the organization specified by the `organization_id` parameter. Note: This value is a set of numeric characters. */
   readonly customer_id: string
   /** Unique identifier of the currency in which the invoice will be created for the customer. Use the `currency_id` returned by the Currencies API for the same organization. This sets the currency for all monetary amounts on the invoice; if it differs from the organization's base currency, an appropriate `exchange_rate` may be required. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Unique identifier or reference number for the invoice. When creating an invoice, this can be a custom number (requires `ignore_auto_number_generation=true` query parameter) or left empty for auto-generation. When searching invoices, supports variants: invoice_number_startswith and invoice_number_contains. Maximum length is 100 characters. Must be unique within the organization. */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the invoice. Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.For UAE Edition: also dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Unique identifier of the bank account used for payment. Used for UAE E-Invoicing to specify the expected payment method bank account. Note: This value is a set of numeric characters. */
-  readonly bank_account_id?: string
+  readonly bank_account_id?: string | undefined
   /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing to specify the basis of a special discount applied to the invoice. Max-length [200]. */
-  readonly discount_code?: string
+  readonly discount_code?: string | undefined
   /** Registration details of the customer. For UAE Edition, includes buyer identification, tax registration, and legal information used for E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Tax registration number of the customer or supplier. Used for GCC VAT compliance. Max-length [50]. */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Choose CFDI Usage. Allowed values:acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** Choose CFDI Reference Type. Allowed values:return_of_merchandise, substitution_previous_cfdi, transfer_of_goods, invoice_generated_from_order, cfdi_for_advance. */
-  readonly cfdi_reference_type?: string
+  readonly cfdi_reference_type?: string | undefined
   /** Associate the reference invoice. Note: This value is a set of numeric characters. */
-  readonly reference_invoice_id?: string
+  readonly reference_invoice_id?: string | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** External reference number or identifier for the invoice, such as a purchase order number, contract number, or any other business reference. When converting from an estimate or sales order, this field can be used to reference the original document number. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Unique identifier of the PDF template linked to the invoice. Obtain this value from the `template_id` field in the response of the GET `/invoices/templates` API for your organization. Determines which template is used for the invoice PDF. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** The date on which the invoice is created. Use the format yyyy-mm-dd (e.g., 2013-11-17). This date appears on the invoice document and is used for accounting purposes. When searching invoices, supports variants: date_start, date_end, date_before and date_after. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Number of days allowed for payment (e.g., 15, 30, 60). This value determines the invoice due date by adding the specified number of days to the invoice date. For example, if invoice date is 2023-11-17 and payment_terms is 15, the due_date will be 2023-12-02. Maximum value is 100 days. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Custom label for payment terms that appears on the invoice document. Used to override the default system-generated label. For example, instead of the default "Net 15 Days", you can set this to "Net 15", "Due in 15 days", or any custom text. This label is displayed to customers on the invoice. Maximum length is 100 characters. */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** The date by which payment is due for the invoice. Use the format yyyy-mm-dd (e.g., 2013-12-03). This date is typically calculated as invoice date + payment_terms days, but can be overridden with a custom date. When searching invoices, supports variants: due_date_start, due_date_end, due_date_before and due_date_after. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Discount applied to the invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: number
+  readonly discount?: number | undefined
   /** Boolean flag that determines when the discount is applied in relation to tax calculation. When true, discount is applied before tax calculation (discount reduces the taxable amount). When false, discount is applied after tax calculation (discount reduces the final total including tax). This affects the final invoice total and tax amounts. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Specifies the scope of discount application. entity_level applies the discount to the entire invoice total. item_level applies the discount to individual line items. This determines how the discount amount is distributed across the invoice items. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Boolean flag that indicates whether line item rates include tax. When true, the specified rates are inclusive of tax (tax is already included in the rate). When false, the rates are exclusive of tax (tax will be added to the rate). This affects how tax calculations are performed on line items. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Exchange rate used to convert amounts from the invoice currency to the organization's base currency. Required when the invoice currency differs from the organization's base currency. For example, if base currency is USD and invoice currency is EUR, set the EUR to USD exchange rate (e.g., 1.18). Default value is 1.0 when invoice currency matches base currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Unique identifier of the recurring invoice template that generated this invoice. Use this field when creating an invoice from a recurring invoice template. The `recurring_invoice_id` links this invoice back to its source recurring invoice, enabling tracking of which template generated it and maintaining the recurring invoice relationship. Note: This value is a set of numeric characters. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
   /** Unique identifier of the estimate that was converted to create this invoice. Use this field when creating an invoice from an existing estimate. The `invoiced_estimate_id` links this invoice back to its source estimate, enabling tracking of the conversion process and maintaining the relationship between estimates and invoices. Note: This value is a set of numeric characters. */
-  readonly invoiced_estimate_id?: string
+  readonly invoiced_estimate_id?: string | undefined
   /** Name of the salesperson. Max-length [200] */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Custom fields for an invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Unique identifier of the business location associated with the invoice. Use the `location_id` returned by the Locations API for the same organization. This links the invoice to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** List of line items in the invoice. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier of the item (product or service) to be included in the invoice line item. Use the `item_id` returned by the Items API for the same organization. This field is required for each line item and determines the item details, pricing, and tax settings that will be applied to this line item. Note: This value is a set of numeric characters. */
     readonly item_id: string
     /** Unique identifier of the project associated with this line item. Use the `project_id` returned by the Projects API for the same organization. This links the line item to a specific project for project-based billing, time tracking, and cost allocation. Optional field that enables project-specific invoicing and reporting. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Array of time entry IDs to be billed on this line item. This allows you to bill specific time entries against this line item, enabling detailed time-based invoicing and project cost tracking. Note: This value is a set of numeric characters separated by comma. */
-    readonly time_entry_ids?: ReadonlyArray<string>
+    readonly time_entry_ids?: ReadonlyArray<string> | undefined
     /** Type of product or service for this line item. Allowed values: goods or services. For South Africa Edition, additional values include capital_service and capital_goods. This classification affects tax calculations, reporting, and compliance requirements based on your organization's location and tax regulations. */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Unit code for the goods or services.For Mexico Edition: use the SAT unit key code. Download the CFDI Catalogs.For UAE Edition: use the UN/CEFACT unit code (for example H87 for piece, KGM for kilogram). Max-length [10]. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Unique identifier of the business location associated with the invoice. Use the `location_id` returned by the Locations API for the same organization. This links the invoice to a specific business location, which may affect tax calculations, reporting, and business operations. Required if your organization has multiple locations configured. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Unique identifier of the billable expense to be converted to an invoice line item. This converts a previously recorded expense into a billable line item on the invoice, enabling expense-to-invoice conversion. Note: This value is a set of numeric characters. */
-    readonly expense_id?: string
+    readonly expense_id?: string | undefined
     /** Name of the receipt image attached to the expense. This is used when converting a billable expense with an attached receipt into an invoice line item. */
-    readonly expense_receipt_name?: string
+    readonly expense_receipt_name?: string | undefined
     /** Name or title of the line item as it appears on the invoice. Maximum length is 100 characters. Can be customized to override the default item name from the item catalog. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Detailed description of the line item providing additional information about the product or service. This description appears on the invoice document and helps customers understand what they are being charged for. Maximum length is 2000 characters. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Sequential order number for this line item on the invoice. Determines the display order of line items on the invoice document. Lower numbers appear first. Used for organizing line items in a specific sequence. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Base currency rate for the line item. This is the rate in the organization's base currency before any currency conversion. Used for multi-currency scenarios where the invoice currency differs from the base currency. */
-    readonly bcy_rate?: number
+    readonly bcy_rate?: number | undefined
     /** Unit rate or price for the line item in the invoice currency. This is the amount charged per unit of the item. The rate is used to calculate the line item total (rate x quantity) and affects the final invoice amount. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units of the item being invoiced. This value is multiplied by the rate to calculate the line item total. Must be a positive number greater than zero. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Unit of measurement for the line item quantity. Examples include "Nos" (Numbers), "kgs" (Kilograms), "hrs" (Hours), "pcs" (Pieces), etc. This helps clarify what the quantity represents. Maximum length is 100 characters. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Fixed discount amount applied to this specific line item. This is a monetary value that reduces the line item total. The discount is applied after the rate x quantity calculation but before tax calculation. Can be used for line-item specific discounts or promotions. */
-    readonly discount_amount?: number
+    readonly discount_amount?: number | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Discount applied to the invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: number
+    readonly discount?: number | undefined
     /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** The name of the tax */
-    readonly tax_name?: string
+    readonly tax_name?: string | undefined
     /** The type of the tax */
-    readonly tax_type?: string
+    readonly tax_type?: string | undefined
     /** The percentage of tax levied */
-    readonly tax_percentage?: number
+    readonly tax_percentage?: number | undefined
     /** Specify a reason for using the out of scope VAT treatment.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense, uae_others, uae_financial_services, uae_residential_units, uae_bare_land, uae_local_transportation, uae_financial_services_exempt, uae_residential_units_exempt, uae_bare_land_exempt, and uae_local_transportation_exempt. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Unique identifier of the reverse charge tax applied to the line item. Required when the reverse charge mechanism is applicable for the transaction. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Discount reason code for the entity-level discount. Used for UAE E-Invoicing to specify the basis of a special discount applied to the invoice. Max-length [200]. */
-    readonly discount_code?: string
+    readonly discount_code?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** Decides whether tax on the invoice is applied manually or by tax automation. Allowed values: manual and automated. Use automated with automatic_tax_enabled as true for US automated sales tax. Use manual when you select taxes yourself. Supported on the invoice and on line items when tax automation is enabled for the organization. */
-    readonly tax_selection_mode?: "manual" | "automated"
+    readonly tax_selection_mode?: "manual" | "automated" | undefined
     /** Boolean flag that enables automated sales tax calculation for the invoice or line item. Set to true together with tax_selection_mode as automated on create or update. For manual tax, omit this field or set tax_selection_mode to manual. When this field and tax_selection_mode are both omitted on API create, the invoice defaults to manual tax mode. */
-    readonly automatic_tax_enabled?: boolean
+    readonly automatic_tax_enabled?: boolean | undefined
     /** Product tax category code for the line item used by automated sales tax (for example, PC040100 for Apparel). Max-length [25] characters. Maps to the line item tax category on create and update. When omitted and automated tax is enabled, the category configured on the item in Zoho Books is applied for lines that include item_id. Send this field to override or ensure a specific category. */
-    readonly tax_category_code?: string
+    readonly tax_category_code?: string | undefined
     /** Tax category of the product or service on the line item. Used by automated sales tax to classify the line. When omitted and automated tax is enabled, the category configured on the item in Zoho Books is inherited when the line includes item_id. You can send flat tax_category_code on the line instead of this object. */
-    readonly product_tax_category?: ProductTaxCategoryInput
+    readonly product_tax_category?: ProductTaxCategoryInput | undefined
   }>
   /** Payment options for the invoice, online payment gateways and bank accounts. Will be displayed in the pdf. */
-  readonly payment_options?: PaymentOptionsInput
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** Boolean flag that determines whether customers can make partial payments against this invoice. When true, customers can pay less than the full invoice amount, and the invoice will remain open with a remaining balance. When false, customers must pay the full amount to complete the invoice. This setting affects payment processing and invoice status tracking. */
-  readonly allow_partial_payments?: boolean
+  readonly allow_partial_payments?: boolean | undefined
   /** The custom body of the email. */
-  readonly custom_body?: string
+  readonly custom_body?: string | undefined
   /** The custom subject of the email. */
-  readonly custom_subject?: string
+  readonly custom_subject?: string | undefined
   /** Additional information or comments to be displayed on the invoice document. This field is typically used for thank you messages, special instructions, or any other information you want to communicate to the customer. The notes appear on the invoice PDF and are visible to customers */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Terms and conditions text to be displayed on the invoice document. This field is used to specify payment terms, delivery conditions, return policies, or any other legal or business terms that apply to this transaction. The terms appear on the invoice PDF and are legally binding. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Additional shipping or delivery charges applied to the invoice. Must be specified as a fixed amount (e.g., "25.00"). This amount is added to the invoice total and is subject to tax calculation. */
-  readonly shipping_charge?: string
+  readonly shipping_charge?: string | undefined
   /** Tax category applied to the shipping charge when automated sales tax is enabled (for example, FR020000). Send when shipping_charge is greater than zero. Omit when there is no shipping charge. */
-  readonly shipping_charge_tax_category?: ShippingChargeTaxCategoryInput
+  readonly shipping_charge_tax_category?: ShippingChargeTaxCategoryInput | undefined
   /** Additional charge or credit amount applied to the invoice total. This can be used for rounding adjustments, handling fees, or any other one-time charges/credits. Positive values add to the total, negative values reduce the total. This amount is applied after tax calculation and affects the final invoice total. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Text description explaining the reason for the adjustment amount. This description appears on the invoice document to explain why the adjustment was applied. Common examples include "Rounding adjustment", "Handling fee", "Early payment discount", or "Late payment fee". This helps customers understand the purpose of the adjustment. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
   /** The reason for generating the invoice. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** ID of the tax exemption. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Boolean flag that enables automated sales tax calculation for the invoice or line item. Set to true together with tax_selection_mode as automated on create or update. For manual tax, omit this field or set tax_selection_mode to manual. When this field and tax_selection_mode are both omitted on API create, the invoice defaults to manual tax mode. */
-  readonly automatic_tax_enabled?: boolean
+  readonly automatic_tax_enabled?: boolean | undefined
   /** Decides whether tax on the invoice is applied manually or by tax automation. Allowed values: manual and automated. Use automated with automatic_tax_enabled as true for US automated sales tax. Use manual when you select taxes yourself. Supported on the invoice and on line items when tax automation is enabled for the organization. */
-  readonly tax_selection_mode?: "manual" | "automated"
+  readonly tax_selection_mode?: "manual" | "automated" | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Unique identifier of the tax to be applied to this line item. Use the `tax_id` returned by the Taxes API for the same organization. This determines which tax rate and rules are applied to the line item, affecting the final tax calculation and compliance reporting. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique identifier of the billable expense to be converted to an invoice line item. This converts a previously recorded expense into a billable line item on the invoice, enabling expense-to-invoice conversion. Note: This value is a set of numeric characters. */
-  readonly expense_id?: string
+  readonly expense_id?: string | undefined
   /** Unique identifier of the sales order line item that is being converted to this invoice line item. Use this field when creating an invoice from an existing sales order. The `salesorder_item_id` links this invoice line item back to its source sales order line item, enabling tracking of the conversion process and maintaining the relationship between sales orders and invoices. Note: This value is a set of numeric characters. */
-  readonly salesorder_item_id?: string
+  readonly salesorder_item_id?: string | undefined
   /** A tax code is a unique label used to group Items (products, services, or charges) together. Refer the [link][2] for more deails. Max-length [25] */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** The line item id. Note: This value is a set of numeric characters. */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
 }
 
 export interface EmailInvoicesRequest {
   /** Contacts for whom email or snail mail has to be sent. */
   readonly contacts?: ReadonlyArray<{
     /** ID of the Customer and mail will be sent to invoice associated contact persons. Note: This value is a set of numeric characters. */
-    readonly contact_id?: string
+    readonly contact_id?: string | undefined
     /** the boolean check for Email */
-    readonly email?: boolean
+    readonly email?: boolean | undefined
     /** the boolean check for snail mail */
-    readonly snail_mail?: boolean
-  }>
+    readonly snail_mail?: boolean | undefined
+  }> | undefined
 }
 
 export interface EmailAnInvoiceRequest {
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** From email address id. Note: This value is a set of numeric characters. */
-  readonly from_address_id?: string
+  readonly from_address_id?: string | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be cced. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** The subject of the mail */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** The body of the mail */
-  readonly body?: string
+  readonly body?: string | undefined
 }
 
 export interface RemindCustomerRequest {
   /** Array of email address of the recipients. */
-  readonly to_mail_ids?: ReadonlyArray<string>
+  readonly to_mail_ids?: ReadonlyArray<string> | undefined
   /** Array of email address of the recipients to be cced. */
   readonly cc_mail_ids: ReadonlyArray<string>
   /** The subject of the mail */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** The body of the mail */
-  readonly body?: string
+  readonly body?: string | undefined
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
 }
 
 export interface UpdateBillingAddressRequest {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface UpdateShippingAddressRequestInput {
   /** Shipping address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Additional address information such as suite number, apartment number, or floor. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City of the customer's Shipping address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's Shipping address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's Shipping address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's Shipping address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface ApplyCreditsRequest {
   /** List of payments to be applied to the invoice. */
   readonly invoice_payments: ReadonlyArray<{
     /** ID of the payment. Note: This value is a set of numeric characters. */
-    readonly payment_id?: string
+    readonly payment_id?: string | undefined
     /** The applied amount to the creditnote */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
   }>
   /** List of credit notes to be applied to the invoice. */
   readonly apply_creditnotes: ReadonlyArray<{
     /** ID of the creditnote. Note: This value is a set of numeric characters. */
-    readonly creditnote_id?: string
+    readonly creditnote_id?: string | undefined
     /** The applied amount to the creditnote */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
   }>
 }
 
@@ -2027,178 +2027,178 @@ export interface UpdateAnInvoiceCustomfieldRequest {
   /** Custom fields for an invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface CreateACommentRequest {
   /** The description of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The expected date of payment */
-  readonly payment_expected_date?: string
+  readonly payment_expected_date?: string | undefined
   /** Boolean to check if the comment to be shown to the clients */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface UpdateACommentRequest {
   /** The description of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Boolean to check if the comment to be shown to the clients */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface AddInvoiceOnlinePaymentBankAccountRequest {
   /** Comma-separated IDs of the invoices for which the online payment is processed. */
-  readonly invoice_ids?: string
+  readonly invoice_ids?: string | undefined
   /** Amount to be charged from the bank account. */
-  readonly payment_amount?: number
+  readonly payment_amount?: number | undefined
   /** Payment gateway used to process the bank account payment. */
-  readonly gateway?: string
+  readonly gateway?: string | undefined
   /** First name of the bank account holder. */
-  readonly first_name?: string
+  readonly first_name?: string | undefined
   /** Last name of the bank account holder. */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Bank account number from which the payment is collected. */
-  readonly account_number?: string
+  readonly account_number?: string | undefined
   /** Routing number of the bank account. */
-  readonly routing_number?: string
+  readonly routing_number?: string | undefined
   /** Type of the bank account. */
-  readonly account_type?: string
+  readonly account_type?: string | undefined
   /** Name of the bank. */
-  readonly bank_name?: string
+  readonly bank_name?: string | undefined
   /** Whether to enable automatic billing using this bank account. */
-  readonly enable_autobilling?: boolean
+  readonly enable_autobilling?: boolean | undefined
   /** Unique identifier of the saved bank account. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Auto-bill consent status of the client for this bank account. */
-  readonly autobill_client_status?: string
+  readonly autobill_client_status?: string | undefined
 }
 
 export interface ScheduleInvoiceEmailRequest {
   /** Date and time at which the invoice email is scheduled to be sent. Format [yyyy-mm-dd HH:MM:SS]. */
-  readonly schedule_time?: string
+  readonly schedule_time?: string | undefined
 }
 
 export interface InvoiceSynchronousOnlinePaymentRequest {
   /** Token of the saved card used to process the payment. */
-  readonly card_token?: string
+  readonly card_token?: string | undefined
   /** Comma-separated IDs of the invoices for which the online payment is processed. */
-  readonly invoice_ids?: string
+  readonly invoice_ids?: string | undefined
   /** Amount to be charged. */
-  readonly payment_amount?: number
+  readonly payment_amount?: number | undefined
   /** Payment gateway used to process the payment. */
-  readonly gateway?: string
+  readonly gateway?: string | undefined
   /** Card number used to process the payment. */
-  readonly card_number?: string
+  readonly card_number?: string | undefined
   /** Card verification value. */
-  readonly cvv?: string
+  readonly cvv?: string | undefined
   /** First name of the card holder. */
-  readonly first_name?: string
+  readonly first_name?: string | undefined
   /** Last name of the card holder. */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Billing address of the card holder. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Billing city of the card holder. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** Billing state of the card holder. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Billing country of the card holder. */
-  readonly country?: string
+  readonly country?: string | undefined
 }
 
 export interface InvoiceAsynchronousOnlinePaymentRequest {
   /** Comma-separated IDs of the invoices for which the online payment is processed. */
-  readonly invoice_ids?: string
+  readonly invoice_ids?: string | undefined
   /** Amount to be collected. */
-  readonly payment_amount?: number
+  readonly payment_amount?: number | undefined
   /** Payment gateway used to process the payment. */
-  readonly gateway?: string
+  readonly gateway?: string | undefined
 }
 
 export interface MarkInvoiceEinvoicePushedRequest {
   /** Unique identifier of the e-invoice (UUID) on the Invoice Registration Portal. */
-  readonly uuid?: string
+  readonly uuid?: string | undefined
   /** Acknowledgement date returned by the Invoice Registration Portal. Format [yyyy-mm-dd]. */
-  readonly ack_date?: string
+  readonly ack_date?: string | undefined
   /** Acknowledgement number returned by the Invoice Registration Portal. */
-  readonly ack_no?: string
+  readonly ack_no?: string | undefined
   /** Signed QR code returned by the Invoice Registration Portal. */
-  readonly signed_qr_code?: string
+  readonly signed_qr_code?: string | undefined
   /** Additional internal data associated with the e-invoice. */
-  readonly internal_data?: string
+  readonly internal_data?: string | undefined
 }
 
 export interface ListInvoicesInput {
   /** Search invoices by invoice number. Filters invoices based on their unique identifier. Supports invoice_number_startswith and invoice_number_contains variants. Maximum length is 100 characters. Useful for finding specific invoices or invoices with similar numbering patterns. */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Search invoices by item name. Filters invoices based on product or service names in invoice line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding invoices with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search invoices by item ID. Filters invoices based on the unique identifier of specific products or services in line items. Use the GET `/items` API to find available item IDs. Useful for finding all invoices containing a specific product or service. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Search invoices by item description. Filters invoices based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding invoices with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Search invoices by reference number. Filters invoices based on external reference identifiers like purchase order numbers, contract numbers, or project codes. Useful for finding invoices associated with specific projects or business transactions. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search invoices by customer name. Filters invoices based on the business or individual name associated with the invoice. Maximum length is 100 characters. Useful for finding all invoices for a specific customer or generating customer reports. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** ID of the recurring invoice from which the invoice is created. Note: This value is a set of numeric characters. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
   /** Search invoices by customer email address. Filters invoices based on the email address of the customer or contact person. Maximum length is 100 characters. Useful for finding invoices for specific customers or generating customer segment reports. */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Search invoices by total amount. Filters invoices based on the final invoice amount including taxes, discounts, and adjustments. Useful for finding invoices within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Search invoices by outstanding balance. Filters invoices based on the remaining unpaid amount owed by the customer. Useful for finding overdue invoices, tracking receivables, or generating aging reports. */
-  readonly balance?: string
+  readonly balance?: string | undefined
   /** Search invoices by custom fields.Variants: custom_field_startswith and custom_field_contains */
-  readonly custom_field?: string
+  readonly custom_field?: string | undefined
   /** Filter invoices for an exact invoice date. Returns invoices created on the specified date. Use yyyy-mm-dd format. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Filter invoices with an invoice date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly date_start?: string
+  readonly date_start?: string | undefined
   /** Filter invoices with an invoice date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly date_end?: string
+  readonly date_end?: string | undefined
   /** Filter invoices with an invoice date strictly before the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly date_before?: string
+  readonly date_before?: string | undefined
   /** Filter invoices with an invoice date strictly after the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly date_after?: string
+  readonly date_after?: string | undefined
   /** Search invoices by due date. Filters invoices based on the payment due date. Use yyyy-mm-dd format. Supports variants: due_date_start, due_date_end, due_date_before and due_date_after. Useful for finding overdue invoices or invoices due within specific periods. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Filter invoices with due date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly due_date_start?: string
+  readonly due_date_start?: string | undefined
   /** Filter invoices with due date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly due_date_end?: string
+  readonly due_date_end?: string | undefined
   /** Filter invoices with due date strictly before the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly due_date_before?: string
+  readonly due_date_before?: string | undefined
   /** Filter invoices with due date strictly after the specified date (exclusive). Use yyyy-mm-dd format. */
-  readonly due_date_after?: string
+  readonly due_date_after?: string | undefined
   /** Search invoices by creation date. Filters invoices based on the date they were created. Use yyyy-mm-dd format. Supports variants: created_date_start, created_date_end, created_date_before and created_date_after. Useful for finding invoices created within specific time periods or date ranges. */
-  readonly created_date?: string
+  readonly created_date?: string | undefined
   /** Filter invoices with invoice created date on or after the specified date. Useful for defining the start of a date range. Use yyyy-mm-dd format. */
-  readonly created_date_start?: string
+  readonly created_date_start?: string | undefined
   /** Filter invoices with invoice created date on or before the specified date. Useful for defining the end of a date range. Use yyyy-mm-dd format. */
-  readonly created_date_end?: string
+  readonly created_date_end?: string | undefined
   /** Search invoices modified after a specific time. Filters invoices based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated invoices or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search invoices by status. Filters invoices based on their current state in the billing workflow. Allowed values: sent, draft, overdue, paid, void, unpaid, partially_paid and viewed. Useful for finding invoices in specific stages of the billing process. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search invoices by customer ID. Filters invoices based on the unique identifier of the customer for whom the invoice was created. Use the customer ID returned by the Contacts API to find all invoices for a specific customer. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Filter invoices by status or payment expected date. Use Status.* for status-based filtering (e.g., Status.Sent, Status.Paid) or Date.PaymentExpectedDate for date-based filtering. Provides advanced filtering options beyond basic search parameters. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search invoices by invoice number, purchase order, or customer name. This parameter performs a general search across multiple invoice fields. Maximum length is 100 characters. Useful for quick searches when you know part of the invoice information but are unsure which specific field to search. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort invoices by specific column. Allowed values: customer_name, invoice_number, date, due_date, total, balance and created_time. Use this parameter to organize invoice results in a specific order for better data analysis and reporting. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Search invoices by CRM potential ID. This parameter allows you to find invoices associated with a specific deal or opportunity in your Zoho CRM system. Use the potential ID from your CRM to link invoices to sales opportunities and track revenue from specific deals. Note: This value is a set of numeric characters. */
-  readonly zcrm_potential_id?: string
+  readonly zcrm_potential_id?: string | undefined
   /** To get desired response format. There are 5 formats of responses: 0 (Includes all invoices), 1 (Includes all invoices, the number of invoices, and the sum of their total and balance amounts), 2 (Includes only the number of invoices), 3 (Includes the number of invoices and the sum of their total and balance amounts), and 4 (Includes all invoices and the sum of their total and balance amounts). */
-  readonly response_option?: number
+  readonly response_option?: number | undefined
   /** Page number to be fetched from the paginated results. Default value is 1. Use this parameter along with per_page to navigate through large sets of invoice data. Useful for implementing pagination in your application. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Use this parameter to control the size of each page of results. Maximum value is 200. Useful for optimizing data transfer and improving application performance. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List invoices. `GET /invoices` */
@@ -2212,13 +2212,13 @@ export const listInvoices = /*#__PURE__*/ operation<ListInvoicesInput, typeof Li
 
 export interface CreateInvoiceInput {
   /** Send the invoice to the contact person(s) associated with the invoice. Allowed values true and false. */
-  readonly send?: boolean
+  readonly send?: boolean | undefined
   /** Ignore auto invoice number generation for this invoice. This mandates the invoice number. Allowed values true and false */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Enable quick create mode for simplified invoice creation. When true, the invoice creation process is streamlined with minimal required fields. Allowed values true and false */
-  readonly is_quick_create?: boolean
+  readonly is_quick_create?: boolean | undefined
   /** Enable batch payment processing for the invoice. When true, the invoice can be included in batch payment operations. Allowed values true and false Note : is_quick_create needs to be true for batch payments to be processed and batch_payments vales need to pass in request body */
-  readonly batch_payments?: boolean
+  readonly batch_payments?: boolean | undefined
   readonly body: CreateAnInvoiceRequest
 }
 
@@ -2238,7 +2238,7 @@ export interface UpdateInvoiceUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAnInvoiceRequest
 }
 
@@ -2271,9 +2271,9 @@ export interface GetInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Get the details of a particular invoice in formats such as json/ pdf/ html. Default format is json. Allowed values json pdf and html */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get an invoice. `GET /invoices/{invoice_id}` */
@@ -2289,7 +2289,7 @@ export interface UpdateInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Ignore auto invoice number generation for this invoice. This mandates the invoice number. Allowed values true and false */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: UpdateAnInvoiceRequest
 }
 
@@ -2321,7 +2321,7 @@ export interface MarkInvoiceSentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an invoice as sent. `POST /invoices/{invoice_id}/status/sent` */
@@ -2338,7 +2338,7 @@ export interface MarkInvoiceVoidInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void an invoice. `POST /invoices/{invoice_id}/status/void` */
@@ -2355,7 +2355,7 @@ export interface MarkInvoiceDraftInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as draft. `POST /invoices/{invoice_id}/status/draft` */
@@ -2388,7 +2388,7 @@ export interface CreateInvoiceFromSalesorderInput {
   /** Unique identifier of the sales order from which the invoice has to be created. Note: This value is a set of numeric characters. */
   readonly salesorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Create an instant invoice. `POST /invoices/fromsalesorder` */
@@ -2405,7 +2405,7 @@ export interface MapInvoiceWithSalesorderInput {
   /** Array of invoice IDs to be associated with a sales order. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Associate invoices with sales order. `POST /invoices/mapwithorder` */
@@ -2422,7 +2422,7 @@ export interface SubmitInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit an invoice for approval. `POST /invoices/{invoice_id}/submit` */
@@ -2439,7 +2439,7 @@ export interface ApproveInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve an invoice.. `POST /invoices/{invoice_id}/approve` */
@@ -2456,7 +2456,7 @@ export interface GetInvoiceEmailInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Get the email content based on a specific email template. If this param is not inputted, then the content will be based on the email template associated with the customer. If no template is associated with the customer, then default template will be used. Note: This value is a set of numeric characters. */
-  readonly email_template_id?: string
+  readonly email_template_id?: string | undefined
 }
 
 /** Get invoice email content. `GET /invoices/{invoice_id}/email` */
@@ -2472,11 +2472,11 @@ export interface EmailInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Send customer statement pdf a with email. */
-  readonly send_customer_statement?: boolean
+  readonly send_customer_statement?: boolean | undefined
   /** Send the invoice attachment a with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Files to be attached to the email */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   readonly body: EmailAnInvoiceRequest
 }
 
@@ -2509,9 +2509,9 @@ export interface RemindCustomerForInvoicePaymentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Send customer statement pdf a with email. */
-  readonly send_customer_statement?: boolean
+  readonly send_customer_statement?: boolean | undefined
   /** Files to be attached to the email */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   readonly body: RemindCustomerRequest
 }
 
@@ -2530,7 +2530,7 @@ export interface BulkInvoiceReminderInput {
   /** Array of invoice ids for which the reminder has to be sent. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Bulk invoice reminder. `POST /invoices/paymentreminder` */
@@ -2575,7 +2575,7 @@ export interface DisableInvoicePaymentReminderInput {
   /** Unique identifier of the invoice. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Disable payment reminder. `POST /invoices/{invoice_id}/paymentreminder/disable` */
@@ -2592,7 +2592,7 @@ export interface EnableInvoicePaymentReminderInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Enable payment reminder. `POST /invoices/{invoice_id}/paymentreminder/enable` */
@@ -2609,7 +2609,7 @@ export interface WriteOffInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Write off invoice. `POST /invoices/{invoice_id}/writeoff` */
@@ -2626,7 +2626,7 @@ export interface CancelWriteOffInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel write off. `POST /invoices/{invoice_id}/writeoff/cancel` */
@@ -2688,7 +2688,7 @@ export interface UpdateInvoiceTemplateInput {
   /** Unique identifier of the invoice template. Note: This value is a set of numeric characters. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update invoice template. `PUT /invoices/{invoice_id}/templates/{template_id}` */
@@ -2781,7 +2781,7 @@ export interface GetInvoiceAttachmentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Get the thumbnail of the attachment. */
-  readonly preview?: boolean
+  readonly preview?: boolean | undefined
 }
 
 /** Get last attached attachment. `GET /invoices/{invoice_id}/attachment` */
@@ -2797,11 +2797,11 @@ export interface AddInvoiceAttachmentInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** True to send the attachment with the invoice when emailed. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** The file to be attached.Allowed Extensions: gif, png, jpeg, jpg, bmp and pdf */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to an invoice. `POST /invoices/{invoice_id}/attachment` */
@@ -2821,7 +2821,7 @@ export interface UpdateInvoiceAttachmentPreferenceInput {
   /** Boolean to send the attachment with the invoice when emailed. */
   readonly can_send_in_mail: boolean
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update attachment preference. `PUT /invoices/{invoice_id}/attachment` */
@@ -2854,7 +2854,7 @@ export interface GetInvoiceDocumentDetailsInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** Specify the response format (e.g., json, pdf, html) */
-  readonly responseformat?: string
+  readonly responseformat?: string | undefined
 }
 
 /** Retrieve Invoice Document. `GET /invoices/{invoice_id}/documents/{document_id}` */
@@ -2872,7 +2872,7 @@ export interface AddInvoiceDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add a document to an invoice. `POST /invoices/{invoice_id}/documents/{document_id}` */
@@ -3019,7 +3019,7 @@ export interface ApproveInvoicesInput {
   /** Comma-separated IDs of the invoices to approve. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve invoices. `POST /invoices/approve` */
@@ -3036,11 +3036,11 @@ export interface VoidInvoicesInput {
   /** Comma-separated IDs of the invoices to mark as void. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Whether to create the corresponding network entity for the voided invoices. */
-  readonly can_create_network_entity?: boolean
+  readonly can_create_network_entity?: boolean | undefined
   /** Whether to unmap the associated sales orders when voiding the invoices. */
-  readonly unmap_salesorder?: boolean
+  readonly unmap_salesorder?: boolean | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark invoices as void. `POST /invoices/status/void` */
@@ -3055,11 +3055,11 @@ export const voidInvoices = /*#__PURE__*/ operation<VoidInvoicesInput, typeof Vo
 
 export interface CreateInvoicesFromProjectsInput {
   /** Comma-separated IDs of the projects to create invoices from. Note: This value is a set of numeric characters separated by comma. */
-  readonly project_ids?: string
+  readonly project_ids?: string | undefined
   /** Invoice number to assign to the created invoice. Max-length [30]. */
-  readonly invoice_number?: string
+  readonly invoice_number?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Create invoices from projects. `POST /invoices/fromprojects` */
@@ -3076,11 +3076,11 @@ export interface GetInvoiceDeliveryNotesInput {
   /** Comma-separated IDs of the invoices to get delivery notes for. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Whether to return the delivery notes in a print-ready format. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Format in which the delivery notes are returned. */
   readonly accept: string
   /** Number of copies to generate. */
-  readonly no_of_copies?: number
+  readonly no_of_copies?: number | undefined
 }
 
 /** Get delivery notes for invoices. `GET /invoices/deliverynotes` */
@@ -3096,11 +3096,11 @@ export interface GetInvoicePackingSlipsInput {
   /** Comma-separated IDs of the invoices to get packing slips for. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Whether to return the packing slips in a print-ready format. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Format in which the packing slips are returned. */
   readonly accept: string
   /** Number of copies to generate. */
-  readonly no_of_copies?: number
+  readonly no_of_copies?: number | undefined
 }
 
 /** Get packing slips for invoices. `GET /invoices/packingslips` */
@@ -3116,7 +3116,7 @@ export interface FinalizeInvoiceApprovalInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Finalize approval of an invoice. `POST /invoices/{invoice_id}/approve/final` */
@@ -3133,11 +3133,11 @@ export interface RejectInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Reason for rejecting the invoice. Max-length [500]. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Whether the request originates from an oEmbed context. */
-  readonly isCallForOEmbed?: boolean
+  readonly isCallForOEmbed?: boolean | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reject an invoice. `POST /invoices/{invoice_id}/reject` */
@@ -3154,9 +3154,9 @@ export interface SendInvoiceViaSnailMailInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** ID of the contact person to send the invoice to. */
-  readonly contact_person_id?: string
+  readonly contact_person_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send an invoice via snail mail. `POST /invoices/{invoice_id}/snailmail` */
@@ -3191,7 +3191,7 @@ export interface ApplyPricebookToInvoiceInput {
   /** Unique identifier of the price book to apply. */
   readonly pricebook_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Apply a price book to an invoice. `PUT /invoices/{invoice_id}/pricebooks/{pricebook_id}` */
@@ -3208,7 +3208,7 @@ export interface SubmitInvoicesInput {
   /** Comma-separated IDs of the invoices to submit. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit invoices for approval. `POST /invoices/submit` */
@@ -3225,7 +3225,7 @@ export interface MarkInvoicesSentInput {
   /** Comma-separated IDs of the invoices to mark as sent. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark invoices as sent. `POST /invoices/status/sent` */
@@ -3242,7 +3242,7 @@ export interface WriteOffInvoicesInput {
   /** Comma-separated IDs of the invoices to write off. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Write off invoices. `POST /invoices/writeoff` */
@@ -3259,7 +3259,7 @@ export interface MarkInvoicesShippedInput {
   /** Comma-separated IDs of the invoices to mark as shipped. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark invoices as shipped. `POST /invoices/markasshipped` */
@@ -3276,7 +3276,7 @@ export interface UnshipInvoicesInput {
   /** Comma-separated IDs of the invoices to mark as unshipped. Note: This value is a set of numeric characters separated by comma. */
   readonly invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark invoices as unshipped. `POST /invoices/unship` */
@@ -3293,7 +3293,7 @@ export interface CreateInvoicesFromEstimatesInput {
   /** Comma-separated IDs of the estimates to create invoices from. Note: This value is a set of numeric characters separated by comma. */
   readonly estimate_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Create invoices from estimates. `POST /invoices/fromestimates` */
@@ -3322,7 +3322,7 @@ export const previewInvoiceCoupons = /*#__PURE__*/ operation<PreviewInvoiceCoupo
 
 export interface UnmapInvoicesFromSalesordersInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Unmap invoices from sales orders. `PUT /invoices/unmap/salesorders` */
@@ -3337,7 +3337,7 @@ export const unmapInvoicesFromSalesorders = /*#__PURE__*/ operation<UnmapInvoice
 
 export interface GetInvoiceDashboardInput {
   /** Filter the dashboard data by the invoice agent. */
-  readonly invoice_agent?: string
+  readonly invoice_agent?: string | undefined
 }
 
 /** Get invoice dashboard. `GET /invoices/dashboard` */
@@ -3467,7 +3467,7 @@ export interface SendInvoiceSmsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send invoice by SMS. `POST /invoices/{invoice_id}/sms` */
@@ -3498,7 +3498,7 @@ export interface AddInvoiceDigitalSignatureInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add a digital signature to an invoice. `POST /invoices/{invoice_id}/dsign` */
@@ -3515,9 +3515,9 @@ export interface UploadInvoiceDigitalSignatureInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** The signed file to be uploaded. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Upload a signed invoice. `POST /invoices/{invoice_id}/dsign/upload` */
@@ -3537,9 +3537,9 @@ export interface UploadInvoiceDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** The file to be uploaded. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Upload an invoice document file. `POST /invoices/{invoice_id}/documents/{document_id}/upload` */
@@ -3557,7 +3557,7 @@ export interface UpdateInvoiceCfdiStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update an invoice CFDI status. `POST /invoices/{invoice_id}/cfdi/status` */
@@ -3574,7 +3574,7 @@ export interface CancelInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel an invoice. `POST /invoices/{invoice_id}/status/cancel` */
@@ -3591,7 +3591,7 @@ export interface MarkInvoiceReadyToPushInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an invoice as ready to push. `POST /invoices/{invoice_id}/status/readytopush` */
@@ -3610,7 +3610,7 @@ export interface ApplyInvoiceSubstatusInput {
   /** Identifier of the sub-status to apply or remove. */
   readonly substatus_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Apply a sub-status to an invoice. `POST /invoices/{invoice_id}/substatus/{substatus_id}` */
@@ -3689,7 +3689,7 @@ export interface ForcePayInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Force pay an invoice. `POST /invoices/{invoice_id}/forcepay` */
@@ -3706,7 +3706,7 @@ export interface MailInvoicePdfInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Email an invoice as PDF. `POST /invoices/{invoice_id}/mailpdf` */
@@ -3783,7 +3783,7 @@ export interface SendInvoiceDunningNotificationsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send invoice dunning notifications. `POST /invoices/{invoice_id}/senddunningnotifications` */
@@ -3800,7 +3800,7 @@ export interface SendInvoiceRetrySmsInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resend invoice payment SMS. `POST /invoices/{invoice_id}/sendretrysms` */
@@ -3835,7 +3835,7 @@ export interface UpdateInvoiceMetadataInput {
   /** Name of the metadata key. */
   readonly metadata_name: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update invoice metadata. `PUT /invoices/{invoice_id}/metadata/{metadata_name}` */
@@ -3861,7 +3861,7 @@ export const listInvoicesEinvoice = /*#__PURE__*/ operation<ListInvoicesEinvoice
 
 export interface PushInvoicesEinvoiceInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push invoice e-invoices. `POST /invoices/einvoice/push` */
@@ -3876,7 +3876,7 @@ export const pushInvoicesEinvoice = /*#__PURE__*/ operation<PushInvoicesEinvoice
 
 export interface CancelInvoicesEinvoiceInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel invoice e-invoices. `POST /invoices/einvoice/cancel` */
@@ -3907,7 +3907,7 @@ export interface PushInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Push an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/push` */
@@ -3924,7 +3924,7 @@ export interface CancelInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/cancel` */
@@ -3941,7 +3941,7 @@ export interface FetchInvoiceEinvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Fetch an invoice e-invoice. `POST /invoices/{invoice_id}/einvoice/fetch` */
@@ -3988,7 +3988,7 @@ export interface MarkInvoiceEinvoiceCancelledInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an invoice e-invoice as cancelled. `POST /invoices/{invoice_id}/einvoice/status/cancel` */
@@ -4005,7 +4005,7 @@ export interface RecallInvoiceEinvoiceStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Recall an invoice e-invoice status. `POST /invoices/{invoice_id}/einvoice/status/recall` */
@@ -4022,7 +4022,7 @@ export interface UpdateInvoiceEinvoicePaymentStatusInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update an invoice e-invoice payment status. `PUT /invoices/{invoice_id}/einvoice/paymentstatus` */
@@ -4039,7 +4039,7 @@ export interface CancelEinvoiceInvoiceInput {
   /** Unique identifier of the invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel an e-invoice invoice. `POST /einvoices/invoices/{invoice_id}/cancel` */

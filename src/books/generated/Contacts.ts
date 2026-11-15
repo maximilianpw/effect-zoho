@@ -965,432 +965,432 @@ export type SendContactVendorStatementEmailResponse = typeof SendContactVendorSt
 
 export interface BillingAddressInput {
   /** Attention for proper delivery and routing of business correspondence. Max-length [100]. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Street 1 address for the contact. Max-length [500]. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Street 2 address for the contact. Max-length [255]. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** State or province code for the address. Max-length [100]. */
-  readonly state_code?: string
+  readonly state_code?: string | undefined
   /** City name for the address. Max-length [100]. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State for the address. Max-length [100]. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code for the address. Max-length [50]. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country name for the address. Max-length [100]. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number for the address. Max-length [50]. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** The contact phone number associated with the address. Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
 }
 
 export interface ShippingAddressInput {
   /** Attention for proper delivery and routing of business correspondence. Max-length [100]. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Street 1 address for the contact. Max-length [500]. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Street 2 address for the contact. Max-length [255]. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** State or province code for the address. Max-length [100]. */
-  readonly state_code?: string
+  readonly state_code?: string | undefined
   /** City name for the address. Max-length [100]. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State for the address. Max-length [100]. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code for the address. Max-length [50]. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country name for the address. Max-length [100]. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number for the address. Max-length [50]. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** The contact phone number associated with the address. Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
 }
 
 export interface CommunicationPreferenceInput {
   /** Whether SMS text messages are allowed for the contact person. */
-  readonly is_sms_enabled?: boolean
+  readonly is_sms_enabled?: boolean | undefined
   /** Whether WhatsApp messaging is allowed for the contact person. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface DefaultTemplatesInput {
   /** Default invoice template id used for this customer while creating invoice. Note: This value is a set of numeric characters. */
-  readonly invoice_template_id?: string
+  readonly invoice_template_id?: string | undefined
   /** Default estimate template id used for this customer while creating estimate. Note: This value is a set of numeric characters. */
-  readonly estimate_template_id?: string
+  readonly estimate_template_id?: string | undefined
   /** Default credit note template id used for this customer while creating credit note. Note: This value is a set of numeric characters. */
-  readonly creditnote_template_id?: string
+  readonly creditnote_template_id?: string | undefined
   /** Default purchase order template id used for this vendor while creating purchase order. Note: This value is a set of numeric characters. */
-  readonly purchaseorder_template_id?: string
+  readonly purchaseorder_template_id?: string | undefined
   /** Default sales order template id used for this customer while creating sales order. Note: This value is a set of numeric characters. */
-  readonly salesorder_template_id?: string
+  readonly salesorder_template_id?: string | undefined
   /** Default retainer invoice template id used for this customer while creating retainer invoice. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_template_id?: string
+  readonly retainerinvoice_template_id?: string | undefined
   /** Default payment thank you template id used for this contact while sending payment acknowledgment. Note: This value is a set of numeric characters. */
-  readonly paymentthankyou_template_id?: string
+  readonly paymentthankyou_template_id?: string | undefined
   /** Default retainer invoice payment thank you template id used for this customer while sending payment acknowledgment for retainer invoices. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_paymentthankyou_template_id?: string
+  readonly retainerinvoice_paymentthankyou_template_id?: string | undefined
   /** Default invoice email template id used for this customer while sending invoices. Note: This value is a set of numeric characters. */
-  readonly invoice_email_template_id?: string
+  readonly invoice_email_template_id?: string | undefined
   /** Default estimate email template id used for this customer while sending estimates. Note: This value is a set of numeric characters. */
-  readonly estimate_email_template_id?: string
+  readonly estimate_email_template_id?: string | undefined
   /** Default credit note email template id used for this customer while sending credit notes. Note: This value is a set of numeric characters. */
-  readonly creditnote_email_template_id?: string
+  readonly creditnote_email_template_id?: string | undefined
   /** Default purchase order email template id used for this vendor while sending purchase order. Note: This value is a set of numeric characters. */
-  readonly purchaseorder_email_template_id?: string
+  readonly purchaseorder_email_template_id?: string | undefined
   /** Default sales order email template id used for this customer while sending sales order. Note: This value is a set of numeric characters. */
-  readonly salesorder_email_template_id?: string
+  readonly salesorder_email_template_id?: string | undefined
   /** Default retainer invoice email template id used for this contact while sending retainer invoice. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_email_template_id?: string
+  readonly retainerinvoice_email_template_id?: string | undefined
   /** Default payment thank you email template id used for this contact while sending payment acknowledgment. Note: This value is a set of numeric characters. */
-  readonly paymentthankyou_email_template_id?: string
+  readonly paymentthankyou_email_template_id?: string | undefined
   /** Default retainer invoice payment thank you email template id used for this customer while sending payment acknowledgment for retainer invoices. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_paymentthankyou_email_template_id?: string
+  readonly retainerinvoice_paymentthankyou_email_template_id?: string | undefined
   /** Default statement template id used for this contact while creating statement. Note: This value is a set of numeric characters. */
-  readonly statement_template_id?: string
+  readonly statement_template_id?: string | undefined
   /** Default payment remittance email template id used for this contact while sending payment remittances. Note: This value is a set of numeric characters. */
-  readonly payment_remittance_email_template_id?: string
+  readonly payment_remittance_email_template_id?: string | undefined
   /** Default bill template id used for this vendor while creating bill. Note: This value is a set of numeric characters. */
-  readonly bill_template_id?: string
+  readonly bill_template_id?: string | undefined
 }
 
 export interface RegistrationDetailsInput {
   /** Company registration number (Commercial Registration number). Maximum length: 200 characters. */
-  readonly company_registration_no?: string
+  readonly company_registration_no?: string | undefined
   /** Tax Identification Number (TIN) of the contact. Used as the VAT registration number for UAE E-Invoicing. Maximum length: 200 characters. */
-  readonly indirect_tax_no?: string
+  readonly indirect_tax_no?: string | undefined
   /** Location code type identifying the economic zone or region. Used for UAE E-Invoicing compliance (e.g. TL for Territory of Land). Maximum length: 200 characters. */
-  readonly zone_type?: string
+  readonly zone_type?: string | undefined
   /** Label for the buyer identifier used in E-Invoicing (Buyer ID label). Allowed values: TL, EID, PAS, CD. Maximum length: 200 characters. */
-  readonly einvoice_identifier_label?: string
+  readonly einvoice_identifier_label?: string | undefined
   /** Value of the buyer identifier used in E-Invoicing (Buyer ID value). Maximum length: 200 characters. */
-  readonly einvoice_identifier_value?: string
+  readonly einvoice_identifier_value?: string | undefined
   /** Authority or scheme that issued the buyer identifier (Buyer ID authority, e.g. Department of Economy and Tourism). Maximum length: 200 characters. */
-  readonly additionalfield1?: string
+  readonly additionalfield1?: string | undefined
   /** Type of business classification scheme (e.g. DUNS, GLN). Maximum length: 200 characters. */
-  readonly business_classification_type?: string
+  readonly business_classification_type?: string | undefined
   /** Value of the business classification identifier. Maximum length: 200 characters. */
-  readonly business_classification_value?: string
+  readonly business_classification_value?: string | undefined
   /** Trade name of the contact. Maximum length: 500 characters. */
-  readonly trader_name?: string
+  readonly trader_name?: string | undefined
   /** Legal registered name of the contact. Required for UAE E-Invoicing. Maximum length: 500 characters. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Value of the location identifier used in E-Invoicing. Maximum length: 200 characters. */
-  readonly location_identifier_value?: string
+  readonly location_identifier_value?: string | undefined
   /** Type of the location identifier scheme. Maximum length: 200 characters. */
-  readonly location_identifier_type?: string
+  readonly location_identifier_type?: string | undefined
   /** Electronic address (Peppol ID or similar) of the contact used for E-Invoicing routing. Maximum length: 200 characters. */
-  readonly electronic_address_value?: string
+  readonly electronic_address_value?: string | undefined
 }
 
 export interface CreateAContactRequest {
   /** Display name for the contact. It is used for searching and displaying contacts. */
   readonly contact_name: string
   /** Legal or registered contact's company name. Used for legal documents and formal communications. Max-length [200]. */
-  readonly company_name?: string
+  readonly company_name?: string | undefined
   /** Official website URL of the contact. */
-  readonly website?: string
+  readonly website?: string | undefined
   /** Preferred language for the contact. Determines portal language. Allowed values: de,en,es,fr,it,ja,nl,pt,pt_br,sv,zh,en_gb */
-  readonly language_code?: string
+  readonly language_code?: string | undefined
   /** Determines how the contact is treated in the system. Allowed values: customer, vendor. */
-  readonly contact_type?: string
+  readonly contact_type?: string | undefined
   /** For Customer Only : Additional classification for customers. Allowed values: individual, business. */
-  readonly customer_sub_type?: string
+  readonly customer_sub_type?: string | undefined
   /** For Customer Only : The maximum credit amount that can be allowed for the customer. Once the customer's outstanding receivables reach this limit, the system will restrict the customer from creating any further transactions. */
-  readonly credit_limit?: number
+  readonly credit_limit?: number | undefined
   /** Pricebook id which is associated with the contact. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Contact number associated with the contact for internal tracking and identification purposes. Max-length [50]. */
-  readonly contact_number?: string
+  readonly contact_number?: string | undefined
   /** Indicates whether the auto generation contact_number is ignored or not for the contact. Allowed values: true, false. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Indicates whether portal access is enabled for the primary contact person. Allowed value: true and false. */
-  readonly is_portal_enabled?: boolean
+  readonly is_portal_enabled?: boolean | undefined
   /** Unique identifier for the currency assigned to this contact. The currency_id must correspond to a valid currency configuration in the system. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Number of days allowed for payment after the invoice date. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Human-readable label of payment terms displayed on invoices and other transactions. Max-length [200]. */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Additional comments or notes about the contact. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Billing address information for the contact. */
-  readonly billing_address?: BillingAddressInput
+  readonly billing_address?: BillingAddressInput | undefined
   /** Shipping address information for the contact. */
-  readonly shipping_address?: ShippingAddressInput
+  readonly shipping_address?: ShippingAddressInput | undefined
   /** The list of contact persons associated with the contact. */
   readonly contact_persons?: ReadonlyArray<{
     /** Salutation for the contact. Max-length [25] */
-    readonly salutation?: string
+    readonly salutation?: string | undefined
     /** First name of the contact person. Max-length [100]. */
-    readonly first_name?: string
+    readonly first_name?: string | undefined
     /** Last name of the contact person. Max-length [100]. */
-    readonly last_name?: string
+    readonly last_name?: string | undefined
     /** Email address of the contact person for business communications. Max-length [100]. */
-    readonly email?: string
+    readonly email?: string | undefined
     /** Phone number of the contact person. Max-length [50]. */
-    readonly phone?: string
+    readonly phone?: string | undefined
     /** Mobile number of the contact person. Max-length [50]. */
-    readonly mobile?: string
+    readonly mobile?: string | undefined
     /** Designation of the contact person within the contact's company. Max-length [100]. */
-    readonly designation?: string
+    readonly designation?: string | undefined
     /** Department of the contact person within the contact's company. Max-length [50]. */
-    readonly department?: string
+    readonly department?: string | undefined
     /** Skype username of the contact person. Max-length [50]. */
-    readonly skype?: string
+    readonly skype?: string | undefined
     /** Indicates whether this contact person is the primary contact. Only one per contact. Allowed values: true and false. */
-    readonly is_primary_contact?: boolean
+    readonly is_primary_contact?: boolean | undefined
     /** Preferred modes of communication for the contact person. */
-    readonly communication_preference?: CommunicationPreferenceInput
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
     /** Indicates whether the contact person should have access to the client portal. Allowed values: true and false. */
-    readonly enable_portal?: boolean
-  }>
-  readonly default_templates?: DefaultTemplatesInput
+    readonly enable_portal?: boolean | undefined
+  }> | undefined
+  readonly default_templates?: DefaultTemplatesInput | undefined
   /** Custom fields of the contact. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field. It can hold any value from 1 to 10. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** List of opening balances for the contact. */
   readonly opening_balances?: ReadonlyArray<{
     /** Unique identifier for the business location associated with this opening balance. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Currency exchange rate used to convert opening balance to organization's base currency. */
-    readonly exchange_rate?: number
+    readonly exchange_rate?: number | undefined
     /** Initial balance amount for the contact at the time of creation. */
-    readonly opening_balance_amount?: number
-  }>
+    readonly opening_balance_amount?: number | undefined
+  }> | undefined
   /** For UK Edition: VAT Registration number of a contact with length should be between 2 and 12 characters. For Avalara: If you are doing sales in the European Union (EU) then provide VAT Registration Number of your customers here. This is used to calculate VAT for B2B sales, from Avalara. */
-  readonly vat_reg_no?: string
+  readonly vat_reg_no?: string | undefined
   /** For Customer Only : Unique identifier for the user assigned as the owner of the contact. This field specifies which user in the organization is responsible for managing the business relationship with this contact. Note: This value is a set of numeric characters. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** For GCC Edition: 15 digit Tax Registration number of a contact with Tax treatment as vat_registered,gcc_vat_registered,dz_vat_registered.For Mexico Edition: 12 digit Tax Registration number of a contact with Tax treatment as home_country_mexico, border_region_mexico, non_mexico. Consumers generic RFC: XAXX010101000, Overseas generic RFC: XEXX010101000.For Kenya Edition: 11 digit Tax Registration number of a contact with Tax treatment as vat_registeredFor SouthAfrica Edition: 10 digit Tax Registration number of a contact with Tax treatment as vat_registered */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** Tax Exemption Certificate number is issued by the Kenya Revenue Authority (KRA) to organizations or individuals who qualify for tax exemption */
-  readonly tax_exemption_certificate_number?: string
+  readonly tax_exemption_certificate_number?: string | undefined
   /** For UK Edition: Two letter country code of a contact For Avalara: Two letter country code for the customer country, if your customer is not in US. Refer [AvaTax Codes for Countries and States][2]. For GCC Editions : Two Letter country code for the GCC Country or the UAE emirate of the contact which will be considered as place of supply.Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly country_code?: string
+  readonly country_code?: string | undefined
   /** VAT treatment of the contact.Allowed Values: uk (A business that is located in the UK.),eu_vat_registered (A business that is reg for VAT and trade goods between Northern Ireland and EU. This node is available only for organizations enabled for NI protocal in VAT Settings.) andoverseas (A business that is located outside UK. Pre Brexit, this was split as eu_vat_registered, eu_vat_not_registered and non_eu ). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Tax treatment of the contact. Allowed values for GCC/UAE: vat_registered, vat_not_registered, gcc_vat_not_registered, gcc_vat_registered, non_gcc, dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered. For Mexico Edition: home_country_mexico, border_region_mexico, and non_mexico. For Kenya Edition: vat_registered, vat_not_registered, and non_kenya. For South Africa Edition: vat_registered, vat_not_registered, and overseas. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Tax Regime of the contact.Allowed Values: general_legal_person, legal_entities_non_profit, resident_abroad, production_cooperative_societies, agricultural_livestock, optional_group_of_companies, coordinated, simplified_trust, wages_salaries_income, lease, property_disposal_acquisition, other_income, resident_abroad, divident_income, individual_business_professional, interest_income, income_obtaining_price, no_tax_obligation, tax_incorporation, income_through_technology_platform, simplified_trust. */
-  readonly tax_regime?: string
+  readonly tax_regime?: string | undefined
   /** Legal name of the contact as registered with the tax authority. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Registration details for UAE E-Invoicing compliance. Contains buyer identification, tax registration, and legal information required for Peppol E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Two-letter GCC country code indicating the place of supply for VAT purposes. Supported codes: United Arab Emirates - AE, Saudi Arabia - SA, Bahrain - BH, Kuwait - KW, Oman - OM, Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Indicates whether the contact is registered for Tax Deducted at Source (TDS) in Mexico. */
-  readonly is_tds_registered?: boolean
+  readonly is_tds_registered?: boolean | undefined
   /** State or union territory code where the contact is located for Indian tax purposes. (This node identifies the place of supply and source of supply when invoices/bills are raised for the customer/vendor respectively. This is not applicable for Overseas contacts) */
-  readonly place_of_contact?: string
+  readonly place_of_contact?: string | undefined
   /** 15-digit GST identification number of the contact as issued by the Indian tax authorities. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Display name of the tax authority responsible for the customer's tax jurisdiction. */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Unique identifier for the tax exemption configuration assigned to this contact. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Code identifier for the tax exemption assigned to the contact. */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Unique identifier for the tax authority responsible for the customer's tax jurisdiction. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique identifier for the tax or tax group assigned to the contact. Available only when is_taxable is true. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique identifier for the Tax Deducted at Source (TDS) tax configuration assigned to the contact. Note: This value is a set of numeric characters. */
-  readonly tds_tax_id?: string
+  readonly tds_tax_id?: string | undefined
   /** Indicates whether the customer is subject to tax collection. Tax-related fields are only available when this field is set to true. Allowed values: true and false. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** Facebook profile URL for the contact. Max-length [100]. */
-  readonly facebook?: string
+  readonly facebook?: string | undefined
   /** X profile URL for the contact. Max-length [100]. */
-  readonly twitter?: string
+  readonly twitter?: string | undefined
   /** Boolean to track a contact for 1099 reporting. */
-  readonly track_1099?: boolean
+  readonly track_1099?: boolean | undefined
   /** Tax ID type of the contact, it can be SSN, ATIN, ITIN or EIN. */
-  readonly tax_id_type?: string
+  readonly tax_id_type?: string | undefined
   /** Tax ID of the contact. */
-  readonly tax_id_value?: string
+  readonly tax_id_value?: string | undefined
 }
 
 export interface UpdateAContactRequest {
   /** Display name for the contact. It is used for searching and displaying contacts. */
   readonly contact_name: string
   /** Legal or registered contact's company name. Used for legal documents and formal communications. Max-length [200]. */
-  readonly company_name?: string
+  readonly company_name?: string | undefined
   /** Number of days allowed for payment after the invoice date. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Human-readable label of payment terms displayed on invoices and other transactions. Max-length [200]. */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Determines how the contact is treated in the system. Allowed values: customer, vendor. */
   readonly contact_type: string
   /** For Customer Only : Additional classification for customers. Allowed values: individual, business. */
-  readonly customer_sub_type?: string
+  readonly customer_sub_type?: string | undefined
   /** Unique identifier for the currency assigned to this contact. The currency_id must correspond to a valid currency configuration in the system. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** List of opening balances for the contact. */
   readonly opening_balances?: ReadonlyArray<{
     /** Unique identifier for the business location associated with this opening balance. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** Currency exchange rate used to convert opening balance to organization's base currency. */
-    readonly exchange_rate?: number
+    readonly exchange_rate?: number | undefined
     /** Initial balance amount for the contact at the time of creation. */
-    readonly opening_balance_amount?: number
-  }>
+    readonly opening_balance_amount?: number | undefined
+  }> | undefined
   /** For Customer Only : The maximum credit amount that can be allowed for the customer. Once the customer's outstanding receivables reach this limit, the system will restrict the customer from creating any further transactions. */
-  readonly credit_limit?: number
+  readonly credit_limit?: number | undefined
   /** Pricebook id which is associated with the contact. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** Contact number associated with the contact for internal tracking and identification purposes. Max-length [50]. */
-  readonly contact_number?: string
+  readonly contact_number?: string | undefined
   /** Indicates whether the auto generation contact_number is ignored or not for the contact. Allowed values: true, false. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Official website URL of the contact. */
-  readonly website?: string
+  readonly website?: string | undefined
   /** For Customer Only : Unique identifier for the user assigned as the owner of the contact. This field specifies which user in the organization is responsible for managing the business relationship with this contact. Note: This value is a set of numeric characters. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** List of custom fields for the contact. */
   readonly custom_fields?: ReadonlyArray<{
     /** Index of the custom field. It can hold any value from 1 to 10. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Label of the custom field. */
-    readonly label?: string
-  }>
+    readonly label?: string | undefined
+  }> | undefined
   /** Billing address information for the contact. */
-  readonly billing_address?: BillingAddressInput
+  readonly billing_address?: BillingAddressInput | undefined
   /** Shipping address information for the contact. */
-  readonly shipping_address?: ShippingAddressInput
+  readonly shipping_address?: ShippingAddressInput | undefined
   /** The list of contact persons associated with the contact. */
   readonly contact_persons?: ReadonlyArray<{
     /** ID of the contact person. For an existing contact person, pass the contact_person_id. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Salutation for the contact. Max-length [25] */
-    readonly salutation?: string
+    readonly salutation?: string | undefined
     /** First name of the contact person. Max-length [100]. */
-    readonly first_name?: string
+    readonly first_name?: string | undefined
     /** Last name of the contact person. Max-length [100]. */
-    readonly last_name?: string
+    readonly last_name?: string | undefined
     /** Email address of the contact person for business communications. Max-length [100]. */
-    readonly email?: string
+    readonly email?: string | undefined
     /** Phone number of the contact person. Max-length [50]. */
-    readonly phone?: string
+    readonly phone?: string | undefined
     /** Mobile number of the contact person. Max-length [50]. */
-    readonly mobile?: string
+    readonly mobile?: string | undefined
     /** Designation of the contact person within the contact's company. Max-length [100]. */
-    readonly designation?: string
+    readonly designation?: string | undefined
     /** Department of the contact person within the contact's company. Max-length [50]. */
-    readonly department?: string
+    readonly department?: string | undefined
     /** Skype username of the contact person. Max-length [50]. */
-    readonly skype?: string
+    readonly skype?: string | undefined
     /** Indicates whether this contact person is the primary contact. Only one per contact. Allowed values: true and false. */
-    readonly is_primary_contact?: boolean
+    readonly is_primary_contact?: boolean | undefined
     /** Indicates whether the contact person should have access to the client portal. Allowed values: true and false. */
-    readonly enable_portal?: boolean
+    readonly enable_portal?: boolean | undefined
     /** Preferred modes of communication for the contact person. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
-  readonly default_templates?: DefaultTemplatesInput
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
+  readonly default_templates?: DefaultTemplatesInput | undefined
   /** Additional comments or notes about the contact. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** For UK Edition: VAT Registration number of a contact with length should be between 2 and 12 characters. For Avalara: If you are doing sales in the European Union (EU) then provide VAT Registration Number of your customers here. This is used to calculate VAT for B2B sales, from Avalara. */
-  readonly vat_reg_no?: string
+  readonly vat_reg_no?: string | undefined
   /** For GCC Edition: 15 digit Tax Registration number of a contact with Tax treatment as vat_registered,gcc_vat_registered,dz_vat_registered.For Mexico Edition: 12 digit Tax Registration number of a contact with Tax treatment as home_country_mexico, border_region_mexico, non_mexico. Consumers generic RFC: XAXX010101000, Overseas generic RFC: XEXX010101000.For Kenya Edition: 11 digit Tax Registration number of a contact with Tax treatment as vat_registeredFor SouthAfrica Edition: 10 digit Tax Registration number of a contact with Tax treatment as vat_registered */
-  readonly tax_reg_no?: string
+  readonly tax_reg_no?: string | undefined
   /** For UK Edition: Two letter country code of a contact For Avalara: Two letter country code for the customer country, if your customer is not in US. Refer [AvaTax Codes for Countries and States][2]. For GCC Editions : Two Letter country code for the GCC Country or the UAE emirate of the contact which will be considered as place of supply.Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly country_code?: string
+  readonly country_code?: string | undefined
   /** Tax treatment of the contact. Allowed values for GCC/UAE: vat_registered, vat_not_registered, gcc_vat_not_registered, gcc_vat_registered, non_gcc, dz_vat_registered, dz_vat_not_registered, out_of_scope, gcc_non_vat, fz_vat_registered, and fz_vat_not_registered. For Mexico Edition: home_country_mexico, border_region_mexico, and non_mexico. For Kenya Edition: vat_registered, vat_not_registered, and non_kenya. For South Africa Edition: vat_registered, vat_not_registered, and overseas. */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Tax Exemption Certificate number is issued by the Kenya Revenue Authority (KRA) to organizations or individuals who qualify for tax exemption */
-  readonly tax_exemption_certificate_number?: string
+  readonly tax_exemption_certificate_number?: string | undefined
   /** Tax Regime of the contact.Allowed Values: general_legal_person, legal_entities_non_profit, resident_abroad, production_cooperative_societies, agricultural_livestock, optional_group_of_companies, coordinated, simplified_trust, wages_salaries_income, lease, property_disposal_acquisition, other_income, resident_abroad, divident_income, individual_business_professional, interest_income, income_obtaining_price, no_tax_obligation, tax_incorporation, income_through_technology_platform, simplified_trust. */
-  readonly tax_regime?: string
+  readonly tax_regime?: string | undefined
   /** Legal name of the contact as registered with the tax authority. */
-  readonly legal_name?: string
+  readonly legal_name?: string | undefined
   /** Registration details for UAE E-Invoicing compliance. Contains buyer identification, tax registration, and legal information required for Peppol E-Invoicing. */
-  readonly registration_details?: RegistrationDetailsInput
+  readonly registration_details?: RegistrationDetailsInput | undefined
   /** Two-letter GCC country code indicating the place of supply for VAT purposes. Supported codes: United Arab Emirates - AE, Saudi Arabia - SA, Bahrain - BH, Kuwait - KW, Oman - OM, Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Indicates whether the contact is registered for Tax Deducted at Source (TDS) in Mexico. */
-  readonly is_tds_registered?: boolean
+  readonly is_tds_registered?: boolean | undefined
   /** VAT treatment of the contact.Allowed Values: uk (A business that is located in the UK.),eu_vat_registered (A business that is reg for VAT and trade goods between Northern Ireland and EU. This node is available only for organizations enabled for NI protocal in VAT Settings.) andoverseas (A business that is located outside UK. Pre Brexit, this was split as eu_vat_registered, eu_vat_not_registered and non_eu ). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** State or union territory code where the contact is located for Indian tax purposes. (This node identifies the place of supply and source of supply when invoices/bills are raised for the customer/vendor respectively. This is not applicable for Overseas contacts) */
-  readonly place_of_contact?: string
+  readonly place_of_contact?: string | undefined
   /** 15-digit GST identification number of the contact as issued by the Indian tax authorities. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Display name of the tax authority responsible for the customer's tax jurisdiction. */
-  readonly tax_authority_name?: string
+  readonly tax_authority_name?: string | undefined
   /** Exemption certificate number of the customer. */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Unique identifier for the tax exemption configuration assigned to this contact. Note: This value is a set of numeric characters. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Code identifier for the tax exemption assigned to the contact. */
-  readonly tax_exemption_code?: string
+  readonly tax_exemption_code?: string | undefined
   /** Unique identifier for the tax authority responsible for the customer's tax jurisdiction. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. Note: This value is a set of numeric characters. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique identifier for the tax or tax group assigned to the contact. Available only when is_taxable is true. Note: This value is a set of numeric characters. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Indicates whether the customer is subject to tax collection. Tax-related fields are only available when this field is set to true. Allowed values: true and false. */
-  readonly is_taxable?: boolean
+  readonly is_taxable?: boolean | undefined
   /** Facebook profile URL for the contact. Max-length [100]. */
-  readonly facebook?: string
+  readonly facebook?: string | undefined
   /** X profile URL for the contact. Max-length [100]. */
-  readonly twitter?: string
+  readonly twitter?: string | undefined
   /** Boolean to track a contact for 1099 reporting. */
-  readonly track_1099?: boolean
+  readonly track_1099?: boolean | undefined
   /** Tax ID type of the contact, it can be SSN, ATIN, ITIN or EIN. */
-  readonly tax_id_type?: string
+  readonly tax_id_type?: string | undefined
   /** Tax ID of the contact. */
-  readonly tax_id_value?: string
+  readonly tax_id_value?: string | undefined
 }
 
 export interface EnablePortalAccessRequest {
   /** The list of contact persons associated with the contact. */
   readonly contact_persons: ReadonlyArray<{
     /** Unique identifier for the contact person. System-generated ID for API operations. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
   }>
 }
 
 export interface EmailStatementRequest {
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be cced. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of an email has to be sent. Max-length [1000] */
   readonly subject: string
   /** Body of an email has to be sent. Max-length [5000] */
@@ -1405,159 +1405,159 @@ export interface EmailContactRequest {
   /** Body of an email has to be sent. Max-length [5000] */
   readonly body: string
   /** Files to be attached to the email. It has to be sent in multipart/formdata */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
 }
 
 export interface ContactCommentRequest {
   /** Content of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface AddAdditionalAddressRequest {
   /** Attention for proper delivery and routing of business correspondence. Max-length [100]. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Street 1 address for the contact. Max-length [500]. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Street 2 address for the contact. Max-length [255]. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City name for the address. Max-length [100]. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State for the address. Max-length [100]. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code for the address. Max-length [50]. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country name for the address. Max-length [100]. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number for the address. Max-length [50]. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** The contact phone number associated with the address. Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
 }
 
 export interface EditAdditionalAddressRequest {
   /** Attention for proper delivery and routing of business correspondence. Max-length [100]. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Street 1 address for the contact. Max-length [500]. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Street 2 address for the contact. Max-length [255]. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City name for the address. Max-length [100]. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State for the address. Max-length [100]. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Postal or ZIP code for the address. Max-length [50]. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country name for the address. Max-length [100]. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax number for the address. Max-length [50]. */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** The contact phone number associated with the address. Max-length [50] */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Address id of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
 }
 
 export interface ContactBankAccountRequest {
   /** Payment gateway through which the bank account is processed. */
-  readonly gateway?: string
+  readonly gateway?: string | undefined
   /** Bank account number. */
-  readonly account_number?: string
+  readonly account_number?: string | undefined
   /** Type of the bank account. */
-  readonly account_type?: string
+  readonly account_type?: string | undefined
   /** Routing number of the bank account. */
-  readonly routing_number?: string
+  readonly routing_number?: string | undefined
   /** Check number associated with the bank account. */
-  readonly check_number?: string
+  readonly check_number?: string | undefined
   /** Name of the bank. */
-  readonly bank_name?: string
+  readonly bank_name?: string | undefined
   /** Name on the bank account. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** First name of the account holder. */
-  readonly first_name?: string
+  readonly first_name?: string | undefined
   /** Last name of the account holder. */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Name of the beneficiary. */
-  readonly beneficiary_name?: string
+  readonly beneficiary_name?: string | undefined
   /** Street of the account holder address. */
-  readonly street?: string
+  readonly street?: string | undefined
   /** City of the account holder address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the account holder address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Country of the account holder address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** ZIP or postal code of the account holder address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Whether the ACH authorization terms are accepted. */
-  readonly accept_license?: boolean
+  readonly accept_license?: boolean | undefined
 }
 
 export interface ContactCardRequest {
   /** Token of the card returned by the payment gateway. */
-  readonly card_token?: string
+  readonly card_token?: string | undefined
   /** Payment gateway through which the card is processed. */
-  readonly gateway?: string
+  readonly gateway?: string | undefined
   /** Card number. */
-  readonly card_number?: string
+  readonly card_number?: string | undefined
   /** Card verification value. */
-  readonly cvv?: string
+  readonly cvv?: string | undefined
   /** First name of the card holder. */
-  readonly first_name?: string
+  readonly first_name?: string | undefined
   /** Last name of the card holder. */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Billing address of the card holder. */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Billing city of the card holder. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** Billing state of the card holder. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Billing country of the card holder. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Billing ZIP or postal code of the card holder. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Expiry month of the card. */
-  readonly expire_month?: number
+  readonly expire_month?: number | undefined
   /** Expiry year of the card. */
-  readonly expire_year?: number
+  readonly expire_year?: number | undefined
   /** Whether this is the primary card. */
-  readonly is_primary?: boolean
+  readonly is_primary?: boolean | undefined
   /** Whether this is the backup card. */
-  readonly is_backup?: boolean
+  readonly is_backup?: boolean | undefined
 }
 
 export interface ListContactsInput {
   /** Search contacts by contact type. Allowed Values: customer, vendor. */
-  readonly contact_type?: string
+  readonly contact_type?: string | undefined
   /** Search contacts by contact name. Max-length [100] Variants: contact_name_startswith and contact_name_contains. Max-length [100] */
-  readonly contact_name?: string
+  readonly contact_name?: string | undefined
   /** Search contacts by company name. Max-length [100] Variants: company_name_startswith and company_name_contains */
-  readonly company_name?: string
+  readonly company_name?: string | undefined
   /** Search contacts by first name of the primary contact person. Max-length [100] Variants: first_name_startswith and first_name_contains */
-  readonly first_name?: string
+  readonly first_name?: string | undefined
   /** Search contacts by last name of the primary contact person. Max-length [100] Variants: last_name_startswith and last_name_contains */
-  readonly last_name?: string
+  readonly last_name?: string | undefined
   /** Search contacts by any of the address fields. Max-length [100] Variants: address_startswith and address_contains */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Search contacts by email of the primary contact person. Max-length [100] Variants: email_startswith and email_contains */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Search contacts by phone number of the primary contact person. Max-length [100] Variants: phone_startswith and phone_contains */
-  readonly phone?: string
+  readonly phone?: string | undefined
   /** Filter contacts by status. Allowed Values: Status.All, Status.Active, Status.Inactive, Status.Duplicate, Status.PortalEnabled, Status.PortalDisabled, Invoice.OverDue, Invoice.Unpaid, Status.CreditLimitExceed and Status.Crm */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search contacts by contact name or notes. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort contacts. Allowed Values: contact_name, first_name, last_name, email, outstanding_receivable_amount, created_time and last_modified_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** CRM Contact ID for the contact. Note: This value is a set of numeric characters. */
-  readonly zcrm_contact_id?: string
+  readonly zcrm_contact_id?: string | undefined
   /** CRM Account ID for the contact. Note: This value is a set of numeric characters. */
-  readonly zcrm_account_id?: string
+  readonly zcrm_account_id?: string | undefined
   /** CRM Vendor ID for the contact. Note: This value is a set of numeric characters. */
-  readonly zcrm_vendor_id?: string
+  readonly zcrm_vendor_id?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Contacts. `GET /contacts` */
@@ -1589,7 +1589,7 @@ export interface UpdateContactUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAContactRequest
 }
 
@@ -1622,9 +1622,9 @@ export interface AssignContactOwnerInput {
   /** ID of the contact. */
   readonly contact_id: string
   /** ID of the user to assign as the contact owner. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Assign an Owner to a Contact. `POST /contacts/{contact_id}/owner` */
@@ -1641,9 +1641,9 @@ export interface AssignOwnerToContactsInput {
   /** Comma-separated IDs of the contacts to assign the owner to. Maximum of 200 contacts per request. */
   readonly contact_ids: string
   /** ID of the user to assign as the contact owner. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Assign an Owner to Multiple Contacts. `POST /contacts/owner` */
@@ -1658,9 +1658,9 @@ export const assignOwnerToContacts = /*#__PURE__*/ operation<AssignOwnerToContac
 
 export interface MarkContactsFor1099TrackingInput {
   /** Comma-separated IDs of the contacts to mark for 1099 tracking. Maximum of 200 contacts per request. */
-  readonly contact_ids?: string
+  readonly contact_ids?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark Multiple Contacts for 1099 Tracking. `POST /contacts/track1099` */
@@ -1679,11 +1679,11 @@ export interface VerifyContactBankAccountInput {
   /** ID of the contact bank account to verify. */
   readonly bank_account_id: string
   /** First micro-deposit amount credited to the bank account. */
-  readonly first_deposit_amount?: number
+  readonly first_deposit_amount?: number | undefined
   /** Second micro-deposit amount credited to the bank account. */
-  readonly second_deposit_amount?: number
+  readonly second_deposit_amount?: number | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Verify a Contact Bank Account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/verify` */
@@ -1700,13 +1700,13 @@ export interface VerifyContactAddressInput {
   /** First line of the address. Max-length [60]. */
   readonly line1: string
   /** City of the address. Max-length [50]. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State or region of the address. Max-length [50]. */
-  readonly region?: string
+  readonly region?: string | undefined
   /** Country of the address. Max-length [50]. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Postal code of the address. Max-length [30]. */
-  readonly postal_code?: string
+  readonly postal_code?: string | undefined
 }
 
 /** Verify a Contact Address. `GET /contacts/address/verify` */
@@ -1782,7 +1782,7 @@ export interface MarkContactActiveInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as Active. `POST /contacts/{contact_id}/active` */
@@ -1799,7 +1799,7 @@ export interface MarkContactInactiveInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as Inactive. `POST /contacts/{contact_id}/inactive` */
@@ -1832,7 +1832,7 @@ export interface EnableContactPaymentReminderInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Enable Payment Reminders. `POST /contacts/{contact_id}/paymentreminder/enable` */
@@ -1849,7 +1849,7 @@ export interface DisableContactPaymentReminderInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Disable Payment Reminders. `POST /contacts/{contact_id}/paymentreminder/disable` */
@@ -1866,9 +1866,9 @@ export interface GetContactStatementMailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** If start_date and end_date are not given, current month's statement will be sent to contact. Date format [yyyy-mm-dd] */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** End date for the statement. Date format [yyyy-mm-dd] */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
 }
 
 /** Get Statement Mail Content. `GET /contacts/{contact_id}/statements/email` */
@@ -1884,11 +1884,11 @@ export interface EmailContactStatementInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** If start_date and end_date are not given, current month's statement will be sent to contact. Date format [yyyy-mm-dd] */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** End date for the statement. Date format [yyyy-mm-dd] */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Files to be attached along with the statement. */
-  readonly multipart_or_formdata?: string
+  readonly multipart_or_formdata?: string | undefined
   readonly body: EmailStatementRequest
 }
 
@@ -1920,7 +1920,7 @@ export interface EmailContactInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Send customer statement pdf with email. */
-  readonly send_customer_statement?: boolean
+  readonly send_customer_statement?: boolean | undefined
   readonly body: EmailContactRequest
 }
 
@@ -1938,9 +1938,9 @@ export interface ListContactCommentsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Comments. `GET /contacts/{contact_id}/comments` */
@@ -2036,9 +2036,9 @@ export interface ListContactCreditNoteRefundsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List credit note refunds for a contact. `GET /contacts/{contact_id}/refunds` */
@@ -2054,7 +2054,7 @@ export interface TrackContact1099Input {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Track 1099. `POST /contacts/{contact_id}/track1099` */
@@ -2071,7 +2071,7 @@ export interface UntrackContact1099Input {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Untrack 1099. `POST /contacts/{contact_id}/untrack1099` */
@@ -2088,7 +2088,7 @@ export interface GetUnusedRetainerPaymentsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Currency ID to filter unused retainer payments by specific currency. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
 }
 
 /** Get Unused Retainer Payments. `GET /contacts/{contact_id}/receivables/unusedretainerpayments` */
@@ -2172,7 +2172,7 @@ export interface ApproveContactBankAccountInput {
   /** Unique identifier of the contact bank account. Note: This value is a set of numeric characters. */
   readonly bank_account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a contact bank account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/approve` */
@@ -2191,7 +2191,7 @@ export interface DeclineContactBankAccountInput {
   /** Unique identifier of the contact bank account. Note: This value is a set of numeric characters. */
   readonly bank_account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Decline a contact bank account. `POST /contacts/{contact_id}/bankaccount/{bank_account_id}/decline` */
@@ -2351,7 +2351,7 @@ export interface InviteContactPersonToPortalInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Invite a contact person to the portal. `POST /contacts/contactpersons/{contactperson_id}/portal/invite` */
@@ -2368,7 +2368,7 @@ export interface ResendContactPersonPortalInviteInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resend a portal invite. `POST /contacts/contactpersons/{contactperson_id}/portal/invite/resend` */
@@ -2385,7 +2385,7 @@ export interface EnableContactPersonSmsInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Enable SMS for a contact person. `POST /contacts/contactpersons/{contactperson_id}/sms/enable` */
@@ -2402,7 +2402,7 @@ export interface DisableContactPersonSmsInput {
   /** Unique identifier of the contact person. Note: This value is a set of numeric characters. */
   readonly contactperson_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Disable SMS for a contact person. `POST /contacts/contactpersons/{contactperson_id}/sms/disable` */
@@ -2453,7 +2453,7 @@ export interface UpdateContactDocumentInput {
   /** Unique identifier of the document. Note: This value is a set of numeric characters. */
   readonly document_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update a contact document. `PUT /contacts/{contact_id}/documents/{document_id}` */
@@ -2484,7 +2484,7 @@ export const deleteContactDocument = /*#__PURE__*/ operation<DeleteContactDocume
 
 export interface RestoreContactDocumentsInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Restore contact documents. `POST /contacts/documents/restore` */
@@ -2610,7 +2610,7 @@ export interface MarkContactAddressAsBillingInput {
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an address as billing. `POST /contacts/{contact_id}/address/{address_id}/markasbilling` */
@@ -2629,7 +2629,7 @@ export interface MarkContactAddressAsShippingInput {
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark an address as shipping. `POST /contacts/{contact_id}/address/{address_id}/markasshipping` */
@@ -2648,7 +2648,7 @@ export interface VerifyContactAddressByIdInput {
   /** Unique identifier of the address. Note: This value is a set of numeric characters. */
   readonly address_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Verify a contact address. `POST /contacts/{contact_id}/address/{address_id}/verify` */
@@ -2664,9 +2664,9 @@ export const verifyContactAddressById = /*#__PURE__*/ operation<VerifyContactAdd
 export interface AddContactAttachmentInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add an attachment to a contact. `POST /contacts/{contact_id}/attachment` */
@@ -2684,7 +2684,7 @@ export interface MergeContactInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Merge contacts. `POST /contacts/{contact_id}/merge` */
@@ -2701,7 +2701,7 @@ export interface VerifyContactEinvoiceInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Verify contact e-invoice details. `POST /contacts/{contact_id}/einvoice/verify` */
@@ -2718,7 +2718,7 @@ export interface DisableContactPortalInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Disable the contact portal. `POST /contacts/{contact_id}/portal/disable` */
@@ -2744,7 +2744,7 @@ export const getContactsSmsContent = /*#__PURE__*/ operation<GetContactsSmsConte
 
 export interface SendContactsSmsInput {
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send SMS to contacts. `POST /contacts/sms` */
@@ -2775,7 +2775,7 @@ export interface SendContactSmsInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send SMS to a contact. `POST /contacts/{contact_id}/sms` */
@@ -2904,7 +2904,7 @@ export interface UpdateContactTrnStatusInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update contact TRN status. `POST /contacts/{contact_id}/trnstatus` */
@@ -2935,7 +2935,7 @@ export interface SendContactClientReviewEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send a client review email. `POST /contacts/{contact_id}/clientreviews/email` */
@@ -2966,7 +2966,7 @@ export interface SendContactPaymentMethodEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send a payment method request email. `POST /contacts/{contact_id}/paymentmethod/email` */
@@ -2997,7 +2997,7 @@ export interface SendContactVendorStatementEmailInput {
   /** Unique identifier of the contact. Note: This value is a set of numeric characters. */
   readonly contact_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Send a vendor statement email. `POST /contacts/{contact_id}/vendorstatements/email` */

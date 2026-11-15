@@ -515,241 +515,241 @@ export type DeleteTaskDocumentResponse = typeof DeleteTaskDocumentResponse.Type
 
 export interface ReminderInput {
   /** Number of days, months or years before the task due date to send a reminder. */
-  readonly remind_before?: number
+  readonly remind_before?: number | undefined
   /** Specific date to send the reminder. */
-  readonly remind_at?: string
+  readonly remind_at?: string | undefined
   /** Formatted date to send the reminder. */
-  readonly remind_at_formatted?: string
+  readonly remind_at_formatted?: string | undefined
   /** Type of reminder which can be days, months or years. */
-  readonly remind_type?: string
+  readonly remind_type?: string | undefined
   /** Formatted type of reminder which can be days, months or years. */
-  readonly remind_type_formatted?: string
+  readonly remind_type_formatted?: string | undefined
   /** Type of alert for the reminder. */
-  readonly alert_type?: string
+  readonly alert_type?: string | undefined
   /** Formatted type of alert for the reminder. */
-  readonly alert_type_formatted?: string
+  readonly alert_type_formatted?: string | undefined
 }
 
 export interface AddATaskRequest {
   /** ID of the task. */
-  readonly task_id?: string
+  readonly task_id?: string | undefined
   /** Comma separated list of owner IDs of the task. */
-  readonly owner_ids?: string
+  readonly owner_ids?: string | undefined
   /** ID of the owner of the task. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** Type of the task. */
-  readonly task_type?: string
+  readonly task_type?: string | undefined
   /** Title of the task. */
-  readonly title?: string
+  readonly title?: string | undefined
   /** Due date of the task. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Type of the contact associated with the task. Allowed values are customer and vendor */
-  readonly contact_type?: string
+  readonly contact_type?: string | undefined
   /** ID of the contact associated with the task. */
-  readonly contact_id?: string
+  readonly contact_id?: string | undefined
   /** Indicates if the task can be sync to client */
-  readonly can_push?: boolean
+  readonly can_push?: boolean | undefined
   /** Type of the related entity associated with the task. */
-  readonly related_entity_type?: string
+  readonly related_entity_type?: string | undefined
   /** ID of the related entity associated with the task. */
-  readonly related_entity_id?: string
+  readonly related_entity_id?: string | undefined
   /** Type of the related sub entity associated with the task. */
-  readonly related_sub_entity_type?: string
+  readonly related_sub_entity_type?: string | undefined
   /** ID of the related sub entity associated with the task. */
-  readonly related_sub_entity_id?: string
+  readonly related_sub_entity_id?: string | undefined
   /** Status of the task. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Billing type of the task. */
-  readonly billing_type?: string
+  readonly billing_type?: string | undefined
   /** Indicates whether the task is billable. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Rate of the task. */
-  readonly task_rate?: number
+  readonly task_rate?: number | undefined
   /** Completion percentage of the task. */
-  readonly completion_percentage?: number
+  readonly completion_percentage?: number | undefined
   /** Priority of the task. Allowed values are normal, low, high, lowest and highest */
-  readonly priority?: string
+  readonly priority?: string | undefined
   /** Indicates whether to send email notification for the task. */
-  readonly send_email_notification?: boolean
+  readonly send_email_notification?: boolean | undefined
   /** Email ID to which the notification has to be sent. */
-  readonly mail_id?: string
+  readonly mail_id?: string | undefined
   /** Email account type to which the notification has to be sent. */
-  readonly email_account_type?: string
+  readonly email_account_type?: string | undefined
   /** Folder ID of the email account to which the notification has to be sent. */
-  readonly email_folder_id?: string
+  readonly email_folder_id?: string | undefined
   /** Email account ID to which the notification has to be sent. */
-  readonly email_account_id?: string
+  readonly email_account_id?: string | undefined
   /** List of attachments to be sent along with the email notification. */
   readonly mail_attachments?: ReadonlyArray<{
     /** ID of the attachment to be sent along with the email notification. */
-    readonly attachment_id?: string
+    readonly attachment_id?: string | undefined
     /** Name of the file attached to the email notification. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Details of the reminder set for the task. */
-  readonly reminder?: ReminderInput
+  readonly reminder?: ReminderInput | undefined
   /** Description of the task. */
-  readonly task_description?: string
+  readonly task_description?: string | undefined
   /** Custom fields associated with the task. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Index of the custom field. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Formatted value of the custom field. */
-    readonly value_formatted?: string
+    readonly value_formatted?: string | undefined
     /** Name of the custom field. */
-    readonly api_name?: string
-  }>
+    readonly api_name?: string | undefined
+  }> | undefined
   /** Number of days after which the task is due. */
-  readonly due_after?: number
+  readonly due_after?: number | undefined
   /** ID of the template used for the task. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Unique number assigned to the task. */
-  readonly task_number?: string
+  readonly task_number?: string | undefined
   /** Prefix of the task number. */
-  readonly task_number_prefix?: string
+  readonly task_number_prefix?: string | undefined
   /** Suffix of the task number. */
-  readonly task_number_suffix?: string
+  readonly task_number_suffix?: string | undefined
   /** ID of the recurring task. */
-  readonly recurring_task_id?: string
+  readonly recurring_task_id?: string | undefined
   /** Indicates whether the task is a sub task. */
-  readonly is_sub_task?: boolean
+  readonly is_sub_task?: boolean | undefined
   /** ID of the parent task. */
-  readonly parent_id?: string
+  readonly parent_id?: string | undefined
   /** List of dependencies for the task. */
   readonly dependencies?: ReadonlyArray<{
     /** ID of the dependency. */
-    readonly dependency_id?: string
+    readonly dependency_id?: string | undefined
     /** Type of the dependency. */
-    readonly dependency_type?: number
+    readonly dependency_type?: number | undefined
     /** ID of the entity on which the current task depends. */
-    readonly depends_on_id?: string
+    readonly depends_on_id?: string | undefined
     /** Type of the entity on which the current task depends. */
-    readonly depends_on_entity_type?: number
-  }>
+    readonly depends_on_entity_type?: number | undefined
+  }> | undefined
   /** List of tags to be associated with the task. */
   readonly entity_tags?: ReadonlyArray<{
     /** Name of the tag. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Color code of the tag. */
-    readonly color?: string
-  }>
+    readonly color?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateATaskRequest {
   /** ID of the task. */
-  readonly task_id?: string
+  readonly task_id?: string | undefined
   /** Comma separated list of owner IDs of the task. */
-  readonly owner_ids?: string
+  readonly owner_ids?: string | undefined
   /** ID of the owner of the task. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** Type of the task. */
-  readonly task_type?: string
+  readonly task_type?: string | undefined
   /** Title of the task. */
-  readonly title?: string
+  readonly title?: string | undefined
   /** Due date of the task. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** Type of the contact associated with the task. Allowed values are customer and vendor */
-  readonly contact_type?: string
+  readonly contact_type?: string | undefined
   /** ID of the contact associated with the task. */
-  readonly contact_id?: string
+  readonly contact_id?: string | undefined
   /** Indicates if the task can be sync to client */
-  readonly can_push?: boolean
+  readonly can_push?: boolean | undefined
   /** Type of the related entity associated with the task. */
-  readonly related_entity_type?: string
+  readonly related_entity_type?: string | undefined
   /** ID of the related entity associated with the task. */
-  readonly related_entity_id?: string
+  readonly related_entity_id?: string | undefined
   /** Type of the related sub entity associated with the task. */
-  readonly related_sub_entity_type?: string
+  readonly related_sub_entity_type?: string | undefined
   /** ID of the related sub entity associated with the task. */
-  readonly related_sub_entity_id?: string
+  readonly related_sub_entity_id?: string | undefined
   /** Status of the task. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Billing type of the task. */
-  readonly billing_type?: string
+  readonly billing_type?: string | undefined
   /** Indicates whether the task is billable. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Rate of the task. */
-  readonly task_rate?: number
+  readonly task_rate?: number | undefined
   /** Completion percentage of the task. */
-  readonly completion_percentage?: number
+  readonly completion_percentage?: number | undefined
   /** Priority of the task. Allowed values are normal, low, high, lowest and highest */
-  readonly priority?: string
+  readonly priority?: string | undefined
   /** Indicates whether to send email notification for the task. */
-  readonly send_email_notification?: boolean
+  readonly send_email_notification?: boolean | undefined
   /** Email ID to which the notification has to be sent. */
-  readonly mail_id?: string
+  readonly mail_id?: string | undefined
   /** Email account type to which the notification has to be sent. */
-  readonly email_account_type?: string
+  readonly email_account_type?: string | undefined
   /** Folder ID of the email account to which the notification has to be sent. */
-  readonly email_folder_id?: string
+  readonly email_folder_id?: string | undefined
   /** Email account ID to which the notification has to be sent. */
-  readonly email_account_id?: string
+  readonly email_account_id?: string | undefined
   /** List of attachments to be sent along with the email notification. */
   readonly mail_attachments?: ReadonlyArray<{
     /** ID of the attachment to be sent along with the email notification. */
-    readonly attachment_id?: string
+    readonly attachment_id?: string | undefined
     /** Name of the file attached to the email notification. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Details of the reminder set for the task. */
-  readonly reminder?: ReminderInput
+  readonly reminder?: ReminderInput | undefined
   /** Description of the task. */
-  readonly task_description?: string
+  readonly task_description?: string | undefined
   /** List of custom fields associated with the task */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Index of the custom field. */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Formatted value of the custom field. */
-    readonly value_formatted?: string
+    readonly value_formatted?: string | undefined
     /** Name of the custom field. */
-    readonly api_name?: string
-  }>
+    readonly api_name?: string | undefined
+  }> | undefined
   /** Number of days after which the task is due. */
-  readonly due_after?: number
+  readonly due_after?: number | undefined
   /** ID of the template used for the task. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Unique number assigned to the task. */
-  readonly task_number?: string
+  readonly task_number?: string | undefined
   /** Prefix of the task number. */
-  readonly task_number_prefix?: string
+  readonly task_number_prefix?: string | undefined
   /** Suffix of the task number. */
-  readonly task_number_suffix?: string
+  readonly task_number_suffix?: string | undefined
   /** ID of the recurring task. */
-  readonly recurring_task_id?: string
+  readonly recurring_task_id?: string | undefined
   /** Indicates whether the task is a sub task. */
-  readonly is_sub_task?: boolean
+  readonly is_sub_task?: boolean | undefined
   /** ID of the parent task. */
-  readonly parent_id?: string
+  readonly parent_id?: string | undefined
   /** List of dependencies for the task. */
   readonly dependencies?: ReadonlyArray<{
     /** ID of the dependency. */
-    readonly dependency_id?: string
+    readonly dependency_id?: string | undefined
     /** Type of the dependency. */
-    readonly dependency_type?: number
+    readonly dependency_type?: number | undefined
     /** ID of the entity on which the current task depends. */
-    readonly depends_on_id?: string
+    readonly depends_on_id?: string | undefined
     /** Type of the entity on which the current task depends. */
-    readonly depends_on_entity_type?: number
-  }>
+    readonly depends_on_entity_type?: number | undefined
+  }> | undefined
   /** List of tags to be associated with the task. */
   readonly entity_tags?: ReadonlyArray<{
     /** Name of the tag. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Color code of the tag. */
-    readonly color?: string
-  }>
+    readonly color?: string | undefined
+  }> | undefined
 }
 
 export interface UpdatePercentageTaskRequest {
@@ -764,55 +764,55 @@ export interface AddTaskCommentRequest {
 
 export interface ListTasksInput {
   /** Search tasks by entity ID. */
-  readonly entity_id?: string
+  readonly entity_id?: string | undefined
   /** Search tasks by sub entity ID. */
-  readonly sub_entity_id?: string
+  readonly sub_entity_id?: string | undefined
   /** Search tasks by owner ID. */
-  readonly owner_id?: string
+  readonly owner_id?: string | undefined
   /** Search tasks by contact ID. */
-  readonly contact_id?: string
+  readonly contact_id?: string | undefined
   /** Search tasks by client ID. */
-  readonly client_id?: string
+  readonly client_id?: string | undefined
   /** Search tasks by status. Allowed values are open, ongoing, yet_to_started, in_progress, completed, deferred, waiting_for_input and any custom status */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Search tasks by parent status. Allowed formats are parent_status, parent_status_equal and parent_status_not_equal. Allowed values are open, ongoing and completed */
-  readonly parent_status?: string
+  readonly parent_status?: string | undefined
   /** Search tasks based on a search text. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Search tasks by priority of the task. Allowed values are normal, low, high, lowest and highest. */
-  readonly priority?: string
+  readonly priority?: string | undefined
   /** Search tasks by entity type. */
-  readonly entity_type?: string
+  readonly entity_type?: string | undefined
   /** Search tasks by their title. */
-  readonly title?: string
+  readonly title?: string | undefined
   /** Search tasks their description. */
-  readonly task_description?: string
+  readonly task_description?: string | undefined
   /** Filter overdue tasks. */
-  readonly is_overdue?: string
+  readonly is_overdue?: string | undefined
   /** Search tasks by the person who created them. */
-  readonly created_by?: string
+  readonly created_by?: string | undefined
   /** Filter accountant tasks. */
-  readonly is_accountant_task?: string
+  readonly is_accountant_task?: string | undefined
   /** Search tasks by contact IDs separated by comma. */
-  readonly contact_ids?: string
+  readonly contact_ids?: string | undefined
   /** Search tasks by client IDs separated by comma. */
-  readonly client_ids?: string
+  readonly client_ids?: string | undefined
   /** Search tasks by owner IDs separated by comma. */
-  readonly owner_ids?: string
+  readonly owner_ids?: string | undefined
   /** Search tasks by start date. */
-  readonly date_start?: string
+  readonly date_start?: string | undefined
   /** Search tasks by end date. */
-  readonly date_end?: string
+  readonly date_end?: string | undefined
   /** Search tasks by task number. */
-  readonly task_number?: string
+  readonly task_number?: string | undefined
   /** Sort tasks. Allowed values are owner_name, contact_name, client_name, due_date, title, created_time, completion_percentage and task_number */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter tasks by status. Allowed values are TaskStatus.All, TaskStatus.Overdue, TaskStatus.InProgress, TaskStatus.Completed, TaskStatus.YetToStarted, TaskStatus.MyPending, TaskStatus.DueToday, TaskStatus.PriorityOverdue and TaskStatus.Unassigned */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List tasks. `GET /tasks` */
@@ -843,113 +843,113 @@ export interface UpdateTasksInput {
   readonly bulk_update: boolean
   readonly body: ReadonlyArray<{
     /** ID of the task. */
-    readonly task_id?: string
+    readonly task_id?: string | undefined
     /** Comma separated list of owner IDs of the task. */
-    readonly owner_ids?: string
+    readonly owner_ids?: string | undefined
     /** ID of the owner of the task. */
-    readonly owner_id?: string
+    readonly owner_id?: string | undefined
     /** Type of the task. */
-    readonly task_type?: string
+    readonly task_type?: string | undefined
     /** Title of the task. */
-    readonly title?: string
+    readonly title?: string | undefined
     /** Due date of the task. */
-    readonly due_date?: string
+    readonly due_date?: string | undefined
     /** Type of the contact associated with the task. Allowed values are customer and vendor */
-    readonly contact_type?: string
+    readonly contact_type?: string | undefined
     /** ID of the contact associated with the task. */
-    readonly contact_id?: string
+    readonly contact_id?: string | undefined
     /** Indicates if the task can be sync to client */
-    readonly can_push?: boolean
+    readonly can_push?: boolean | undefined
     /** Type of the related entity associated with the task. */
-    readonly related_entity_type?: string
+    readonly related_entity_type?: string | undefined
     /** ID of the related entity associated with the task. */
-    readonly related_entity_id?: string
+    readonly related_entity_id?: string | undefined
     /** Type of the related sub entity associated with the task. */
-    readonly related_sub_entity_type?: string
+    readonly related_sub_entity_type?: string | undefined
     /** ID of the related sub entity associated with the task. */
-    readonly related_sub_entity_id?: string
+    readonly related_sub_entity_id?: string | undefined
     /** Status of the task. */
-    readonly status?: string
+    readonly status?: string | undefined
     /** Billing type of the task. */
-    readonly billing_type?: string
+    readonly billing_type?: string | undefined
     /** Indicates whether the task is billable. */
-    readonly is_billable?: boolean
+    readonly is_billable?: boolean | undefined
     /** Rate of the task. */
-    readonly task_rate?: number
+    readonly task_rate?: number | undefined
     /** Completion percentage of the task. */
-    readonly completion_percentage?: number
+    readonly completion_percentage?: number | undefined
     /** Priority of the task. Allowed values are normal, low, high, lowest and highest */
-    readonly priority?: string
+    readonly priority?: string | undefined
     /** Indicates whether to send email notification for the task. */
-    readonly send_email_notification?: boolean
+    readonly send_email_notification?: boolean | undefined
     /** Email ID to which the notification has to be sent. */
-    readonly mail_id?: string
+    readonly mail_id?: string | undefined
     /** Email account type to which the notification has to be sent. */
-    readonly email_account_type?: string
+    readonly email_account_type?: string | undefined
     /** Folder ID of the email account to which the notification has to be sent. */
-    readonly email_folder_id?: string
+    readonly email_folder_id?: string | undefined
     /** Email account ID to which the notification has to be sent. */
-    readonly email_account_id?: string
+    readonly email_account_id?: string | undefined
     /** List of attachments to be sent along with the email notification. */
     readonly mail_attachments?: ReadonlyArray<{
       /** ID of the attachment to be sent along with the email notification. */
-      readonly attachment_id?: string
+      readonly attachment_id?: string | undefined
       /** Name of the file attached to the email notification. */
-      readonly file_name?: string
-    }>
+      readonly file_name?: string | undefined
+    }> | undefined
     /** Details of the reminder set for the task. */
-    readonly reminder?: ReminderInput
+    readonly reminder?: ReminderInput | undefined
     /** Description of the task. */
-    readonly task_description?: string
+    readonly task_description?: string | undefined
     /** List of custom fields associated with the task */
     readonly custom_fields?: ReadonlyArray<{
       /** ID of the custom field. */
-      readonly customfield_id?: string
+      readonly customfield_id?: string | undefined
       /** Index of the custom field. */
-      readonly index?: number
+      readonly index?: number | undefined
       /** Label of the custom field. */
-      readonly label?: string
+      readonly label?: string | undefined
       /** Value of the custom field. */
-      readonly value?: string
+      readonly value?: string | undefined
       /** Formatted value of the custom field. */
-      readonly value_formatted?: string
+      readonly value_formatted?: string | undefined
       /** Name of the custom field. */
-      readonly api_name?: string
-    }>
+      readonly api_name?: string | undefined
+    }> | undefined
     /** Number of days after which the task is due. */
-    readonly due_after?: number
+    readonly due_after?: number | undefined
     /** ID of the template used for the task. */
-    readonly template_id?: string
+    readonly template_id?: string | undefined
     /** Unique number assigned to the task. */
-    readonly task_number?: string
+    readonly task_number?: string | undefined
     /** Prefix of the task number. */
-    readonly task_number_prefix?: string
+    readonly task_number_prefix?: string | undefined
     /** Suffix of the task number. */
-    readonly task_number_suffix?: string
+    readonly task_number_suffix?: string | undefined
     /** ID of the recurring task. */
-    readonly recurring_task_id?: string
+    readonly recurring_task_id?: string | undefined
     /** Indicates whether the task is a sub task. */
-    readonly is_sub_task?: boolean
+    readonly is_sub_task?: boolean | undefined
     /** ID of the parent task. */
-    readonly parent_id?: string
+    readonly parent_id?: string | undefined
     /** List of dependencies for the task. */
     readonly dependencies?: ReadonlyArray<{
       /** ID of the dependency. */
-      readonly dependency_id?: string
+      readonly dependency_id?: string | undefined
       /** Type of the dependency. */
-      readonly dependency_type?: number
+      readonly dependency_type?: number | undefined
       /** ID of the entity on which the current task depends. */
-      readonly depends_on_id?: string
+      readonly depends_on_id?: string | undefined
       /** Type of the entity on which the current task depends. */
-      readonly depends_on_entity_type?: number
-    }>
+      readonly depends_on_entity_type?: number | undefined
+    }> | undefined
     /** List of tags to be associated with the task. */
     readonly entity_tags?: ReadonlyArray<{
       /** Name of the tag. */
-      readonly name?: string
+      readonly name?: string | undefined
       /** Color code of the tag. */
-      readonly color?: string
-    }>
+      readonly color?: string | undefined
+    }> | undefined
   }>
 }
 
@@ -1041,7 +1041,7 @@ export interface MarkTaskAsOpenInput {
   /** Unique identifier of the task. */
   readonly task_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark task as open. `POST /tasks/{task_id}/markasopen` */
@@ -1058,7 +1058,7 @@ export interface MarkTaskAsOngoingInput {
   /** Unique identifier of the task. */
   readonly task_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark task as ongoing. `POST /tasks/{task_id}/markasongoing` */
@@ -1075,7 +1075,7 @@ export interface MarkTaskAsCompletedInput {
   /** Unique identifier of the task. */
   readonly task_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark task as completed. `POST /tasks/{task_id}/markascompleted` */
@@ -1138,9 +1138,9 @@ export interface AddTaskAttachmentInput {
   /** Unique identifier of the task. */
   readonly task_id: string
   /** The file to be attached.Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc, docx, xml, csv, txt, tif and tiff */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to task. `POST /tasks/{task_id}/attachment` */
@@ -1160,11 +1160,11 @@ export interface GetTaskDocumentInput {
   /** Unique identifier of the document attached to the task. */
   readonly document_id: string
   /** Size of the image to be fetched. Allowed values are xlarge, large, small and tiny. */
-  readonly image_size?: string
+  readonly image_size?: string | undefined
   /** Indicate whether the document should be displayed inline. Allowed values are true and false. */
-  readonly inline?: boolean
+  readonly inline?: boolean | undefined
   /** Indicates whether the document should be printed. Allowed values are true and false. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
 }
 
 /** Get document of task. `GET /tasks/{task_id}/documents/{document_id}` */
@@ -1182,7 +1182,7 @@ export interface DeleteTaskDocumentInput {
   /** Unique identifier of the document attached to the task. */
   readonly document_id: string
   /** Indicates whether the document should be unassociated from the task. Allowed values are true and false. */
-  readonly un_associate?: boolean
+  readonly un_associate?: boolean | undefined
 }
 
 /** Delete document of task. `DELETE /tasks/{task_id}/documents/{document_id}` */

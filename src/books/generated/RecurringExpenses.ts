@@ -358,103 +358,103 @@ export interface CreateARecurringExpenseRequest {
   /** Start date of the recurring expense. Expenses will not be generated for dates prior to the current date. Format [yyyy-mm-dd]. */
   readonly start_date: string
   /** Date on which recurring expense has to expire. Can be left as empty to run forever. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Frequency at which the recurring expense is generated. */
   readonly recurrence_frequency: string
   /** Interval at which the recurring expense should repeat. */
   readonly repeat_every: string
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Enter reverse charge tax IDFor SouthAfrica edition:(Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly reverse_charge_tax_id?: string
+  readonly reverse_charge_tax_id?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Unique identifier of the line item. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the line item */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier of the expense account for the line item. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Search recurring expenses by description. Max-length [100] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Recurring Expense amount. */
-    readonly amount?: number
+    readonly amount?: number | undefined
     /** ID of the tax. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Order in which the line item appears in the recurring expense. */
-    readonly item_order?: string
+    readonly item_order?: string | undefined
     /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK edition:digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Enter reverse charge tax IDFor SouthAfrica edition:(Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Enter the code for tax exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Enter ID of the tax exemption */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag's Name */
-      readonly tag_name?: string
+      readonly tag_name?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
+      readonly tag_option_id?: string | undefined
       /** Tag Option's Name */
-      readonly tag_option_name?: string
+      readonly tag_option_name?: string | undefined
       /** Used to check if the tag is mandatory */
-      readonly is_tag_mandatory?: boolean
-    }>
-  }>
+      readonly is_tag_mandatory?: boolean | undefined
+    }> | undefined
+  }> | undefined
   /** Recurring Expense amount. */
   readonly amount: number
   /** VAT treatment for the expense. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the recurring expense.Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK edition:digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. */
-  readonly acquisition_vat_id?: string
+  readonly acquisition_vat_id?: string | undefined
   /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. */
-  readonly reverse_charge_vat_id?: string
+  readonly reverse_charge_vat_id?: string | undefined
   /** ID of the tax. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Indicates whether the tax amount is inclusive in the expense amount. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Indicates whether the expense is billable to a customer. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Search expenses by customer id. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Unique identifier of the project associated with the recurring expense. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Unique identifier of the currency used for the recurring expense. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange rate applied for the recurring expense currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Custom fields for a recurring-expense. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateARecurringExpenseRequest {
@@ -465,136 +465,136 @@ export interface UpdateARecurringExpenseRequest {
   /** Start date of the recurring expense. Expenses will not be generated for dates prior to the current date. Format [yyyy-mm-dd]. */
   readonly start_date: string
   /** Date on which recurring expense has to expire. Can be left as empty to run forever. Format [yyyy-mm-dd]. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Frequency at which the recurring expense is generated. */
   readonly recurrence_frequency: string
   /** Interval at which the recurring expense should repeat. */
   readonly repeat_every: string
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Enter reverse charge tax IDFor SouthAfrica edition:(Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly reverse_charge_tax_id?: string
+  readonly reverse_charge_tax_id?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Unique identifier of the line item. */
   readonly line_items?: ReadonlyArray<{
     /** ID of the line item */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier of the expense account for the line item. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Search recurring expenses by description. Max-length [100] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Recurring Expense amount. */
-    readonly amount?: number
+    readonly amount?: number | undefined
     /** ID of the tax. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Order in which the line item appears in the recurring expense. */
-    readonly item_order?: string
+    readonly item_order?: string | undefined
     /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK edition:digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Enter reverse charge tax IDFor SouthAfrica edition:(Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Enter the code for tax exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** Enter ID of the tax exemption */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag's Name */
-      readonly tag_name?: string
+      readonly tag_name?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
+      readonly tag_option_id?: string | undefined
       /** Tag Option's Name */
-      readonly tag_option_name?: string
+      readonly tag_option_name?: string | undefined
       /** Used to check if the tag is mandatory */
-      readonly is_tag_mandatory?: boolean
-    }>
-  }>
+      readonly is_tag_mandatory?: boolean | undefined
+    }> | undefined
+  }> | undefined
   /** Recurring Expense amount. */
   readonly amount: number
   /** VAT treatment for the expense. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** VAT treatment for the recurring expense.Choose whether the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** Type of the expense. This denotes whether the expense is to be treated as a goods or service or capital asset purchase. Allowed Values: For UK edition:digital_service, goods and service.For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-  readonly product_type?: string
+  readonly product_type?: string | undefined
   /** This is the ID of the tax applied in case this is an EU - goods expense and acquisition VAT needs to be reported. */
-  readonly acquisition_vat_id?: string
+  readonly acquisition_vat_id?: string | undefined
   /** This is the ID of the tax applied in case this is a non UK - service expense and reverse charge VAT needs to be reported. */
-  readonly reverse_charge_vat_id?: string
+  readonly reverse_charge_vat_id?: string | undefined
   /** ID of the tax. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Indicates whether the tax amount is inclusive in the expense amount. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Indicates whether the expense is billable to a customer. */
-  readonly is_billable?: boolean
+  readonly is_billable?: boolean | undefined
   /** Search expenses by customer id. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Unique identifier of the project associated with the recurring expense. */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
   /** Unique identifier of the currency used for the recurring expense. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Exchange rate applied for the recurring expense currency. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Custom fields for a recurring-expense. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the custom field. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface ListRecurringExpensesInput {
   /** Search recurring expenses by recurring expense name. Variants: recurrence_name_startswith and recurrence_name_contains. Max-length [100] */
-  readonly recurrence_name?: string
+  readonly recurrence_name?: string | undefined
   /** Search recurring expenses by date on when last expense was generated. Variants: last_created_date_start, last_created_date_end, last_created_date_before and last_created_date_after . Format [yyyy-mm-dd] */
-  readonly last_created_date?: string
+  readonly last_created_date?: string | undefined
   /** Search recurring expenses by date on which next expense will be generated. Variants: next_expense_date_start, next_expense_date_end, next_expense_date_before and next_expense_date_after . Format [yyyy-mm-dd] */
-  readonly next_expense_date?: string
+  readonly next_expense_date?: string | undefined
   /** Search expenses by expense status. Allowed Values active, stopped and expired */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Unique identifier of the expense account for the line item. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** Search expenses by expense account name. Variants account_name_startswith and account_name_contains . Max-length [100] */
-  readonly account_name?: string
+  readonly account_name?: string | undefined
   /** Search expenses by amount. Variants: amount_less_than, amount_less_equals, amount_greater_than and amount_greater_than */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Search expenses by customer name. Variants: customer_name_startswith and customer_name_contains . Max-length [100] */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search expenses by customer id. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Search expenses by paid through account id. */
-  readonly paid_through_account_id?: string
+  readonly paid_through_account_id?: string | undefined
   /** Filter expenses by expense status. Allowed Values Status.All, Status.Active, Status.Expired and Status.Stopped */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search expenses by account name or description or customer name or vendor name. Max-length [100] . */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort expenses.Allowed Values next_expense_date, account_name, total, last_created_date, recurrence_name, customer_name and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List recurring expenses. `GET /recurringexpenses` */
@@ -626,7 +626,7 @@ export interface UpdateRecurringExpenseUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateARecurringExpenseRequest
 }
 
@@ -689,7 +689,7 @@ export interface StopRecurringExpenseInput {
   /** Unique identifier of the recurring expense. */
   readonly recurring_expense_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Stop a recurring expense. `POST /recurringexpenses/{recurring_expense_id}/status/stop` */
@@ -706,7 +706,7 @@ export interface ResumeRecurringExpenseInput {
   /** Unique identifier of the recurring expense. */
   readonly recurring_expense_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resume a recurring Expense. `POST /recurringexpenses/{recurring_expense_id}/status/resume` */
@@ -723,11 +723,11 @@ export interface ListChildExpensesOfRecurringExpenseInput {
   /** Unique identifier of the recurring expense. */
   readonly recurring_expense_id: string
   /** Sort expenses.Allowed Values next_expense_date, account_name, total, last_created_date, recurrence_name, customer_name and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List child expenses created. `GET /recurringexpenses/{recurring_expense_id}/expenses` */

@@ -143,16 +143,16 @@ export type DeleteACategoryResponse = typeof DeleteACategoryResponse.Type
 
 export interface CategoryTaxPreferenceInput {
   /** Tax specification for the category tax preference. */
-  readonly tax_specification?: string
+  readonly tax_specification?: string | undefined
   /** Tax ID for the category tax preference. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
 }
 
 export interface CustomFieldInput {
   /** Index of the custom field. */
-  readonly index?: number
+  readonly index?: number | undefined
   /** Value of the custom field. */
-  readonly value?: string
+  readonly value?: string | undefined
 }
 
 export interface CreateACategoryRequest {
@@ -161,81 +161,81 @@ export interface CreateACategoryRequest {
   /** URL slug for the category. Max-length [100]. */
   readonly url: string
   /** Description of the category. Max-length [12000]. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Display order of the category among its siblings. */
-  readonly sibling_order?: number
+  readonly sibling_order?: number | undefined
   /** ID of the parent category. Use -1 for a root-level category. */
-  readonly parent_category_id?: string
+  readonly parent_category_id?: string | undefined
   /** Name of the parent category. */
-  readonly parent_category_name?: string
+  readonly parent_category_name?: string | undefined
   /** Whether the category is visible. */
-  readonly visibility?: boolean
+  readonly visibility?: boolean | undefined
   /** Whether the category is shown in the menu. */
-  readonly show_in_menu?: boolean
+  readonly show_in_menu?: boolean | undefined
   /** Tax preferences associated with the category. */
-  readonly category_tax_preferences?: ReadonlyArray<CategoryTaxPreferenceInput>
+  readonly category_tax_preferences?: ReadonlyArray<CategoryTaxPreferenceInput> | undefined
   /** Custom fields for the category. */
-  readonly custom_fields?: ReadonlyArray<CustomFieldInput>
+  readonly custom_fields?: ReadonlyArray<CustomFieldInput> | undefined
 }
 
 export interface UpdateACategoryRequest {
   /** Name of the category. Max-length [100]. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** URL slug for the category. Max-length [100]. */
-  readonly url?: string
+  readonly url?: string | undefined
   /** Description of the category. Max-length [12000]. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Display order of the category among its siblings. */
-  readonly sibling_order?: number
+  readonly sibling_order?: number | undefined
   /** ID of the parent category. Use -1 for a root-level category. */
-  readonly parent_category_id?: string
+  readonly parent_category_id?: string | undefined
   /** Name of the parent category. */
-  readonly parent_category_name?: string
+  readonly parent_category_name?: string | undefined
   /** Whether the category is visible. */
-  readonly visibility?: boolean
+  readonly visibility?: boolean | undefined
   /** Whether the category is shown in the menu. */
-  readonly show_in_menu?: boolean
+  readonly show_in_menu?: boolean | undefined
   /** Tax preferences associated with the category. */
-  readonly category_tax_preferences?: ReadonlyArray<CategoryTaxPreferenceInput>
+  readonly category_tax_preferences?: ReadonlyArray<CategoryTaxPreferenceInput> | undefined
   /** Custom fields for the category. */
-  readonly custom_fields?: ReadonlyArray<CustomFieldInput>
+  readonly custom_fields?: ReadonlyArray<CustomFieldInput> | undefined
 }
 
 export interface ListCategoriesInput {
   /** Filter categories by parent category ID. Use -1 for root-level categories. */
-  readonly parent_category_id?: string
+  readonly parent_category_id?: string | undefined
   /** If true, the parent category is included in the results when filtering by parent_category_id. Default value is true. */
-  readonly include_parent_category?: boolean
+  readonly include_parent_category?: boolean | undefined
   /** If true, the root category is included in hierarchical list results. Default value is true. */
-  readonly include_root_category?: boolean
+  readonly include_root_category?: boolean | undefined
   /** Return categories modified on or after this timestamp (UTC). Format: yyyy-MM-ddTHH:mm:ssZ. */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search categories by text. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Comma-separated list of category IDs. Maximum 50 IDs. */
-  readonly category_ids?: string
+  readonly category_ids?: string | undefined
   /** Filter by category name. Variants: name_startswith, name_contains, name_in, and name_not_in. */
-  readonly name?: string
+  readonly name?: string | undefined
   /** Filter categories whose name starts with the specified text. */
-  readonly name_startswith?: string
+  readonly name_startswith?: string | undefined
   /** Filter categories whose name contains the specified text. */
-  readonly name_contains?: string
+  readonly name_contains?: string | undefined
   /** Filter categories whose name is in the specified comma-separated list. */
-  readonly name_in?: string
+  readonly name_in?: string | undefined
   /** Filter categories whose name is not in the specified comma-separated list. */
-  readonly name_not_in?: string
+  readonly name_not_in?: string | undefined
   /** Filter by creation time. Variants: created_time_less_than, created_time_less_equals, created_time_greater_than, and created_time_greater_equals. Format: yyyy-MM-ddTHH:mm:ssZ. */
-  readonly created_time?: string
+  readonly created_time?: string | undefined
   /** Filter categories. Allowed Values: All, ShowInMenu, and ActiveItems. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. Default value is 5000. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
   /** Column to sort by. Default value is sibling_order. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort order. Allowed Values: A and D. Default value is A. */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
 }
 
 /** List categories. `GET /categories` */
@@ -279,7 +279,7 @@ export interface UpdateCategoryInput {
   /** Unique identifier of the category. */
   readonly category_id: string
   /** If true, updates POS preferences of all items associated with this category. */
-  readonly update_all_items?: boolean
+  readonly update_all_items?: boolean | undefined
   readonly body: UpdateACategoryRequest
 }
 
@@ -297,7 +297,7 @@ export interface DeleteCategoryInput {
   /** Unique identifier of the category. */
   readonly category_id: string
   /** If true, deletes subcategories of the category. Allowed Values: true and false. */
-  readonly delete_sub_categories?: string
+  readonly delete_sub_categories?: string | undefined
 }
 
 /** Delete a category. `DELETE /categories/{category_id}` */

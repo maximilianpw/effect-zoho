@@ -249,51 +249,51 @@ export interface CreateAFixedAssetRequest {
   /** Enter the account id to track the fixed asset. */
   readonly asset_account_id: string
   /** Enter the account id to track the expenses associated with the asset's depreciation.The available account types are Expense and Other Expense */
-  readonly expense_account_id?: string
+  readonly expense_account_id?: string | undefined
   /** Enter the account id to track the asset's depreciation over time. */
-  readonly depreciation_account_id?: string
+  readonly depreciation_account_id?: string | undefined
   /** Enter the depreciation method for your asset.The available methods are: declining_method and straight_line. For US and GLobal Edition: declining_method, straight_line, 200_declining_method and 150_declining_method */
-  readonly depreciation_method?: string
+  readonly depreciation_method?: string | undefined
   /** Enter the frequency of depreciation. The available frequencies are: yearly and monthly */
-  readonly depreciation_frequency?: string
+  readonly depreciation_frequency?: string | undefined
   /** Enter the depreciation percentage only if the entered depreciation method is a declining method. The entered percentage should be within the range of 0 to 100 */
-  readonly depreciation_percentage?: number
+  readonly depreciation_percentage?: number | undefined
   /** Enter the total life of the asset (in months) */
-  readonly total_life?: number
+  readonly total_life?: number | undefined
   /** Enter the remaining amount of the asset after its useful life or the value after it's fully depreciated */
-  readonly salvage_value?: string
+  readonly salvage_value?: string | undefined
   /** Enter the depreciation start date of the asset */
-  readonly depreciation_start_date?: string
+  readonly depreciation_start_date?: string | undefined
   /** Description of the asset */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Enter the purchase cost of the asset */
   readonly asset_cost: number
   /** Enter the computation types of assets. The available types are: prorata_basis and no_prorata */
-  readonly computation_type?: string
+  readonly computation_type?: string | undefined
   /** Enter the warranty expiration date of the asset */
-  readonly warranty_expiry_date?: string
+  readonly warranty_expiry_date?: string | undefined
   /** Enter the Purchase date of the asset */
   readonly asset_purchase_date: string
   /** serial number of the asset */
-  readonly serial_no?: string
+  readonly serial_no?: string | undefined
   /** Enter the value from which depreciation will be calculated. */
-  readonly dep_start_value?: number
+  readonly dep_start_value?: number | undefined
   /** Provide notes for the asset, if required */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Custom fields for the fixed asset. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAFixedAssetRequest {
@@ -304,51 +304,51 @@ export interface UpdateAFixedAssetRequest {
   /** Enter the account id to track the fixed asset. */
   readonly asset_account_id: string
   /** Enter the account id to track the expenses associated with the asset's depreciation.The available account types are Expense and Other Expense */
-  readonly expense_account_id?: string
+  readonly expense_account_id?: string | undefined
   /** Enter the account id to track the asset's depreciation over time. */
-  readonly depreciation_account_id?: string
+  readonly depreciation_account_id?: string | undefined
   /** Enter the depreciation method for your asset.The available methods are: declining_method and straight_line. For US and GLobal Edition: declining_method, straight_line, 200_declining_method and 150_declining_method */
-  readonly depreciation_method?: string
+  readonly depreciation_method?: string | undefined
   /** Enter the frequency of depreciation. The available frequencies are: yearly and monthly */
-  readonly depreciation_frequency?: string
+  readonly depreciation_frequency?: string | undefined
   /** Enter the depreciation percentage only if the entered depreciation method is a declining method. The entered percentage should be within the range of 0 to 100 */
-  readonly depreciation_percentage?: number
+  readonly depreciation_percentage?: number | undefined
   /** Enter the total life of the asset (in months) */
-  readonly total_life?: number
+  readonly total_life?: number | undefined
   /** Enter the remaining amount of the asset after its useful life or the value after it's fully depreciated */
-  readonly salvage_value?: string
+  readonly salvage_value?: string | undefined
   /** Enter the depreciation start date of the asset */
-  readonly depreciation_start_date?: string
+  readonly depreciation_start_date?: string | undefined
   /** Description of the asset */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Enter the purchase cost of the asset */
   readonly asset_cost: number
   /** Enter the computation types of assets. The available types are: prorata_basis and no_prorata */
-  readonly computation_type?: string
+  readonly computation_type?: string | undefined
   /** Enter the warranty expiration date of the asset */
-  readonly warranty_expiry_date?: string
+  readonly warranty_expiry_date?: string | undefined
   /** Enter the Purchase date of the asset */
   readonly asset_purchase_date: string
   /** serial number of the asset */
-  readonly serial_no?: string
+  readonly serial_no?: string | undefined
   /** Enter the value from which depreciation will be calculated. */
-  readonly dep_start_value?: number
+  readonly dep_start_value?: number | undefined
   /** Provide notes for the asset, if required */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Custom fields for the fixed asset. */
   readonly custom_fields?: ReadonlyArray<{
     /** ID of the Custom Field */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface WriteOffFixedAssetRequest {
@@ -373,7 +373,7 @@ export interface SellFixedAssetRequest {
 
 export interface AddCommentRequest {
   /** It displays the description of the comment added for the fixed asset */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface CreateAFixedAssetTypeRequest {
@@ -416,15 +416,15 @@ export interface UpdateAFixedAssetTypeRequest {
 
 export interface ListFixedAssetsInput {
   /** Filter fixed asset by fixed asset status. Allowed Values: Status.All, Status.Active, Status.Cancel, Status.FullyDepreciated, Status.WriteOff, Status.Sold and Status.Draft */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort fixed asset list. Allowed Values: asset_name, asset_number, asset_cost, created_time and current_asset_value */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Sort fixed asset list in ascendeing or descending order. Allowed Values: A and D */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get fixed asset list. `GET /fixedassets` */
@@ -498,9 +498,9 @@ export interface GetFixedAssetHistoryInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get fixed asset history. `GET /fixedassets/{fixed_asset_id}/history` */
@@ -530,7 +530,7 @@ export interface MarkFixedAssetActiveInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark fixed asset as active. `POST /fixedassets/{fixed_asset_id}/status/active` */
@@ -547,7 +547,7 @@ export interface MarkFixedAssetCancelInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel fixed asset. `POST /fixedassets/{fixed_asset_id}/status/cancel` */
@@ -564,7 +564,7 @@ export interface MarkFixedAssetDraftInput {
   /** Unique identifier of the fixed asset. */
   readonly fixed_asset_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark fixed asset as draft. `POST /fixedassets/{fixed_asset_id}/status/draft` */
@@ -643,9 +643,9 @@ export const deleteFixedAssetComment = /*#__PURE__*/ operation<DeleteFixedAssetC
 
 export interface GetFixedAssetTypeListInput {
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** Get fixed asset type list. `GET /fixedassettypes` */

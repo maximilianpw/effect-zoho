@@ -431,394 +431,394 @@ export type AssociateRecurringInvoiceCardResponse = typeof AssociateRecurringInv
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface BillingAddressInput {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** Additional street address information. */
-  readonly street2?: string
+  readonly street2?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface ShippingAddressInput {
   /** Billing address for the invoice */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City of the customer's billing address. */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State of the customer's billing address. */
-  readonly state?: string
+  readonly state?: string | undefined
   /** Zip code of the customer's billing address. */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country of the customer's billing address. */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Customer's fax number. */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface PaymentOptionsInput {
   /** List of payment gateways associated with the recurring invoice. */
   readonly payment_gateways?: ReadonlyArray<{
     /** Boolean check to see if a payment gateway ahs been configured */
-    readonly configured?: boolean
+    readonly configured?: boolean | undefined
     /** Paypal payment method. Allowed Values: standard and adaptive */
-    readonly additional_field1?: string
+    readonly additional_field1?: string | undefined
     /** Name of the payment gateway associated with the invoice. E.g. paypal, stripe.Allowed Values: paypal, authorize_net, payflow_pro, stripe, 2checkout and braintree */
-    readonly gateway_name?: string
-  }>
+    readonly gateway_name?: string | undefined
+  }> | undefined
 }
 
 export interface CreateARecurringInvoiceRequest {
   /** Unique name for the recurring profile given by the user. Max-length [100] */
   readonly recurrence_name: string
   /** The Order number of the Recurring Invoice. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Customer ID of the customer for whom the recurring invoice is raised. */
   readonly customer_id: string
   /** The currenct id of the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Choose whether the vat treatment for the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Choose CFDI Usage.Allowed values: acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** Choose false for PPU-Single Payments and true for PPD-Installment Payments */
-  readonly allow_partial_payments?: boolean
+  readonly allow_partial_payments?: boolean | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** The date on which the recurring invoice starts. */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** The date on which the recurring invoice expires. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** The frequency of time interval at which the invoice is to be generated. Allowed values: days, weeks, months and years. */
   readonly recurrence_frequency: "days" | "weeks" | "months" | "years"
   /** The period between every recurrency frequency. */
-  readonly repeat_every?: number
+  readonly repeat_every?: number | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Line items of an invoice. */
   readonly line_items?: ReadonlyArray<{
     /** The line item id */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Quantity of the item included. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** The name of the line item. max-length [100] */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Total rate raised by this item. This would be the multiplicative product of item price and quantity. */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Enter goods or services .For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Add SAT Unit Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** ID of the tax or tax group associated to the recurring invoice. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax or TDS tax group associated to the recurring invoice. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** ID of the project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** ID of the tax or tax group associated to the recurring invoice. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Custom fields associated with the recurring invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Data type of the custom field. */
-    readonly data_type?: string
-  }>
+    readonly data_type?: string | undefined
+  }> | undefined
   /** Email address of the customer. */
-  readonly email?: string
-  readonly billing_address?: BillingAddressInput
+  readonly email?: string | undefined
+  readonly billing_address?: BillingAddressInput | undefined
   /** Address of the party the goods are shipped to. Use this field to provide a one-time shipping address that is not saved under the customer. When using this field, do not provide shipping_address_id in the same request. */
-  readonly shipping_address?: ShippingAddressInput
+  readonly shipping_address?: ShippingAddressInput | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
   /** Unique ID of the recurring invoice template. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Payment terms in days. E.g: 15,30,60. Invoice due date will be calculated based on this. */
-  readonly payment_terms?: number
+  readonly payment_terms?: number | undefined
   /** Used to overridethe default payment terms label. Default value for 15 days is "Next 15 days". */
-  readonly payment_terms_label?: string
+  readonly payment_terms_label?: string | undefined
   /** Unique ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. */
-  readonly tax_authority_id?: string
+  readonly tax_authority_id?: string | undefined
   /** Unique ID of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Exchange rate for the currency associated with the customer. */
-  readonly exchange_rate?: string
-  readonly payment_options?: PaymentOptionsInput
+  readonly exchange_rate?: string | undefined
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** Discount applied to the recurring invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Used to specify how the discount has to applied. Either before or after the calculation of tax. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** How the discount is specified. Allowed values: entity_level and item_level. */
-  readonly discount_type?: string
+  readonly discount_type?: string | undefined
   /** Used to specify whether the line item rates are inclusive or exclusive of tax. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Unique string generated for the item for which invoice is to be sent. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** The name of the line item. max-length [100] */
-  readonly name?: string
+  readonly name?: string | undefined
   /** A small description about the item. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Rate of the line item. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Quantity of the item included. */
-  readonly quantity?: number
+  readonly quantity?: number | undefined
   /** Unit of the line item. E.g: kgs, Nos. */
-  readonly unit?: string
+  readonly unit?: string | undefined
   /** A tax code is a unique label used to group items together. */
-  readonly avatax_tax_code?: string
+  readonly avatax_tax_code?: string | undefined
   /** Name of the sales person */
-  readonly salesperson_name?: string
+  readonly salesperson_name?: string | undefined
   /** Shipping charges applied to the invoice. */
-  readonly shipping_charge?: number
+  readonly shipping_charge?: number | undefined
   /** Adjustments made to the invoice. */
-  readonly adjustment?: number
+  readonly adjustment?: number | undefined
   /** Customize the adjustment description. E.g: Rounding off. */
-  readonly adjustment_description?: string
+  readonly adjustment_description?: string | undefined
 }
 
 export interface UpdateRecurringInvoiceRequest {
   /** Unique name for the recurring profile given by the user. Max-length [100] */
   readonly recurrence_name: string
   /** The Order number of the Recurring Invoice. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Customer ID of the customer for whom the recurring invoice is raised. */
   readonly customer_id: string
   /** The currenct id of the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** The date on which the recurring invoice starts. */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** The date on which the recurring invoice expires. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** The frequency of time interval at which the invoice is to be generated. Allowed values: days, weeks, months and years. */
   readonly recurrence_frequency: "days" | "weeks" | "months" | "years"
   /** The period between every recurrency frequency. */
-  readonly repeat_every?: number
+  readonly repeat_every?: number | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UMSupported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** (Optional) VAT treatment for the invoices. VAT treatment denotes the location of the customer, if the customer resides in UK then the VAT treatment is uk. If the customer is in an EU country & VAT registered, you are resides in Northen Ireland and selling Goods then his VAT treatment is eu_vat_registered, if he resides outside of the UK then his VAT treatment is overseas (For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** Choose whether the vat treatment for the contact falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX. For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** (Required if customer tax treatment is vat_registered)Used to specify whether the transaction is applicable for Domestic Reverse Charge (DRC) or not. */
-  readonly is_reverse_charge_applied?: boolean
+  readonly is_reverse_charge_applied?: boolean | undefined
   /** Choose CFDI Usage.Allowed values: acquisition_of_merchandise, return_discount_bonus, general_expense, buildings, furniture_office_equipment, transport_equipment, computer_equipmentdye_molds_tools, telephone_communication, satellite_communication, other_machinery_equipment, hospital_expense, medical_expense_disability, funeral_expense, donation, interest_mortage_loans, contribution_sar, medical_expense_insurance_pormium, school_transportation_expense, deposit_saving_account, payment_educational_service, no_tax_effect, payment, payroll. */
-  readonly cfdi_usage?: string
+  readonly cfdi_usage?: string | undefined
   /** Choose false for PPU-Single Payments and true for PPD-Installment Payments */
-  readonly allow_partial_payments?: boolean
+  readonly allow_partial_payments?: boolean | undefined
   /** 15 digit GST identification number of the customer. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** GSTIN of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [15]. */
-  readonly shipping_gst_no?: string
+  readonly shipping_gst_no?: string | undefined
   /** Trade name of the shipping party, when it differs from the billed customer. Used for e-Way Bill and e-Invoice compliance. Max-length [100]. */
-  readonly shipping_trader_name?: string
+  readonly shipping_trader_name?: string | undefined
   /** Legal name of the shipping party, when it differs from the billed customer. Used for e-Invoice compliance. Max-length [100]. */
-  readonly shipping_legal_name?: string
+  readonly shipping_legal_name?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Line items of an invoice. */
   readonly line_items?: ReadonlyArray<{
     /** Unique string generated for the item for which invoice is to be sent. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** The name of the line item. max-length [100] */
-    readonly name?: string
+    readonly name?: string | undefined
     /** A small description about the item. Max-length [2000] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Quantity of the item included. */
-    readonly quantity?: number
+    readonly quantity?: number | undefined
     /** Discount applied to the recurring invoice, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-    readonly discount?: string
+    readonly discount?: string | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** ID of the tax or tax group associated to the recurring invoice. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** ID of the TDS tax or TDS tax group associated to the recurring invoice. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Unique ID of the tax exemption. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others.Supported values for Saudi Arabia are ksa_pvt_health, ksa_pvt_edu, ksa_reimbursed_expense and ksa_house_sales. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** A tax code is a unique label used to group items together. */
-    readonly avatax_tax_code?: string
+    readonly avatax_tax_code?: string | undefined
     /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-    readonly avatax_use_code?: string
+    readonly avatax_use_code?: string | undefined
     /** Total rate raised by this item. This would be the multiplicative product of item price and quantity. */
-    readonly item_total?: number
+    readonly item_total?: number | undefined
     /** Enter goods or services .For SouthAfrica Edition: service, goods, capital_service and capital_goods */
-    readonly product_type?: string
+    readonly product_type?: string | undefined
     /** Add HSN/SAC code for your goods/services */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Add SAT Item Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly sat_item_key_code?: string
+    readonly sat_item_key_code?: string | undefined
     /** Add SAT Unit Key Code for your goods/services. Download the CFDI Catalogs. */
-    readonly unitkey_code?: string
+    readonly unitkey_code?: string | undefined
     /** Location ID */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** ID of the project */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
-  }>
+    readonly line_item_category?: string | undefined
+  }> | undefined
   /** Email address of the customer. */
-  readonly email?: string
+  readonly email?: string | undefined
   /** Custom fields associated with the recurring invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Data type of the custom field. */
-    readonly data_type?: string
-  }>
+    readonly data_type?: string | undefined
+  }> | undefined
   /** ID of the tax or tax group associated to the recurring invoice. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** Unique ID of the tax authority. Tax authority depends on the location of the customer. For example, if the customer is located in NY, then the tax authority is NY tax authority. */
-  readonly tax_authority_id?: string
-  readonly payment_options?: PaymentOptionsInput
+  readonly tax_authority_id?: string | undefined
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** Unique ID of the tax exemption. */
-  readonly tax_exemption_id?: string
+  readonly tax_exemption_id?: string | undefined
   /** Used to group like customers for exemption purposes. It is a custom value that links customers to a tax rule. Select from Avalara [standard codes][1] or enter a custom code. Max-length [25] */
-  readonly avatax_use_code?: string
+  readonly avatax_use_code?: string | undefined
   /** Exemption certificate number of the customer. Max-length [25] */
-  readonly avatax_exempt_no?: string
+  readonly avatax_exempt_no?: string | undefined
 }
 
 export interface StopARecurringInvoiceRequest {
   /** Unique ID of the recurring invoice generated by the server. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
 }
 
 export interface ResumeARecurringInvoiceRequest {
   /** Unique ID of the recurring invoice generated by the server. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
 }
 
 export interface UpdateRecurringInvoiceTemplateRequest {
   /** Unique ID of the recurring invoice generated by the server. */
-  readonly recurring_invoice_id?: string
+  readonly recurring_invoice_id?: string | undefined
   /** Unique ID of the recurring invoice template. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
 }
 
 export interface ListRecurringInvoicesInput {
   /** Unique name for the recurring profile given by the user. Max-length [100] */
-  readonly recurrence_name?: string
+  readonly recurrence_name?: string | undefined
   /** Search recurring invoices by item name. Variants: item_name_startswith and profileitemname_contains. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search recurring invoices by item description. Variants: item_description_startswith and item_description_contains. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Name of the customer to whom the recurring invoice is raised. */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** The line item id */
-  readonly line_item_id?: string
+  readonly line_item_id?: string | undefined
   /** Unique string generated for the item for which invoice is to be sent. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** ID of the tax or tax group associated to the recurring invoice. */
-  readonly tax_id?: string
+  readonly tax_id?: string | undefined
   /** A short note for the recurring invoice. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** The date on which the recurring invoice starts. */
-  readonly start_date?: string
+  readonly start_date?: string | undefined
   /** The date on which the recurring invoice expires. */
-  readonly end_date?: string
+  readonly end_date?: string | undefined
   /** Customer ID of the customer for whom the recurring invoice is raised. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Status of the recurring invoice. This can be active, stopped or expired. */
-  readonly status?: string
+  readonly status?: string | undefined
   /** Filter Recurring invoices by any status or payment expected date.Allowed Values: Status.All, Status.Active, Status.Stopped, Status.Expired */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search invoices by invoice number or purchase order or customer name. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Column used to sort the recurring invoices list. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List all Recurring Invoice. `GET /recurringinvoices` */
@@ -850,7 +850,7 @@ export interface UpdateRecurringInvoiceUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateRecurringInvoiceRequest
 }
 
@@ -977,7 +977,7 @@ export interface ResumeRecurringInvoicesInput {
   /** Comma-separated IDs of the recurring invoices to resume. Note: This value is a set of numeric characters separated by comma. */
   readonly recurring_invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Resume recurring invoices. `POST /recurringinvoices/status/resume` */
@@ -994,7 +994,7 @@ export interface StopRecurringInvoicesInput {
   /** Comma-separated IDs of the recurring invoices to stop. Note: This value is a set of numeric characters separated by comma. */
   readonly recurring_invoice_ids: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Stop recurring invoices. `POST /recurringinvoices/status/stop` */
@@ -1022,11 +1022,11 @@ export interface ListRecurringInvoiceChildInvoicesInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
   /** Filter the child invoices by status. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search the child invoices by text. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort the child invoices by the specified column. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
 }
 
 /** List invoices created from a recurring invoice. `GET /recurringinvoices/{recurring_invoice_id}/invoices` */
@@ -1042,7 +1042,7 @@ export interface EnableRecurringInvoiceAutobillInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Enable auto-bill for a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/autobill/enable` */
@@ -1059,7 +1059,7 @@ export interface DisableRecurringInvoiceAutobillInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Disable auto-bill for a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/autobill/disable` */
@@ -1076,7 +1076,7 @@ export interface DeleteRecurringInvoiceBankAccountInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
   /** Whether to also remove the bank account from the associated customer. */
-  readonly can_delete_in_customer?: boolean
+  readonly can_delete_in_customer?: boolean | undefined
 }
 
 /** Delete the bank account of a recurring invoice. `DELETE /recurringinvoices/{recurring_invoice_id}/bankaccount` */
@@ -1092,7 +1092,7 @@ export interface DeleteRecurringInvoiceCardInput {
   /** Unique identifier of the recurring invoice. Note: This value is a set of numeric characters. */
   readonly recurring_invoice_id: string
   /** Whether to also remove the card from the associated customer. */
-  readonly can_delete_in_customer?: boolean
+  readonly can_delete_in_customer?: boolean | undefined
 }
 
 /** Delete the card of a recurring invoice. `DELETE /recurringinvoices/{recurring_invoice_id}/card` */
@@ -1110,7 +1110,7 @@ export interface AssociateRecurringInvoiceBankAccountInput {
   /** Unique identifier of the bank account. Note: This value is a set of numeric characters. */
   readonly account_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Associate a bank account with a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/bankaccount/{account_id}` */
@@ -1129,7 +1129,7 @@ export interface AssociateRecurringInvoiceCardInput {
   /** Unique identifier of the card. Note: This value is a set of numeric characters. */
   readonly card_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Associate a card with a recurring invoice. `POST /recurringinvoices/{recurring_invoice_id}/card/{card_id}` */

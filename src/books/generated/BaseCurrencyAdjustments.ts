@@ -109,15 +109,15 @@ export interface CreateABaseCurrencyAdjustmentRequest {
 
 export interface ListBaseCurrencyAdjustmentsInput {
   /** Filter base currency adjustment list. Allowed Values: Date.All, Date.Today, Date.ThisWeek, Date.ThisMonth, Date.ThisQuarter and Date.ThisYear. */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort base currency adjustment list. Allowed Values: adjustment_date, exchange_rate, currency_code, debit_or_credit and gain_or_loss. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Search using the Last Modified Time of the Base Currency Adjustment */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List base currency adjustment. `GET /basecurrencyadjustment` */
@@ -191,7 +191,7 @@ export interface ReevaluateBaseCurrencyAdjustmentInput {
   /** Unique identifier of the base currency adjustment. */
   readonly base_currency_adjustment_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reevaluate a base currency adjustment. `POST /basecurrencyadjustment/{base_currency_adjustment_id}/reevaluate` */

@@ -526,21 +526,21 @@ export interface CreateAProjectRequest {
   /** ID of the customer. */
   readonly customer_id: string
   /** The currency id of the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Project description. Max-length [500] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The way you bill your customer. Allowed Values: fixed_cost_for_project, based_on_project_hours, based_on_staff_hours and based_on_task_hours */
   readonly billing_type: string
   /** Hourly rate for a task. */
-  readonly rate?: string
+  readonly rate?: string | undefined
   /** The way you budget. Allowed Values: total_project_cost, total_project_hours, hours_per_task and hours_per_staff */
-  readonly budget_type?: string
+  readonly budget_type?: string | undefined
   /** Task budget hours */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
   /** Give value, if you are estimating total project revenue budget. */
-  readonly budget_amount?: string
+  readonly budget_amount?: string | undefined
   /** Budgeted Cost to complete this project */
-  readonly cost_budget_amount?: number
+  readonly cost_budget_amount?: number | undefined
   /** ID of the user to be added to the project. */
   readonly user_id: string
   /** List of tasks associated with the project */
@@ -548,39 +548,39 @@ export interface CreateAProjectRequest {
     /** Name of the task. Max-length [100] */
     readonly task_name: string
     /** Task description. Max-length [500] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Hourly rate of a task. */
-    readonly rate?: string
+    readonly rate?: string | undefined
     /** Task budgeting. */
-    readonly budget_hours?: string
-  }>
+    readonly budget_hours?: string | undefined
+  }> | undefined
   /** List of users associated with the project */
   readonly users?: ReadonlyArray<{
     /** ID of the user to be added to the project. */
-    readonly user_id?: string
+    readonly user_id?: string | undefined
     /** Whether the user is the currently logged-in user. */
-    readonly is_current_user?: boolean
+    readonly is_current_user?: boolean | undefined
     /** Name of the user. Max-length [200] */
-    readonly user_name?: string
+    readonly user_name?: string | undefined
     /** Email of the user. Max-length [100] */
-    readonly email?: string
+    readonly email?: string | undefined
     /** Role to be assigned. Allowed Values: staff, admin and timesheetstaff */
-    readonly user_role?: string
+    readonly user_role?: string | undefined
     /** Status of the project */
-    readonly status?: string
+    readonly status?: string | undefined
     /** Hourly rate for a task. */
-    readonly rate?: string
+    readonly rate?: string | undefined
     /** Task budget hours */
-    readonly budget_hours?: string
+    readonly budget_hours?: string | undefined
     /** Total hours spent on the project or task. */
-    readonly total_hours?: string
+    readonly total_hours?: string | undefined
     /** Hours billed to the client. */
-    readonly billed_hours?: string
+    readonly billed_hours?: string | undefined
     /** Hours not yet billed to the client. */
-    readonly un_billed_hours?: string
+    readonly un_billed_hours?: string | undefined
     /** Cost rate per hour for the user or task. */
-    readonly cost_rate?: number
-  }>
+    readonly cost_rate?: number | undefined
+  }> | undefined
 }
 
 export interface UpdateProjectRequest {
@@ -589,21 +589,21 @@ export interface UpdateProjectRequest {
   /** ID of the customer. */
   readonly customer_id: string
   /** The currency id of the currency */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Project description. Max-length [500] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The way you bill your customer. Allowed Values: fixed_cost_for_project, based_on_project_hours, based_on_staff_hours and based_on_task_hours */
   readonly billing_type: string
   /** Hourly rate for a task. */
-  readonly rate?: string
+  readonly rate?: string | undefined
   /** The way you budget. Allowed Values: total_project_cost, total_project_hours, hours_per_task and hours_per_staff */
-  readonly budget_type?: string
+  readonly budget_type?: string | undefined
   /** Task budget hours */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
   /** Give value, if you are estimating total project revenue. */
-  readonly budget_amount?: string
+  readonly budget_amount?: string | undefined
   /** Budgeted Cost to complete this project */
-  readonly cost_budget_amount?: number
+  readonly cost_budget_amount?: number | undefined
   /** ID of the user to be added to the project. */
   readonly user_id: string
   /** List of tasks associated with the project */
@@ -611,46 +611,46 @@ export interface UpdateProjectRequest {
     /** Name of the task. Max-length [100] */
     readonly task_name: string
     /** Task description. Max-length [500] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Hourly rate of a task. */
-    readonly rate?: string
+    readonly rate?: string | undefined
     /** Task budgeting. */
-    readonly budget_hours?: string
-  }>
+    readonly budget_hours?: string | undefined
+  }> | undefined
   /** List of users associated with the project */
   readonly users?: ReadonlyArray<{
     /** ID of the user to be added to the project. */
-    readonly user_id?: string
+    readonly user_id?: string | undefined
     /** Whether the user is the currently logged-in user. */
-    readonly is_current_user?: boolean
+    readonly is_current_user?: boolean | undefined
     /** Name of the user. Max-length [200] */
-    readonly user_name?: string
+    readonly user_name?: string | undefined
     /** Email of the user. Max-length [100] */
-    readonly email?: string
+    readonly email?: string | undefined
     /** Role to be assigned. Allowed Values: staff, admin and timesheetstaff */
-    readonly user_role?: string
+    readonly user_role?: string | undefined
     /** Status of the project */
-    readonly status?: string
+    readonly status?: string | undefined
     /** Hourly rate for a task. */
-    readonly rate?: string
+    readonly rate?: string | undefined
     /** Task budget hours */
-    readonly budget_hours?: string
+    readonly budget_hours?: string | undefined
     /** Total hours spent on the project or task. */
-    readonly total_hours?: string
+    readonly total_hours?: string | undefined
     /** Hours billed to the client. */
-    readonly billed_hours?: string
+    readonly billed_hours?: string | undefined
     /** Hours not yet billed to the client. */
-    readonly un_billed_hours?: string
+    readonly un_billed_hours?: string | undefined
     /** Cost rate per hour for the user or task. */
-    readonly cost_rate?: number
-  }>
+    readonly cost_rate?: number | undefined
+  }> | undefined
 }
 
 export interface CloneProjectRequest {
   /** Name of the project. Max-length [100] */
   readonly project_name: string
   /** Project description. Max-length [500] */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface AssignUsersRequest {
@@ -658,7 +658,7 @@ export interface AssignUsersRequest {
   readonly users?: ReadonlyArray<{
     /** ID of the user to be added to the project. */
     readonly user_id: string
-  }>
+  }> | undefined
   /** Cost rate per hour for the user or task. */
   readonly cost_rate: number
 }
@@ -669,26 +669,26 @@ export interface InviteUserRequest {
   /** Email of the user. Max-length [100] */
   readonly email: string
   /** Role to be assigned. Allowed Values: staff, admin and timesheetstaff */
-  readonly user_role?: string
+  readonly user_role?: string | undefined
   /** Hourly rate for a task. */
-  readonly rate?: string
+  readonly rate?: string | undefined
   /** Task budget hours. */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
   /** Cost rate per hour for the user or task. */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface UpdateUserRequest {
   /** Name of the user. Max-length [200] */
-  readonly user_name?: string
+  readonly user_name?: string | undefined
   /** Role to be assigned. Allowed Values: staff, admin and timesheetstaff */
-  readonly user_role?: string
+  readonly user_role?: string | undefined
   /** Rate for the task or user in the project. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Task budget hours. */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
   /** Cost rate per hour for the user or task. */
-  readonly cost_rate?: number
+  readonly cost_rate?: number | undefined
 }
 
 export interface PostCommentRequest {
@@ -700,35 +700,35 @@ export interface AddATaskRequest {
   /** Name of the task. */
   readonly task_name: string
   /** Description of the project or task. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Hourly rate for a task. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Task budget hours. */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
 }
 
 export interface UpdateATaskRequest {
   /** Name of the task. */
   readonly task_name: string
   /** Description of the project or task. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Rate for the task or user in the project. */
-  readonly rate?: number
+  readonly rate?: number | undefined
   /** Task budget hours. */
-  readonly budget_hours?: string
+  readonly budget_hours?: string | undefined
 }
 
 export interface ListProjectsInput {
   /** Filter projects by any status. Allowed Values: Status.All, Status.Active and Status.Inactive */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Search projects by customer id. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Sort projects. Allowed Values: project_name, customer_name, rate and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List projects. `GET /projects` */
@@ -760,7 +760,7 @@ export interface UpdateProjectsUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateProjectRequest
 }
 
@@ -823,7 +823,7 @@ export interface MarkProjectActiveInput {
   /** Unique identifier of the project. */
   readonly project_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Activate project. `POST /projects/{project_id}/active` */
@@ -840,7 +840,7 @@ export interface MarkProjectInactiveInput {
   /** Unique identifier of the project. */
   readonly project_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Inactivate a project. `POST /projects/{project_id}/inactive` */
@@ -1015,11 +1015,11 @@ export interface ListProjectInvoicesInput {
   /** Unique identifier of the project. */
   readonly project_id: string
   /** Sort invoices raised. Allowed Values: invoice_number, date, total, balance and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List invoices. `GET /projects/{project_id}/invoices` */
@@ -1035,9 +1035,9 @@ export interface ListProjectTasksInput {
   /** Unique identifier of the project. */
   readonly project_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List project tasks. `GET /projects/{project_id}/tasks` */

@@ -531,211 +531,211 @@ export type CreateRetainerInvoiceAsyncOnlinePaymentResponse = typeof CreateRetai
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface PaymentOptionsInput {
   /** Online payment gateways through which payment can be made. */
   readonly payment_gateways?: ReadonlyArray<{
     /** Boolean check to see if a payment gateway ahs been configured */
-    readonly configured?: boolean
+    readonly configured?: boolean | undefined
     /** Paypal payment method. Allowed Values: standard and adaptive */
-    readonly additional_field1?: string
+    readonly additional_field1?: string | undefined
     /** Name of the payment gateway associated with the retainer invoice. E.g. paypal, stripe.Allowed Values: paypal, authorize_net, payflow_pro, stripe, 2checkout and braintree */
-    readonly gateway_name?: string
-  }>
+    readonly gateway_name?: string | undefined
+  }> | undefined
 }
 
 export interface CreateARetainerinvoiceRequest {
   /** ID of the customer the retainer invoice has to be created. */
   readonly customer_id: string
   /** The reference number of the retainer invoice. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** The date of creation of the retainer invoice. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Custom fields for a retainer invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** The index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Boolean value to check if the custom field is to be dispplayed on the pdf. */
-    readonly show_on_pdf?: boolean
+    readonly show_on_pdf?: boolean | undefined
     /** The value of the custom field */
-    readonly value?: string
+    readonly value?: string | undefined
     /** The label of the custom field. */
-    readonly label?: string
-  }>
+    readonly label?: string | undefined
+  }> | undefined
   /** The notes added below expressing gratitude or for conveying some information. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** The terms added below expressing gratitude or for conveying some information. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of an invoice. */
   readonly line_items: ReadonlyArray<{
     /** The description of the line items. Max-length [2000] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** The order of the line item_order */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
   }>
   /** Payment options for the retainer invoice, online payment gateways and bank accounts. Will be displayed in the pdf. */
-  readonly payment_options?: PaymentOptionsInput
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** ID of the pdf template associated with the retainer invoice. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken) */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateARetainerinvoiceRequest {
   /** ID of the customer the retainer invoice has to be created. */
   readonly customer_id: string
   /** The reference number of the retainer invoice. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** The date of creation of the retainer invoice. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Custom fields for a retainer invoice. */
   readonly custom_fields?: ReadonlyArray<{
     /** The index of the custom field */
-    readonly index?: number
+    readonly index?: number | undefined
     /** Boolean value to check if the custom field is to be dispplayed on the pdf. */
-    readonly show_on_pdf?: boolean
+    readonly show_on_pdf?: boolean | undefined
     /** The value of the custom field */
-    readonly value?: string
+    readonly value?: string | undefined
     /** The label of the custom field. */
-    readonly label?: string
-  }>
+    readonly label?: string | undefined
+  }> | undefined
   /** The notes added below expressing gratitude or for conveying some information. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** The terms added below expressing gratitude or for conveying some information. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Location ID */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
   /** Line items of a retainer invoice. */
   readonly line_items: ReadonlyArray<{
     /** The description of the line items. Max-length [2000] */
-    readonly description?: string
+    readonly description?: string | undefined
     /** The order of the line item_order */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Rate of the line item. */
-    readonly rate?: number
+    readonly rate?: number | undefined
   }>
   /** Payment options for the retainer invoice, online payment gateways and bank accounts. Will be displayed in the pdf. */
-  readonly payment_options?: PaymentOptionsInput
+  readonly payment_options?: PaymentOptionsInput | undefined
   /** ID of the pdf template associated with the retainer invoice. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, place of contact given for the contact will be taken) */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** ID of the project */
-  readonly project_id?: string
+  readonly project_id?: string | undefined
 }
 
 export interface EmailARetainerInvoiceRequest {
   /** Boolean to trigger the email from the organization's email address */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be cced. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** The subject of the mail */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** The body of the mail */
-  readonly body?: string
+  readonly body?: string | undefined
 }
 
 export interface UpdateBillingAddressRequest {
   /** address of the customer */
-  readonly address?: string
+  readonly address?: string | undefined
   /** city of the customer */
-  readonly city?: string
+  readonly city?: string | undefined
   /** state of the customer */
-  readonly state?: string
+  readonly state?: string | undefined
   /** zip of the customer */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** country of the customer */
-  readonly country?: string
+  readonly country?: string | undefined
   /** fax of the customer */
-  readonly fax?: string
+  readonly fax?: string | undefined
 }
 
 export interface AddAttachmentToARetainerInvoiceRequest {
   /** Indicates whether the attachment can be included when sending the invoice via email. */
-  readonly can_send_in_mail?: boolean
+  readonly can_send_in_mail?: boolean | undefined
   /** The file to be attached. It has to be sent in multipart/formdata */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
 }
 
 export interface AddCommentRequest {
   /** The description of the comment. Max-length [2000] */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Expected date of payment for the retainer invoice. */
-  readonly payment_expected_date?: string
+  readonly payment_expected_date?: string | undefined
   /** Boolean to check if the comment to be shown to the clients */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface UpdateCommentRequest {
   /** The comment on a retainer invoice */
-  readonly description?: string
+  readonly description?: string | undefined
   /** Boolean to check if the comment to be shown to the clients */
-  readonly show_comment_to_clients?: boolean
+  readonly show_comment_to_clients?: boolean | undefined
 }
 
 export interface ApplyRetainerPaymentsToInvoicesRequest {
   /** Invoices to which the retainer invoice payments are applied, along with the amount applied to each. */
   readonly invoice_payments?: ReadonlyArray<{
     /** Unique identifier of the invoice to which the retainer payment is applied. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Amount of the retainer payment applied to the invoice. */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Date on which the retainer payment is applied to the invoice. Format [yyyy-mm-dd]. */
-    readonly apply_date?: string
-  }>
+    readonly apply_date?: string | undefined
+  }> | undefined
 }
 
 export interface ListRetainerInvoicesInput {
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Sort retainer invoices.Allowed Values: customer_name, retainer invoice_number, date, due_date, total, balance and created_time */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Filter invoices by any status or payment expected date.Allowed Values: Status.All, Status.Sent, Status.Draft, Status.OverDue, Status.Paid, Status.Void, Status.Unpaid, Status.PartiallyPaid, Status.Viewed and Date.PaymentExpectedDate */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** The order for sorting */
-  readonly sort_order?: string
+  readonly sort_order?: string | undefined
   /** Number of pages */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List a retainer invoices. `GET /retainerinvoices` */
@@ -749,7 +749,7 @@ export const listRetainerInvoices = /*#__PURE__*/ operation<ListRetainerInvoices
 
 export interface CreateRetainerInvoiceInput {
   /** Ignore auto invoice number generation for this invoice. This mandates the invoice number. Allowed values true and false */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateARetainerinvoiceRequest
 }
 
@@ -811,7 +811,7 @@ export interface MarkRetainerInvoiceSentInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a retainer invoice as sent. `POST /retainerinvoices/{retainerinvoice_id}/status/sent` */
@@ -830,7 +830,7 @@ export interface UpdateRetainerInvoiceTemplateInput {
   /** Unique identifier of the retainer invoice template. */
   readonly template_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update retainer invoice template. `PUT /retainerinvoices/{retainerinvoice_id}/templates/{template_id}` */
@@ -847,7 +847,7 @@ export interface MarkRetainerInvoiceVoidInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Void a retainer invoice. `POST /retainerinvoices/{retainerinvoice_id}/status/void` */
@@ -864,9 +864,9 @@ export interface MarkRetainerInvoiceDraftInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Reason for marking the retainer invoice as draft. */
-  readonly reason?: string
+  readonly reason?: string | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as draft. `POST /retainerinvoices/{retainerinvoice_id}/status/draft` */
@@ -883,7 +883,7 @@ export interface SubmitRetainerInvoiceInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a retainer invoice for approval. `POST /retainerinvoices/{retainerinvoice_id}/submit` */
@@ -900,7 +900,7 @@ export interface ApproveRetainerInvoiceInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a retainer invoice.. `POST /retainerinvoices/{retainerinvoice_id}/approve` */
@@ -931,11 +931,11 @@ export interface EmailRetainerInvoiceInput {
   /** Unique identifier of the retainer invoice. */
   readonly retainerinvoice_id: string
   /** Send customer statement pdf a with email. */
-  readonly send_customer_statement?: boolean
+  readonly send_customer_statement?: boolean | undefined
   /** Send the retainer invoice attachment a with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Files to be attached to the email */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   readonly body: EmailARetainerInvoiceRequest
 }
 
@@ -1123,7 +1123,7 @@ export interface CreateRetainerInvoiceAsyncOnlinePaymentInput {
   /** Unique identifier of the retainer invoice. Note: This value is a set of numeric characters. */
   readonly retainerinvoice_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Record an asynchronous online payment for a retainer invoice. `POST /retainerinvoices/{retainerinvoice_id}/onlinepayments/asynchronous` */

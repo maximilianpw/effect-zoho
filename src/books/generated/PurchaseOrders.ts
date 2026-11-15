@@ -414,380 +414,380 @@ export type RejectPurchaseOrder = typeof RejectPurchaseOrder.Type
 
 export interface CommunicationPreferenceInput {
   /** Used to check if Email communication preference is enabled for the contact person at transaction level. */
-  readonly is_email_enabled?: boolean
+  readonly is_email_enabled?: boolean | undefined
   /** Used to check if WhatsApp communication preference is enabled for the contact person at transaction level. */
-  readonly is_whatsapp_enabled?: boolean
+  readonly is_whatsapp_enabled?: boolean | undefined
 }
 
 export interface CreateAPurchaseOrderRequest {
   /** Unique identifier of the vendor for whom the purchase order is being created. This value is mandatory to associate the purchase order with a specific vendor in your organization. You can obtain the vendor ID by listing all vendors using the contacts API. Ensure the vendor exists before referencing their ID here. Note: This value is a set of numeric characters. */
   readonly vendor_id: string
   /** Unique identifier of the currency for the purchase order. This value is mandatory to specify the currency in which the purchase order amounts will be displayed and processed. You can obtain the currency ID by listing all available currencies using the GET /settings/currencies API. Ensure the currency exists and is properly configured in your organization before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Unique identifier for the purchase order. This field is mandatory when auto number generation is disabled for your organization. If auto numbering is enabled, this field can be left empty as the system will automatically generate a sequential purchase order number. When manually specifying a number, ensure it follows your organization's numbering convention and is unique across all purchase orders. */
-  readonly purchaseorder_number?: string
+  readonly purchaseorder_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the purchase order. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier of the pricebook to be used for this purchase order. The pricebook contains predefined pricing information for items and services. This field is optional and if not specified, the default pricebook will be used. You can obtain the pricebook ID by listing all available pricebooks in your organization. Ensure the pricebook exists and contains the relevant pricing information before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** External reference number or identifier for the purchase order. This field is optional and can be used to store additional reference information such as vendor order numbers, internal tracking codes, or any other external system identifiers. This reference number will be displayed on the purchase order document and can be used for cross-referencing with external systems or internal tracking purposes. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Unique identifier of the billing address to be used for this purchase order. The billing address determines where invoices and related documents will be sent. This field is optional and if not specified, the default billing address from your organization settings will be used. You can obtain the billing address ID by listing all available addresses in your organization. Ensure the address exists and contains the correct billing information before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier of the CRM owner assigned to this purchase order. This field links the purchase order to a specific CRM user who is responsible for managing the vendor relationship and overseeing the procurement process. The CRM owner can track, follow up, and manage all aspects of this purchase order within the CRM system. Note: This value is a set of numeric characters. */
-  readonly crm_owner_id?: string
+  readonly crm_owner_id?: string | undefined
   /** ID of CRM Custom Reference. Note: This value is a set of numeric characters. */
-  readonly crm_custom_reference_id?: string
+  readonly crm_custom_reference_id?: string | undefined
   /** Unique identifier of the PDF template linked to the purchase order. Obtain this value from the `template_id` field in the response of the GET `/purchaseorders/templates` API for your organization. Determines which template is used for the purchase order PDF document, controlling the layout, formatting, and visual appearance of the generated purchase order. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** The date when the purchase order was created or issued. This is the official date that appears on the purchase order document and is used for record-keeping, reporting, and tracking purposes. The date should be in YYYY-MM-DD format and typically represents when the purchase order was authorized and sent to the vendor. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The expected delivery date when the goods or services ordered in this purchase order should be received. This date is used for planning, scheduling, and tracking deliveries. It helps in managing inventory, coordinating with vendors, and ensuring timely receipt of ordered items. The date should be in YYYY-MM-DD format and is typically communicated to the vendor as part of the purchase order terms. */
-  readonly delivery_date?: string
+  readonly delivery_date?: string | undefined
   /** The expected delivery date when the goods or services ordered in this purchase order should be received. This date is used for planning, scheduling, and tracking deliveries. It helps in managing inventory, coordinating with vendors, and ensuring timely receipt of ordered items. The date should be in YYYY-MM-DD format. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** The currency exchange rate used to convert the purchase order amounts from the vendor's currency to your organization's base currency. This rate is applied when the purchase order is created in a foreign currency. A value of 1 indicates the same currency as your base currency. This rate affects all monetary calculations and reporting for this purchase order. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Discount applied to the purchase order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Unique identifier of the accounting account where the discount amount will be recorded. This account is used to track and categorize discount expenses in your general ledger. The discount account should be configured as an expense or contra-revenue account to properly reflect the impact of discounts on your financial statements. Note: This value is a set of numeric characters. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** Boolean flag that determines whether the discount is applied before or after tax calculations. When set to true, the discount is applied to the subtotal before tax is calculated, resulting in tax being calculated on the discounted amount. When set to false, the discount is applied after tax calculations, which may affect the final total differently depending on your tax configuration. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Boolean flag that specifies whether the line item rates include or exclude tax amounts. When set to true, the specified rates are inclusive of tax, meaning the tax amount is already included in the rate. When set to false, the rates are exclusive of tax, and tax will be calculated and added separately. This setting affects how tax calculations are performed and displayed on the purchase order. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Additional information, instructions, or comments to be displayed on the purchase order document. This field is typically used for delivery instructions, special requirements, vendor communications, or any other information relevant to the purchase order. The notes appear on the purchase order PDF and are visible to the vendor. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Default notes for purchase order */
-  readonly notes_default?: string
+  readonly notes_default?: string | undefined
   /** Terms and conditions text to be displayed on the purchase order document. This field is used to specify payment terms, delivery conditions, return policies, warranty information, or any other legal or business terms that apply to this transaction. The terms appear on the purchase order PDF and form part of the contractual agreement with the vendor. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Default terms for Purchase Orders */
-  readonly terms_default?: string
+  readonly terms_default?: string | undefined
   /** Shipment Preference */
-  readonly ship_via?: string
+  readonly ship_via?: string | undefined
   /** Unique identifier of the organization address where the goods or services from this purchase order should be delivered. This field specifies the delivery location within your organization, such as a warehouse, office, or branch location. The address details are retrieved from your organization's address book and displayed on the purchase order for vendor reference. Note: This value is a set of numeric characters. */
-  readonly delivery_org_address_id?: string
+  readonly delivery_org_address_id?: string | undefined
   /** Unique identifier of the customer for whom the goods or services in this purchase order are being procured. This field is used when the purchase order is created on behalf of a customer, such as in drop-shipping scenarios or when procuring items for specific customer projects. The customer information may be displayed on the purchase order for vendor reference. Note: This value is a set of numeric characters. */
-  readonly delivery_customer_id?: string
+  readonly delivery_customer_id?: string | undefined
   /** The name or designation of the specific person who should be contacted or notified regarding the delivery of goods or services from this purchase order. This field is typically used to specify the primary contact person at the delivery location, such as a warehouse manager, office administrator, or project coordinator who will receive and process the delivered items. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** (Optional) VAT treatment for the purchase order. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Check if customer should be updated */
-  readonly is_update_customer?: string
+  readonly is_update_customer?: string | undefined
   /** Unique identifier of the sales order that is linked to this purchase order. This field establishes a connection between the sales order and purchase order, typically used in drop-shipping scenarios where you need to procure items to fulfill a customer's sales order. The linked sales order information may be displayed on the purchase order for vendor reference and internal tracking purposes. Note: This value is a set of numeric characters. */
-  readonly salesorder_id?: string
+  readonly salesorder_id?: string | undefined
   /** Unique identifier of the business location or branch where this purchase order is being created and managed. This field is used to associate the purchase order with a specific location within your organization, enabling location-based reporting, inventory tracking, and multi-location business operations. The location information affects how the purchase order is processed and where inventory is received. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of purchase order. */
   readonly line_items: ReadonlyArray<{
     /** Unique identifier of the item or service in the line item. Mandatory field that links to the item catalog. Determines item details, pricing, and inventory tracking. Obtain from GET /items API. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier of the accounting account for the line item. Mandatory for non-inventory items/services. Determines expense categorization in general ledger. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Display name of the line item on the purchase order. Auto-populated from item catalog when item_id is specified. Can be customized. Used for vendor reference and documentation. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Additional details, specifications, or notes about the line item. Can include technical specs, requirements, delivery instructions. Appears on purchase order document for vendor reference. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit of measurement for the quantity (e.g., Nos, kgs, hours, meters). Should match vendor pricing structure. Used for quantity calculations and pricing. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Unique identifier of the business location or branch where this purchase order is being created and managed. This field is used to associate the purchase order with a specific location within your organization, enabling location-based reporting, inventory tracking, and multi-location business operations. The location information affects how the purchase order is processed and where inventory is received. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** HSN or SAC Code for the Item */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Unique identifier of the reverse charge tax for the line item. Used when buyer is responsible for paying tax instead of vendor. Applicable for unregistered vendors or specific tax regulations. Must reference valid reverse charge tax configuration. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unit price per item/service. Used to calculate total line item amount. Must be in purchase order currency. Tax inclusion depends on is_inclusive_tax setting. Affects pricing calculations and vendor billing. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units being ordered. Used with rate to calculate total line item amount. Must match unit of measurement. Represents actual order quantity for delivery. */
-    readonly quantity?: string
+    readonly quantity?: string | undefined
     /** Sequential order of line item within purchase order. Determines display order on documents and reports. Typically numbered sequentially from 0 or 1. Maintains consistency across related documents. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Unique identifier of the tax for the line item. Determines tax rate, name, and treatment for calculations. Used in tax amount computation and display on purchase order. Obtain from taxes API. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique identifier of the TDS tax for the line item. Determines TDS tax rate, name, and treatment for calculations. Used in TDS tax amount computation and display on purchase order. Obtain from taxes API. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Code of the Tax Exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** ID of the Tax Exemption. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** ID of the VAT Acquistion. Note: This value is a set of numeric characters. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** ID of the Reverse Charge. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Index of the Custom Field */
-      readonly index?: number
+      readonly index?: number | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** ID of the project. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
   }>
   /** Custom fields for purchase order. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Array of documents attached to the purchase order. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document. Note: This value is a set of numeric characters. */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the attached document file. Includes file extension and represents the original filename as uploaded. Used for display purposes and file identification in the system. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAPurchaseOrderRequest {
   /** Unique identifier of the vendor for whom the purchase order is being created. This value is mandatory to associate the purchase order with a specific vendor in your organization. You can obtain the vendor ID by listing all vendors using the contacts API. Ensure the vendor exists before referencing their ID here. Note: This value is a set of numeric characters. */
   readonly vendor_id: string
   /** Unique identifier of the currency for the purchase order. This value is mandatory to specify the currency in which the purchase order amounts will be displayed and processed. You can obtain the currency ID by listing all available currencies using the GET /settings/currencies API. Ensure the currency exists and is properly configured in your organization before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly currency_id?: string
+  readonly currency_id?: string | undefined
   /** Contact Persons associated with the transaction. */
   readonly contact_persons_associated?: ReadonlyArray<{
     /** Unique ID of the Contact Person. Note: This value is a set of numeric characters. */
-    readonly contact_person_id?: string
+    readonly contact_person_id?: string | undefined
     /** Preferred modes of communication for the contact person at transaction level. */
-    readonly communication_preference?: CommunicationPreferenceInput
-  }>
+    readonly communication_preference?: CommunicationPreferenceInput | undefined
+  }> | undefined
   /** Unique identifier for the purchase order. This field is mandatory when auto number generation is disabled for your organization. If auto numbering is enabled, this field can be left empty as the system will automatically generate a sequential purchase order number. When manually specifying a number, ensure it follows your organization's numbering convention and is unique across all purchase orders. */
-  readonly purchaseorder_number?: string
+  readonly purchaseorder_number?: string | undefined
   /** Choose whether the contact is GST registered/unregistered/consumer/overseas. Allowed values are business_gst , business_none , overseas , consumer . */
-  readonly gst_treatment?: string
+  readonly gst_treatment?: string | undefined
   /** VAT treatment for the purchase order. Choose whether the vendor falls under: vat_registered,vat_not_registered,gcc_vat_not_registered,gcc_vat_registered,non_gcc.dz_vat_registered and dz_vat_not_registered are supported only for UAE.home_country_mexico,border_region_mexico,non_mexico supported only for MX.For Kenya Edition: vat_registered ,vat_not_registered ,non_kenya(A business that is located outside Kenya).For SouthAfrica Edition: vat_registered, vat_not_registered, overseas(A business that is located outside SouthAfrica). */
-  readonly tax_treatment?: string
+  readonly tax_treatment?: string | undefined
   /** 15 digit GST identification number of the vendor. */
-  readonly gst_no?: string
+  readonly gst_no?: string | undefined
   /** Place from where the goods/services are supplied. (If not given, place of contact given for the contact will be taken) */
-  readonly source_of_supply?: string
+  readonly source_of_supply?: string | undefined
   /** Place where the goods/services are supplied to. (If not given, organisation's home state will be taken) */
-  readonly destination_of_supply?: string
+  readonly destination_of_supply?: string | undefined
   /** The place of supply is where a transaction is considered to have occurred for VAT purposes. For the supply of goods, the place of supply is the location of the goods when the supply occurs. For the supply of services, the place of supply should be where the supplier is established. (If not given, place of contact given for the contact will be taken)Supported codes for UAE emirates are : Abu Dhabi - AB,Ajman - AJ,Dubai - DU,Fujairah - FU,Ras al-Khaimah - RA,Sharjah - SH,Umm al-Quwain - UM.Supported codes for the GCC countries are : United Arab Emirates - AE,Saudi Arabia - SA,Bahrain - BH,Kuwait - KW,Oman - OM,Qatar - QA. */
-  readonly place_of_supply?: string
+  readonly place_of_supply?: string | undefined
   /** Unique identifier of the pricebook to be used for this purchase order. The pricebook contains predefined pricing information for items and services. This field is optional and if not specified, the default pricebook will be used. You can obtain the pricebook ID by listing all available pricebooks in your organization. Ensure the pricebook exists and contains the relevant pricing information before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly pricebook_id?: string
+  readonly pricebook_id?: string | undefined
   /** External reference number or identifier for the purchase order. This field is optional and can be used to store additional reference information such as vendor order numbers, internal tracking codes, or any other external system identifiers. This reference number will be displayed on the purchase order document and can be used for cross-referencing with external systems or internal tracking purposes. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Discount applied to the purchase order, which can be either a percentage or a flat amount. For percentage discounts, the value should include the % symbol (e.g., 10%). For example, on Rs.1000, a 10% discount results in Rs.900, while a flat Rs.200 discount results in Rs.800. */
-  readonly discount?: string
+  readonly discount?: string | undefined
   /** Unique identifier of the accounting account where the discount amount will be recorded. This account is used to track and categorize discount expenses in your general ledger. The discount account should be configured as an expense or contra-revenue account to properly reflect the impact of discounts on your financial statements. Note: This value is a set of numeric characters. */
-  readonly discount_account_id?: string
+  readonly discount_account_id?: string | undefined
   /** Boolean flag that determines whether the discount is applied before or after tax calculations. When set to true, the discount is applied to the subtotal before tax is calculated, resulting in tax being calculated on the discounted amount. When set to false, the discount is applied after tax calculations, which may affect the final total differently depending on your tax configuration. */
-  readonly is_discount_before_tax?: boolean
+  readonly is_discount_before_tax?: boolean | undefined
   /** Unique identifier of the billing address to be used for this purchase order. The billing address determines where invoices and related documents will be sent. This field is optional and if not specified, the default billing address from your organization settings will be used. You can obtain the billing address ID by listing all available addresses in your organization. Ensure the address exists and contains the correct billing information before referencing its ID here. Note: This value is a set of numeric characters. */
-  readonly billing_address_id?: string
+  readonly billing_address_id?: string | undefined
   /** Unique identifier of the CRM owner assigned to this purchase order. This field links the purchase order to a specific CRM user who is responsible for managing the vendor relationship and overseeing the procurement process. The CRM owner can track, follow up, and manage all aspects of this purchase order within the CRM system. Note: This value is a set of numeric characters. */
-  readonly crm_owner_id?: string
+  readonly crm_owner_id?: string | undefined
   /** ID of CRM Custom Reference. Note: This value is a set of numeric characters. */
-  readonly crm_custom_reference_id?: string
+  readonly crm_custom_reference_id?: string | undefined
   /** Unique identifier of the PDF template linked to the purchase order. Obtain this value from the `template_id` field in the response of the GET `/purchaseorders/templates` API for your organization. Determines which template is used for the purchase order PDF document, controlling the layout, formatting, and visual appearance of the generated purchase order. Note: This value is a set of numeric characters. */
-  readonly template_id?: string
+  readonly template_id?: string | undefined
   /** The date when the purchase order was created or issued. This is the official date that appears on the purchase order document and is used for record-keeping, reporting, and tracking purposes. The date should be in YYYY-MM-DD format and typically represents when the purchase order was authorized and sent to the vendor. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** The expected delivery date when the goods or services ordered in this purchase order should be received. This date is used for planning, scheduling, and tracking deliveries. It helps in managing inventory, coordinating with vendors, and ensuring timely receipt of ordered items. The date should be in YYYY-MM-DD format and is typically communicated to the vendor as part of the purchase order terms. */
-  readonly delivery_date?: string
+  readonly delivery_date?: string | undefined
   /** The expected delivery date when the goods or services ordered in this purchase order should be received. This date is used for planning, scheduling, and tracking deliveries. It helps in managing inventory, coordinating with vendors, and ensuring timely receipt of ordered items. The date should be in YYYY-MM-DD format. */
-  readonly due_date?: string
+  readonly due_date?: string | undefined
   /** The currency exchange rate used to convert the purchase order amounts from the vendor's currency to your organization's base currency. This rate is applied when the purchase order is created in a foreign currency. A value of 1 indicates the same currency as your base currency. This rate affects all monetary calculations and reporting for this purchase order. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Boolean flag that specifies whether the line item rates include or exclude tax amounts. When set to true, the specified rates are inclusive of tax, meaning the tax amount is already included in the rate. When set to false, the rates are exclusive of tax, and tax will be calculated and added separately. This setting affects how tax calculations are performed and displayed on the purchase order. */
-  readonly is_inclusive_tax?: boolean
+  readonly is_inclusive_tax?: boolean | undefined
   /** Additional information, instructions, or comments to be displayed on the purchase order document. This field is typically used for delivery instructions, special requirements, vendor communications, or any other information relevant to the purchase order. The notes appear on the purchase order PDF and are visible to the vendor. */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Default notes for purchase order */
-  readonly notes_default?: string
+  readonly notes_default?: string | undefined
   /** Terms and conditions text to be displayed on the purchase order document. This field is used to specify payment terms, delivery conditions, return policies, warranty information, or any other legal or business terms that apply to this transaction. The terms appear on the purchase order PDF and form part of the contractual agreement with the vendor. */
-  readonly terms?: string
+  readonly terms?: string | undefined
   /** Default terms for Purchase Orders */
-  readonly terms_default?: string
+  readonly terms_default?: string | undefined
   /** Shipment Preference */
-  readonly ship_via?: string
+  readonly ship_via?: string | undefined
   /** Unique identifier of the organization address where the goods or services from this purchase order should be delivered. This field specifies the delivery location within your organization, such as a warehouse, office, or branch location. The address details are retrieved from your organization's address book and displayed on the purchase order for vendor reference. Note: This value is a set of numeric characters. */
-  readonly delivery_org_address_id?: string
+  readonly delivery_org_address_id?: string | undefined
   /** Unique identifier of the customer for whom the goods or services in this purchase order are being procured. This field is used when the purchase order is created on behalf of a customer, such as in drop-shipping scenarios or when procuring items for specific customer projects. The customer information may be displayed on the purchase order for vendor reference. Note: This value is a set of numeric characters. */
-  readonly delivery_customer_id?: string
+  readonly delivery_customer_id?: string | undefined
   /** The name or designation of the specific person who should be contacted or notified regarding the delivery of goods or services from this purchase order. This field is typically used to specify the primary contact person at the delivery location, such as a warehouse manager, office administrator, or project coordinator who will receive and process the delivered items. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** (Optional) VAT treatment for the purchase order. VAT treatment denotes the location of the vendor, if the vendor resides in UK then the VAT treatment is uk. If the vendor is in an EU country & VAT registered, you are resides in Northen Ireland and purchasing Goods then his VAT treatment is eu_vat_registered and if he resides outside the UK then his VAT treatment is overseas(For Pre Brexit, this can be split as eu_vat_registered, eu_vat_not_registered and non_eu). */
-  readonly vat_treatment?: string
+  readonly vat_treatment?: string | undefined
   /** Check if customer should be updated */
-  readonly is_update_customer?: string
+  readonly is_update_customer?: string | undefined
   /** Unique identifier of the sales order that is linked to this purchase order. This field establishes a connection between the sales order and purchase order, typically used in drop-shipping scenarios where you need to procure items to fulfill a customer's sales order. The linked sales order information may be displayed on the purchase order for vendor reference and internal tracking purposes. Note: This value is a set of numeric characters. */
-  readonly salesorder_id?: string
+  readonly salesorder_id?: string | undefined
   /** Unique identifier of the business location or branch where this purchase order is being created and managed. This field is used to associate the purchase order with a specific location within your organization, enabling location-based reporting, inventory tracking, and multi-location business operations. The location information affects how the purchase order is processed and where inventory is received. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Line items of purchase order. */
   readonly line_items: ReadonlyArray<{
     /** ID of the line item. Mandatory if the existing line item has to be updated. If empty, a new line item will be created. Note: This value is a set of numeric characters. */
-    readonly line_item_id?: string
+    readonly line_item_id?: string | undefined
     /** Unique identifier of the item or service in the line item. Mandatory field that links to the item catalog. Determines item details, pricing, and inventory tracking. Obtain from GET /items API. Note: This value is a set of numeric characters. */
-    readonly item_id?: string
+    readonly item_id?: string | undefined
     /** Unique identifier of the accounting account for the line item. Mandatory for non-inventory items/services. Determines expense categorization in general ledger. Note: This value is a set of numeric characters. */
-    readonly account_id?: string
+    readonly account_id?: string | undefined
     /** Display name of the line item on the purchase order. Auto-populated from item catalog when item_id is specified. Can be customized. Used for vendor reference and documentation. */
-    readonly name?: string
+    readonly name?: string | undefined
     /** Additional details, specifications, or notes about the line item. Can include technical specs, requirements, delivery instructions. Appears on purchase order document for vendor reference. */
-    readonly description?: string
+    readonly description?: string | undefined
     /** Unit of measurement for the quantity (e.g., Nos, kgs, hours, meters). Should match vendor pricing structure. Used for quantity calculations and pricing. */
-    readonly unit?: string
+    readonly unit?: string | undefined
     /** Unique identifier of the business location or branch where this purchase order is being created and managed. This field is used to associate the purchase order with a specific location within your organization, enabling location-based reporting, inventory tracking, and multi-location business operations. The location information affects how the purchase order is processed and where inventory is received. Note: This value is a set of numeric characters. */
-    readonly location_id?: string
+    readonly location_id?: string | undefined
     /** HSN or SAC Code for the Item */
-    readonly hsn_or_sac?: string
+    readonly hsn_or_sac?: string | undefined
     /** Unique identifier of the reverse charge tax for the line item. Used when buyer is responsible for paying tax instead of vendor. Applicable for unregistered vendors or specific tax regulations. Must reference valid reverse charge tax configuration. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_tax_id?: string
+    readonly reverse_charge_tax_id?: string | undefined
     /** Unit price per item/service. Used to calculate total line item amount. Must be in purchase order currency. Tax inclusion depends on is_inclusive_tax setting. Affects pricing calculations and vendor billing. */
-    readonly rate?: number
+    readonly rate?: number | undefined
     /** Number of units being ordered. Used with rate to calculate total line item amount. Must match unit of measurement. Represents actual order quantity for delivery. */
-    readonly quantity?: string
+    readonly quantity?: string | undefined
     /** Sequential order of line item within purchase order. Determines display order on documents and reports. Typically numbered sequentially from 0 or 1. Maintains consistency across related documents. */
-    readonly item_order?: number
+    readonly item_order?: number | undefined
     /** Unique identifier of the tax for the line item. Determines tax rate, name, and treatment for calculations. Used in tax amount computation and display on purchase order. Obtain from taxes API. Note: This value is a set of numeric characters. */
-    readonly tax_id?: string
+    readonly tax_id?: string | undefined
     /** Unique identifier of the TDS tax for the line item. Determines TDS tax rate, name, and treatment for calculations. Used in TDS tax amount computation and display on purchase order. Obtain from taxes API. Note: This value is a set of numeric characters. */
-    readonly tds_tax_id?: string
+    readonly tds_tax_id?: string | undefined
     /** Specify reason for using out of scope.Supported values for UAE are uae_same_tax_group, uae_reimbursed_expense and uae_others. Supported values for Bahrain are bahrain_same_tax_group, bahrain_transfer_of_concern, bahrain_disbursement, bahrain_head_to_branch_transaction, bahrain_warranty_repair_services and bahrain_others. Supported values for KSA are ksa_reimbursed_expense. */
-    readonly tax_treatment_code?: string
+    readonly tax_treatment_code?: string | undefined
     /** Code of the Tax Exemption */
-    readonly tax_exemption_code?: string
+    readonly tax_exemption_code?: string | undefined
     /** ID of the Tax Exemption. Note: This value is a set of numeric characters. */
-    readonly tax_exemption_id?: string
+    readonly tax_exemption_id?: string | undefined
     /** ID of the VAT Acquistion. Note: This value is a set of numeric characters. */
-    readonly acquisition_vat_id?: string
+    readonly acquisition_vat_id?: string | undefined
     /** ID of the Reverse Charge. Note: This value is a set of numeric characters. */
-    readonly reverse_charge_vat_id?: string
+    readonly reverse_charge_vat_id?: string | undefined
     /** Custom fields for the line item. */
     readonly item_custom_fields?: ReadonlyArray<{
       /** Index of the Custom Field */
-      readonly index?: number
+      readonly index?: number | undefined
       /** Value of the Custom Field */
-      readonly value?: string
-    }>
+      readonly value?: string | undefined
+    }> | undefined
     /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
     readonly tags?: ReadonlyArray<{
       /** Tag's ID. Note: This value is a set of numeric characters. */
-      readonly tag_id?: string
+      readonly tag_id?: string | undefined
       /** Tag Option's ID. Note: This value is a set of numeric characters. */
-      readonly tag_option_id?: string
-    }>
+      readonly tag_option_id?: string | undefined
+    }> | undefined
     /** Category of the line item. Allowed values are line_item, header and subtotal. Use line_item for regular line items, header for header titles and subtotal for intermediate subtotal rows. For regular line items, you can send line_item or omit this field */
-    readonly line_item_category?: string
+    readonly line_item_category?: string | undefined
     /** ID of the project. Note: This value is a set of numeric characters. */
-    readonly project_id?: string
+    readonly project_id?: string | undefined
   }>
   /** Custom fields for purchase order. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Array of documents attached to the purchase order. */
   readonly documents?: ReadonlyArray<{
     /** ID of the Document. Note: This value is a set of numeric characters. */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the attached document file. Includes file extension and represents the original filename as uploaded. Used for display purposes and file identification in the system. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAPurchaseorderCustomfieldRequest {
   /** Custom fields for purchase order. */
   readonly custom_fields?: ReadonlyArray<{
     /** Unique identifier of the Custom Field. Note: This value is a set of numeric characters. */
-    readonly customfield_id?: string
+    readonly customfield_id?: string | undefined
     /** Value of the Custom Field */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
 }
 
 export interface EmailAPurchaseOrderRequest {
   /** Boolean to trigger the email from the organization's email address. */
-  readonly send_from_org_email_id?: boolean
+  readonly send_from_org_email_id?: boolean | undefined
   /** ID of From Address of the Email Address. Note: This value is a set of numeric characters. */
-  readonly from_address_id?: string
+  readonly from_address_id?: string | undefined
   /** Array of email address of the recipients. */
   readonly to_mail_ids: ReadonlyArray<string>
   /** Array of email address of the recipients to be cced. */
-  readonly cc_mail_ids?: ReadonlyArray<string>
+  readonly cc_mail_ids?: ReadonlyArray<string> | undefined
   /** Array of email address of the recipients to be BCC ed. */
-  readonly bcc_mail_ids?: ReadonlyArray<string>
+  readonly bcc_mail_ids?: ReadonlyArray<string> | undefined
   /** Subject of the mail. */
-  readonly subject?: string
+  readonly subject?: string | undefined
   /** Body of the mail */
   readonly body: string
   /** List of documents to be attached to the email. */
   readonly mail_documents?: ReadonlyArray<{
     /** ID of the Document. Note: This value is a set of numeric characters. */
-    readonly document_id?: string
+    readonly document_id?: string | undefined
     /** Name of the attached document file. Includes file extension and represents the original filename as uploaded. Used for display purposes and file identification in the system. */
-    readonly file_name?: string
-  }>
+    readonly file_name?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateBillingAddressRequest {
   /** Address associated with the Purchase Order */
-  readonly address?: string
+  readonly address?: string | undefined
   /** City involved in the Address */
-  readonly city?: string
+  readonly city?: string | undefined
   /** State Involved in the Address */
-  readonly state?: string
+  readonly state?: string | undefined
   /** ZIP Code of the Address */
-  readonly zip?: string
+  readonly zip?: string | undefined
   /** Country involved in the Address */
-  readonly country?: string
+  readonly country?: string | undefined
   /** Fax Number */
-  readonly fax?: string
+  readonly fax?: string | undefined
   /** The name or designation of the specific person who should be contacted or notified regarding the delivery of goods or services from this purchase order. This field is typically used to specify the primary contact person at the delivery location, such as a warehouse manager, office administrator, or project coordinator who will receive and process the delivered items. */
-  readonly attention?: string
+  readonly attention?: string | undefined
   /** Check if customer should be updated */
-  readonly is_update_customer?: string
+  readonly is_update_customer?: string | undefined
 }
 
 export interface AddCommentRequest {
@@ -799,50 +799,50 @@ export interface AddCommentRequest {
 
 export interface UpdateCommentRequest {
   /** The description of the comment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The expected delivery date when the goods or services ordered in this purchase order should be received. This date is used for planning, scheduling, and tracking deliveries. It helps in managing inventory, coordinating with vendors, and ensuring timely receipt of ordered items. The date should be in YYYY-MM-DD format. */
-  readonly expected_delivery_date?: string
+  readonly expected_delivery_date?: string | undefined
 }
 
 export interface ListPurchaseOrdersInput {
   /** Search purchase order by purchase order number. Variants: purchaseorder_number_startswith and purchaseorder_number_contains. Example: Locate specific PO by number or partial match. */
-  readonly purchaseorder_number?: string
+  readonly purchaseorder_number?: string | undefined
   /** Search purchase order by reference number. Variants: reference_number_startswith and reference_number_contains. Example: Monitor external vendor order numbers. */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search purchase orders by creation date. Use YYYY-MM-DD format for exact date matching. Supports variants: date_start, date_end, date_before and date_after. Useful for finding purchase orders within date ranges or specific time periods. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search purchase order by status. Allowed values: draft, open, billed, cancelled. Example: Filter POs by current workflow state. */
-  readonly status?: "draft" | "pending_approval" | "approval_overdue" | "approved" | "rejected" | "open" | "billed" | "billed_not_received" | "cancelled" | "partially_billed" | "issued" | "partially_received" | "received" | "received_not_billed" | "manually_received" | "drop_shipped" | "closed" | "accepted" | "signed" | "pending_signature" | "to_be_received" | "to_be_billed" | "in_transit"
+  readonly status?: "draft" | "pending_approval" | "approval_overdue" | "approved" | "rejected" | "open" | "billed" | "billed_not_received" | "cancelled" | "partially_billed" | "issued" | "partially_received" | "received" | "received_not_billed" | "manually_received" | "drop_shipped" | "closed" | "accepted" | "signed" | "pending_signature" | "to_be_received" | "to_be_billed" | "in_transit" | undefined
   /** Search purchase orders by item name. Filters purchase orders based on product or service names in purchase order line items. Supports item_name_startswith and item_name_contains variants. Maximum length is 100 characters. Useful for finding purchase orders with specific products or services. */
-  readonly item_name?: string
+  readonly item_name?: string | undefined
   /** Search purchase orders by item description. Filters purchase orders based on detailed descriptions of products or services in line items. Supports item_description_startswith and item_description_contains variants. Maximum length is 100 characters. Useful for finding purchase orders with specific item descriptions or technical specifications. */
-  readonly item_description?: string
+  readonly item_description?: string | undefined
   /** Search purchase order by vendor name. Variants: vendor_name_startswith and vendor_name_contains */
-  readonly vendor_name?: string
+  readonly vendor_name?: string | undefined
   /** Search purchase orders by total amount. Filters purchase orders based on the final purchase order amount including taxes, discounts, and adjustments. Useful for finding purchase orders within specific price ranges or identifying high-value transactions. */
-  readonly total?: string
+  readonly total?: string | undefined
   /** Search purchase order by vendor ID. Use the unique identifier of the vendor to filter purchase orders. Example: Group POs by specific vendor. Note: This value is a set of numeric characters. */
-  readonly vendor_id?: string
+  readonly vendor_id?: string | undefined
   /** Search purchase orders modified after a specific time. Filters purchase orders based on their last modification timestamp. Use YYYY-MM-DDTHH:MM:SS-UTC format. Useful for finding recently updated purchase orders or syncing data changes. Example : 2023-11-18T02:02:51-0800, 2025-19-19T02:02:51%2B0800 */
-  readonly last_modified_time?: string
+  readonly last_modified_time?: string | undefined
   /** Search purchase orders by item ID. Use the unique identifier of the specific item. Example: Locate all POs containing particular item. Note: This value is a set of numeric characters. */
-  readonly item_id?: string
+  readonly item_id?: string | undefined
   /** Filter purchase order by status. Allowed values: Status.All, Status.Draft, Status.Open, Status.Billed, Status.Cancelled. Example: Bulk status filtering for reporting. */
-  readonly filter_by?: "Status.All" | "Status.Draft" | "Status.Issued" | "Status.Billed" | "Status.PartiallyBilled" | "Status.BilledNotReceived" | "Status.Received" | "Status.ReceivedNotBilled" | "Status.PartiallyReceived" | "Status.Cancelled" | "Status.DropShipped" | "Status.BackOrdered" | "Status.ReplenishedOrder" | "Status.Closed" | "Status.UnbilledBackOrder" | "Status.ToBeReceived" | "Status.Pending" | "Status.Approved" | "Status.ApprovalOverdue" | "Status.MyApprovals" | "Status.Accepted" | "Status.CancelledByVendor" | "Status.CancelledByUser" | "ExceptionList"
+  readonly filter_by?: "Status.All" | "Status.Draft" | "Status.Issued" | "Status.Billed" | "Status.PartiallyBilled" | "Status.BilledNotReceived" | "Status.Received" | "Status.ReceivedNotBilled" | "Status.PartiallyReceived" | "Status.Cancelled" | "Status.DropShipped" | "Status.BackOrdered" | "Status.ReplenishedOrder" | "Status.Closed" | "Status.UnbilledBackOrder" | "Status.ToBeReceived" | "Status.Pending" | "Status.Approved" | "Status.ApprovalOverdue" | "Status.MyApprovals" | "Status.Accepted" | "Status.CancelledByVendor" | "Status.CancelledByUser" | "ExceptionList" | undefined
   /** Search purchase order by number, reference, or vendor name. General search across multiple fields. Example: Quick PO lookup without specific field. */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Sort purchase orders by column. Allowed values: vendor_name, purchaseorder_number, date, delivery_date, total, created_time. Example: Organize results for analysis. */
-  readonly sort_column?: "vendor_name" | "purchaseorder_number" | "date" | "delivery_date" | "expected_delivery_date" | "total" | "created_time" | "last_modified_time"
+  readonly sort_column?: "vendor_name" | "purchaseorder_number" | "date" | "delivery_date" | "expected_delivery_date" | "total" | "created_time" | "last_modified_time" | undefined
   /** Search purchase order by purchase order's custom field. Variants: custom_field_startswith, custom_field_contains */
-  readonly custom_field?: string
+  readonly custom_field?: string | undefined
   /** Search purchase orders by creation date. Filters purchase orders based on the date they were created. Use yyyy-mm-dd format. Supports variants: created_date_start, created_date_end. Useful for finding purchase orders created within specific time periods or date ranges. */
-  readonly created_date?: string
+  readonly created_date?: string | undefined
   /** List of location IDs to filter purchase orders by their associated locations. Use this parameter to retrieve purchase orders linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
-  readonly location_ids?: string
+  readonly location_ids?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List purchase orders. `GET /purchaseorders` */
@@ -856,9 +856,9 @@ export const listPurchaseOrders = /*#__PURE__*/ operation<ListPurchaseOrdersInpu
 
 export interface CreatePurchaseOrderInput {
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Ignore auto purchase order number generation for this purchase order. This mandates the purchase order number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: CreateAPurchaseOrderRequest
 }
 
@@ -879,7 +879,7 @@ export interface UpdatePurchaseOrderUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAPurchaseOrderRequest
 }
 
@@ -898,9 +898,9 @@ export interface GetPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Print the exported pdf. */
-  readonly print?: boolean
+  readonly print?: boolean | undefined
   /** Get the details of a particular purchase order in formats such as json/ pdf/ html. Default format is json. Allowed Values: json, pdf and html. */
-  readonly accept?: string
+  readonly accept?: string | undefined
 }
 
 /** Get a purchase order. `GET /purchaseorders/{purchaseorder_id}` */
@@ -916,9 +916,9 @@ export interface UpdatePurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Ignore auto purchase order number generation for this purchase order. This mandates the purchase order number. */
-  readonly ignore_auto_number_generation?: boolean
+  readonly ignore_auto_number_generation?: boolean | undefined
   readonly body: UpdateAPurchaseOrderRequest
 }
 
@@ -967,7 +967,7 @@ export interface MarkPurchaseOrderOpenInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark a purchase order as open. `POST /purchaseorders/{purchaseorder_id}/status/open` */
@@ -984,7 +984,7 @@ export interface MarkPurchaseOrderBilledInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Mark as billed. `POST /purchaseorders/{purchaseorder_id}/status/billed` */
@@ -1001,7 +1001,7 @@ export interface MarkPurchaseOrderCancelledInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Cancel a purchase order. `POST /purchaseorders/{purchaseorder_id}/status/cancelled` */
@@ -1018,7 +1018,7 @@ export interface SubmitPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Submit a purchase order for approval. `POST /purchaseorders/{purchaseorder_id}/submit` */
@@ -1035,7 +1035,7 @@ export interface ApprovePurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Approve a purchase order. `POST /purchaseorders/{purchaseorder_id}/approve` */
@@ -1052,7 +1052,7 @@ export interface GetPurchaseOrderEmailInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Get the email content based on a specific email template. If this param is not inputted, then the content will be based on the email template associated with the customer. If no template is associated with the customer, then default template will be used. Note: This value is a set of numeric characters. */
-  readonly email_template_id?: string
+  readonly email_template_id?: string | undefined
 }
 
 /** Get purchase order email content. `GET /purchaseorders/{purchaseorder_id}/email` */
@@ -1068,11 +1068,11 @@ export interface EmailPurchaseOrderInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** The files to be attached with the email. */
-  readonly attachments?: ZohoFile
+  readonly attachments?: ZohoFile | undefined
   /** Send the purchase order attachment a with the email. */
-  readonly send_attachment?: boolean
+  readonly send_attachment?: boolean | undefined
   /** Name of the file */
-  readonly file_name?: string
+  readonly file_name?: string | undefined
   readonly body: EmailAPurchaseOrderRequest
 }
 
@@ -1120,9 +1120,9 @@ export interface UpdatePurchaseOrderTemplateInput {
   /** Unique identifier of the purchase order template. Note: This value is a set of numeric characters. */
   readonly template_id: string
   /** List of available templates for the purchase order. */
-  readonly templates?: ReadonlyArray<unknown>
+  readonly templates?: ReadonlyArray<unknown> | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update purchase order template. `PUT /purchaseorders/{purchaseorder_id}/templates/{template_id}` */
@@ -1139,7 +1139,7 @@ export interface GetPurchaseOrderAttachmentInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Get the thumbnail of the attachment. */
-  readonly preview?: boolean
+  readonly preview?: boolean | undefined
 }
 
 /** Get a purchase order attachment. `GET /purchaseorders/{purchaseorder_id}/attachment` */
@@ -1155,9 +1155,9 @@ export interface AddPurchaseOrderAttachmentInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Allowed Extensions: gif, png, jpeg, jpg, bmp, pdf, xls, xlsx, doc and docx. */
-  readonly attachment?: ZohoFile
+  readonly attachment?: ZohoFile | undefined
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Add attachment to a purchase order. `POST /purchaseorders/{purchaseorder_id}/attachment` */
@@ -1177,7 +1177,7 @@ export interface UpdatePurchaseOrderAttachmentInput {
   /** Boolean to send the attachment with the purchase order when emailed. */
   readonly can_send_in_mail: boolean
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Update attachment preference. `PUT /purchaseorders/{purchaseorder_id}/attachment` */
@@ -1272,7 +1272,7 @@ export interface RejectPurchaseOrdersInput {
   /** Unique identifier of the purchase order. Note: This value is a set of numeric characters. */
   readonly purchaseorder_id: string
   /** Zoho documents no body for this operation. */
-  readonly body?: Readonly<Record<string, unknown>>
+  readonly body?: Readonly<Record<string, unknown>> | undefined
 }
 
 /** Reject Purchase Order. `POST /purchaseorders/{purchaseorder_id}/reject` */

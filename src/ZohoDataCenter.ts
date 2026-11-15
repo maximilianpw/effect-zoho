@@ -1,8 +1,11 @@
+import * as Schema from 'effect/Schema'
+
 /**
  * Zoho hosts each account in one data centre. OAuth and API calls must go to
  * the hosts of the data centre that holds the account.
  */
-export type ZohoDataCenter = 'us' | 'eu' | 'in' | 'au' | 'jp' | 'ca' | 'cn' | 'sa' | 'ae'
+export const ZohoDataCenter = Schema.Literals(['us', 'eu', 'in', 'au', 'jp', 'ca', 'cn', 'sa', 'ae'])
+export type ZohoDataCenter = typeof ZohoDataCenter.Type
 
 export interface ZohoDataCenterHosts {
   readonly accounts: string

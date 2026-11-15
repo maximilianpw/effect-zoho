@@ -265,50 +265,50 @@ export interface CreateAPaymentRequest {
   /** Date on which payment is made. Format [yyyy-mm-dd] */
   readonly date: string
   /** Reference number generated for the payment. A string of your choice can also be used as the reference number. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Description about the payment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** List of invoices associated with the payment. Each invoice object contains invoice_id, invoice_number, date, invoice_amount, amount_applied and balance_amount. */
   readonly invoices: ReadonlyArray<{
     /** Invoice ID of the required invoice. Note: This value is a set of numeric characters. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Amount paid for the invoice. */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Amount withheld for tax. */
-    readonly tax_amount_withheld?: number
+    readonly tax_amount_withheld?: number | undefined
   }>
   /** Exchange rate for the currency used in the invoices and customer's currency. The payment amount would be the multiplicative product of the original amount and the exchange rate. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** Denotes any additional bank charges. */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** Additional fields for the payments. */
   readonly custom_fields?: ReadonlyArray<{
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Location ID. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** Invoice ID of the required invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Amount paid for the invoice. */
   readonly amount_applied: number
   /** ID of the cash/bank account the payment has to be deposited. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** IDs of the contact personsthe thank you mail has to be triggered. */
-  readonly contact_persons?: ReadonlyArray<string>
+  readonly contact_persons?: ReadonlyArray<string> | undefined
   /** ID of the retainer invoice associated with the payment. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_id?: string
+  readonly retainerinvoice_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateAPaymentRequest {
@@ -319,129 +319,129 @@ export interface UpdateAPaymentRequest {
   /** Amount paid in the respective payment. */
   readonly amount: number
   /** Date on which payment is made. Format [yyyy-mm-dd] */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Reference number generated for the payment. A string of your choice can also be used as the reference number. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Description about the payment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** List of invoices associated with the payment. Each invoice object contains invoice_id, invoice_number, date, invoice_amount, amount_applied and balance_amount. */
   readonly invoices: ReadonlyArray<{
     /** Invoice ID of the required invoice. Note: This value is a set of numeric characters. */
-    readonly invoice_id?: string
+    readonly invoice_id?: string | undefined
     /** Amount paid for the invoice. */
-    readonly amount_applied?: number
+    readonly amount_applied?: number | undefined
     /** Amount withheld for tax. */
-    readonly tax_amount_withheld?: number
+    readonly tax_amount_withheld?: number | undefined
   }>
   /** Exchange rate for the currency used in the invoices and customer's currency. The payment amount would be the multiplicative product of the original amount and the exchange rate. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** Denotes any additional bank charges. */
-  readonly bank_charges?: number
+  readonly bank_charges?: number | undefined
   /** Additional fields for the payments. */
   readonly custom_fields?: ReadonlyArray<{
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Value of the custom field. */
-    readonly value?: string
-  }>
+    readonly value?: string | undefined
+  }> | undefined
   /** Invoice ID of the required invoice. Note: This value is a set of numeric characters. */
   readonly invoice_id: string
   /** Amount paid for the invoice. */
   readonly amount_applied: number
   /** Amount withheld for tax. */
-  readonly tax_amount_withheld?: number
+  readonly tax_amount_withheld?: number | undefined
   /** Location ID. Note: This value is a set of numeric characters. */
-  readonly location_id?: string
+  readonly location_id?: string | undefined
   /** ID of the cash/bank account the payment has to be deposited. Note: This value is a set of numeric characters. */
-  readonly account_id?: string
+  readonly account_id?: string | undefined
   /** ID of the retainer invoice associated with the payment. Note: This value is a set of numeric characters. */
-  readonly retainerinvoice_id?: string
+  readonly retainerinvoice_id?: string | undefined
   /** Reporting tags help organize and filter data across reports and enable detailed business intelligence analysis. */
   readonly tags?: ReadonlyArray<{
     /** Tag's ID. Note: This value is a set of numeric characters. */
-    readonly tag_id?: string
+    readonly tag_id?: string | undefined
     /** Tag Option's ID. Note: This value is a set of numeric characters. */
-    readonly tag_option_id?: string
-  }>
+    readonly tag_option_id?: string | undefined
+  }> | undefined
 }
 
 export interface RefundAnExcessCustomerPaymentRequest {
   /** Date on which payment is made. Format [yyyy-mm-dd] */
   readonly date: string
   /** The method of refund. Max-length [50] */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference number generated for the payment. A string of your choice can also be used as the reference number. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount paid in the respective payment. */
   readonly amount: number
   /** Exchange rate for the currency used in the invoices and customer's currency. The payment amount would be the multiplicative product of the original amount and the exchange rate. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** The account from which payment is refunded. Note: This value is a set of numeric characters. */
   readonly from_account_id: string
   /** Description about the payment. */
-  readonly description?: string
+  readonly description?: string | undefined
 }
 
 export interface UpdateACustomerpaymentCustomfieldRequest {
   /** Additional fields for the payments. */
   readonly custom_fields?: ReadonlyArray<{
     /** Value of the custom field. */
-    readonly value?: string
+    readonly value?: string | undefined
     /** Label of the custom field. */
-    readonly label?: string
+    readonly label?: string | undefined
     /** Data type of the custom field. */
-    readonly data_type?: string
-  }>
+    readonly data_type?: string | undefined
+  }> | undefined
 }
 
 export interface UpdateARefundRequest {
   /** Date on which payment is made. Format [yyyy-mm-dd] */
   readonly date: string
   /** The method of refund. Max-length [50] */
-  readonly refund_mode?: string
+  readonly refund_mode?: string | undefined
   /** Reference number generated for the payment. A string of your choice can also be used as the reference number. Max-length [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Amount paid in the respective payment. */
   readonly amount: number
   /** Exchange rate for the currency used in the invoices and customer's currency. The payment amount would be the multiplicative product of the original amount and the exchange rate. */
-  readonly exchange_rate?: number
+  readonly exchange_rate?: number | undefined
   /** Mode of Vendor Payment */
-  readonly payment_form?: string
+  readonly payment_form?: string | undefined
   /** Description about the payment. */
-  readonly description?: string
+  readonly description?: string | undefined
   /** The account from which payment is refunded. Note: This value is a set of numeric characters. */
   readonly from_account_id: string
 }
 
 export interface ListCustomerPaymentsInput {
   /** Search payments by customer name. Variants: customer_name_startswith and customer_name_contains. Max-len [100] */
-  readonly customer_name?: string
+  readonly customer_name?: string | undefined
   /** Search payments by reference number. Variants: reference_number_startswith and reference_number_contains. Max-len [100] */
-  readonly reference_number?: string
+  readonly reference_number?: string | undefined
   /** Search payments by payment date. */
-  readonly date?: string
+  readonly date?: string | undefined
   /** Search payments by payment amount. Variants: amount_less_than, amount_less_equals, amount_greater_than and amount_greater_equals */
-  readonly amount?: number
+  readonly amount?: number | undefined
   /** Search payments by customer notes. Variants: notes_startswith and notes_contains */
-  readonly notes?: string
+  readonly notes?: string | undefined
   /** Search payments by payment mode. Variants: payment_mode_startswith and payment_mode_contains */
-  readonly payment_mode?: string
+  readonly payment_mode?: string | undefined
   /** Filter payments by mode.Allowed Values: PaymentMode.All, PaymentMode.Check, PaymentMode.Cash, PaymentMode.BankTransfer, PaymentMode.Paypal, PaymentMode.CreditCard, PaymentMode.GoogleCheckout, PaymentMode.Credit, PaymentMode.Authorizenet, PaymentMode.BankRemittance, PaymentMode.Payflowpro, PaymentMode.Stripe, PaymentMode.TwoCheckout, PaymentMode.Braintree and PaymentMode.Others */
-  readonly filter_by?: string
+  readonly filter_by?: string | undefined
   /** Sort the list of payments by the specified column. */
-  readonly sort_column?: string
+  readonly sort_column?: string | undefined
   /** Search payments by reference number or customer name or payment description. Max-length [100] */
-  readonly search_text?: string
+  readonly search_text?: string | undefined
   /** Customer ID of the customer involved in the payment. Note: This value is a set of numeric characters. */
-  readonly customer_id?: string
+  readonly customer_id?: string | undefined
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List Customer Payments. `GET /customerpayments` */
@@ -473,7 +473,7 @@ export interface UpdateCustomerPaymentUsingCustomFieldInput {
   /** Unique CustomField Value */
   readonly "X-Unique-Identifier-Value": string
   /** If there is no record is found unique custom field value , will create new invoice */
-  readonly "X-Upsert"?: boolean
+  readonly "X-Upsert"?: boolean | undefined
   readonly body: UpdateAPaymentRequest
 }
 
@@ -508,7 +508,7 @@ export interface GetCustomerPaymentInput {
   /** Unique identifier of the payment. Note: This value is a set of numeric characters. */
   readonly payment_id: string
   /** Format of the response. Allowed values are json and pdf. Default is json. */
-  readonly accept?: "json" | "pdf"
+  readonly accept?: "json" | "pdf" | undefined
 }
 
 /** Retrieve a payment. `GET /customerpayments/{payment_id}` */
@@ -554,9 +554,9 @@ export interface ListCustomerPaymentRefundsInput {
   /** Unique identifier of the customer payment. Note: This value is a set of numeric characters. */
   readonly customer_payment_id: string
   /** Page number to be fetched. Default value is 1. */
-  readonly page?: number
+  readonly page?: number | undefined
   /** Number of records to be fetched per page. */
-  readonly per_page?: number
+  readonly per_page?: number | undefined
 }
 
 /** List refunds of a customer payment. `GET /customerpayments/{customer_payment_id}/refunds` */
