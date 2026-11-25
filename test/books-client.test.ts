@@ -9,6 +9,7 @@ import * as Option from 'effect/Option'
 import * as RateLimiter from 'effect/persistence/RateLimiter'
 import * as Redacted from 'effect/Redacted'
 import * as Stream from 'effect/Stream'
+import * as Tracer from 'effect/Tracer'
 import { ZohoAccessToken, ZohoDataCenter, ZohoError, ZohoTransportError } from '../src/index.ts'
 import {
   BankAccounts, Bills, Contacts, DeliveryChallans, Expenses, Invoices, Organizations, paginate, Projects, ReportingTags, ZohoBooksClient,
@@ -180,6 +181,18 @@ it.effect('does not retry a 401 when the token service has no replacement to off
     expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoUnauthorizedError', code: 57 } })
     expect(zoho.requests).toHaveLength(1)
   }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('does not retry a 401 when the token service offers the rejected token again', () => {
+  const zoho = fakeZoho(json({ code: 57, message: 'You are not authorized to perform this operation' }, { status: 401 }))
+  const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({
+    get: Effect.succeed(Redacted.make('token-1')),
+    replace: (rejected) => Effect.succeed(Option.some(Redacted.make(Redacted.value(rejected)))),
+  }))
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoUnauthorizedError', code: 57 } })
+    expect(zoho.requests).toHaveLength(1)
+  }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
 })
 
 it.effect('retries once with a replacement token after a 401, and gives up after a second', () => {
@@ -370,4 +383,29 @@ it.effect('sends requests through transformClient, which can retry a 503 or a 42
     expect(limited.reason._tag).toBe('ZohoRateLimitError')
     expect(zoho.requests).toHaveLength(5)
   }).pipe(Effect.provide(layer))
+})
+
+it.effect('records the operation and the failure reason on the operation span', () => {
+  const zoho = books(
+    json({ code: 0, invoices: [] }),
+    json({ code: 44, message: 'Too many requests' }, { status: 429 }),
+  )
+  const spans: Array<Tracer.NativeSpan> = []
+  const tracer = Tracer.make({
+    span(options) {
+      const span = new Tracer.NativeSpan(options)
+      spans.push(span)
+      return span
+    },
+  })
+  return Effect.gen(function* () {
+    yield* Invoices.listInvoices()
+    yield* Effect.flip(Invoices.getInvoice({ invoice_id: '1' }))
+
+    const operations = spans.filter((span) => span.name.startsWith('zoho.books.'))
+    expect(operations.map((span) => [span.name, Object.fromEntries(span.attributes)])).toEqual([
+      ['zoho.books.list_invoices', { 'zoho.operation': 'list_invoices' }],
+      ['zoho.books.get_invoice', { 'zoho.operation': 'get_invoice', 'zoho.error.reason': 'ZohoRateLimitError', 'zoho.error.code': 44 }],
+    ])
+  }).pipe(Effect.provide(zoho.layer), Effect.provideService(Tracer.Tracer, tracer))
 })

@@ -11,12 +11,20 @@ import type { ZohoDataCenter } from './ZohoDataCenter.ts'
 import { ZohoError, ZohoTransportError } from './ZohoError.ts'
 import { refreshAccessToken, type ZohoOAuthClient } from './ZohoOAuth.ts'
 
+/**
+ * What `ZohoBooksClient` expects of a token service, including one you write yourself:
+ *
+ * - `get` runs before every request, often concurrently. Hand out a cached token while
+ *   it is valid, and let concurrent callers share one refresh.
+ * - `replace` runs at most once per request, after Zoho answered `rejected` with HTTP
+ *   401, and the request is retried once with the token it returns. When the current
+ *   token already differs from `rejected`, return it, so a burst of rejections mints once.
+ * - Return none for a token minted moments ago. Zoho answers a missing scope or role
+ *   with the same 401, and a refresh token can mint only about 10 access tokens in 10
+ *   minutes, so minting on every such 401 spends that allowance and locks every caller out.
+ */
 export interface ZohoAccessTokenService {
   readonly get: Effect.Effect<Redacted.Redacted<string>, ZohoError>
-  /**
-   * Called when Zoho rejected `rejected` with HTTP 401. Returns a different token
-   * to retry with, or none when a retry would not help.
-   */
   readonly replace: (
     rejected: Redacted.Redacted<string>,
   ) => Effect.Effect<Option.Option<Redacted.Redacted<string>>, ZohoError>

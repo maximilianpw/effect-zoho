@@ -125,25 +125,33 @@ function toRequest(
   }
 }
 
+const annotateFailure = ({ reason }: ZohoError) =>
+  Effect.annotateCurrentSpan({
+    'zoho.error.reason': reason._tag,
+    ...('code' in reason && reason.code !== undefined ? { 'zoho.error.code': reason.code } : {}),
+  })
+
 /** Builds the callable for one documented Books operation. Used by the generated modules. */
 export function operation<Input, const Response extends Schema.Top | undefined = Schema.Top | undefined>(
   definition: OperationDefinition<Response>,
 ): Operation<Input, Response> {
-  const span = `zoho.books.${definition.id}`
   const send = <A>(args: ReadonlyArray<unknown>, use: (client: ZohoBooksClient['Service'], request: ZohoBooksRequest) => Effect.Effect<A, ZohoError>) =>
     Effect.suspend(() => {
       const request = toRequest(definition, (args[0] ?? {}) as Readonly<Record<string, unknown>>)
       return request instanceof ZohoError ? Effect.fail(request) : Effect.flatMap(ZohoBooksClient, (client) => use(client, request))
-    })
-  const raw = (...args: Arguments<Input>) => send(args, (client, request) => client.json(request)).pipe(Effect.withSpan(span))
-  const binary = (...args: Arguments<Input>) => send(args, (client, request) => client.binary(request)).pipe(Effect.withSpan(span))
+    }).pipe(
+      Effect.tapError(annotateFailure),
+      Effect.withSpan(`zoho.books.${definition.id}`, { attributes: { 'zoho.operation': definition.id } }),
+    )
+  const raw = (...args: Arguments<Input>) => send(args, (client, request) => client.json(request))
+  const binary = (...args: Arguments<Input>) => send(args, (client, request) => client.binary(request))
   const schema: Schema.Top | undefined = definition.response
   const decoded = schema === undefined
     ? binary
     : (...args: Arguments<Input>) => send(args, (client, request) => Effect.flatMap(client.json(request), (body) =>
         Schema.decodeUnknownEffect(schema as Schema.Codec<unknown>)(body).pipe(
           Effect.mapError((issue) => new ZohoError({ operation: definition.id, reason: new ZohoResponseError({ detail: String(issue) }) })),
-        ))).pipe(Effect.withSpan(span))
+        )))
   return Object.assign(decoded, { raw, binary, definition }) as Operation<Input, Response>
 }
 

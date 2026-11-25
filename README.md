@@ -75,7 +75,9 @@ const invoice = Invoices.getInvoice({ invoice_id }).pipe(
 )
 ```
 
-Each call runs in a span named `zoho.books.<operationId>`.
+Each call runs in a span named `zoho.books.<operationId>` with a `zoho.operation`
+attribute. A failed call also records `zoho.error.reason`, the reason's tag, and
+`zoho.error.code`, Zoho's result code when it sent one.
 
 Every operation also has two other forms:
 
@@ -148,7 +150,15 @@ the client.
   the application out.
 - `ZohoAccessToken.layerStatic` uses a fixed token, for scripts and tests.
 - For anything else, such as tokens shared between processes through a database,
-  provide your own `ZohoAccessToken` service. It has two members, `get` and `replace`.
+  provide your own `ZohoAccessToken` service. It has two members, and the client
+  relies on them behaving like the built-in one:
+  - `get` runs before every request, often concurrently. Hand out a cached token
+    while it is valid, and let concurrent callers share one refresh.
+  - `replace(rejected)` runs at most once per request, after a 401, and the request is
+    retried once with what it returns. If the current token already differs from
+    `rejected`, return it rather than minting, so a burst of 401s mints once.
+  - Return `Option.none()` for a token minted moments ago, for the quota reason above.
+    A replacement equal to the rejected token is ignored.
 
 `ZohoBooksClient.layerConfig` and `ZohoAccessToken.layerRefreshTokenConfig` take the
 same settings as `Config` values, to read them from the environment:

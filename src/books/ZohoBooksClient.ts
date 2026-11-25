@@ -161,7 +161,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
             if (first.status !== 401) return yield* answer(first)
             // An access token can expire or be revoked early; one retry with a replacement settles it.
             const replacement = yield* tokens.replace(credential)
-            if (Option.isNone(replacement)) return yield* answer(first)
+            if (Option.isNone(replacement) || Redacted.value(replacement.value) === Redacted.value(credential)) return yield* answer(first)
             yield* Effect.ignore(first.text)
             return yield* Effect.flatMap(attempt(replacement.value), answer)
           })
