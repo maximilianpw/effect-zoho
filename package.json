@@ -1,6 +1,6 @@
 {
   "name": "effect-zoho",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Typed Effect client for Zoho Books, generated from Zoho's official OpenAPI documents.",
   "license": "MIT",
   "repository": {

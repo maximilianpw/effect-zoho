@@ -3,6 +3,8 @@ import * as Config from 'effect/Config'
 import * as ConfigProvider from 'effect/ConfigProvider'
 import * as Effect from 'effect/Effect'
 import * as Fiber from 'effect/Fiber'
+import * as HttpClient from 'effect/http/HttpClient'
+import * as HttpClientError from 'effect/http/HttpClientError'
 import * as Layer from 'effect/Layer'
 import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
@@ -110,6 +112,25 @@ it.effect('exchanges a Self Client code without a redirect URI', () => {
     yield* ZohoOAuth.exchangeCode({ ...client, code: 'code-1' })
     expect(zoho.requests[0]?.body).toEqual({ client_id: 'client-1', client_secret: 'secret-1', code: 'code-1', grant_type: 'authorization_code' })
   }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('reads the refusal Zoho sends with an error status', () => {
+  const zoho = fakeZoho(json({ error: 'invalid_client' }, { status: 400 }))
+  return Effect.gen(function* () {
+    const error = yield* Effect.flip(ZohoOAuth.refreshAccessToken({ ...client, refreshToken: Redacted.make('refresh-1') }))
+    expect(error.reason).toMatchObject({ _tag: 'ZohoOAuthError', error: 'invalid_client' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('keeps neither the request nor its client secret when the accounts server cannot be reached', () => {
+  const dropped = HttpClient.make((request) => Effect.fail(new HttpClientError.HttpClientError({
+    reason: new HttpClientError.TransportError({ request }),
+  })))
+  return Effect.gen(function* () {
+    const error = yield* Effect.flip(ZohoOAuth.refreshAccessToken({ ...client, refreshToken: Redacted.make('refresh-1') }))
+    expect(error.reason).toMatchObject({ _tag: 'ZohoTransportError', kind: 'request', causeName: 'TransportError' })
+    expect(JSON.stringify(error)).not.toMatch(/secret-1|refresh-1/)
+  }).pipe(Effect.provideService(HttpClient.HttpClient, dropped))
 })
 
 it.effect('reports an HTML error page from the accounts server as a refusal, and an unconfirmed revocation as a failure', () => {
