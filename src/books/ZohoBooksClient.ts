@@ -142,8 +142,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
             ...(code === undefined ? {} : { code }),
           }
           const reason = (): ZohoError['reason'] => {
-            if (response.status === 401) return new ZohoUnauthorizedError(problem)
-            // A limit's result code identifies it whatever HTTP status accompanies it.
+            // A limit's result code identifies it whatever HTTP status accompanies it, 401 included.
             if (response.status === 429 || (code !== undefined && rateLimitCodes.has(code))) {
               const retryAfter = Number(response.headers['retry-after'])
               return new ZohoRateLimitError({
@@ -151,6 +150,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
                 ...(Number.isFinite(retryAfter) && retryAfter >= 0 ? { retryAfterSeconds: retryAfter } : {}),
               })
             }
+            if (response.status === 401) return new ZohoUnauthorizedError(problem)
             return new ZohoApiError({ ...problem, status: response.status })
           }
           return new ZohoError({ operation: request.operation, reason: reason() })
@@ -165,7 +165,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
             Effect.map(
               mediaType(response) === 'application/json'
                 ? response.json.pipe(Effect.orElseSucceed((): unknown => undefined))
-                : Effect.succeed(undefined),
+                : Effect.as(Effect.ignore(response.text), undefined),
               (body) => failure(request, response, body),
             )
           const answer = (response: HttpClientResponse.HttpClientResponse) =>
@@ -182,7 +182,8 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
             deadline(Effect.flatMap(
               http.execute(build(request, credential)).pipe(Effect.mapError(transport)),
               (response): Effect.Effect<Attempt<A>, ZohoError> => response.status === 401
-                ? Effect.map(refusal(response), (rejected) => ({ _tag: 'Rejected', rejected }))
+                ? Effect.flatMap(refusal(response), (rejected): Effect.Effect<Attempt<A>, ZohoError> =>
+                    rejected.reason._tag === 'ZohoRateLimitError' ? Effect.fail(rejected) : Effect.succeed({ _tag: 'Rejected', rejected }))
                 : Effect.map(answer(response), (value) => ({ _tag: 'Answered', value })),
             ))
 
