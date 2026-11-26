@@ -70,6 +70,67 @@ const undeclaredFileParameters: Readonly<Record<string, string>> = {
   add_bank_reconciliation_attachment: 'attachment',
 }
 
+/**
+ * Response fields documented as text with a numeric example, which Zoho sends as JSON
+ * numbers: amounts, quantities and page numbers. Identifiers are documented the same way
+ * and must stay text, so the fields are named rather than found by their example.
+ */
+const numbersDocumentedAsText: ReadonlySet<string> = new Set([
+  'amount', 'amount_bcy', 'amount_fcy', 'balance', 'bcy_amount', 'item_order', 'item_total',
+  'page', 'per_page', 'quantity', 'repeat_every', 'shipping_charge', 'tax_amount', 'total',
+])
+
+/** Query parameters Zoho requires but does not document. Each name is the one Zoho's own refusal asks for. */
+const undeclaredQueryParameters: Readonly<Record<string, ParameterNode>> = {
+  get_contact_card_count: { name: 'contact_ids', in: 'query', required: true, description: 'Comma-separated contact IDs.', schema: { type: 'string' } },
+  list_all_contact_bank_accounts: { name: 'contact_ids', in: 'query', required: true, description: 'Comma-separated contact IDs.', schema: { type: 'string' } },
+  list_invoices_einvoice: { name: 'invoice_ids', in: 'query', required: true, description: 'Comma-separated invoice IDs.', schema: { type: 'string' } },
+  list_credit_notes_einvoice: { name: 'creditnote_ids', in: 'query', required: true, description: 'Comma-separated credit note IDs.', schema: { type: 'string' } },
+  list_bank_account_match_filters: { name: 'account_id', in: 'query', required: true, description: 'ID of the bank or cash account.', schema: { type: 'string' } },
+}
+
+/** Response schemas, by file and path below `components.schemas`, whose documented type is not what Zoho sends. */
+const responseTypeCorrections: ReadonlyArray<{
+  readonly file: string
+  readonly path: ReadonlyArray<string>
+  readonly documented: string
+  readonly sent: (documented: SchemaNode) => SchemaNode
+}> = [
+  {
+    file: 'organizations.yml',
+    path: ['fiscal_year_start_month'],
+    documented: 'number',
+    sent: ({ description }) => ({ ...(description === undefined ? {} : { description }), type: 'string', example: 'january' }),
+  },
+  {
+    file: 'credit-notes.yml',
+    path: ['list-all-credit-notes-response', 'properties', 'creditnotes'],
+    documented: 'object',
+    sent: (documented) => ({ type: 'array', items: documented }),
+  },
+  {
+    file: 'users.yml',
+    path: ['custom_fields'],
+    documented: 'string',
+    sent: (documented) => ({ ...documented, type: 'array', items: { type: 'object' } }),
+  },
+]
+
+function correctResponseTypes(file: string, document: Document): void {
+  for (const correction of responseTypeCorrections.filter((each) => each.file === file)) {
+    const location = `${file}: components.schemas.${correction.path.join('.')}`
+    const parent = correction.path.slice(0, -1).reduce<Record<string, unknown> | undefined>(
+      (node, segment) => node?.[segment] as Record<string, unknown> | undefined,
+      document.components?.schemas as Record<string, unknown> | undefined,
+    )
+    const name = correction.path.at(-1)!
+    const documented = parent?.[name] as SchemaNode | undefined
+    if (documented?.type !== correction.documented) throw new Error(`${location} is no longer documented as ${correction.documented}`)
+    parent![name] = correction.sent(documented)
+    usedCorrections.add(location)
+  }
+}
+
 /** Modules whose file name is singular or unclear beside the rest. */
 const moduleNames: Readonly<Record<string, string>> = {
   'base-currency-adjustment.yml': 'BaseCurrencyAdjustments',
@@ -257,11 +318,18 @@ class Module {
     }
   }
 
-  /** Zoho returns `page_context` as one object; some documents describe it as a list of them. */
+  /**
+   * Zoho returns `page_context` as one object, though some documents describe a list of
+   * them, and the fields in `numbersDocumentedAsText` as JSON numbers.
+   */
   private corrected(name: string, property: SchemaNode): SchemaNode {
-    if (name !== 'page_context') return property
     const shape = this.resolve(property)
-    return shape.type === 'array' && shape.items !== undefined ? shape.items : property
+    if (name === 'page_context') return shape.type === 'array' && shape.items !== undefined ? shape.items : property
+    if (numbersDocumentedAsText.has(name) && shape.type === 'string' && typeof shape.example === 'number') {
+      usedCorrections.add(`number:${name}`)
+      return { ...shape, type: 'number' }
+    }
+    return property
   }
 
   private responseStruct(shape: SchemaNode, indent: string): string {
@@ -273,13 +341,13 @@ class Module {
       const field = this.responseField(this.corrected(name, property)).replace(/\n/g, `\n${indent}`)
       return names.map((each) => `${indent}  ${key(each)}: ${field},`)
     })
-    return `Schema.Struct({\n${fields.join('\n')}\n${indent}})`
+    return `W.Struct({\n${fields.join('\n')}\n${indent}})`
   }
 
   /** A result-only response keeps whatever else Zoho sends, since its document says nothing about the payload. */
   private responseObject(shape: SchemaNode): string {
     const struct = this.responseStruct(shape, '')
-    return this.isResultOnly(shape) ? `Schema.StructWithRest(${struct}, [Schema.Record(Schema.String, Schema.Unknown)])` : struct
+    return this.isResultOnly(shape) ? struct.replace(/^W\.Struct\(/, 'W.StructWithRest(') : struct
   }
 
   private responseDeclaration(component: string): string {
@@ -385,6 +453,14 @@ class Module {
       usedCorrections.add(node.operationId)
       declared.set(undeclaredFile, { name: undeclaredFile, in: 'query', schema: { type: 'string', format: 'binary' } })
     }
+    const undeclaredQuery = undeclaredQueryParameters[node.operationId]
+    if (undeclaredQuery !== undefined) {
+      if (declared.has(undeclaredQuery.name)) throw new Error(`${this.file}: ${node.operationId} now declares ${undeclaredQuery.name}`)
+      usedCorrections.add(node.operationId)
+      declared.set(undeclaredQuery.name, undeclaredQuery)
+    }
+    // The copy keeps the loop from visiting the variants it adds to `declared`.
+    // oxlint-disable-next-line unicorn/no-useless-spread
     for (const parameter of [...declared.values()]) {
       if (parameter.in !== 'query') continue
       const type = parameter.schema === undefined ? undefined : this.resolve(parameter.schema).type
@@ -499,7 +575,8 @@ class Module {
     const body = [...this.responseDeclarations.values(), ...this.inputDeclarations.values(), ...this.operations, aliases.join('\n'), ''].join('\n')
     return [
       banner,
-      ...(this.responseDeclarations.size > 0 ? ["import * as Schema from 'effect/Schema'", "import * as W from '../../internal/wire.ts'"] : []),
+      ...(/\bSchema\./.test(body) ? ["import * as Schema from 'effect/Schema'"] : []),
+      ...(this.responseDeclarations.size > 0 ? ["import * as W from '../../internal/wire.ts'"] : []),
       `import { operation${/\bZohoFile\b/.test(body) ? ', type ZohoFile' : ''} } from '../Operation.ts'`,
       '',
       body,
@@ -513,6 +590,7 @@ const generatedModules: string[] = []
 const operationIds = new Set<string>()
 for (const file of files) {
   const document = parse(readFileSync(join(specDirectory, file), 'utf8')) as Document
+  correctResponseTypes(file, document)
   for (const item of Object.values(document.paths)) {
     for (const method of methods) {
       const id = (item[method] as OperationNode | undefined)?.operationId
@@ -528,6 +606,9 @@ for (const file of files) {
 const unusedCorrections = [
   ...Object.keys(undeclaredPathParameters),
   ...Object.keys(undeclaredFileParameters),
+  ...Object.keys(undeclaredQueryParameters),
+  ...[...numbersDocumentedAsText].map((name) => `number:${name}`),
+  ...responseTypeCorrections.map((correction) => `${correction.file}: components.schemas.${correction.path.join('.')}`),
   ...Object.keys(moduleNames),
   ...Object.keys(responseKeyAliases),
 ]

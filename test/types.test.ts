@@ -8,8 +8,9 @@ it('types inputs, results, failures and requirements from Zoho’s documents', (
   const invoice = Invoices.getInvoice({ invoice_id: '1' })
   type Invoice = NonNullable<Effect.Success<typeof invoice>['invoice']>
 
-  expectTypeOf<Invoice['total']>().toEqualTypeOf<string | null | undefined>()
-  expectTypeOf<Invoice['is_viewed_by_client']>().toEqualTypeOf<boolean | null | undefined>()
+  expectTypeOf<Invoice['total']>().toEqualTypeOf<number | undefined>()
+  expectTypeOf<Invoice['invoice_number']>().toEqualTypeOf<string | undefined>()
+  expectTypeOf<Invoice['is_viewed_by_client']>().toEqualTypeOf<boolean | undefined>()
   expectTypeOf<Effect.Error<typeof invoice>>().toEqualTypeOf<ZohoError>()
   expectTypeOf<Effect.Services<typeof invoice>>().toEqualTypeOf<ZohoBooksClient>()
   expectTypeOf(Invoices.listInvoices).toBeCallableWith()

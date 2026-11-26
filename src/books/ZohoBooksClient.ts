@@ -55,9 +55,12 @@ export interface ZohoBooksClientOptions {
    */
   readonly transformClient?: ((client: HttpClient.HttpClient) => HttpClient.HttpClient.With<unknown>) | undefined
   /**
-   * The longest one HTTP attempt may take, from sending the request to reading the
-   * whole response body. A retry after a 401 gets its own deadline. Past it the call
-   * fails with a `ZohoTransportError`; the request may still have reached Zoho.
+   * The longest a call may take, from handing the request to the client built by
+   * `transformClient` to reading the whole response body. It includes whatever that
+   * client does, such as waiting for a rate limiter or retrying; to bound each retry,
+   * add a timeout inside `transformClient`. A retry after a 401 gets its own deadline.
+   * Past it the call fails with a `ZohoTransportError`, and the request may or may not
+   * have reached Zoho.
    */
   readonly requestTimeout?: Duration.Input | undefined
 }

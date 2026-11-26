@@ -46,8 +46,10 @@ it.effect('decodes what Zoho sends into the documented types, whatever scalar fo
     invoice: {
       invoice_id: 982000000567114,
       invoice_number: 'INV-00003',
-      total: 10000.5,
+      total: '10000.50',
+      balance: 40.6,
       due_date: '',
+      reference_number: null,
       is_viewed_by_client: 'true',
       line_items: [{ line_item_id: '1', quantity: '2', rate: 120 }],
       undocumented_field: 'kept only by raw',
@@ -59,11 +61,14 @@ it.effect('decodes what Zoho sends into the documented types, whatever scalar fo
     expect(invoice).toMatchObject({
       invoice_id: '982000000567114',
       invoice_number: 'INV-00003',
-      total: '10000.5',
+      total: 10000.5,
+      balance: 40.6,
       is_viewed_by_client: true,
       line_items: [{ line_item_id: '1', quantity: 2, rate: 120 }],
     })
     expect(invoice).not.toHaveProperty('undocumented_field')
+    expect(invoice).not.toHaveProperty('due_date')
+    expect(invoice).not.toHaveProperty('reference_number')
     expect(zoho.requests[0]?.url.pathname).toBe('/books/v3/invoices/982000000567114')
   }).pipe(Effect.provide(zoho.layer))
 })
