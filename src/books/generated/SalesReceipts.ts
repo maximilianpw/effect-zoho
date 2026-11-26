@@ -198,6 +198,8 @@ export interface ListSalesReceiptsInput {
   readonly page?: number | undefined
   /** Specify the maximum number of sales receipt records to return per page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List sales receipts. `GET /salesreceipts` */

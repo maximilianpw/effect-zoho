@@ -219,6 +219,8 @@ export interface ListExchangeRatesInput {
   readonly is_current_date?: boolean | undefined
   /** Sorts the exchange rate according to this column. Allowed Values : effective_date */
   readonly sort_column?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List exchange rates. `GET /settings/currencies/{currency_id}/exchangerates` */

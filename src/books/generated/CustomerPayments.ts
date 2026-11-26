@@ -28,6 +28,18 @@ export const ListCustomerPaymentsResponse = Schema.Struct({
     location_name: W.str,
     tags: W.field(TagsResponse),
   }))),
+  customerpayments: W.field(W.Arr(Schema.Struct({
+    payment_id: W.str,
+    payment_number: W.str,
+    invoice_number: W.str,
+    date: W.str,
+    payment_mode: W.str,
+    amount: W.num,
+    bcy_amount: W.str,
+    location_id: W.str,
+    location_name: W.str,
+    tags: W.field(TagsResponse),
+  }))),
   page_context: W.any,
 })
 export type ListCustomerPaymentsResponse = typeof ListCustomerPaymentsResponse.Type
@@ -442,6 +454,32 @@ export interface ListCustomerPaymentsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_startswith?: string | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_contains?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_startswith?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_contains?: string | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_than?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_equals?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_greater_than?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_greater_equals?: number | undefined
+  /** A variant of `notes` that Zoho names in its description. */
+  readonly notes_startswith?: string | undefined
+  /** A variant of `notes` that Zoho names in its description. */
+  readonly notes_contains?: string | undefined
+  /** A variant of `payment_mode` that Zoho names in its description. */
+  readonly payment_mode_startswith?: string | undefined
+  /** A variant of `payment_mode` that Zoho names in its description. */
+  readonly payment_mode_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List Customer Payments. `GET /customerpayments` */

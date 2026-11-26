@@ -952,6 +952,8 @@ export interface ListVendorCreditsInput {
   readonly per_page?: number | undefined
   /** List of location IDs to filter vendor credits by their associated locations. Use this parameter to retrieve vendor credits linked to specific business locations. Note: This value is a comma-separated list of numeric location IDs. */
   readonly location_ids?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List vendor credits. `GET /vendorcredits` */
@@ -1238,6 +1240,8 @@ export interface ListVendorCreditRefundsOfAllVendorCreditsInput {
   readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many vendor credits are returned in each page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List vendor credit refunds. `GET /vendorcredits/refunds` */

@@ -729,6 +729,8 @@ export interface ListProjectsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List projects. `GET /projects` */
@@ -1020,6 +1022,8 @@ export interface ListProjectInvoicesInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List invoices. `GET /projects/{project_id}/invoices` */

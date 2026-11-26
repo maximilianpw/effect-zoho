@@ -1558,6 +1558,36 @@ export interface ListContactsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `contact_name` that Zoho names in its description. */
+  readonly contact_name_startswith?: string | undefined
+  /** A variant of `contact_name` that Zoho names in its description. */
+  readonly contact_name_contains?: string | undefined
+  /** A variant of `company_name` that Zoho names in its description. */
+  readonly company_name_startswith?: string | undefined
+  /** A variant of `company_name` that Zoho names in its description. */
+  readonly company_name_contains?: string | undefined
+  /** A variant of `first_name` that Zoho names in its description. */
+  readonly first_name_startswith?: string | undefined
+  /** A variant of `first_name` that Zoho names in its description. */
+  readonly first_name_contains?: string | undefined
+  /** A variant of `last_name` that Zoho names in its description. */
+  readonly last_name_startswith?: string | undefined
+  /** A variant of `last_name` that Zoho names in its description. */
+  readonly last_name_contains?: string | undefined
+  /** A variant of `address` that Zoho names in its description. */
+  readonly address_startswith?: string | undefined
+  /** A variant of `address` that Zoho names in its description. */
+  readonly address_contains?: string | undefined
+  /** A variant of `email` that Zoho names in its description. */
+  readonly email_startswith?: string | undefined
+  /** A variant of `email` that Zoho names in its description. */
+  readonly email_contains?: string | undefined
+  /** A variant of `phone` that Zoho names in its description. */
+  readonly phone_startswith?: string | undefined
+  /** A variant of `phone` that Zoho names in its description. */
+  readonly phone_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List Contacts. `GET /contacts` */

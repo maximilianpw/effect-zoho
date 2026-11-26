@@ -1,5 +1,6 @@
 import * as Config from 'effect/Config'
 import * as Context from 'effect/Context'
+import type * as Duration from 'effect/Duration'
 import * as Effect from 'effect/Effect'
 import * as Layer from 'effect/Layer'
 import * as Option from 'effect/Option'
@@ -53,7 +54,20 @@ export interface ZohoBooksClientOptions {
    * timeouts. Whatever it fails with reaches the caller as a `ZohoTransportError`.
    */
   readonly transformClient?: ((client: HttpClient.HttpClient) => HttpClient.HttpClient.With<unknown>) | undefined
+  /**
+   * The longest one HTTP attempt may take, from sending the request to reading the
+   * whole response body. A retry after a 401 gets its own deadline. Past it the call
+   * fails with a `ZohoTransportError`; the request may still have reached Zoho.
+   */
+  readonly requestTimeout?: Duration.Input | undefined
 }
+
+type Attempt<A> =
+  | { readonly _tag: 'Answered'; readonly value: A }
+  | { readonly _tag: 'Rejected'; readonly rejected: ZohoError }
+
+/** Result codes Zoho uses for its limits: 44 per minute, 45 per day, 1070 for concurrent calls. */
+const rateLimitCodes: ReadonlySet<number> = new Set([44, 45, 1070])
 
 const mediaType = (response: HttpClientResponse.HttpClientResponse): string | undefined =>
   response.headers['content-type']?.split(';')[0]?.trim().toLowerCase()
@@ -126,7 +140,8 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
           }
           const reason = (): ZohoError['reason'] => {
             if (response.status === 401) return new ZohoUnauthorizedError(problem)
-            if (response.status === 429) {
+            // A limit's result code identifies it whatever HTTP status accompanies it.
+            if (response.status === 429 || (code !== undefined && rateLimitCodes.has(code))) {
               const retryAfter = Number(response.headers['retry-after'])
               return new ZohoRateLimitError({
                 ...problem,
@@ -143,27 +158,42 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
           read: (response: HttpClientResponse.HttpClientResponse) => Effect.Effect<A, ZohoError>,
         ): Effect.Effect<A, ZohoError> => {
           const transport = (cause: unknown) => new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ cause }) })
-          const attempt = (credential: Redacted.Redacted<string>) =>
-            http.execute(build(request, credential)).pipe(Effect.mapError(transport))
+          const refusal = (response: HttpClientResponse.HttpClientResponse) =>
+            Effect.map(
+              mediaType(response) === 'application/json'
+                ? response.json.pipe(Effect.orElseSucceed((): unknown => undefined))
+                : Effect.succeed(undefined),
+              (body) => failure(request, response, body),
+            )
           const answer = (response: HttpClientResponse.HttpClientResponse) =>
-            response.status < 400
-              ? read(response)
-              : Effect.flatMap(
-                  mediaType(response) === 'application/json'
-                    ? response.json.pipe(Effect.orElseSucceed((): unknown => undefined))
-                    : Effect.succeed(undefined),
-                  (body) => Effect.fail(failure(request, response, body)),
-                )
+            response.status < 400 ? read(response) : Effect.flatMap(refusal(response), Effect.fail)
+          const deadline = <B>(effect: Effect.Effect<B, ZohoError>): Effect.Effect<B, ZohoError> =>
+            options.requestTimeout === undefined
+              ? effect
+              : Effect.timeoutOrElse(effect, {
+                  duration: options.requestTimeout,
+                  orElse: () => Effect.fail(transport('the request deadline passed')),
+                })
+          // One HTTP attempt: a 401 is returned with its error, unread by `read`, so the caller can retry it.
+          const attempt = (credential: Redacted.Redacted<string>): Effect.Effect<Attempt<A>, ZohoError> =>
+            deadline(Effect.flatMap(
+              http.execute(build(request, credential)).pipe(Effect.mapError(transport)),
+              (response): Effect.Effect<Attempt<A>, ZohoError> => response.status === 401
+                ? Effect.map(refusal(response), (rejected) => ({ _tag: 'Rejected', rejected }))
+                : Effect.map(answer(response), (value) => ({ _tag: 'Answered', value })),
+            ))
 
           return Effect.gen(function* () {
             const credential = yield* tokens.get
             const first = yield* attempt(credential)
-            if (first.status !== 401) return yield* answer(first)
+            if (first._tag === 'Answered') return first.value
             // An access token can expire or be revoked early; one retry with a replacement settles it.
             const replacement = yield* tokens.replace(credential)
-            if (Option.isNone(replacement) || Redacted.value(replacement.value) === Redacted.value(credential)) return yield* answer(first)
-            yield* Effect.ignore(first.text)
-            return yield* Effect.flatMap(attempt(replacement.value), answer)
+            if (Option.isNone(replacement) || Redacted.value(replacement.value) === Redacted.value(credential)) {
+              return yield* first.rejected
+            }
+            const second = yield* attempt(replacement.value)
+            return second._tag === 'Answered' ? second.value : yield* second.rejected
           })
         }
 
@@ -209,6 +239,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
     readonly dataCenter: Config.Config<ZohoDataCenter>
     readonly apiUrl?: Config.Config<string> | undefined
     readonly transformClient?: ZohoBooksClientOptions['transformClient']
+    readonly requestTimeout?: ZohoBooksClientOptions['requestTimeout']
   }): Layer.Layer<ZohoBooksClient, Config.ConfigError, HttpClient.HttpClient | ZohoAccessToken> =>
     Layer.effect(ZohoBooksClient, Effect.gen(function* () {
       return yield* ZohoBooksClient.make({
@@ -216,6 +247,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
         dataCenter: yield* options.dataCenter,
         apiUrl: options.apiUrl === undefined ? undefined : yield* options.apiUrl,
         transformClient: options.transformClient,
+        requestTimeout: options.requestTimeout,
       })
     }))
 }
