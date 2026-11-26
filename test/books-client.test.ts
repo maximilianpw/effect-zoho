@@ -227,6 +227,49 @@ it.effect('retries once with a replacement token after a 401, and gives up after
   }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
 })
 
+it.effect('reports a 401 carrying a limit code as a rate limit, without replacing the token', () => {
+  const zoho = fakeZoho(json({ code: 45, message: 'You have reached the daily API limit' }, { status: 401 }))
+  let replaced = 0
+  const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({
+    get: Effect.succeed(Redacted.make('token-1')),
+    replace: () => Effect.sync(() => {
+      replaced++
+      return Option.some(Redacted.make('token-2'))
+    }),
+  }))
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoRateLimitError', code: 45 } })
+    expect(replaced).toBe(0)
+    expect(zoho.requests).toHaveLength(1)
+  }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
+})
+
+it.effect('reads the body of a rejected 401 before retrying', () => {
+  let drained = false
+  const page = new ReadableStream<Uint8Array>({
+    pull: (controller) => {
+      drained = true
+      controller.enqueue(new TextEncoder().encode('<html>Unauthorized</html>'))
+      controller.close()
+    },
+  }, { highWaterMark: 0 })
+  const zoho = fakeZoho(
+    new Response(page, { status: 401, headers: { 'content-type': 'text/html' } }),
+    () => {
+      expect(drained).toBe(true)
+      return json({ code: 0, invoices: [] })
+    },
+  )
+  const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({
+    get: Effect.succeed(Redacted.make('stale')),
+    replace: () => Effect.succeed(Option.some(Redacted.make('fresh'))),
+  }))
+  return Effect.gen(function* () {
+    yield* Invoices.listInvoices()
+    expect(zoho.requests).toHaveLength(2)
+  }).pipe(Effect.provide(ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'us' }).pipe(Layer.provide([zoho.layer, tokens]))))
+})
+
 it.effect('returns a file as bytes, a JSON file included, and a JSON error answer to a download as a failure', () => {
   const pdf = new TextEncoder().encode('%PDF-1.7')
   const zoho = books(

@@ -130,32 +130,58 @@ const writeChecks = Effect.gen(function* () {
   const stamp = new Date().toISOString().replace(/\D/g, '').slice(0, 14)
   const today = new Date().toISOString().slice(0, 10)
 
+  // The cleanup is registered from the raw response, before decoding, so a record whose response fails to decode is still deleted.
+  const create = <S extends Schema.Top>(options: {
+    readonly check: string
+    readonly record: string
+    readonly sent: Effect.Effect<unknown, ZohoError, ZohoBooksClient>
+    readonly response: S
+    readonly id: readonly [string, string]
+    readonly remove: (id: string) => Cleanup['run']
+    readonly summary?: (decoded: S['Type']) => string
+  }) => check(options.check, Effect.gen(function* () {
+    const raw = yield* options.sent
+    const [record, field] = options.id
+    const id = (raw as Record<string, Record<string, unknown> | undefined>)[record]?.[field]
+    if (typeof id !== 'string' && typeof id !== 'number') return yield* Effect.fail(new Error(`${record}.${field} is missing`))
+    cleanups.push({ name: `delete ${options.record}`, run: options.remove(String(id)) })
+    const decoded = yield* Schema.decodeUnknownEffect(options.response as unknown as Schema.Codec<S['Type']>)(raw)
+    return { id: String(id), decoded }
+  }), ({ id, decoded }) => options.summary?.(decoded) ?? id)
+
   const body = Effect.gen(function* () {
-    const contact = yield* check('create contact', Effect.flatMap(
-      Contacts.createContact({ body: { contact_name: `effect-zoho smoke ${stamp}` } }),
-      (r) => present(r.contact?.contact_id, 'contact.contact_id'),
-    ), (id) => id)
-    if (Option.isSome(contact)) cleanups.push({ name: 'delete contact', run: Contacts.deleteContact({ contact_id: contact.value }) })
-
-    const item = yield* check('create item', Effect.flatMap(
-      Items.createItem({ body: { name: `effect-zoho smoke ${stamp}`, rate: 12.5 } }),
-      (r) => present(r.item?.item_id, 'item.item_id'),
-    ), (id) => id)
-    if (Option.isSome(item)) cleanups.push({ name: 'delete item', run: Items.deleteItem({ item_id: item.value }) })
-
+    const contact = yield* create({
+      check: 'create contact',
+      record: 'contact',
+      sent: Contacts.createContact.raw({ body: { contact_name: `effect-zoho smoke ${stamp}` } }),
+      response: Contacts.createContact.definition.response,
+      id: ['contact', 'contact_id'],
+      remove: (id) => Contacts.deleteContact({ contact_id: id }),
+    })
+    const item = yield* create({
+      check: 'create item',
+      record: 'item',
+      sent: Items.createItem.raw({ body: { name: `effect-zoho smoke ${stamp}`, rate: 12.5 } }),
+      response: Items.createItem.definition.response,
+      id: ['item', 'item_id'],
+      remove: (id) => Items.deleteItem({ item_id: id }),
+    })
     if (Option.isNone(contact) || Option.isNone(item)) return yield* record('invoice checks', 'skip', 'no contact or item')
-    const lineItems = [{ item_id: item.value, quantity: 2 }]
+    const customerId = contact.value.id
+    const lineItems = [{ item_id: item.value.id, quantity: 2 }]
 
     const invoiceIds: Array<string> = []
     for (const n of [1, 2]) {
-      const created = yield* check(`create invoice ${n}`, Effect.flatMap(
-        Invoices.createInvoice({ body: { customer_id: contact.value, line_items: lineItems } }),
-        (r) => Effect.zip(present(r.invoice?.invoice_id, 'invoice.invoice_id'), Effect.succeed(r.invoice)),
-      ), ([, invoice]) => `${invoice?.invoice_number}, total ${JSON.stringify(invoice?.total)} (${typeof invoice?.total})`)
-      if (Option.isSome(created)) {
-        invoiceIds.push(created.value[0])
-        cleanups.push({ name: `delete invoice ${n}`, run: Invoices.deleteInvoice({ invoice_id: created.value[0] }) })
-      }
+      const created = yield* create({
+        check: `create invoice ${n}`,
+        record: `invoice ${n}`,
+        sent: Invoices.createInvoice.raw({ body: { customer_id: customerId, line_items: lineItems } }),
+        response: Invoices.createInvoice.definition.response,
+        id: ['invoice', 'invoice_id'],
+        remove: (id) => Invoices.deleteInvoice({ invoice_id: id }),
+        summary: ({ invoice }) => `${invoice?.invoice_number}, total ${JSON.stringify(invoice?.total)} (${typeof invoice?.total})`,
+      })
+      if (Option.isSome(created)) invoiceIds.push(created.value.id)
     }
     const [invoiceId] = invoiceIds
     if (invoiceId === undefined) return yield* record('invoice checks', 'skip', 'no invoice was created')
@@ -165,7 +191,7 @@ const writeChecks = Effect.gen(function* () {
 
     yield* check('update invoice', Invoices.updateInvoice({
       invoice_id: invoiceId,
-      body: { customer_id: contact.value, line_items: lineItems, reference_number: `smoke-${stamp}` },
+      body: { customer_id: customerId, line_items: lineItems, reference_number: `smoke-${stamp}` },
     }), () => 'accepted')
     yield* check('read the update back', Effect.flatMap(Invoices.getInvoice({ invoice_id: invoiceId }), (r) =>
       ensure(r.invoice?.reference_number === `smoke-${stamp}`, `reference_number is ${r.invoice?.reference_number}`)), () => 'reference_number matches')
@@ -195,19 +221,23 @@ const writeChecks = Effect.gen(function* () {
       return { expense: yield* present(of(['expense']), 'an expense account'), paidThrough: yield* present(of(['cash', 'bank']), 'a cash or bank account') }
     }), (found) => `${found.expense} and ${found.paidThrough}`)
     if (Option.isNone(accounts)) return
-    const expense = yield* check('create expense with a receipt (multipart, record in JSONString)', Effect.flatMap(
-      Expenses.createExpense({
+    const created = yield* create({
+      check: 'create expense with a receipt (multipart, record in JSONString)',
+      record: 'expense',
+      sent: Expenses.createExpense.raw({
         receipt: file,
         body: { account_id: accounts.value.expense, paid_through_account_id: accounts.value.paidThrough, date: today, amount: 9.99, description: `effect-zoho smoke ${stamp}` },
       }),
-      (r) => present(r.expense?.expense_id, 'expense.expense_id'),
-    ), (id) => id)
-    if (Option.isNone(expense)) return
-    cleanups.push({ name: 'delete expense', run: Expenses.deleteExpense({ expense_id: expense.value }) })
-    yield* check('the expense kept its record fields', Effect.flatMap(Expenses.getExpense({ expense_id: expense.value }), (r) =>
+      response: Expenses.createExpense.definition.response,
+      id: ['expense', 'expense_id'],
+      remove: (id) => Expenses.deleteExpense({ expense_id: id }),
+    })
+    if (Option.isNone(created)) return
+    const expenseId = created.value.id
+    yield* check('the expense kept its record fields', Effect.flatMap(Expenses.getExpense({ expense_id: expenseId }), (r) =>
       ensure(r.expense?.amount === 9.99 && r.expense?.description === `effect-zoho smoke ${stamp}`,
         `amount ${r.expense?.amount}, description ${r.expense?.description}`)), () => 'amount and description match')
-    yield* check('download the receipt', Effect.tap(Expenses.getExpenseReceipt({ expense_id: expense.value }), (got) =>
+    yield* check('download the receipt', Effect.tap(Expenses.getExpenseReceipt({ expense_id: expenseId }), (got) =>
       ensure(isPdf(got.bytes), `content-type ${got.contentType}`)), (got) => `${got.bytes.length} bytes, ${got.contentType}`)
   })
 
