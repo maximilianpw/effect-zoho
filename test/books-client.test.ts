@@ -12,7 +12,7 @@ import * as Stream from 'effect/Stream'
 import * as Tracer from 'effect/Tracer'
 import { ZohoAccessToken, ZohoDataCenter, ZohoError, ZohoTransportError } from '../src/index.ts'
 import {
-  BankAccounts, Bills, Contacts, DeliveryChallans, Expenses, Invoices, Organizations, paginate, Projects, ReportingTags, ZohoBooksClient,
+  BankAccounts, Bills, Contacts, CustomerPayments, DeliveryChallans, Expenses, Invoices, Organizations, paginate, Projects, ReportingTags, ZohoBooksClient,
 } from '../src/books/index.ts'
 import { fakeZoho, json, type Reply } from './fake-zoho.ts'
 
@@ -408,4 +408,77 @@ it.effect('records the operation and the failure reason on the operation span', 
       ['zoho.books.get_invoice', { 'zoho.operation': 'get_invoice', 'zoho.error.reason': 'ZohoRateLimitError', 'zoho.error.code': 44 }],
     ])
   }).pipe(Effect.provide(zoho.layer), Effect.provideService(Tracer.Tracer, tracer))
+})
+
+it.effect('sends the filter variants and sort direction Zoho accepts but documents only in prose or elsewhere', () => {
+  const zoho = books(json({ code: 0, contacts: [] }), json({ code: 0, invoices: [] }))
+  return Effect.gen(function* () {
+    yield* Contacts.listContacts({ contact_name_contains: 'Serenity', contact_type: 'customer' })
+    yield* Invoices.listInvoices({ customer_id: '7001', sort_column: 'date', sort_order: 'D' })
+
+    const [contacts, invoices] = zoho.requests
+    expect(contacts?.url.searchParams.get('contact_name_contains')).toBe('Serenity')
+    expect(invoices?.url.searchParams.get('sort_order')).toBe('D')
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('decodes the customer payment list under the key Zoho sends as well as the one it documents', () => {
+  const payment = { payment_id: 9001, amount: '10.5', payment_mode: 'cash' }
+  const zoho = books(json({ code: 0, customerpayments: [payment] }), json({ code: 0, customer_payments: [payment] }))
+  return Effect.gen(function* () {
+    const sent = yield* CustomerPayments.listCustomerPayments()
+    const documented = yield* CustomerPayments.listCustomerPayments()
+
+    expect(sent.customerpayments).toEqual([{ payment_id: '9001', amount: 10.5, payment_mode: 'cash' }])
+    expect(documented.customer_payments).toEqual([{ payment_id: '9001', amount: 10.5, payment_mode: 'cash' }])
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('recognises a limit by its result code whatever the HTTP status', () => {
+  const zoho = books(
+    json({ code: 44, message: 'Too many requests per minute' }, { status: 400 }),
+    json({ code: 45, message: 'Daily limit reached' }),
+  )
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoRateLimitError', code: 44 } })
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoRateLimitError', code: 45 } })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.effect('names the field a response broke without quoting its value', () => {
+  const zoho = books(json({ code: 0, invoice: { line_items: [{ rate: 'Serenity owner notes' }] } }))
+  return Effect.gen(function* () {
+    const error = yield* Effect.flip(Invoices.getInvoice({ invoice_id: '1' }))
+    expect(error.reason).toMatchObject({ _tag: 'ZohoResponseError' })
+    expect(error.message).toContain('invoice.line_items.0.rate')
+    expect(JSON.stringify(error)).not.toContain('Serenity')
+  }).pipe(Effect.provide(zoho.layer))
+})
+
+it.live('fails an attempt whose response body does not arrive within the request deadline', () => {
+  const stalled = new Response(new ReadableStream({ start() {} }), { headers: { 'content-type': 'application/json' } })
+  const zoho = fakeZoho(stalled, json({ code: 0, invoices: [] }))
+  const layer = ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'eu', requestTimeout: '50 millis' }).pipe(
+    Layer.provide([zoho.layer, ZohoAccessToken.layerStatic(Redacted.make('token-1'))]),
+  )
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoTransportError' } })
+    expect((yield* Invoices.listInvoices()).invoices).toEqual([])
+  }).pipe(Effect.provide(layer))
+})
+
+it.live('gives the retry after a 401 a deadline of its own', () => {
+  const stalled = new Response(new ReadableStream({ start() {} }), { headers: { 'content-type': 'application/json' } })
+  const zoho = fakeZoho(json({ code: 57 }, { status: 401 }), stalled)
+  const tokens = Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({
+    get: Effect.succeed(Redacted.make('stale')),
+    replace: () => Effect.succeed(Option.some(Redacted.make('fresh'))),
+  }))
+  const layer = ZohoBooksClient.layer({ organizationId: '1', dataCenter: 'eu', requestTimeout: '50 millis' }).pipe(
+    Layer.provide([zoho.layer, tokens]),
+  )
+  return Effect.gen(function* () {
+    expect(yield* Effect.flip(Invoices.listInvoices())).toMatchObject({ reason: { _tag: 'ZohoTransportError' } })
+    expect(zoho.requests.map((request) => request.authorization)).toEqual(['Zoho-oauthtoken stale', 'Zoho-oauthtoken fresh'])
+  }).pipe(Effect.provide(layer))
 })

@@ -1,6 +1,7 @@
 import * as Effect from 'effect/Effect'
 import * as Option from 'effect/Option'
 import * as Schema from 'effect/Schema'
+import * as SchemaIssue from 'effect/SchemaIssue'
 import * as Stream from 'effect/Stream'
 import { ZohoError, ZohoInvalidRequestError, ZohoResponseError } from '../ZohoError.ts'
 import { ZohoBooksClient, type ZohoBinary, type ZohoBooksBody, type ZohoBooksMethod, type ZohoBooksRequest } from './ZohoBooksClient.ts'
@@ -125,6 +126,16 @@ function toRequest(
   }
 }
 
+/**
+ * Where a response broke its documented shape. Only the path is reported: an issue's
+ * own message can quote the value, which may be a customer's data.
+ */
+function mismatch(error: Schema.SchemaError): string {
+  const [issue] = SchemaIssue.makeFormatterStandardSchemaV1()(error.issue).issues
+  const path = (issue?.path ?? []).map((segment) => String(typeof segment === 'object' ? segment.key : segment))
+  return path.length === 0 ? 'the response did not match' : `${path.join('.')} did not match`
+}
+
 const annotateFailure = ({ reason }: ZohoError) =>
   Effect.annotateCurrentSpan({
     'zoho.error.reason': reason._tag,
@@ -150,7 +161,7 @@ export function operation<Input, const Response extends Schema.Top | undefined =
     ? binary
     : (...args: Arguments<Input>) => send(args, (client, request) => Effect.flatMap(client.json(request), (body) =>
         Schema.decodeUnknownEffect(schema as Schema.Codec<unknown>)(body).pipe(
-          Effect.mapError((issue) => new ZohoError({ operation: definition.id, reason: new ZohoResponseError({ detail: String(issue) }) })),
+          Effect.mapError((error) => new ZohoError({ operation: definition.id, reason: new ZohoResponseError({ detail: mismatch(error) }) })),
         )))
   return Object.assign(decoded, { raw, binary, definition }) as Operation<Input, Response>
 }

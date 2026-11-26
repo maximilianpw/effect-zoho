@@ -230,6 +230,24 @@ export interface ListChartOfAccountsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `account_id` that Zoho names in its description. */
+  readonly account_id_equal?: string | undefined
+  /** A variant of `account_id` that Zoho names in its description. */
+  readonly account_id_not_equal?: string | undefined
+  /** A variant of `account_code` that Zoho names in its description. */
+  readonly account_code_contains?: string | undefined
+  /** A variant of `account_code` that Zoho names in its description. */
+  readonly account_code_starts_with?: string | undefined
+  /** A variant of `account_code` that Zoho names in its description. */
+  readonly account_code_ends_with?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_contains?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_starts_with?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_ends_with?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List chart of accounts. `GET /chartofaccounts` */
@@ -414,6 +432,8 @@ export interface ListChartOfAccountTransactionsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List of transactions for an account. `GET /chartofaccounts/accounttransactions` */

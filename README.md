@@ -58,11 +58,11 @@ The reason is one of seven tagged values:
 | Reason | When |
 | --- | --- |
 | `ZohoApiError` | Zoho answered with an error status or a non-zero result code. Carries `status`, `code`, `detail`. |
-| `ZohoRateLimitError` | HTTP 429. `code` is 44 for the per-minute limit, 45 for the daily limit, 1070 for the concurrency limit. |
+| `ZohoRateLimitError` | HTTP 429, or result code 44, 45 or 1070 with any status. `code` is 44 for the per-minute limit, 45 for the daily limit, 1070 for the concurrency limit. |
 | `ZohoUnauthorizedError` | HTTP 401. Zoho sends it for a bad token and also for a missing scope or role, or the wrong organisation or data centre. |
 | `ZohoOAuthError` | The refresh token or client credentials were refused while getting an access token. |
-| `ZohoResponseError` | A successful response was not JSON or did not match the documented shape. |
-| `ZohoTransportError` | No response was read: DNS, TLS, timeout. The request may still have reached Zoho. |
+| `ZohoResponseError` | A successful response was not JSON or did not match the documented shape. `detail` names the field, never its value. |
+| `ZohoTransportError` | No response was read: DNS, TLS, timeout, or a failure from `transformClient`, which is its `cause`. The request may still have reached Zoho. |
 | `ZohoInvalidRequestError` | The input cannot be sent, such as an empty path parameter. Nothing was sent. |
 
 Handle one reason with `Effect.catchReason`, several with `Effect.catchReasons`, or move
@@ -187,6 +187,11 @@ An application that serves several organisations can build a client for each wit
 `ZohoBooksClient.make` and pass it with `Effect.provideService(ZohoBooksClient, client)`.
 `Organizations.listOrganizations` needs no organisation, so it can find the ID.
 
+Zoho's redirect names the data centre twice, as `location` and `accounts-server`, and a
+token grant names its API host as `api_domain`. `zohoDataCenterFromLocation`,
+`zohoDataCenterFromAccountsServer` and `zohoDataCenterFromApiDomain` turn each into a
+`ZohoDataCenter`, and return none for anything but an official value.
+
 `ZohoOAuth` covers the consent flow that produces the refresh token:
 
 ```ts
@@ -228,6 +233,13 @@ with `ZohoResponseError` naming the operation and the field. `.raw` is the way r
 The generator corrects the documents where they contradict the API or themselves:
 
 - `page_context` is one object, though eight list responses document a list of them.
+- The customer payment list is documented as `customer_payments` and sent as
+  `customerpayments`. Both keys are decoded.
+- Filter variants named only in a parameter's description, such as
+  `contact_name_contains` beside `contact_name`, are parameters too. Names in that prose
+  that do not extend the parameter's own name are typos and are left out.
+- A list that takes `sort_column` also takes `sort_order` (`A` or `D`), which Zoho
+  documents for only some of them.
 - Three reporting-tag paths write a path segment as the regular expression `(\d+)`.
   It becomes a named parameter (`option_id` or `tag_id`).
 - A parameter declared for both the path and the query is sent in the path only.
@@ -244,9 +256,17 @@ The generator corrects the documents where they contradict the API or themselves
 
 Generation fails on anything in the documents it does not handle, rather than guessing.
 
-## Retries and rate limits
+## Deadlines, retries and rate limits
 
-The client applies neither by default. `transformClient` wraps the HTTP client that
+`requestTimeout` bounds each HTTP attempt, from sending the request to reading the
+whole body; the retry after a 401 gets its own. Past it the call fails with
+`ZohoTransportError`. There is no deadline by default.
+
+```ts
+ZohoBooksClient.layer({ organizationId: '20100000', dataCenter: 'eu', requestTimeout: '10 seconds' })
+```
+
+The client applies no retries or rate limiting by default. `transformClient` wraps the HTTP client that
 sends API requests, so Effect's own combinators apply. Zoho allows 100 requests a
 minute per organisation, a daily total that depends on the plan, and five to ten
 concurrent calls:
