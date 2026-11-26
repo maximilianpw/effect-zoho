@@ -1,6 +1,5 @@
 import * as Schema from 'effect/Schema'
 
-/** No HTTP response was read: DNS, TLS, a timeout, or a connection that dropped mid-body. */
 export class ZohoTransportError extends Schema.TaggedError<ZohoTransportError>()('ZohoTransportError', {
   cause: Schema.Defect(),
 }) {
@@ -9,10 +8,8 @@ export class ZohoTransportError extends Schema.TaggedError<ZohoTransportError>()
   }
 }
 
-/** Zoho answered with an error status or a non-zero result code. */
 export class ZohoApiError extends Schema.TaggedError<ZohoApiError>()('ZohoApiError', {
   status: Schema.Number,
-  /** Zoho's own result code from the response body, when it sent one. */
   code: Schema.optionalKey(Schema.Number),
   detail: Schema.String,
 }) {
@@ -21,14 +18,9 @@ export class ZohoApiError extends Schema.TaggedError<ZohoApiError>()('ZohoApiErr
   }
 }
 
-/**
- * HTTP 429. `code` tells Zoho's limits apart: 44 is the per-minute limit, 45 the
- * daily limit (not worth retrying until the next day) and 1070 the concurrency limit.
- */
 export class ZohoRateLimitError extends Schema.TaggedError<ZohoRateLimitError>()('ZohoRateLimitError', {
   code: Schema.optionalKey(Schema.Number),
   detail: Schema.String,
-  /** Seconds from a `Retry-After` header. Zoho does not document sending one, so expect it to be absent. */
   retryAfterSeconds: Schema.optionalKey(Schema.Number),
 }) {
   override get message(): string {
@@ -36,12 +28,7 @@ export class ZohoRateLimitError extends Schema.TaggedError<ZohoRateLimitError>()
   }
 }
 
-/**
- * HTTP 401. Zoho uses it both for a bad access token and for a missing scope,
- * role, or the wrong organisation or data centre, so reconnecting does not always cure it.
- */
 export class ZohoUnauthorizedError extends Schema.TaggedError<ZohoUnauthorizedError>()('ZohoUnauthorizedError', {
-  /** Zoho's result code: 14 for a missing or malformed token, 57 for a token or permission it does not accept. */
   code: Schema.optionalKey(Schema.Number),
   detail: Schema.String,
 }) {
@@ -50,7 +37,6 @@ export class ZohoUnauthorizedError extends Schema.TaggedError<ZohoUnauthorizedEr
   }
 }
 
-/** Zoho's OAuth endpoint refused a grant; `error` is Zoho's code, such as `invalid_code`. */
 export class ZohoOAuthError extends Schema.TaggedError<ZohoOAuthError>()('ZohoOAuthError', {
   error: Schema.String,
 }) {
@@ -59,7 +45,6 @@ export class ZohoOAuthError extends Schema.TaggedError<ZohoOAuthError>()('ZohoOA
   }
 }
 
-/** A successful response was not JSON, or did not match the shape Zoho documents for the operation. */
 export class ZohoResponseError extends Schema.TaggedError<ZohoResponseError>()('ZohoResponseError', {
   detail: Schema.String,
 }) {
@@ -68,7 +53,6 @@ export class ZohoResponseError extends Schema.TaggedError<ZohoResponseError>()('
   }
 }
 
-/** The input cannot be sent, such as an empty value for a path parameter. Nothing was sent to Zoho. */
 export class ZohoInvalidRequestError extends Schema.TaggedError<ZohoInvalidRequestError>()('ZohoInvalidRequestError', {
   detail: Schema.String,
 }) {
@@ -88,13 +72,7 @@ export const ZohoErrorReason = Schema.Union([
 ])
 export type ZohoErrorReason = typeof ZohoErrorReason.Type
 
-/**
- * The one failure of every call. `reason` says what went wrong; handle one with
- * `Effect.catchReason('ZohoError', 'ZohoRateLimitError', …)`. A `ZohoOAuthError`
- * reason on an API call means no access token could be obtained for it.
- */
 export class ZohoError extends Schema.TaggedError<ZohoError>()('ZohoError', {
-  /** Zoho's `operationId`, such as `get_invoice`, or `oauth.<name>` for a token call. */
   operation: Schema.String,
   reason: ZohoErrorReason,
 }) {

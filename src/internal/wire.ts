@@ -1,21 +1,11 @@
 import * as Schema from 'effect/Schema'
 import * as SchemaTransformation from 'effect/SchemaTransformation'
 
-/*
- * Response schemas follow Zoho's OpenAPI documents, which are not exact about
- * types: a field documented as a string can arrive as a number, an unset number
- * or boolean can arrive as "", and a documented list can arrive as one value or
- * as nothing.
- * These codecs accept what Zoho sends and always produce the documented type,
- * with `null` for an unset scalar.
- */
-
 const Scalar = Schema.Union([Schema.String, Schema.Number, Schema.Boolean, Schema.Null])
 type Scalar = typeof Scalar.Type
 
 const unset = (value: Scalar): boolean => value === null || (typeof value === 'string' && value.trim() === '')
 
-// An identifier sent as a JSON number beyond 2^53 has already lost digits; passing it on would name another record.
 const Exact = Scalar.check(Schema.makeFilter((value) =>
   typeof value !== 'number' || !Number.isInteger(value) || Number.isSafeInteger(value) || 'expected an integer small enough to be exact'))
 
@@ -54,7 +44,6 @@ export const Bool = BooleanLike.pipe(Schema.decodeTo(
   }),
 ))
 
-/** A value Zoho documents without a type, or as an object without properties. */
 export const Any = Schema.Unknown
 
 export const Arr = <S extends Schema.Top>(item: S) =>
@@ -66,7 +55,6 @@ export const Arr = <S extends Schema.Top>(item: S) =>
     }),
   ))
 
-/** Every documented response property may be absent or null. */
 export const field = <S extends Schema.Top>(schema: S) => Schema.optionalKey(Schema.NullOr(schema))
 
 export const str = Schema.optionalKey(Str)

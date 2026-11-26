@@ -40,6 +40,7 @@
     "generate:check": "bun scripts/generate.ts --check",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
+    "comments": "bun scripts/comments.ts",
     "test": "vitest run",
     "build": "tsc -p tsconfig.build.json",
     "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build",

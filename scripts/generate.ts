@@ -59,18 +59,15 @@ const reservedNames = new Set([
   'Blob', 'Uint8Array', 'Schema', 'W', 'operation', 'ZohoFile',
 ])
 
-/** Path segments Zoho writes as a regular expression without declaring a parameter for them. */
 const undeclaredPathParameters: Readonly<Record<string, ReadonlyArray<string>>> = {
   '/reportingtags/(\\d+)/options/all': ['tag_id'],
 }
 
-/** Upload operations whose documents declare no file at all. Zoho's other uploads name the field `attachment`. */
 const undeclaredFileParameters: Readonly<Record<string, string>> = {
   add_contact_attachment: 'attachment',
   add_bank_reconciliation_attachment: 'attachment',
 }
 
-/** Modules whose file name is singular or unclear beside the rest. */
 const moduleNames: Readonly<Record<string, string>> = {
   'base-currency-adjustment.yml': 'BaseCurrencyAdjustments',
   'currency.yml': 'Currencies',
@@ -81,16 +78,10 @@ const moduleNames: Readonly<Record<string, string>> = {
   'sales-receipt.yml': 'SalesReceipts',
 }
 
-/**
- * Response keys Zoho documents under one name and sends under another. The list of
- * customer payments is documented as `customer_payments` and sent as `customerpayments`,
- * the endpoint's own name; both are decoded.
- */
 const responseKeyAliases: Readonly<Record<string, string>> = {
   customer_payments: 'customerpayments',
 }
 
-/** The sort direction Zoho documents for only some of the lists that take `sort_column`. */
 const sortOrderParameter: ParameterNode = {
   name: 'sort_order',
   in: 'query',
@@ -98,11 +89,6 @@ const sortOrderParameter: ParameterNode = {
   schema: { type: 'string', enum: ['A', 'D'] },
 }
 
-/**
- * The filter variants a parameter's description names, such as `contact_name_contains`
- * for `contact_name`. Zoho lists them in prose, with typos, so only names that extend
- * the parameter's own name are taken.
- */
 function filterVariants(parameter: ParameterNode): ReadonlyArray<string> {
   const prose = /Variants?\b(.*)$/s.exec(parameter.description ?? '')?.[1]
   if (prose === undefined) return []
@@ -110,18 +96,12 @@ function filterVariants(parameter: ParameterNode): ReadonlyArray<string> {
   return [...new Set(names.filter((name) => name.startsWith(`${parameter.name}_`)))]
 }
 
-/** A GET whose documented response is only Zoho's result code, at a path that serves a file. */
 const downloadPath = /(attachment|receipt|documents\/\{\w+\}|pdf|print|deliverynotes|packingslips)$/
 
 const usedCorrections = new Set<string>()
 
 const blank = (value: unknown): boolean => typeof value === 'string' && value.trim() === ''
 
-/**
- * The scalar a schema really carries. A number or boolean whose own example cannot
- * be read as one (`log_time: number`, example `'13:06'`) is text, and a schema with
- * no type takes the type of its example.
- */
 function scalarKind(shape: SchemaNode): 'any' | 'boolean' | 'number' | 'string' {
   const example = shape.example
   switch (shape.type) {
@@ -177,7 +157,6 @@ class Module {
     return found
   }
 
-  /** Follows references to the schema that carries the shape. */
   private resolve(node: SchemaNode): SchemaNode {
     return node.$ref === undefined ? node : this.resolve(this.schema(refName(node.$ref)))
   }
@@ -189,7 +168,6 @@ class Module {
     return {
       type: 'object',
       properties: Object.assign({}, node.properties, ...members.map((member) => member.properties ?? {})),
-      // Zoho builds an update body from the create body with allOf; what creating requires, updating does not.
       required: node.required ?? [],
     }
   }
@@ -206,7 +184,6 @@ class Module {
     return shape.format === 'binary' || (shape.type === 'array' && shape.items !== undefined && this.isFile(shape.items))
   }
 
-  /** A response documented as nothing but Zoho's result code and message. */
   private isResultOnly(node: SchemaNode): boolean {
     const names = Object.keys(this.merged(this.resolve(node)).properties ?? {})
     return names.every((name) => name === 'code' || name === 'message')
@@ -223,8 +200,6 @@ class Module {
     this.names.set(id, name)
     return name
   }
-
-  // Responses: Effect schemas, because the data is untrusted.
 
   private responseItem(node: SchemaNode): string {
     if (node.$ref !== undefined) {
@@ -257,7 +232,6 @@ class Module {
     }
   }
 
-  /** Zoho returns `page_context` as one object; some documents describe it as a list of them. */
   private corrected(name: string, property: SchemaNode): SchemaNode {
     if (name !== 'page_context') return property
     const shape = this.resolve(property)
@@ -276,7 +250,6 @@ class Module {
     return `Schema.Struct({\n${fields.join('\n')}\n${indent}})`
   }
 
-  /** A result-only response keeps whatever else Zoho sends, since its document says nothing about the payload. */
   private responseObject(shape: SchemaNode): string {
     const struct = this.responseStruct(shape, '')
     return this.isResultOnly(shape) ? `Schema.StructWithRest(${struct}, [Schema.Record(Schema.String, Schema.Unknown)])` : struct
@@ -295,8 +268,6 @@ class Module {
     }
     return name
   }
-
-  // Requests: plain types, because the caller's own values need no runtime check.
 
   private inputType(node: SchemaNode, indent: string): string {
     if (node.$ref !== undefined) {
@@ -355,7 +326,6 @@ class Module {
       case 'integer':
       case 'number': return 'number'
       case 'boolean': return 'boolean'
-      // Zoho takes structured query values as JSON text; the client serialises them.
       case 'array': return 'ReadonlyArray<unknown>'
       case 'object': return 'Readonly<Record<string, unknown>>'
       case undefined: return 'string | number | boolean'
@@ -373,9 +343,7 @@ class Module {
     for (const reference of [...shared, ...(node.parameters ?? [])]) {
       const parameter = reference.$ref === undefined ? reference : this.parameters[refName(reference.$ref)]
       if (parameter === undefined) throw new Error(`${this.file}: parameter ${reference.$ref} is not defined`)
-      // The client supplies the organisation query parameter. A name declared for both the path and the query is the path value.
       if (parameter.name === 'organization_id' && parameter.in === 'query') continue
-      // Operation parameters come after the path's shared ones and override them.
       const previous = declared.get(parameter.name)
       if (previous === undefined || parameter.in === 'path' || previous.in === parameter.in) declared.set(parameter.name, parameter)
     }
@@ -400,7 +368,6 @@ class Module {
     }
     if (declared.get('sort_column')?.in === 'query' && !declared.has('sort_order')) declared.set('sort_order', sortOrderParameter)
 
-    // Two paths spell a parameter as a regular expression instead of a template name.
     const unnamed = [...declared.values()].filter((parameter) => parameter.in === 'path' && !template.includes(`{${parameter.name}}`))
     const undeclared = [...(undeclaredPathParameters[template] ?? [])]
     if (undeclared.length > 0) usedCorrections.add(template)
@@ -431,12 +398,10 @@ class Module {
     const bodySchema = Object.values(content)[0]?.schema
     let bodyKind: 'json' | 'multipart' | undefined
     if (bodySchema !== undefined) {
-      // Zoho documents a few uploads as JSON; a file can only travel as multipart.
       const carriesFile = Object.values(this.merged(this.resolve(bodySchema)).properties ?? {}).some((property) => this.isFile(property))
       bodyKind = content['multipart/form-data'] !== undefined || carriesFile ? 'multipart' : 'json'
       fields.push(`  readonly body: ${this.inputType(bodySchema, '  ')}`)
     } else if (method === 'post' || method === 'put') {
-      // Many actions that take a body are documented without one.
       bodyKind = 'json'
       fields.push('  /** Zoho documents no body for this operation. */\n  readonly body?: Readonly<Record<string, unknown>> | undefined')
     }
@@ -449,7 +414,6 @@ class Module {
     const servesFile = Object.keys(responseContent).some((type) => type !== 'application/json') || (method === 'get' && downloadPath.test(path))
     const operationResponse = `${pascal(node.operationId)}Response`
     let response = 'undefined'
-    // A file endpoint documented with only a result code returns the file, not JSON.
     if (responseSchema !== undefined && !(servesFile && this.isResultOnly(responseSchema))) {
       if (responseSchema.$ref !== undefined) response = this.responseDeclaration(refName(responseSchema.$ref))
       else {
@@ -470,7 +434,6 @@ class Module {
       ...(headers.length === 0 ? [] : [`headers: ${JSON.stringify(headers)}`]),
       ...(fileParameters.length === 0 ? [] : [`files: ${JSON.stringify(fileParameters)}`]),
       ...(bodyKind === undefined ? [] : [`body: ${JSON.stringify(bodyKind)}`]),
-      // The organisation endpoints are not scoped to the client's organisation.
       ...(path.startsWith('/organizations') ? ['organization: false'] : []),
       `response: ${response}`,
       `scopes: ${JSON.stringify(scopes)}`,
@@ -492,7 +455,6 @@ class Module {
         if (node !== undefined) this.addOperation(template, method, shared, node)
       }
     }
-    // Zoho names response schemas after its documentation headings; these name the type after the operation too.
     const aliases = this.aliases
       .filter(([alias]) => !this.taken.has(alias))
       .map(([alias, response]) => `export type ${alias} = ${response}`)

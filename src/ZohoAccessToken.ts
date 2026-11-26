@@ -11,18 +11,6 @@ import type { ZohoDataCenter } from './ZohoDataCenter.ts'
 import { ZohoError, ZohoTransportError } from './ZohoError.ts'
 import { refreshAccessToken, type ZohoOAuthClient } from './ZohoOAuth.ts'
 
-/**
- * What `ZohoBooksClient` expects of a token service, including one you write yourself:
- *
- * - `get` runs before every request, often concurrently. Hand out a cached token while
- *   it is valid, and let concurrent callers share one refresh.
- * - `replace` runs at most once per request, after Zoho answered `rejected` with HTTP
- *   401, and the request is retried once with the token it returns. When the current
- *   token already differs from `rejected`, return it, so a burst of rejections mints once.
- * - Return none for a token minted moments ago. Zoho answers a missing scope or role
- *   with the same 401, and a refresh token can mint only about 10 access tokens in 10
- *   minutes, so minting on every such 401 spends that allowance and locks every caller out.
- */
 export interface ZohoAccessTokenService {
   readonly get: Effect.Effect<Redacted.Redacted<string>, ZohoError>
   readonly replace: (
@@ -32,37 +20,17 @@ export interface ZohoAccessTokenService {
 
 export interface ZohoRefreshTokenOptions extends ZohoOAuthClient {
   readonly refreshToken: Redacted.Redacted<string>
-  /** How long before expiry a token stops being handed out. Defaults to 60 seconds. */
   readonly expirySkewMillis?: number | undefined
-  /**
-   * A token rejected sooner than this after it was minted is not replaced.
-   * Defaults to 5 minutes. See `makeRefreshToken`.
-   */
   readonly minimumReplaceAgeMillis?: number | undefined
 }
 
 const refreshTimeout = '30 seconds'
 const refusalMemoryMillis = 5_000
 
-/** Supplies the access token sent with every API request. */
 export class ZohoAccessToken extends Context.Service<ZohoAccessToken, ZohoAccessTokenService>()('effect-zoho/ZohoAccessToken') {
-  /** A fixed token, for scripts and tests. It is never refreshed, so a 401 is not retried. */
   static readonly layerStatic = (token: Redacted.Redacted<string>): Layer.Layer<ZohoAccessToken> =>
     Layer.succeed(ZohoAccessToken, ZohoAccessToken.of({ get: Effect.succeed(token), replace: () => Effect.succeed(Option.none()) }))
 
-  /**
-   * Mints access tokens from a refresh token and keeps one in memory until shortly
-   * before it expires. Concurrent callers share one refresh, which completes even if
-   * the caller that started it is interrupted.
-   *
-   * Zoho lets one refresh token mint about 10 access tokens in 10 minutes and hold 15
-   * live ones, and it answers a missing scope or role with the same HTTP 401 as an
-   * expired token. So a token rejected within `minimumReplaceAgeMillis` of being
-   * minted is not replaced: the rejection is almost certainly about permissions, and
-   * minting on each one would spend the quota and lock every caller out. Each process
-   * holds its own token; many short-lived processes should share tokens through
-   * their own `ZohoAccessToken` service instead.
-   */
   static readonly makeRefreshToken = Effect.fnUntraced(function* (options: ZohoRefreshTokenOptions) {
     const http = yield* HttpClient.HttpClient
     const lock = yield* Semaphore.make(1)
@@ -73,7 +41,6 @@ export class ZohoAccessToken extends Context.Service<ZohoAccessToken, ZohoAccess
 
     const mint = Effect.gen(function* () {
       const started = yield* Clock.currentTimeMillis
-      // A refused grant stays refused; remembering it briefly keeps a burst of callers from repeating it.
       if (refused !== undefined && started < refused.until) return yield* refused.error
       const grant = yield* refreshAccessToken(options).pipe(
         Effect.provideService(HttpClient.HttpClient, http),

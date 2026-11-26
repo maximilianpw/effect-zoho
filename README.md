@@ -327,6 +327,11 @@ bun run check      # generate:check, typecheck, lint, test, build
 The generator is `scripts/generate.ts`. Generated files are committed and must not be
 edited by hand.
 
+The hand-written code has no comments, and lint keeps it that way. A decision the code
+cannot show goes in [`docs/adr`](docs/adr). `bun run comments list` finds comments, and
+`comment-baseline.json`, when present, lists the files still allowed some;
+`bun run comments baseline` lowers it as they go.
+
 ## Licence
 
 MIT. Zoho and Zoho Books are trademarks of Zoho Corporation; this project is not

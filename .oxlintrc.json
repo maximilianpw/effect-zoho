@@ -1,3 +1,13 @@
 {
-  "ignorePatterns": ["dist", "src/books/generated"]
+  "ignorePatterns": ["dist", "src/books/generated"],
+  "jsPlugins": ["./scripts/oxlint-no-comments.ts"],
+  "rules": {
+    "local/no-comments": ["error", { "baseline": "comment-baseline.json" }]
+  },
+  "overrides": [
+    {
+      "files": ["src/books/index.ts"],
+      "rules": { "local/no-comments": "off" }
+    }
+  ]
 }

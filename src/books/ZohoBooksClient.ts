@@ -25,17 +25,13 @@ export type ZohoBooksBody =
   | { readonly _tag: 'Json'; readonly value: unknown }
   | { readonly _tag: 'Multipart'; readonly value: FormData }
 
-/** One request to the Books API, relative to `/books/v3`. The organisation is added by the client. */
 export interface ZohoBooksRequest {
-  /** Names the call in errors, such as `get_invoice`. */
   readonly operation: string
   readonly method: ZohoBooksMethod
-  /** Path below `/books/v3`, already URL-encoded, such as `/invoices/982000000567114`. */
   readonly path: string
   readonly query?: Readonly<Record<string, string>> | undefined
   readonly headers?: Readonly<Record<string, string>> | undefined
   readonly body?: ZohoBooksBody | undefined
-  /** `false` leaves out `organization_id`, for the endpoints that list or create organisations. */
   readonly organization?: false | undefined
 }
 
@@ -47,18 +43,8 @@ export interface ZohoBinary {
 export interface ZohoBooksClientOptions {
   readonly organizationId: string
   readonly dataCenter: ZohoDataCenter
-  /** Overrides the data centre's API host, for a proxy or a test server. */
   readonly apiUrl?: string | undefined
-  /**
-   * Wraps the HTTP client that sends API requests, for retries, rate limiting or
-   * timeouts. Whatever it fails with reaches the caller as a `ZohoTransportError`.
-   */
   readonly transformClient?: ((client: HttpClient.HttpClient) => HttpClient.HttpClient.With<unknown>) | undefined
-  /**
-   * The longest one HTTP attempt may take, from sending the request to reading the
-   * whole response body. A retry after a 401 gets its own deadline. Past it the call
-   * fails with a `ZohoTransportError`; the request may still have reached Zoho.
-   */
   readonly requestTimeout?: Duration.Input | undefined
 }
 
@@ -66,7 +52,6 @@ type Attempt<A> =
   | { readonly _tag: 'Answered'; readonly value: A }
   | { readonly _tag: 'Rejected'; readonly rejected: ZohoError }
 
-/** Result codes Zoho uses for its limits: 44 per minute, 45 per day, 1070 for concurrent calls. */
 const rateLimitCodes: ReadonlySet<number> = new Set([44, 45, 1070])
 
 const mediaType = (response: HttpClientResponse.HttpClientResponse): string | undefined =>
@@ -94,22 +79,12 @@ const envelope = (body: unknown): ZohoEnvelope => {
   }
 }
 
-/**
- * Sends authenticated requests to one Zoho Books organisation. The generated
- * operations use it; call it directly for an endpoint they do not cover.
- */
 export interface ZohoBooksClientService {
-  /** The parsed JSON body of a successful response, with Zoho's `code` already checked. */
   readonly json: (request: ZohoBooksRequest) => Effect.Effect<unknown, ZohoError>
-  /** The bytes of a successful response, for PDFs and attachments. */
   readonly binary: (request: ZohoBooksRequest) => Effect.Effect<ZohoBinary, ZohoError>
 }
 
 export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksClientService>()('effect-zoho/books/ZohoBooksClient') {
-  /**
-   * A client for one organisation. An application that serves several can make one
-   * per organisation and pass it with `Effect.provideService(ZohoBooksClient, client)`.
-   */
   static readonly make = (
     options: ZohoBooksClientOptions,
   ): Effect.Effect<ZohoBooksClientService, never, HttpClient.HttpClient | ZohoAccessToken> =>
@@ -140,7 +115,6 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
           }
           const reason = (): ZohoError['reason'] => {
             if (response.status === 401) return new ZohoUnauthorizedError(problem)
-            // A limit's result code identifies it whatever HTTP status accompanies it.
             if (response.status === 429 || (code !== undefined && rateLimitCodes.has(code))) {
               const retryAfter = Number(response.headers['retry-after'])
               return new ZohoRateLimitError({
@@ -174,7 +148,6 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
                   duration: options.requestTimeout,
                   orElse: () => Effect.fail(transport('the request deadline passed')),
                 })
-          // One HTTP attempt: a 401 is returned with its error, unread by `read`, so the caller can retry it.
           const attempt = (credential: Redacted.Redacted<string>): Effect.Effect<Attempt<A>, ZohoError> =>
             deadline(Effect.flatMap(
               http.execute(build(request, credential)).pipe(Effect.mapError(transport)),
@@ -187,7 +160,6 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
             const credential = yield* tokens.get
             const first = yield* attempt(credential)
             if (first._tag === 'Answered') return first.value
-            // An access token can expire or be revoked early; one retry with a replacement settles it.
             const replacement = yield* tokens.replace(credential)
             if (Option.isNone(replacement) || Redacted.value(replacement.value) === Redacted.value(credential)) {
               return yield* first.rejected
@@ -218,7 +190,6 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
               response.arrayBuffer.pipe(Effect.mapError((cause) => new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ cause }) }))),
               (buffer): Effect.Effect<ZohoBinary, ZohoError> => {
                 const bytes = new Uint8Array(buffer)
-                // Zoho can report a failed download as a JSON body with HTTP 200. A JSON file is a valid download too.
                 const code = mediaType(response) === 'application/json' ? envelope(parsed(bytes)).code : undefined
                 return code === undefined || code === 0
                   ? Effect.succeed({ bytes, contentType: mediaType(response) })

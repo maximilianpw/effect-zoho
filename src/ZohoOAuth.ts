@@ -17,9 +17,7 @@ export interface ZohoAuthorizationUrlOptions {
   readonly dataCenter: ZohoDataCenter
   readonly redirectUri: string
   readonly scopes: ReadonlyArray<string>
-  /** Opaque value Zoho returns to the redirect URI; verify it there to stop request forgery. */
   readonly state: string
-  /** `offline` asks for a refresh token. Zoho issues one only on the first consent unless `prompt` is `consent`. */
   readonly accessType?: 'offline' | 'online' | undefined
   readonly prompt?: 'consent' | undefined
 }
@@ -38,18 +36,14 @@ export function authorizationUrl(options: ZohoAuthorizationUrlOptions): string {
 
 export const ZohoTokenGrant = Schema.Struct({
   access_token: Schema.RedactedFromValue(Schema.String),
-  /** Present only when the grant issued a new refresh token. */
   refresh_token: Schema.optionalKey(Schema.RedactedFromValue(Schema.String)),
-  /** The API host of the account's data centre, such as `https://www.zohoapis.eu`. */
   api_domain: Schema.optionalKey(Schema.String),
   token_type: Schema.optionalKey(Schema.String),
-  /** Lifetime of the access token in seconds. */
   expires_in: Schema.Number,
   scope: Schema.optionalKey(Schema.String),
 })
 export type ZohoTokenGrant = typeof ZohoTokenGrant.Type
 
-// Zoho answers a refused grant with HTTP 200 and an `error` field.
 const TokenRefusal = Schema.Struct({ error: Schema.String })
 
 const decodeGrant = Schema.decodeUnknownEffect(ZohoTokenGrant)
@@ -73,7 +67,6 @@ const tokenRequest = Effect.fnUntraced(function* (
   const response = yield* http.execute(request).pipe(
     Effect.mapError((cause) => failed(new ZohoTransportError({ cause }))),
   )
-  // Zoho's accounts server answers a malformed request with an HTML page.
   if (response.status >= 400) return yield* failed(new ZohoOAuthError({ error: `HTTP ${response.status}` }))
   const body = yield* response.json.pipe(
     Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response was not JSON' }))),
@@ -81,12 +74,10 @@ const tokenRequest = Effect.fnUntraced(function* (
   const refusal = decodeRefusal(body)
   if (refusal._tag === 'Some') return yield* failed(new ZohoOAuthError({ error: refusal.value.error }))
   return yield* decodeGrant(body).pipe(
-    // The issue is not reported: it could quote a token from the body.
     Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response had an unexpected shape' }))),
   )
 })
 
-/** Exchanges the `code` Zoho sent to the redirect URI for an access token, and a refresh token when offline access was granted. */
 export const exchangeCode = (options: ZohoOAuthClient & { readonly code: string; readonly redirectUri: string }) =>
   tokenRequest('oauth.exchangeCode', options, {
     code: options.code,
@@ -100,7 +91,6 @@ export const refreshAccessToken = (options: ZohoOAuthClient & { readonly refresh
     refresh_token: Redacted.value(options.refreshToken),
   })
 
-/** Revokes a refresh token, and with it every access token issued from it. */
 export const revokeRefreshToken = Effect.fnUntraced(function* (options: {
   readonly dataCenter: ZohoDataCenter
   readonly refreshToken: Redacted.Redacted<string>

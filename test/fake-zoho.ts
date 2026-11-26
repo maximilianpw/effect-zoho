@@ -29,7 +29,6 @@ function recordedBody(request: HttpClientRequest.HttpClientRequest): unknown {
   }
 }
 
-/** An HTTP client that answers from a queue of replies and records what it was sent. */
 export function fakeZoho(...replies: ReadonlyArray<Reply>) {
   const queue = [...replies]
   const requests: RecordedRequest[] = []
