@@ -74,7 +74,7 @@ The reason is one of seven tagged values:
 | `ZohoUnauthorizedError` | HTTP 401. Zoho sends it for a bad token and also for a missing scope or role, or the wrong organisation or data centre. |
 | `ZohoOAuthError` | The refresh token or client credentials were refused while getting an access token. |
 | `ZohoResponseError` | A successful response was not JSON or did not match the documented shape. `detail` names the field, never its value. |
-| `ZohoTransportError` | No response was read: DNS, TLS, timeout, or a failure from `transformClient`, which is its `cause`. The request may still have reached Zoho. |
+| `ZohoTransportError` | No usable response was read: DNS, TLS, the request deadline, a body that broke off, or a failure from `transformClient`. `kind` is `timeout`, `request` or `body`; `causeName` names the failure, such as `TransportError`. The failure itself is not kept, because it carries the request and its secrets. The request may still have reached Zoho. |
 | `ZohoInvalidRequestError` | The input cannot be sent, such as an empty path parameter. Nothing was sent. |
 
 Handle one reason with `Effect.catchReason`, several with `Effect.catchReasons`, or move

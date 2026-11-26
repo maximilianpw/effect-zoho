@@ -1,11 +1,32 @@
+import * as Predicate from 'effect/Predicate'
 import * as Schema from 'effect/Schema'
+import * as HttpClientError from 'effect/http/HttpClientError'
 
-/** No HTTP response was read: DNS, TLS, a timeout, or a connection that dropped mid-body. */
+/**
+ * No usable HTTP response was read: DNS, TLS, the request deadline, a connection that
+ * dropped mid-body, or a failure from `transformClient`. The original failure is not
+ * kept, because an HTTP client error carries the request, and its URL, headers and body
+ * can hold tokens and client secrets.
+ */
 export class ZohoTransportError extends Schema.TaggedError<ZohoTransportError>()('ZohoTransportError', {
-  cause: Schema.Defect(),
+  /**
+   * `timeout`: the request deadline passed. `request`: no response arrived.
+   * `body`: a response arrived but its body could not be read.
+   */
+  kind: Schema.Literals(['timeout', 'request', 'body']),
+  /** The failure's name, such as `TransportError` or `TypeError`, when it has a plain one. */
+  causeName: Schema.optionalKey(Schema.String),
 }) {
+  /** Keeps only the name of `cause`, never its message or the request it carries. */
+  static fromCause(kind: 'request' | 'body', cause: unknown): ZohoTransportError {
+    const name = HttpClientError.isHttpClientError(cause) ? cause.reason._tag
+      : Predicate.isObject(cause) && 'name' in cause && typeof cause.name === 'string' ? cause.name
+      : undefined
+    return new ZohoTransportError(name !== undefined && /^[A-Za-z]{1,60}$/.test(name) ? { kind, causeName: name } : { kind })
+  }
+
   override get message(): string {
-    return 'no response was read'
+    return this.kind === 'timeout' ? 'the request deadline passed' : 'no response was read'
   }
 }
 

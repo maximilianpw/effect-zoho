@@ -91,8 +91,10 @@ interface ZohoEnvelope {
 const envelope = (body: unknown): ZohoEnvelope => {
   if (typeof body !== 'object' || body === null) return {}
   const { code, message } = body as { readonly code?: unknown; readonly message?: unknown }
+  // Some endpoints send the result code as text, such as `"0"`.
+  const number = typeof code === 'string' && /^\d{1,9}$/.test(code) ? Number(code) : code
   return {
-    ...(typeof code === 'number' ? { code } : {}),
+    ...(typeof number === 'number' ? { code: number } : {}),
     ...(typeof message === 'string' ? { message } : {}),
   }
 }
@@ -160,7 +162,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
           request: ZohoBooksRequest,
           read: (response: HttpClientResponse.HttpClientResponse) => Effect.Effect<A, ZohoError>,
         ): Effect.Effect<A, ZohoError> => {
-          const transport = (cause: unknown) => new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ cause }) })
+          const transport = (cause: unknown) => new ZohoError({ operation: request.operation, reason: ZohoTransportError.fromCause('request', cause) })
           const refusal = (response: HttpClientResponse.HttpClientResponse) =>
             Effect.map(
               mediaType(response) === 'application/json'
@@ -175,7 +177,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
               ? effect
               : Effect.timeoutOrElse(effect, {
                   duration: options.requestTimeout,
-                  orElse: () => Effect.fail(transport('the request deadline passed')),
+                  orElse: () => Effect.fail(new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ kind: 'timeout' }) })),
                 })
           // One HTTP attempt: a 401 is returned with its error, unread by `read`, so the caller can retry it.
           const attempt = (credential: Redacted.Redacted<string>): Effect.Effect<Attempt<A>, ZohoError> =>
@@ -205,7 +207,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
           send(request, (response) =>
             Effect.flatMap(
               mediaType(response) === 'application/json'
-                ? response.json.pipe(Effect.mapError((cause) => new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ cause }) })))
+                ? response.json.pipe(Effect.mapError((cause) => new ZohoError({ operation: request.operation, reason: ZohoTransportError.fromCause('body', cause) })))
                 : Effect.fail(new ZohoError({
                     operation: request.operation,
                     reason: new ZohoResponseError({ detail: `expected JSON but received ${mediaType(response) ?? 'no content type'}` }),
@@ -219,7 +221,7 @@ export class ZohoBooksClient extends Context.Service<ZohoBooksClient, ZohoBooksC
         const binary = (request: ZohoBooksRequest) =>
           send(request, (response) =>
             Effect.flatMap(
-              response.arrayBuffer.pipe(Effect.mapError((cause) => new ZohoError({ operation: request.operation, reason: new ZohoTransportError({ cause }) }))),
+              response.arrayBuffer.pipe(Effect.mapError((cause) => new ZohoError({ operation: request.operation, reason: ZohoTransportError.fromCause('body', cause) }))),
               (buffer): Effect.Effect<ZohoBinary, ZohoError> => {
                 const bytes = new Uint8Array(buffer)
                 // Zoho can report a failed download as a JSON body with HTTP 200. A JSON file is a valid download too.

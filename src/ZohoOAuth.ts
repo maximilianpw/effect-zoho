@@ -1,4 +1,5 @@
 import * as Effect from 'effect/Effect'
+import * as Option from 'effect/Option'
 import * as Redacted from 'effect/Redacted'
 import * as Schema from 'effect/Schema'
 import * as HttpClient from 'effect/http/HttpClient'
@@ -49,7 +50,7 @@ export const ZohoTokenGrant = Schema.Struct({
 })
 export type ZohoTokenGrant = typeof ZohoTokenGrant.Type
 
-// Zoho answers a refused grant with HTTP 200 and an `error` field.
+// Zoho answers a refused grant with an `error` field, usually with HTTP 200 but sometimes with an error status.
 const TokenRefusal = Schema.Struct({ error: Schema.String })
 
 const decodeGrant = Schema.decodeUnknownEffect(ZohoTokenGrant)
@@ -71,16 +72,15 @@ const tokenRequest = Effect.fnUntraced(function* (
     }),
   )
   const response = yield* http.execute(request).pipe(
-    Effect.mapError((cause) => failed(new ZohoTransportError({ cause }))),
+    Effect.mapError((cause) => failed(ZohoTransportError.fromCause('request', cause))),
   )
-  // Zoho's accounts server answers a malformed request with an HTML page.
+  // Reading the body also drains it; Zoho's accounts server answers a malformed request with an HTML page.
+  const body = yield* response.json.pipe(Effect.option)
+  const refusal = Option.flatMap(body, decodeRefusal)
+  if (Option.isSome(refusal)) return yield* failed(new ZohoOAuthError({ error: refusal.value.error }))
   if (response.status >= 400) return yield* failed(new ZohoOAuthError({ error: `HTTP ${response.status}` }))
-  const body = yield* response.json.pipe(
-    Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response was not JSON' }))),
-  )
-  const refusal = decodeRefusal(body)
-  if (refusal._tag === 'Some') return yield* failed(new ZohoOAuthError({ error: refusal.value.error }))
-  return yield* decodeGrant(body).pipe(
+  if (Option.isNone(body)) return yield* failed(new ZohoResponseError({ detail: 'the token response was not JSON' }))
+  return yield* decodeGrant(body.value).pipe(
     // The issue is not reported: it could quote a token from the body.
     Effect.mapError(() => failed(new ZohoResponseError({ detail: 'the token response had an unexpected shape' }))),
   )
@@ -115,7 +115,7 @@ export const revokeRefreshToken = Effect.fnUntraced(function* (options: {
     HttpClientRequest.bodyUrlParams({ token: Redacted.value(options.refreshToken) }),
   )
   const response = yield* http.execute(request).pipe(
-    Effect.mapError((cause) => new ZohoError({ operation, reason: new ZohoTransportError({ cause }) })),
+    Effect.mapError((cause) => new ZohoError({ operation, reason: ZohoTransportError.fromCause('request', cause) })),
   )
   if (response.status >= 400) return yield* new ZohoError({ operation, reason: new ZohoOAuthError({ error: `HTTP ${response.status}` }) })
   const body = yield* response.json.pipe(Effect.orElseSucceed((): unknown => undefined))

@@ -79,7 +79,7 @@ export class ZohoAccessToken extends Context.Service<ZohoAccessToken, ZohoAccess
         Effect.provideService(HttpClient.HttpClient, http),
         Effect.timeoutOrElse({
           duration: refreshTimeout,
-          orElse: () => Effect.fail(new ZohoError({ operation: 'oauth.refreshAccessToken', reason: new ZohoTransportError({ cause: 'timed out' }) })),
+          orElse: () => Effect.fail(new ZohoError({ operation: 'oauth.refreshAccessToken', reason: new ZohoTransportError({ kind: 'timeout' }) })),
         }),
         Effect.tapError((error) => Effect.sync(() => {
           if (error.reason._tag === 'ZohoOAuthError') refused = { error, until: started + refusalMemoryMillis }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+
+- **Breaking:** `ZohoTransportError` no longer carries the original failure as `cause`.
+  An HTTP client error holds the request, whose URL, headers and body can contain
+  tokens and the client secret. It now has `kind` (`timeout`, `request` or `body`) and,
+  when the failure has a plain name, `causeName`.
+- A token request refused with an HTTP error status reports Zoho's `error`, such as
+  `invalid_client`, instead of only `HTTP 400`.
+- A result code sent as text, such as `"0"` or `"45"`, is read as a number.
+
 ## 0.1.0
 
 First release.
