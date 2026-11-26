@@ -3,26 +3,25 @@ import * as SchemaTransformation from 'effect/SchemaTransformation'
 
 /*
  * Response schemas follow Zoho's OpenAPI documents, which are not exact about
- * types: a field documented as a string can arrive as a number, an unset number
- * or boolean can arrive as "", and a documented list can arrive as one value or
- * as nothing.
- * These codecs accept what Zoho sends and always produce the documented type,
- * with `null` for an unset scalar.
+ * types: a field documented as a string can arrive as a number, and a documented
+ * list can arrive as one value.
+ * Zoho marks an unset value with "" or null, or leaves it out. These codecs treat all
+ * three alike: an unset property is removed from its object and an unset item from
+ * its list, so a field is either absent or holds a value of its documented type.
  */
 
-const Scalar = Schema.Union([Schema.String, Schema.Number, Schema.Boolean, Schema.Null])
-type Scalar = typeof Scalar.Type
+const unset = (value: unknown): boolean => value === null || (typeof value === 'string' && value.trim() === '')
 
-const unset = (value: Scalar): boolean => value === null || (typeof value === 'string' && value.trim() === '')
+const Scalar = Schema.Union([Schema.String, Schema.Number, Schema.Boolean])
 
 // An identifier sent as a JSON number beyond 2^53 has already lost digits; passing it on would name another record.
 const Exact = Scalar.check(Schema.makeFilter((value) =>
   typeof value !== 'number' || !Number.isInteger(value) || Number.isSafeInteger(value) || 'expected an integer small enough to be exact'))
 
 export const Str = Exact.pipe(Schema.decodeTo(
-  Schema.NullOr(Schema.String),
+  Schema.String,
   SchemaTransformation.transform({
-    decode: (value) => (value === null ? null : String(value)),
+    decode: (value) => String(value),
     encode: (value) => value,
   }),
 ))
@@ -30,26 +29,25 @@ export const Str = Exact.pipe(Schema.decodeTo(
 const decimal = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/
 
 const NumberLike = Scalar.check(Schema.makeFilter((value) =>
-  unset(value)
-  || (typeof value === 'number' && Number.isFinite(value))
+  (typeof value === 'number' && Number.isFinite(value))
   || (typeof value === 'string' && decimal.test(value.trim()))
   || 'expected a number or numeric string'))
 
 export const Num = NumberLike.pipe(Schema.decodeTo(
-  Schema.NullOr(Schema.Number),
+  Schema.Number,
   SchemaTransformation.transform({
-    decode: (value) => (unset(value) ? null : Number(value)),
+    decode: (value) => Number(value),
     encode: (value) => value,
   }),
 ))
 
 const BooleanLike = Scalar.check(Schema.makeFilter((value) =>
-  unset(value) || typeof value === 'boolean' || value === 'true' || value === 'false' || 'expected a boolean'))
+  typeof value === 'boolean' || value === 'true' || value === 'false' || 'expected a boolean'))
 
 export const Bool = BooleanLike.pipe(Schema.decodeTo(
-  Schema.NullOr(Schema.Boolean),
+  Schema.Boolean,
   SchemaTransformation.transform({
-    decode: (value) => (unset(value) ? null : value === true || value === 'true'),
+    decode: (value) => value === true || value === 'true',
     encode: (value) => value,
   }),
 ))
@@ -61,13 +59,34 @@ export const Arr = <S extends Schema.Top>(item: S) =>
   Schema.Unknown.pipe(Schema.decodeTo(
     Schema.Array(item),
     SchemaTransformation.transform({
-      decode: (value): ReadonlyArray<unknown> => (Array.isArray(value) ? value : value === null || value === '' ? [] : [value]),
+      decode: (value): ReadonlyArray<unknown> =>
+        Array.isArray(value) ? value.filter((each) => !unset(each)) : unset(value) ? [] : [value],
       encode: (value): unknown => value,
     }),
   ))
 
-/** Every documented response property may be absent or null. */
-export const field = <S extends Schema.Top>(schema: S) => Schema.optionalKey(Schema.NullOr(schema))
+const withoutUnset = (value: unknown): unknown =>
+  typeof value === 'object' && value !== null && !Array.isArray(value)
+    ? Object.fromEntries(Object.entries(value).filter(([, each]) => !unset(each)))
+    : value
+
+/** An object whose unset properties are removed before `schema` decodes it. */
+export const Obj = <S extends Schema.Top>(schema: S) =>
+  Schema.Unknown.pipe(Schema.decodeTo(
+    schema,
+    SchemaTransformation.transform({
+      decode: (value) => withoutUnset(value) as S['Encoded'],
+      encode: (value): unknown => value,
+    }),
+  ))
+
+export const Struct = <Fields extends Schema.Struct.Fields>(fields: Fields) => Obj(Schema.Struct(fields))
+
+/** A response documented with nothing but a result code, which keeps every other field Zoho sends. */
+export const StructWithRest = <Fields extends Schema.Struct.Fields>(fields: Fields) =>
+  Obj(Schema.StructWithRest(Schema.Struct(fields), [Schema.Record(Schema.String, Schema.Unknown)]))
+
+export const field = <S extends Schema.Top>(schema: S) => Schema.optionalKey(schema)
 
 export const str = Schema.optionalKey(Str)
 export const num = Schema.optionalKey(Num)

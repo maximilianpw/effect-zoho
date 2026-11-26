@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/maximilianpw/effect-zoho.git"
   },
+  "homepage": "https://github.com/maximilianpw/effect-zoho#readme",
+  "bugs": {
+    "url": "https://github.com/maximilianpw/effect-zoho/issues"
+  },
   "keywords": [
     "effect",
     "zoho",
@@ -33,15 +37,17 @@
   "files": [
     "dist",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
     "generate": "bun scripts/generate.ts",
     "generate:check": "bun scripts/generate.ts --check",
+    "smoke": "bun --env-file=.env.smoke scripts/smoke.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "test": "vitest run",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build",
     "prepublishOnly": "bun run check"
   },

@@ -104,6 +104,14 @@ it.effect('exchanges an authorization code and keeps the tokens redacted', () =>
   }).pipe(Effect.provide(zoho.layer))
 })
 
+it.effect('exchanges a Self Client code without a redirect URI', () => {
+  const zoho = fakeZoho(json({ access_token: 'token-1', refresh_token: 'refresh-1', expires_in: 3600 }))
+  return Effect.gen(function* () {
+    yield* ZohoOAuth.exchangeCode({ ...client, code: 'code-1' })
+    expect(zoho.requests[0]?.body).toEqual({ client_id: 'client-1', client_secret: 'secret-1', code: 'code-1', grant_type: 'authorization_code' })
+  }).pipe(Effect.provide(zoho.layer))
+})
+
 it.effect('reports an HTML error page from the accounts server as a refusal, and an unconfirmed revocation as a failure', () => {
   const zoho = fakeZoho(
     new Response('<html>Bad Request</html>', { status: 400, headers: { 'content-type': 'text/html' } }),

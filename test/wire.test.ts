@@ -8,17 +8,20 @@ it.each([
   [W.Str, 982000000567114, '982000000567114'],
   [W.Str, false, 'false'],
   [W.Str, '', ''],
-  [W.Str, null, null],
   [W.Num, '12.50', 12.5],
   [W.Num, 0, 0],
-  [W.Num, '', null],
-  [W.Num, ' ', null],
   [W.Bool, 'false', false],
   [W.Bool, true, true],
-  [W.Bool, '', null],
   [W.Arr(W.Str), ['a', 1], ['a', '1']],
   [W.Arr(W.Str), '2000000007037', ['2000000007037']],
-  [W.field(W.Arr(W.Str)).pipe((property) => Schema.Struct({ ids: property })), { ids: null }, { ids: [] }],
+  [W.Arr(W.Str), ['a', null, '', 'b'], ['a', 'b']],
+  [W.Arr(W.Str), null, []],
+  [
+    W.Struct({ name: W.str, rate: W.num, active: W.bool, ids: W.field(W.Arr(W.Str)), kept: W.str }),
+    { name: '', rate: ' ', active: null, ids: null, kept: 'x' },
+    { kept: 'x' },
+  ],
+  [W.StructWithRest({ code: W.num }), { code: 0, note: '', extra: 1 }, { code: 0, extra: 1 }],
   [W.Num, '1e3', 1000],
 ])('decodes %# to the documented type', (schema, input, expected) => {
   const result = decode(schema)(input)
@@ -32,6 +35,8 @@ it.each([
   [W.Str, 2 ** 62],
   [W.Bool, 'yes'],
   [W.Str, { nested: true }],
+  [W.Str, null],
+  [W.Num, ''],
 ])('refuses %# rather than inventing a value', (schema, input) => {
   expect(decode(schema)(input)._tag).toBe('Failure')
 })
