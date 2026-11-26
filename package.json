@@ -1,6 +1,6 @@
 {
   "name": "effect-zoho",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Typed Effect client for Zoho Books, generated from Zoho's official OpenAPI documents.",
   "license": "MIT",
   "repository": {
@@ -42,7 +42,8 @@
     "lint": "oxlint .",
     "test": "vitest run",
     "build": "tsc -p tsconfig.build.json",
-    "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build"
+    "check": "bun run generate:check && bun run typecheck && bun run lint && bun run test && bun run build",
+    "prepublishOnly": "bun run check"
   },
   "peerDependencies": {
     "effect": "^4.0.0"

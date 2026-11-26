@@ -1082,6 +1082,16 @@ export interface ListSalesOrdersInput {
   readonly page?: number | undefined
   /** Specify the maximum number of sales order records to return per page. Controls result set size for optimal performance, memory usage, and user experience. */
   readonly per_page?: number | undefined
+  /** A variant of `shipment_date` that Zoho names in its description. */
+  readonly shipment_date_start?: string | undefined
+  /** A variant of `shipment_date` that Zoho names in its description. */
+  readonly shipment_date_end?: string | undefined
+  /** A variant of `shipment_date` that Zoho names in its description. */
+  readonly shipment_date_before?: string | undefined
+  /** A variant of `shipment_date` that Zoho names in its description. */
+  readonly shipment_date_after?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List sales orders. `GET /salesorders` */

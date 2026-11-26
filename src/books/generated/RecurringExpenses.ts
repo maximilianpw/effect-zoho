@@ -595,6 +595,42 @@ export interface ListRecurringExpensesInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `recurrence_name` that Zoho names in its description. */
+  readonly recurrence_name_startswith?: string | undefined
+  /** A variant of `recurrence_name` that Zoho names in its description. */
+  readonly recurrence_name_contains?: string | undefined
+  /** A variant of `last_created_date` that Zoho names in its description. */
+  readonly last_created_date_start?: string | undefined
+  /** A variant of `last_created_date` that Zoho names in its description. */
+  readonly last_created_date_end?: string | undefined
+  /** A variant of `last_created_date` that Zoho names in its description. */
+  readonly last_created_date_before?: string | undefined
+  /** A variant of `last_created_date` that Zoho names in its description. */
+  readonly last_created_date_after?: string | undefined
+  /** A variant of `next_expense_date` that Zoho names in its description. */
+  readonly next_expense_date_start?: string | undefined
+  /** A variant of `next_expense_date` that Zoho names in its description. */
+  readonly next_expense_date_end?: string | undefined
+  /** A variant of `next_expense_date` that Zoho names in its description. */
+  readonly next_expense_date_before?: string | undefined
+  /** A variant of `next_expense_date` that Zoho names in its description. */
+  readonly next_expense_date_after?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_startswith?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_contains?: string | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_than?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_equals?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_greater_than?: number | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_startswith?: string | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List recurring expenses. `GET /recurringexpenses` */
@@ -728,6 +764,8 @@ export interface ListChildExpensesOfRecurringExpenseInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List child expenses created. `GET /recurringexpenses/{recurring_expense_id}/expenses` */

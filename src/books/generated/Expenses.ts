@@ -733,6 +733,42 @@ export interface ListExpensesInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `description` that Zoho names in its description. */
+  readonly description_startswith?: string | undefined
+  /** A variant of `description` that Zoho names in its description. */
+  readonly description_contains?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_startswith?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_contains?: string | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_start?: string | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_end?: string | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_before?: string | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_after?: string | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_than?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_less_equals?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_greater_than?: number | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_startswith?: string | undefined
+  /** A variant of `account_name` that Zoho names in its description. */
+  readonly account_name_contains?: string | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_startswith?: string | undefined
+  /** A variant of `customer_name` that Zoho names in its description. */
+  readonly customer_name_contains?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_startswith?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List Expenses. `GET /expenses` */

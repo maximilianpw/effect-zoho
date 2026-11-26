@@ -506,6 +506,36 @@ export interface ListPurchaseReturnsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `purchasereturn_date` that Zoho names in its description. */
+  readonly purchasereturn_date_start?: string | undefined
+  /** A variant of `purchasereturn_date` that Zoho names in its description. */
+  readonly purchasereturn_date_end?: string | undefined
+  /** A variant of `purchasereturn_date` that Zoho names in its description. */
+  readonly purchasereturn_date_before?: string | undefined
+  /** A variant of `purchasereturn_date` that Zoho names in its description. */
+  readonly purchasereturn_date_after?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_startswith?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_contains?: string | undefined
+  /** A variant of `purchasereturn_number` that Zoho names in its description. */
+  readonly purchasereturn_number_startswith?: string | undefined
+  /** A variant of `purchasereturn_number` that Zoho names in its description. */
+  readonly purchasereturn_number_contains?: string | undefined
+  /** A variant of `purchaseorder_number` that Zoho names in its description. */
+  readonly purchaseorder_number_startswith?: string | undefined
+  /** A variant of `purchaseorder_number` that Zoho names in its description. */
+  readonly purchaseorder_number_contains?: string | undefined
+  /** A variant of `item_name` that Zoho names in its description. */
+  readonly item_name_startswith?: string | undefined
+  /** A variant of `item_name` that Zoho names in its description. */
+  readonly item_name_contains?: string | undefined
+  /** A variant of `item_description` that Zoho names in its description. */
+  readonly item_description_startswith?: string | undefined
+  /** A variant of `item_description` that Zoho names in its description. */
+  readonly item_description_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List purchase returns. `GET /purchasereturns` */

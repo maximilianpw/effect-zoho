@@ -81,6 +81,35 @@ const moduleNames: Readonly<Record<string, string>> = {
   'sales-receipt.yml': 'SalesReceipts',
 }
 
+/**
+ * Response keys Zoho documents under one name and sends under another. The list of
+ * customer payments is documented as `customer_payments` and sent as `customerpayments`,
+ * the endpoint's own name; both are decoded.
+ */
+const responseKeyAliases: Readonly<Record<string, string>> = {
+  customer_payments: 'customerpayments',
+}
+
+/** The sort direction Zoho documents for only some of the lists that take `sort_column`. */
+const sortOrderParameter: ParameterNode = {
+  name: 'sort_order',
+  in: 'query',
+  description: 'Sort direction: <code>A</code> for ascending or <code>D</code> for descending.',
+  schema: { type: 'string', enum: ['A', 'D'] },
+}
+
+/**
+ * The filter variants a parameter's description names, such as `contact_name_contains`
+ * for `contact_name`. Zoho lists them in prose, with typos, so only names that extend
+ * the parameter's own name are taken.
+ */
+function filterVariants(parameter: ParameterNode): ReadonlyArray<string> {
+  const prose = /Variants?\b(.*)$/s.exec(parameter.description ?? '')?.[1]
+  if (prose === undefined) return []
+  const names = prose.replace(/<[^>]+>/g, ' ').match(/[A-Za-z][A-Za-z0-9_]*/g) ?? []
+  return [...new Set(names.filter((name) => name.startsWith(`${parameter.name}_`)))]
+}
+
 /** A GET whose documented response is only Zoho's result code, at a path that serves a file. */
 const downloadPath = /(attachment|receipt|documents\/\{\w+\}|pdf|print|deliverynotes|packingslips)$/
 
@@ -236,8 +265,14 @@ class Module {
   }
 
   private responseStruct(shape: SchemaNode, indent: string): string {
-    const fields = Object.entries(shape.properties ?? {}).map(([name, property]) =>
-      `${indent}  ${key(name)}: ${this.responseField(this.corrected(name, property)).replace(/\n/g, `\n${indent}`)},`)
+    const properties = shape.properties ?? {}
+    const fields = Object.entries(properties).flatMap(([name, property]) => {
+      const alias = responseKeyAliases[name]
+      const names = alias === undefined || alias in properties ? [name] : [name, alias]
+      if (names.length > 1) usedCorrections.add(name)
+      const field = this.responseField(this.corrected(name, property)).replace(/\n/g, `\n${indent}`)
+      return names.map((each) => `${indent}  ${key(each)}: ${field},`)
+    })
     return `Schema.Struct({\n${fields.join('\n')}\n${indent}})`
   }
 
@@ -350,6 +385,20 @@ class Module {
       usedCorrections.add(node.operationId)
       declared.set(undeclaredFile, { name: undeclaredFile, in: 'query', schema: { type: 'string', format: 'binary' } })
     }
+    for (const parameter of [...declared.values()]) {
+      if (parameter.in !== 'query') continue
+      const type = parameter.schema === undefined ? undefined : this.resolve(parameter.schema).type
+      for (const variant of filterVariants(parameter)) {
+        if (declared.has(variant)) continue
+        declared.set(variant, {
+          name: variant,
+          in: 'query',
+          description: `A variant of \`${parameter.name}\` that Zoho names in its description.`,
+          ...(type === undefined ? {} : { schema: { type } }),
+        })
+      }
+    }
+    if (declared.get('sort_column')?.in === 'query' && !declared.has('sort_order')) declared.set('sort_order', sortOrderParameter)
 
     // Two paths spell a parameter as a regular expression instead of a template name.
     const unnamed = [...declared.values()].filter((parameter) => parameter.in === 'path' && !template.includes(`{${parameter.name}}`))
@@ -476,7 +525,12 @@ for (const file of files) {
   outputs.set(join(outputDirectory, `${module.name}.ts`), module.render())
   generatedModules.push(module.name)
 }
-const unusedCorrections = [...Object.keys(undeclaredPathParameters), ...Object.keys(undeclaredFileParameters), ...Object.keys(moduleNames)]
+const unusedCorrections = [
+  ...Object.keys(undeclaredPathParameters),
+  ...Object.keys(undeclaredFileParameters),
+  ...Object.keys(moduleNames),
+  ...Object.keys(responseKeyAliases),
+]
   .filter((correction) => !usedCorrections.has(correction))
 if (unusedCorrections.length > 0) throw new Error(`These corrections no longer match Zoho's documents: ${unusedCorrections.join(', ')}`)
 outputs.set(indexFile, [

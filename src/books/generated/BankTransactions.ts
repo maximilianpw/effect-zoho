@@ -914,6 +914,16 @@ export interface ListBankTransactionsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_start?: string | undefined
+  /** A variant of `date` that Zoho names in its description. */
+  readonly date_end?: string | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_start?: number | undefined
+  /** A variant of `amount` that Zoho names in its description. */
+  readonly amount_end?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** Get transactions list. `GET /banktransactions` */

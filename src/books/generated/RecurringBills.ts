@@ -582,6 +582,22 @@ export interface ListRecurringBillsInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_startswith?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_contains?: string | undefined
+  /** A variant of `recurrence_name` that Zoho names in its description. */
+  readonly recurrence_name_startswith?: string | undefined
+  /** A variant of `recurrence_name` that Zoho names in its description. */
+  readonly recurrence_name_contains?: string | undefined
+  /** A variant of `start_date` that Zoho names in its description. */
+  readonly start_date_start?: string | undefined
+  /** A variant of `start_date` that Zoho names in its description. */
+  readonly start_date_end?: string | undefined
+  /** A variant of `start_date` that Zoho names in its description. */
+  readonly start_date_before?: string | undefined
+  /** A variant of `start_date` that Zoho names in its description. */
+  readonly start_date_after?: string | undefined
 }
 
 /** List recurring bills. `GET /recurringbills` */

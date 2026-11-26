@@ -278,6 +278,12 @@ export interface ListCustomerDebitNotesInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. Use this parameter to control the size of each page of results. Maximum value is 200. Useful for optimizing data transfer and improving application performance. */
   readonly per_page?: number | undefined
+  /** A variant of `custom_field` that Zoho names in its description. */
+  readonly custom_field_startswith?: string | undefined
+  /** A variant of `custom_field` that Zoho names in its description. */
+  readonly custom_field_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List customer debit notes. `GET /invoices` */

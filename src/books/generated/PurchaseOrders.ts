@@ -843,6 +843,24 @@ export interface ListPurchaseOrdersInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `purchaseorder_number` that Zoho names in its description. */
+  readonly purchaseorder_number_startswith?: string | undefined
+  /** A variant of `purchaseorder_number` that Zoho names in its description. */
+  readonly purchaseorder_number_contains?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_startswith?: string | undefined
+  /** A variant of `reference_number` that Zoho names in its description. */
+  readonly reference_number_contains?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_startswith?: string | undefined
+  /** A variant of `vendor_name` that Zoho names in its description. */
+  readonly vendor_name_contains?: string | undefined
+  /** A variant of `custom_field` that Zoho names in its description. */
+  readonly custom_field_startswith?: string | undefined
+  /** A variant of `custom_field` that Zoho names in its description. */
+  readonly custom_field_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List purchase orders. `GET /purchaseorders` */

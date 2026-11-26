@@ -236,6 +236,14 @@ export interface ListCategoriesInput {
   readonly sort_column?: string | undefined
   /** Sort order. Allowed Values: A and D. Default value is A. */
   readonly sort_order?: string | undefined
+  /** A variant of `created_time` that Zoho names in its description. */
+  readonly created_time_less_than?: string | undefined
+  /** A variant of `created_time` that Zoho names in its description. */
+  readonly created_time_less_equals?: string | undefined
+  /** A variant of `created_time` that Zoho names in its description. */
+  readonly created_time_greater_than?: string | undefined
+  /** A variant of `created_time` that Zoho names in its description. */
+  readonly created_time_greater_equals?: string | undefined
 }
 
 /** List categories. `GET /categories` */

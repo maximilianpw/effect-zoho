@@ -1378,6 +1378,8 @@ export interface ListCreditNotesInput {
   readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many credit notes are returned in each page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List all Credit Notes. `GET /creditnotes` */
@@ -1777,6 +1779,8 @@ export interface ListCreditNoteRefundsOfAllCreditNotesInput {
   readonly page?: number | undefined
   /** Number of records per page for pagination. Controls how many credit notes are returned in each page. */
   readonly per_page?: number | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List credit note refunds. `GET /creditnotes/refunds` */

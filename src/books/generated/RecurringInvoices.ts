@@ -819,6 +819,14 @@ export interface ListRecurringInvoicesInput {
   readonly page?: number | undefined
   /** Number of records to be fetched per page. */
   readonly per_page?: number | undefined
+  /** A variant of `item_name` that Zoho names in its description. */
+  readonly item_name_startswith?: string | undefined
+  /** A variant of `item_description` that Zoho names in its description. */
+  readonly item_description_startswith?: string | undefined
+  /** A variant of `item_description` that Zoho names in its description. */
+  readonly item_description_contains?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List all Recurring Invoice. `GET /recurringinvoices` */
@@ -1027,6 +1035,8 @@ export interface ListRecurringInvoiceChildInvoicesInput {
   readonly search_text?: string | undefined
   /** Sort the child invoices by the specified column. */
   readonly sort_column?: string | undefined
+  /** Sort direction: A for ascending or D for descending. */
+  readonly sort_order?: "A" | "D" | undefined
 }
 
 /** List invoices created from a recurring invoice. `GET /recurringinvoices/{recurring_invoice_id}/invoices` */
